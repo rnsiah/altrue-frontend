@@ -1,0 +1,119 @@
+import 'package:flutter/material.dart';
+
+import '../../Data Layer/Models/user_model.dart';
+
+class ProfilePaymentCard extends StatelessWidget {
+  const ProfilePaymentCard({required this.profile, Key? key}) : super(key: key);
+
+  final Profile profile;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.all(2.0),
+      child: Container(
+        height: MediaQuery.of(context).size.height *
+            0.2, // Target 1/4 screen height
+        decoration: BoxDecoration(
+          color: Colors.black,
+          borderRadius: BorderRadius.circular(10.0),
+          boxShadow: const [
+            BoxShadow(
+              color: Colors.grey,
+              blurRadius: 1.0,
+              spreadRadius: 0.0,
+              offset: Offset(1.0, 1.0),
+            ),
+          ],
+        ),
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    decoration: const BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image: AssetImage('images/Altrue Logo White.png'))),
+                    height: 40.0,
+                    width: 50.0,
+                  ),
+                  Row(
+                    children: [
+                      const Text(
+                        'Altrue Point:',
+                        style: TextStyle(color: Colors.white, fontSize: 12),
+                      ),
+                      Text(
+                        '\$${profile.altruePoints!}',
+                        style: const TextStyle(
+                            color: Colors.amber,
+                            fontSize: 12,
+                            fontWeight: FontWeight.w600),
+                      )
+                    ],
+                  )
+                ],
+              ), // Adjust
+              Row(
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: BoxDecoration(
+                        image: DecorationImage(
+                            fit: BoxFit.contain,
+                            image: NetworkImage(profile.profilePicture!.url))),
+                    height: 50.0,
+                    width: 50,
+                  ),
+                  Text(
+                    profile.username!,
+                    style: TextStyle(color: Colors.white, fontSize: 18),
+                  ),
+                  Spacer(), // Adjust height as needed
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        "Altrue Level", // Placeholder text
+                        style: TextStyle(
+                            fontSize: 16.0,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white),
+                      ),
+                      Text(
+                        profile.altrueLevel!.name, // Placeholder text
+                        style: const TextStyle(
+                            fontSize: 16.0, color: Colors.white),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+              Row(
+                children: [
+                  const Text(
+                    'Altrue Balance:',
+                    style: TextStyle(color: Colors.white, fontSize: 16),
+                  ),
+                  Text(
+                    '\$${profile.balance!}',
+                    style: const TextStyle(
+                        color: Colors.amber,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600),
+                  )
+                ],
+              )
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

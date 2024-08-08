@@ -1,0 +1,383 @@
+"filename", "language", "C++", "JSON with Comments", "YAML", "Dart", "Groovy", "Properties", "XML", "Markdown", "JSON", "Django HTML", "Swift", "comment", "blank", "total"
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 10, 0, 0, 0, 0, 7, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/analysis_options.yaml", "YAML", 0, 0, 3, 0, 0, 0, 0, 0, 0, 0, 0, 23, 4, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/build.gradle", "Groovy", 0, 0, 0, 0, 54, 0, 0, 0, 0, 0, 0, 5, 13, 72
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/debug/AndroidManifest.xml", "XML", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 1, 9
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/main/AndroidManifest.xml", "XML", 0, 0, 0, 0, 0, 0, 28, 0, 0, 0, 0, 6, 1, 35
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/main/res/drawable-v21/launch_background.xml", "XML", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 7, 2, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/main/res/drawable/launch_background.xml", "XML", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 7, 2, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/main/res/values-night/styles.xml", "XML", 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 1, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/main/res/values/styles.xml", "XML", 0, 0, 0, 0, 0, 0, 9, 0, 0, 0, 0, 9, 1, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/app/src/profile/AndroidManifest.xml", "XML", 0, 0, 0, 0, 0, 0, 4, 0, 0, 0, 0, 4, 1, 9
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/build.gradle", "Groovy", 0, 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/gradle.properties", "Properties", 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 0, 0, 1, 4
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/gradle/wrapper/gradle-wrapper.properties", "Properties", 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 1, 6
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/android/settings.gradle", "Groovy", 0, 0, 0, 0, 8, 0, 0, 0, 0, 0, 0, 0, 4, 12
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/AppDelegate.swift", "Swift", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 2, 14
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 354, 0, 0, 0, 1, 355
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Assets.xcassets/LaunchImage.imageset/Contents.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 23, 0, 0, 0, 1, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Assets.xcassets/LaunchImage.imageset/README.md", "Markdown", 0, 0, 0, 0, 0, 0, 0, 3, 0, 0, 0, 0, 2, 5
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Base.lproj/LaunchScreen.storyboard", "XML", 0, 0, 0, 0, 0, 0, 36, 0, 0, 0, 0, 1, 1, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Base.lproj/Main.storyboard", "XML", 0, 0, 0, 0, 0, 0, 25, 0, 0, 0, 0, 1, 1, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/ios/Runner/Runner-Bridging-Header.h", "C++", 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/launch.json", "JSON with Comments", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/addNP_project_bloc/bloc/add_np_project_bloc.dart", "Dart", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 0, 14, 90
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/addNP_project_bloc/bloc/add_np_project_event.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 14, 49
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/addNP_project_bloc/bloc/add_np_project_state.dart", "Dart", 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 0, 7, 46
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/all_users_bloc/bloc/all_users_bloc.dart", "Dart", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 15, 6, 47
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/all_users_bloc/bloc/all_users_event.dart", "Dart", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/all_users_bloc/bloc/all_users_state.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 6, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart", "Dart", 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 42, 11, 124
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_event.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 11, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_state.dart", "Dart", 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 0, 6, 42
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/NonProfit_Signup_bloc/bloc/nonprofitsignup_bloc.dart", "Dart", 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 13, 9, 86
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/NonProfit_Signup_bloc/bloc/nonprofitsignup_event.dart", "Dart", 0, 0, 0, 92, 0, 0, 0, 0, 0, 0, 0, 0, 41, 133
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/NonProfit_Signup_bloc/bloc/nonprofitsignup_state.dart", "Dart", 0, 0, 0, 67, 0, 0, 0, 0, 0, 0, 0, 10, 4, 81
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/company_list_bloc.dart", "Dart", 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 23, 10, 93
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/company_list_event.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 4, 11, 35
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/bloc/company_list_state.dart", "Dart", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 7, 40
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/cart_bloc/bloc/cart_bloc.dart", "Dart", 0, 0, 0, 95, 0, 0, 0, 0, 0, 0, 0, 0, 21, 116
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/cart_bloc/bloc/cart_event.dart", "Dart", 0, 0, 0, 42, 0, 0, 0, 0, 0, 0, 0, 0, 13, 55
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/cart_bloc/bloc/cart_state.dart", "Dart", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 8, 46
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/category_bloc/bloc/category_bloc.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 4, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/category_bloc/bloc/category_event.dart", "Dart", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 4, 11
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/category_bloc/bloc/category_state.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 7, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/confirmation_bloc/confirmation_bloc.dart", "Dart", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 9, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/confirmation_bloc/confirmation_event.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 5, 15
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/confirmation_bloc/confirmation_state.dart", "Dart", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 0, 5, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/create_company_bloc/bloc/create_company_bloc.dart", "Dart", 0, 0, 0, 91, 0, 0, 0, 0, 0, 0, 0, 0, 16, 107
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/create_company_bloc/bloc/create_company_event.dart", "Dart", 0, 0, 0, 77, 0, 0, 0, 0, 0, 0, 0, 0, 37, 114
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/create_company_bloc/bloc/create_company_state.dart", "Dart", 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 5, 70
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/form_blocs/newProjectForm_Bloc.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/form_submission_status.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 7, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/individual_shirt_bloc/bloc/individual_shirt_bloc.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 8, 29
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/individual_shirt_bloc/bloc/individual_shirt_event.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/individual_shirt_bloc/bloc/individual_shirt_state.dart", "Dart", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 9, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/login_bloc/bloc/login_bloc.dart", "Dart", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 18, 13, 69
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/login_bloc/bloc/login_event.dart", "Dart", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 15, 47
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/login_bloc/bloc/login_state.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/login_bloc/bloc/login_state2.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 4, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/nonprofit_bloc/bloc/nonprofit_bloc.dart", "Dart", 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 46, 13, 125
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/nonprofit_bloc/bloc/nonprofit_event.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 8, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/nonprofit_bloc/bloc/nonprofit_state.dart", "Dart", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 7, 45
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/np_projects_bloc/bloc/np_projects_bloc.dart", "Dart", 0, 0, 0, 73, 0, 0, 0, 0, 0, 0, 0, 1, 12, 86
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/np_projects_bloc/bloc/np_projects_event.dart", "Dart", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 10, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/np_projects_bloc/bloc/np_projects_state.dart", "Dart", 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 1, 7, 47
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/payment_bloc/bloc/payment_bloc_bloc.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 1, 3, 14
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/payment_bloc/bloc/payment_bloc_event.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 1, 8, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/payment_bloc/bloc/payment_bloc_state.dart", "Dart", 0, 0, 0, 7, 0, 0, 0, 0, 0, 0, 0, 0, 4, 11
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/posts_bloc/bloc/posts_bloc.dart", "Dart", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 12, 37
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/posts_bloc/bloc/posts_event.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 7, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/posts_bloc/bloc/posts_state.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 9, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/profile_bloc/bloc/profile_bloc.dart", "Dart", 0, 0, 0, 164, 0, 0, 0, 0, 0, 0, 0, 129, 23, 316
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/profile_bloc/bloc/profile_event.dart", "Dart", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 0, 22, 98
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/profile_bloc/bloc/profile_state.dart", "Dart", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 12, 49
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/session_cubit.dart", "Dart", 0, 0, 0, 107, 0, 0, 0, 0, 0, 0, 0, 41, 21, 169
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/session_event_bloc.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 9, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/session_state.dart", "Dart", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 11, 33
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_bloc/bloc/shirt_bloc.dart", "Dart", 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 36, 13, 115
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_bloc/bloc/shirt_event.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 9, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_bloc/bloc/shirt_state.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 7, 42
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_bloc.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 7, 34
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_event.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 6, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_state.dart", "Dart", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 8, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_order_bloc/bloc/shirt_order_bloc_bloc.dart", "Dart", 0, 0, 0, 108, 0, 0, 0, 0, 0, 0, 0, 4, 19, 131
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_order_bloc/bloc/shirt_order_bloc_event.dart", "Dart", 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 16, 75
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/shirt_order_bloc/bloc/shirt_order_bloc_state.dart", "Dart", 0, 0, 0, 62, 0, 0, 0, 0, 0, 0, 0, 0, 15, 77
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/sign_up_bloc/sign_up_bloc.dart", "Dart", 0, 0, 0, 36, 0, 0, 0, 0, 0, 0, 0, 4, 9, 49
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/sign_up_bloc/sign_up_event.dart", "Dart", 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 20, 64
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/sign_up_bloc/sign_up_state.dart", "Dart", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 5, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_completed_orders_bloc/bloc/completed_userorders_bloc.dart", "Dart", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 5, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_completed_orders_bloc/bloc/completed_userorders_event.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_completed_orders_bloc/bloc/completed_userorders_state.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 6, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_bloc.dart", "Dart", 0, 0, 0, 58, 0, 0, 0, 0, 0, 0, 0, 2, 7, 67
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_event.dart", "Dart", 0, 0, 0, 93, 0, 0, 0, 0, 0, 0, 0, 0, 43, 136
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_state.dart", "Dart", 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 6, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Blocs/validationCubit.dart", "Dart", 0, 0, 0, 47, 0, 0, 0, 0, 0, 0, 0, 0, 13, 60
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Data Providers/user_authentication_api.dart", "Dart", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 0, 6, 82
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Data Providers/user_profile_api.dart", "Dart", 0, 0, 0, 177, 0, 0, 0, 0, 0, 0, 0, 1, 29, 207
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Local Storage/order_cart_access_object.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 9, 4, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Local Storage/user_data_access_object.dart", "Dart", 0, 0, 0, 118, 0, 0, 0, 0, 0, 0, 0, 1, 19, 138
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Local Storage/user_db.dart", "Dart", 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 7, 14, 87
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_action_code.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 5, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_action_code.g.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 4, 5, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_action_model.dart", "Dart", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 0, 5, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_action_model.g.dart", "Dart", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 4, 5, 33
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_level_model.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 6, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_level_model.g.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 4, 5, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_point_promotion.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/altrue_point_promotion.g.dart", "Dart", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 4, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/atrocity_model.dart", "Dart", 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 12, 15, 86
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/atrocity_model.g.dart", "Dart", 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 4, 7, 68
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/authentication_models/userLogin_model.dart", "Dart", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 16, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/authentication_models/userLogin_model.g.dart", "Dart", 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 4, 11, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/category_model.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 2, 7, 44
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/category_model.g.dart", "Dart", 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 4, 5, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/checkout_address_model.dart", "Dart", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 6, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/checkout_address_model.g.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 4, 5, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/companies_supporting.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 6, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/companies_supporting.g.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 5, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_atrocity_matching_model.dart", "Dart", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 0, 7, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_atrocity_matching_model.g.dart", "Dart", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 4, 5, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_atrocity_model.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 7, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_atrocity_model.g.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 4, 5, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_completion_model.dart", "Dart", 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 5, 48
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_completion_model.g.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 4, 5, 44
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_coupon_model.dart", "Dart", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 0, 6, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_coupon_model.g.dart", "Dart", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 4, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_donation_model.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 15, 76
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_donation_model.g.dart", "Dart", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 4, 9, 89
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_location_model.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 6, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_location_model.g.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 4, 5, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_model.dart", "Dart", 0, 0, 0, 69, 0, 0, 0, 0, 0, 0, 0, 0, 7, 76
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_model.g.dart", "Dart", 0, 0, 0, 80, 0, 0, 0, 0, 0, 0, 0, 4, 5, 89
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_nonprofit_matching_model.dart", "Dart", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 9, 37
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_nonprofit_matching_model.g.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 4, 5, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_nonprofit_model.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_nonprofit_model.g.dart", "Dart", 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 4, 5, 22
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_representation_model.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 5, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/company_representation_model.g.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 5, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/country_model.dart", "Dart", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 6, 22
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/country_model.g.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 4, 5, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/donation_data_model.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 5, 22
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/donation_data_model.g.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 5, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/donor_model.dart", "Dart", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 8, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/donor_model.g.dart", "Dart", 0, 0, 0, 22, 0, 0, 0, 0, 0, 0, 0, 4, 5, 31
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/image_file_model.dart", "Dart", 0, 0, 0, 2, 0, 0, 0, 0, 0, 0, 0, 0, 1, 3
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/link_model.dart", "Dart", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 6, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/link_model.g.dart", "Dart", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 4, 5, 34
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/manage_followers_model.dart", "Dart", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 7, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/manage_followers_model.g.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 4, 5, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/meals_data.dart", "Dart", 0, 0, 0, 54, 0, 0, 0, 0, 0, 0, 0, 0, 3, 57
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/non_profit_model.dart", "Dart", 0, 0, 0, 121, 0, 0, 0, 0, 0, 0, 0, 4, 15, 140
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/non_profit_model.g.dart", "Dart", 0, 0, 0, 113, 0, 0, 0, 0, 0, 0, 0, 4, 9, 126
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/nonprofit_project_model.dart", "Dart", 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 16, 98
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/nonprofit_project_model.g.dart", "Dart", 0, 0, 0, 90, 0, 0, 0, 0, 0, 0, 0, 4, 9, 103
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/order_item_model.dart", "Dart", 0, 0, 0, 79, 0, 0, 0, 0, 0, 0, 0, 1, 22, 102
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/order_item_model.g.dart", "Dart", 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 4, 9, 58
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/order_model.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 6, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/order_model.g.dart", "Dart", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 4, 5, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/post_attachment.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 5, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/post_attachment.g.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 5, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/post_model.dart", "Dart", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 7, 22
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/post_model.g.dart", "Dart", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 4, 5, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/profile_picture_model.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 6, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/profile_picture_model.g.dart", "Dart", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 4, 5, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_answers_model.dart", "Dart", 0, 0, 0, 11, 0, 0, 0, 0, 0, 0, 0, 0, 6, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_answers_model.g.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 4, 5, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_model.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 9, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_model.g.dart", "Dart", 0, 0, 0, 25, 0, 0, 0, 0, 0, 0, 0, 4, 5, 34
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_question_model.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 0, 9, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/quiz_question_model.g.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 4, 5, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/rating_model.dart", "Dart", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 10, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/rating_model.g.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 4, 5, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/send_company_nonprofitMatch_model.dart", "Dart", 0, 0, 0, 17, 0, 0, 0, 0, 0, 0, 0, 0, 9, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/send_company_nonprofitMatch_model.g.dart", "Dart", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 4, 5, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_color_model.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 6, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_color_model.g.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 4, 5, 21
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_group_model.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 0, 5, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_group_model.g.dart", "Dart", 0, 0, 0, 18, 0, 0, 0, 0, 0, 0, 0, 4, 5, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_model.dart", "Dart", 0, 0, 0, 88, 0, 0, 0, 0, 0, 0, 0, 0, 8, 96
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_model.g.dart", "Dart", 0, 0, 0, 69, 0, 0, 0, 0, 0, 0, 0, 4, 5, 78
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_size_model.dart", "Dart", 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 5, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_size_model.g.dart", "Dart", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 4, 5, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_variation_model.dart", "Dart", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 6, 22
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/shirt_variation_model.g.dart", "Dart", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 4, 5, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/upvote_model.dart", "Dart", 0, 0, 0, 4, 0, 0, 0, 0, 0, 0, 0, 0, 4, 8
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_actions_model.dart", "Dart", 0, 0, 0, 16, 0, 0, 0, 0, 0, 0, 0, 0, 7, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_actions_model.g.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 4, 7, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_donation_model.dart", "Dart", 0, 0, 0, 43, 0, 0, 0, 0, 0, 0, 0, 0, 15, 58
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_donation_model.g.dart", "Dart", 0, 0, 0, 54, 0, 0, 0, 0, 0, 0, 0, 4, 9, 67
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_model.dart", "Dart", 0, 0, 0, 195, 0, 0, 0, 0, 0, 0, 0, 2, 30, 227
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Models/user_model.g.dart", "Dart", 0, 0, 0, 201, 0, 0, 0, 0, 0, 0, 0, 4, 18, 223
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/all_users_repository.dart", "Dart", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 4, 28
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/atrocity_repositories.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 0, 6, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/cart_repository.dart", "Dart", 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 8, 37
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/category_repository.dart", "Dart", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 0, 9, 37
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/company_match_repository.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/company_repository.dart", "Dart", 0, 0, 0, 106, 0, 0, 0, 0, 0, 0, 0, 14, 17, 137
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/new_posts_repository.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 5, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/nonProfit_repository.dart", "Dart", 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 27, 12, 96
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/nonprofit_proj_repository.dart", "Dart", 0, 0, 0, 45, 0, 0, 0, 0, 0, 0, 0, 0, 11, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/np_project_repository.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/order_repository.dart", "Dart", 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 2, 6, 52
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/ratings_repository.dart", "Dart", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 6, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/shirt_groups_repository.dart", "Dart", 0, 0, 0, 13, 0, 0, 0, 0, 0, 0, 0, 0, 4, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/shirt_order_repositor.dart", "Dart", 0, 0, 0, 9, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/shirt_repository.dart", "Dart", 0, 0, 0, 58, 0, 0, 0, 0, 0, 0, 0, 8, 15, 81
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/user_profile_repository.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 72, 12, 84
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Data Layer/Repositories/user_repository.dart", "Dart", 0, 0, 0, 419, 0, 0, 0, 0, 0, 0, 0, 21, 54, 494
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Forms/login_form.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 71, 9, 80
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Forms/user_login_form.dart", "Dart", 0, 0, 0, 140, 0, 0, 0, 0, 0, 0, 0, 0, 9, 149
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Routers/app_router.dart", "Dart", 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 0, 5, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Routers/functionality_router.dart", "Dart", 0, 0, 0, 402, 0, 0, 0, 0, 0, 0, 0, 0, 54, 456
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/all_projects_list.dart", "Dart", 0, 0, 0, 114, 0, 0, 0, 0, 0, 0, 0, 0, 7, 121
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/altrue_actions_screen.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 5, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/atrocity_details.dart", "Dart", 0, 0, 0, 363, 0, 0, 0, 0, 0, 0, 0, 7, 8, 378
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/atrocity_list.dart", "Dart", 0, 0, 0, 220, 0, 0, 0, 0, 0, 0, 0, 86, 17, 323
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/cause2.dart", "Dart", 0, 0, 0, 183, 0, 0, 0, 0, 0, 0, 0, 154, 32, 369
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/cause_details.dart", "Dart", 0, 0, 0, 160, 0, 0, 0, 0, 0, 0, 0, 22, 6, 188
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/cause_list.dart", "Dart", 0, 0, 0, 307, 0, 0, 0, 0, 0, 0, 0, 11, 5, 323
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/comp_dashboard_donate.dart", "Dart", 0, 0, 0, 129, 0, 0, 0, 0, 0, 0, 0, 0, 12, 141
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/companies_list.dart", "Dart", 0, 0, 0, 136, 0, 0, 0, 0, 0, 0, 0, 0, 10, 146
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_dashboard.dart", "Dart", 0, 0, 0, 236, 0, 0, 0, 0, 0, 0, 0, 74, 17, 327
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_donations_screen.dart", "Dart", 0, 0, 0, 86, 0, 0, 0, 0, 0, 0, 0, 0, 9, 95
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_home.dart", "Dart", 0, 0, 0, 123, 0, 0, 0, 0, 0, 0, 0, 0, 5, 128
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_list.dart", "Dart", 0, 0, 0, 104, 0, 0, 0, 0, 0, 0, 0, 84, 9, 197
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_match_screen.dart", "Dart", 0, 0, 0, 618, 0, 0, 0, 0, 0, 0, 0, 10, 12, 640
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_rewards_screen.dart", "Dart", 0, 0, 0, 29, 0, 0, 0, 0, 0, 0, 0, 0, 7, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/company_signup.dart", "Dart", 0, 0, 0, 294, 0, 0, 0, 0, 0, 0, 0, 19, 17, 330
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/confirmation_screen.dart", "Dart", 0, 0, 0, 66, 0, 0, 0, 0, 0, 0, 0, 0, 8, 74
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/create_company_rewards_screen.dart", "Dart", 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 3, 5, 67
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/create_link.dart", "Dart", 0, 0, 0, 31, 0, 0, 0, 0, 0, 0, 0, 0, 4, 35
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/credit_card_page.dart", "Dart", 0, 0, 0, 249, 0, 0, 0, 0, 0, 0, 0, 0, 10, 259
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/edit_my_profile_screen.dart", "Dart", 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 0, 3, 8, 81
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/featured_shirts.dart", "Dart", 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 15, 6, 96
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/find_friends_screen.dart", "Dart", 0, 0, 0, 136, 0, 0, 0, 0, 0, 0, 0, 3, 7, 146
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/home_screen.dart", "Dart", 0, 0, 0, 721, 0, 0, 0, 0, 0, 0, 0, 58, 21, 800
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/mynonprofit_screen.dart", "Dart", 0, 0, 0, 225, 0, 0, 0, 0, 0, 0, 0, 51, 9, 285
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/newProject.dart", "Dart", 0, 0, 0, 296, 0, 0, 0, 0, 0, 0, 0, 44, 23, 363
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/new_posts.dart", "Dart", 0, 0, 0, 35, 0, 0, 0, 0, 0, 0, 0, 3, 6, 44
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/non_profit_detail.dart", "Dart", 0, 0, 0, 490, 0, 0, 0, 0, 0, 0, 0, 9, 10, 509
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/nonprofit_donation_management_screen.dart", "Dart", 0, 0, 0, 40, 0, 0, 0, 0, 0, 0, 0, 0, 6, 46
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/nonprofit_list_screen.dart", "Dart", 0, 0, 0, 159, 0, 0, 0, 0, 0, 0, 0, 0, 13, 172
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/nonprofit_project_detail.dart", "Dart", 0, 0, 0, 362, 0, 0, 0, 0, 0, 0, 0, 12, 7, 381
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/nonprofit_project_list.dart", "Dart", 0, 0, 0, 113, 0, 0, 0, 0, 0, 0, 0, 2, 11, 126
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/nonprofit_signup.dart", "Dart", 0, 0, 0, 439, 0, 0, 0, 0, 0, 0, 0, 12, 24, 475
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/np_matching_info_screen.dart", "Dart", 0, 0, 0, 183, 0, 0, 0, 0, 0, 0, 0, 0, 10, 193
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/np_projects_list.dart", "Dart", 0, 0, 0, 271, 0, 0, 0, 0, 0, 0, 0, 23, 8, 302
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/profile_page.dart", "Dart", 0, 0, 0, 283, 0, 0, 0, 0, 0, 0, 0, 11, 11, 305
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/qr_screen.dart", "Dart", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 4, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/quiz_list_screen.dart", "Dart", 0, 0, 0, 102, 0, 0, 0, 0, 0, 0, 0, 90, 6, 198
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/quiz_results_screen.dart", "Dart", 0, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 5, 57
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/quiz_screen.dart", "Dart", 0, 0, 0, 81, 0, 0, 0, 0, 0, 0, 0, 15, 20, 116
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/shirt_details.dart", "Dart", 0, 0, 0, 621, 0, 0, 0, 0, 0, 0, 0, 32, 17, 670
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/shirtgroup_list.dart", "Dart", 0, 0, 0, 298, 0, 0, 0, 0, 0, 0, 0, 51, 10, 359
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/shirts.dart", "Dart", 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 5, 87
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/shirts_list.dart", "Dart", 0, 0, 0, 168, 0, 0, 0, 0, 0, 0, 0, 1, 9, 178
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/signup_screen.dart", "Dart", 0, 0, 0, 242, 0, 0, 0, 0, 0, 0, 0, 0, 21, 263
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/splash_page.dart", "Dart", 0, 0, 0, 200, 0, 0, 0, 0, 0, 0, 0, 0, 5, 205
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/supporters.dart", "Dart", 0, 0, 0, 120, 0, 0, 0, 0, 0, 0, 0, 0, 4, 124
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/terms_conditions.dart", "Dart", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 4, 37
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/user2.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 87, 12, 99
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/userProfile_fillScreen.dart", "Dart", 0, 0, 0, 319, 0, 0, 0, 0, 0, 0, 0, 1, 17, 337
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/user_nonprofitsList.dart", "Dart", 0, 0, 0, 168, 0, 0, 0, 0, 0, 0, 0, 0, 4, 172
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/user_profile_presentation_screen.dart", "Dart", 0, 0, 0, 207, 0, 0, 0, 0, 0, 0, 0, 0, 6, 213
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/user_profile_screen.dart", "Dart", 0, 0, 0, 578, 0, 0, 0, 0, 0, 0, 0, 173, 24, 775
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Screens/user_shirtList.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Atrocity_Details/atroc_donate.dart", "Dart", 0, 0, 0, 240, 0, 0, 0, 0, 0, 0, 0, 18, 12, 270
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Atrocity_Details/atrocity_details_tabs.dart", "Dart", 0, 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 5, 68
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Atrocity_Details/atrocity_nonprofit_showcase.dart", "Dart", 0, 0, 0, 73, 0, 0, 0, 0, 0, 0, 0, 0, 4, 77
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Atrocity_Details/atrocity_shirt_showcase.dart", "Dart", 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 1, 5, 66
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Circular_Clipper.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 10, 71
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Featured_Shirts.dart", "Dart", 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 0, 0, 5, 39
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Intro_Slider/intro_slider.dart", "Dart", 0, 0, 0, 228, 0, 0, 0, 0, 0, 0, 0, 6, 14, 248
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_atrocity_showcase.dart", "Dart", 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 0, 3, 60
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_learn_more.dart", "Dart", 0, 0, 0, 101, 0, 0, 0, 0, 0, 0, 0, 0, 5, 106
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_learn_more_tabs.dart", "Dart", 0, 0, 0, 319, 0, 0, 0, 0, 0, 0, 0, 119, 29, 467
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_project_selector.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 5, 26
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_shirt_showcase.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 6, 67
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofit_volunteer_showcase.dart", "Dart", 0, 0, 0, 15, 0, 0, 0, 0, 0, 0, 0, 0, 3, 18
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/nonprofitdetail_tabs.dart", "Dart", 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 0, 7, 78
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/NonProfit_Details/np_donation_modal.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 57, 9, 66
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Shirt_Details/shirt_atrocity_showcase.dart", "Dart", 0, 0, 0, 57, 0, 0, 0, 0, 0, 0, 0, 0, 3, 60
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Shirt_Details/shirt_details_tab.dart", "Dart", 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 5, 64
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Shirt_Details/shirt_statistics.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 3, 13
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/Shirt_Group_Card.dart", "Dart", 0, 0, 0, 73, 0, 0, 0, 0, 0, 0, 0, 0, 8, 81
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/ShirtgroupShirtCard.dart", "Dart", 0, 0, 0, 49, 0, 0, 0, 0, 0, 0, 0, 0, 5, 54
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/UserProfile_Transaction_Details/userprofile_details_donationsTab.dart", "Dart", 0, 0, 0, 39, 0, 0, 0, 0, 0, 0, 0, 4, 4, 47
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/UserProfile_Transaction_Details/userprofile_details_tabs.dart", "Dart", 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 6, 56
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/UserProfile_Transaction_Details/userprofle_orders_tab.dart", "Dart", 0, 0, 0, 28, 0, 0, 0, 0, 0, 0, 0, 3, 3, 34
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/all_company_donations.dart", "Dart", 0, 0, 0, 185, 0, 0, 0, 0, 0, 0, 0, 10, 7, 202
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/atrocity_learn_more/atroc.dart", "Dart", 0, 0, 0, 44, 0, 0, 0, 0, 0, 0, 0, 0, 5, 49
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/atrocity_learn_more/atrocity_learn_more.dart", "Dart", 0, 0, 0, 50, 0, 0, 0, 0, 0, 0, 0, 0, 5, 55
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/atrocity_learn_more/atrocity_learn_more_tabs.dart", "Dart", 0, 0, 0, 70, 0, 0, 0, 0, 0, 0, 0, 0, 9, 79
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/atrocity_learn_more/atrocity_statistics.dart", "Dart", 0, 0, 0, 76, 0, 0, 0, 0, 0, 0, 0, 4, 12, 92
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/atrocity_selector.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/card_for_all_projectsList.dart", "Dart", 0, 0, 0, 170, 0, 0, 0, 0, 0, 0, 0, 12, 5, 187
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/cart_bottom_screen.dart", "Dart", 0, 0, 0, 157, 0, 0, 0, 0, 0, 0, 0, 0, 13, 170
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/cart_icon.dart", "Dart", 0, 0, 0, 56, 0, 0, 0, 0, 0, 0, 0, 0, 4, 60
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/category_selector.dart", "Dart", 0, 0, 0, 107, 0, 0, 0, 0, 0, 0, 0, 0, 7, 114
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/Company_Matching_Details/company_atrocity_matching_details.dart", "Dart", 0, 0, 0, 71, 0, 0, 0, 0, 0, 0, 0, 0, 3, 74
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/Company_Matching_Details/company_matching_tabs.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 5, 66
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/Company_Matching_Details/company_nonprofit_matching_details.dart", "Dart", 0, 0, 0, 75, 0, 0, 0, 0, 0, 0, 0, 0, 3, 78
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/company_coupon_card.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 3, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/company_coupons_info.dart", "Dart", 0, 0, 0, 38, 0, 0, 0, 0, 0, 0, 0, 0, 3, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/company_detail_tabs.dart", "Dart", 0, 0, 0, 60, 0, 0, 0, 0, 0, 0, 0, 0, 5, 65
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/company_finance_data.dart", "Dart", 0, 0, 0, 252, 0, 0, 0, 0, 0, 0, 0, 0, 3, 255
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/CompanyDetailTabs/company_matching_info.dart", "Dart", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 4, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/company_background.dart", "Dart", 0, 0, 0, 51, 0, 0, 0, 0, 0, 0, 0, 0, 7, 58
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/company_detail_page.dart", "Dart", 0, 0, 0, 26, 0, 0, 0, 0, 0, 0, 0, 0, 5, 31
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company/company_details_content.dart", "Dart", 0, 0, 0, 158, 0, 0, 0, 0, 0, 0, 0, 0, 6, 164
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/altrue_action_card.dart", "Dart", 0, 0, 0, 223, 0, 0, 0, 0, 0, 0, 0, 11, 5, 239
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/area_list.dart", "Dart", 0, 0, 0, 146, 0, 0, 0, 0, 0, 0, 0, 0, 10, 156
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/glass_view.dart", "Dart", 0, 0, 0, 72, 0, 0, 0, 0, 0, 0, 0, 6, 3, 81
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/meals_list.dart", "Dart", 0, 0, 0, 230, 0, 0, 0, 0, 0, 0, 0, 40, 9, 279
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/mediteranein_diet.dart", "Dart", 0, 0, 0, 688, 0, 0, 0, 0, 0, 0, 0, 0, 22, 710
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/title_viiew.dart", "Dart", 0, 0, 0, 103, 0, 0, 0, 0, 0, 0, 0, 0, 7, 110
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/water_view.dart", "Dart", 0, 0, 0, 274, 0, 0, 0, 0, 0, 0, 0, 0, 10, 284
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dashboard/wave_view.dart", "Dart", 0, 0, 0, 260, 0, 0, 0, 0, 0, 0, 0, 0, 14, 274
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_dontation_form.dart", "Dart", 0, 0, 0, 65, 0, 0, 0, 0, 0, 0, 0, 0, 9, 74
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/company_match_screen/maximum_amount_field.dart", "Dart", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 0, 3, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/credit_card_storage.dart", "Dart", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 5, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/edit_order_diallogue.dart", "Dart", 0, 0, 0, 165, 0, 0, 0, 0, 0, 0, 0, 2, 12, 179
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/expanded_content_widget.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 0, 5, 66
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/hompage/Featured_Atrocities/card_widget.dart", "Dart", 0, 0, 0, 33, 0, 0, 0, 0, 0, 0, 0, 0, 3, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/hompage/Featured_Atrocities/swiper.dart", "Dart", 0, 0, 0, 23, 0, 0, 0, 0, 0, 0, 0, 1, 6, 30
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/image_widget.dart", "Dart", 0, 0, 0, 58, 0, 0, 0, 0, 0, 0, 0, 0, 8, 66
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/loading_indicator.dart", "Dart", 0, 0, 0, 10, 0, 0, 0, 0, 0, 0, 0, 0, 6, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/myNpProjects_card.dart", "Dart", 0, 0, 0, 52, 0, 0, 0, 0, 0, 0, 0, 0, 2, 54
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/np_atributes.dart", "Dart", 0, 0, 0, 34, 0, 0, 0, 0, 0, 0, 0, 0, 4, 38
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/np_project_card.dart", "Dart", 0, 0, 0, 174, 0, 0, 0, 0, 0, 0, 0, 12, 5, 191
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/np_project_donate_modal.dart", "Dart", 0, 0, 0, 181, 0, 0, 0, 0, 0, 0, 0, 0, 5, 186
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/np_project_rating.dart", "Dart", 0, 0, 0, 41, 0, 0, 0, 0, 0, 0, 0, 0, 3, 44
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/npdonation_bottomsheet.dart", "Dart", 0, 0, 0, 129, 0, 0, 0, 0, 0, 0, 0, 7, 6, 142
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/payment_sheet.dart", "Dart", 0, 0, 0, 127, 0, 0, 0, 0, 0, 0, 0, 61, 16, 204
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_drawer.dart", "Dart", 0, 0, 0, 301, 0, 0, 0, 0, 0, 0, 0, 2, 10, 313
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_page/opaque_image.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_page/profile_big_info.dart", "Dart", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 0, 4, 52
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_page/profile_info.dart", "Dart", 0, 0, 0, 48, 0, 0, 0, 0, 0, 0, 0, 1, 4, 53
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_page/profile_info_card.dart", "Dart", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 4, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profile_page/rounded_image.dart", "Dart", 0, 0, 0, 21, 0, 0, 0, 0, 0, 0, 0, 0, 4, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/profle_match_bottom_modal.dart", "Dart", 0, 0, 0, 145, 0, 0, 0, 0, 0, 0, 0, 0, 4, 149
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/questions_numbers_widget.dart", "Dart", 0, 0, 0, 37, 0, 0, 0, 0, 0, 0, 0, 0, 4, 41
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/quiz_options_widget.dart", "Dart", 0, 0, 0, 61, 0, 0, 0, 0, 0, 0, 0, 11, 13, 85
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/quiz_questions_widget.dart", "Dart", 0, 0, 0, 82, 0, 0, 0, 0, 0, 0, 0, 0, 12, 94
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shadowIcons.dart", "Dart", 0, 0, 0, 27, 0, 0, 0, 0, 0, 0, 0, 0, 5, 32
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/color_picker.dart", "Dart", 0, 0, 0, 46, 0, 0, 0, 0, 0, 0, 0, 0, 4, 50
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/color_picker_list.dart", "Dart", 0, 0, 0, 12, 0, 0, 0, 0, 0, 0, 0, 0, 4, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/project_picker.dart", "Dart", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 44, 7, 51
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/shirt_couter.dart", "Dart", 0, 0, 0, 59, 0, 0, 0, 0, 0, 0, 0, 0, 5, 64
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/shirt_order_widget.dart", "Dart", 0, 0, 0, 277, 0, 0, 0, 0, 0, 0, 0, 8, 18, 303
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_order/shirt_size_picker.dart", "Dart", 0, 0, 0, 24, 0, 0, 0, 0, 0, 0, 0, 5, 6, 35
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirt_selector.dart", "Dart", 0, 0, 0, 20, 0, 0, 0, 0, 0, 0, 0, 1, 6, 27
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/shirtgroupList_selector.dart", "Dart", 0, 0, 0, 64, 0, 0, 0, 0, 0, 0, 0, 0, 10, 74
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/two_sided_rounded_button.dart", "Dart", 0, 0, 0, 32, 0, 0, 0, 0, 0, 0, 0, 0, 3, 35
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/Presentation Layer/Widgets/weekly_featured_shirts.dart", "Dart", 0, 0, 0, 100, 0, 0, 0, 0, 0, 0, 0, 6, 8, 114
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/main.dart", "Dart", 0, 0, 0, 190, 0, 0, 0, 0, 0, 0, 0, 1, 20, 211
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/lib/utils.dart", "Dart", 0, 0, 0, 19, 0, 0, 0, 0, 0, 0, 0, 0, 6, 25
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/linux/flutter/generated_plugin_registrant.cc", "C++", 11, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/linux/flutter/generated_plugin_registrant.h", "C++", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 6, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/linux/main.cc", "C++", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 7
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/linux/my_application.cc", "C++", 74, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 11, 20, 105
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/linux/my_application.h", "C++", 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 5, 19
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/macos/Flutter/GeneratedPluginRegistrant.swift", "Swift", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 16, 3, 4, 23
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/macos/Runner/AppDelegate.swift", "Swift", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 8, 0, 2, 10
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/macos/Runner/Assets.xcassets/AppIcon.appiconset/Contents.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 68, 0, 0, 0, 1, 69
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/macos/Runner/Base.lproj/MainMenu.xib", "XML", 0, 0, 0, 0, 0, 0, 343, 0, 0, 0, 0, 0, 1, 344
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/macos/Runner/MainFlutterWindow.swift", "Swift", 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 12, 0, 4, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/pubspec.yaml", "YAML", 0, 0, 63, 0, 0, 0, 0, 0, 0, 0, 0, 57, 18, 138
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/test/widget_test.dart", "Dart", 0, 0, 0, 14, 0, 0, 0, 0, 0, 0, 0, 10, 7, 31
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/web/index.html", "Django HTML", 0, 0, 0, 0, 0, 0, 0, 0, 0, 50, 0, 0, 9, 59
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/web/manifest.json", "JSON", 0, 0, 0, 0, 0, 0, 0, 0, 35, 0, 0, 0, 1, 36
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/flutter/generated_plugin_registrant.cc", "C++", 15, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 5, 24
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/flutter/generated_plugin_registrant.h", "C++", 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 6, 16
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/flutter_window.cpp", "C++", 45, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 13, 62
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/flutter_window.h", "C++", 20, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 9, 34
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/main.cpp", "C++", 30, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 4, 10, 44
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/resource.h", "C++", 9, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 2, 17
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/utils.cpp", "C++", 53, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 2, 10, 65
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/utils.h", "C++", 8, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 6, 6, 20
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/win32_window.cpp", "C++", 183, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 15, 48, 246
+"/Users/kofi/Downloads/letsgooo/lovelovelove-master/windows/runner/win32_window.h", "C++", 48, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 29, 22, 99
+"Total", "-", 519, 0, 66, 27024, 89, 8, 466, 13, 480, 50, 48, 2693, 3202, 34658
