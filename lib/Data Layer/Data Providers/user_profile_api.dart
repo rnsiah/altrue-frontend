@@ -7,7 +7,8 @@ import 'dart:async';
 class ApiProvider {
   // ignore: unused_field
 
-  final String _mobileBaseUrl = 'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/';
+  final String _mobileBaseUrl =
+      'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> getUserAuthenticatedData(String url, String key) async {
@@ -115,7 +116,8 @@ class ApiProvider {
 }
 
 class NonAuthenticatedApiProvider {
-  final String _mobileBaseUrl = 'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/';
+  final String _mobileBaseUrl =
+      'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> get(String url) async {

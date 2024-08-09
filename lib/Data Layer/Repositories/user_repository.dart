@@ -27,7 +27,8 @@ class UserRepository {
   final userDao = UserDao();
   final _apiProvider = ApiProvider();
 
-  final String host = 'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/';
+  final String host =
+      'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/';
 
   Future introDone() async {
     await userDao.introDone();
@@ -359,12 +360,13 @@ class UserRepository {
 
   Future<CreditCardDetails> fetchPaymentMethod() async {
     User? user = await userDao.getCurrentUser(0);
-    dynamic response = await _apiProvider.getUserAuthenticatedData('api/fetchPaymentMethod/', user!.key!);
+    dynamic response = await _apiProvider.getUserAuthenticatedData(
+        'api/fetchPaymentMethod/', user!.key!);
     final responseData = response as Map<String, dynamic>;
     final data = responseData['data'] as Map<String, dynamic>;
     print({'1': data});
     return CreditCardDetails.fromJson(data);
-}
+  }
 
   Future<String?> createPaymentMethod(
       {required String cardNumber,
@@ -560,7 +562,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/api/order_status/');
+        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/order_status/');
 
     try {
       final response = await http.post(
@@ -574,11 +576,11 @@ class UserRepository {
       print(response);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        print({'the data':data['status']});
-        if(data['status'] == true){
+        print({'the data': data['status']});
+        if (data['status'] == true) {
           return 'true';
         }
-        return 'false';  
+        return 'false';
       } else {
         // Handle error response
         return null;
@@ -596,7 +598,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/api/create_payment_intent/');
+        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -651,8 +653,8 @@ class UserRepository {
       NonProfitProject? project) async {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
-    final url =
-        Uri.parse('https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/api/donate/');
+    final url = Uri.parse(
+        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -687,7 +689,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/api/point_payment/');
+        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -726,7 +728,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://f40b-2601-2c6-500-16f0-354f-818a-95d2-260.ngrok-free.app/api/hybrid_payment/');
+        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

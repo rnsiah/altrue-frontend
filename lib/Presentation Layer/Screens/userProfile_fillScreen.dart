@@ -50,10 +50,11 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
         create: (context) =>
             UserProfileEditBloc(sessionBLoc: context.read<SessionBLoc>()),
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             const Text(
               'Welcome To Altrue Global',
+              textAlign: TextAlign.center,
               style: TextStyle(
                 color: Colors.white,
                 fontSize: 24.0,
@@ -157,7 +158,7 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
                       borderSide: BorderSide(color: Colors.white, width: 2.0),
                     ),
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                        borderRadius: BorderRadius.all(Radius.circular(14)),
                         borderSide: BorderSide(color: Colors.white)),
                     labelText: 'City',
                     labelStyle: TextStyle(fontSize: 15, color: Colors.amber)),
@@ -177,7 +178,7 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
                     style: const TextStyle(color: Colors.amber),
                     decoration: const InputDecoration(
                         enabledBorder: OutlineInputBorder(
-                            borderRadius: BorderRadius.all(Radius.circular(24)),
+                            borderRadius: BorderRadius.all(Radius.circular(14)),
                             borderSide: BorderSide(color: Colors.white)),
                         labelText: 'Enter Zip',
                         labelStyle:
@@ -210,12 +211,12 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
           style: const TextStyle(color: Colors.amber),
           decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(24)),
+                borderRadius: BorderRadius.all(Radius.circular(14)),
                 borderSide: const BorderSide(color: Colors.white, width: 2.0),
               ),
               enabledBorder: OutlineInputBorder(
                   borderSide: BorderSide(color: Colors.white),
-                  borderRadius: BorderRadius.all(Radius.circular(24))),
+                  borderRadius: BorderRadius.all(Radius.circular(14))),
               labelText: 'Choose Altrue Username',
               labelStyle: TextStyle(fontSize: 15, color: Colors.amber)),
           // validator: (value) =>
@@ -236,11 +237,11 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
           style: const TextStyle(color: Colors.amber),
           decoration: const InputDecoration(
               focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(24)),
+                borderRadius: BorderRadius.all(Radius.circular(14)),
                 borderSide: const BorderSide(color: Colors.white, width: 2.0),
               ),
               enabledBorder: OutlineInputBorder(
-                  borderRadius: BorderRadius.all(Radius.circular(24)),
+                  borderRadius: BorderRadius.all(Radius.circular(14)),
                   borderSide: BorderSide(color: Colors.white)),
               labelText: 'Enter Street Address',
               labelStyle: TextStyle(fontSize: 15, color: Colors.amber)),
@@ -274,7 +275,7 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
                 style: const TextStyle(color: Colors.amber),
                 decoration: const InputDecoration(
                     enabledBorder: OutlineInputBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(24)),
+                        borderRadius: BorderRadius.all(Radius.circular(14)),
                         borderSide: BorderSide(color: Colors.white)),
                     labelText: 'Enter Birthday',
                     labelStyle: TextStyle(fontSize: 15, color: Colors.amber)),
@@ -377,12 +378,13 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
               'I have an Altrue Donor Code',
               style: TextStyle(color: Colors.amber),
             ),
+            const SizedBox(height: 7),
             TextFormField(
               style: const TextStyle(color: Colors.amber),
               decoration: const InputDecoration(
                   fillColor: Colors.white,
                   enabledBorder: OutlineInputBorder(
-                      borderRadius: BorderRadius.all(Radius.circular(23)),
+                      borderRadius: BorderRadius.all(Radius.circular(14)),
                       borderSide: BorderSide(color: Colors.white)),
                   labelText: 'Altrue Donor Code',
                   labelStyle: TextStyle(fontSize: 15, color: Colors.amber)),
@@ -434,8 +436,9 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
                     child: const Text(
                       'Create Profile',
                       style: TextStyle(
-                        color: Colors.black,
-                      ),
+                          color: Colors.black,
+                          fontSize: 20,
+                          fontWeight: FontWeight.w700),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
