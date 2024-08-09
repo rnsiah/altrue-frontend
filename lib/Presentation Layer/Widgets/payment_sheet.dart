@@ -7,6 +7,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/hybrid_payment_card.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet_profile_card_widget.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -102,7 +103,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                       if (state.status == ProfileStatus.paymentAccepted) {
                         context.read<CartBloc>().add(PaymentAccepted());
 
-                        Navigator.of(context).pushNamed('/thankyou');
+                        Navigator.of(context).pushNamed('/thankyou',arguments: ThankYouScreenArguments(isPurchase: true));
                       }
                       // TODO: implement listener
                     },

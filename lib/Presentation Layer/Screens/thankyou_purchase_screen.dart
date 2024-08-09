@@ -1,18 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 
 import '../../Data Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 
 class ThankYouPurchaseScreen extends StatefulWidget {
-  final bool isNonProfit;
-  final bool isPurchase;
-  final bool isAtrocity;
+  final bool? isNonProfit;
+  final bool? isPurchase;
+  final bool? isAtrocity;
+  final bool? isProject;
 
   const ThankYouPurchaseScreen({
     super.key,
-    required this.isAtrocity,
-    required this.isNonProfit,
-    required this.isPurchase,
+     this.isAtrocity,
+     this.isNonProfit,
+     this.isPurchase,
+     this.isProject
   });
 
   @override
@@ -84,9 +88,9 @@ class _ThankYouPurchaseScreenState extends State<ThankYouPurchaseScreen> {
                       ),
                       const SizedBox(height: 10),
                       Text(
-                        widget.isAtrocity
+                        widget.isAtrocity!=null
                             ? 'Your support helps address atrocities.'
-                            : widget.isNonProfit
+                            : widget.isNonProfit!=null
                                 ? 'Thank you for supporting a nonprofit.'
                                 : 'Thank you for your purchase.',
                         style: TextStyle(
@@ -192,7 +196,10 @@ class _ThankYouPurchaseScreenState extends State<ThankYouPurchaseScreen> {
                           ),
                         ),
                         onPressed: () {
-                          // Implement navigation to another screen or any action
+                           Navigator.of(context).popAndPushNamed('/home', 
+                           arguments: HomeArguments(profile: context.read<ProfileBloc>().state.profile!, 
+                           user: context.read<ProfileBloc>().state.user!, 
+                           cartBloc: context.read<CartBloc>()));
                         },
                         child: const Text('Continue'),
                       ),

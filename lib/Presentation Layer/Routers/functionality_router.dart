@@ -134,11 +134,7 @@ Widget _buildRoute(
       return ProfileEditScreen(profile: profile);
     case '/thankyou':
       ThankYouScreenArguments argument = arguments as ThankYouScreenArguments;
-      return ThankYouPurchaseScreen(
-        isAtrocity: argument.isAtrocity!,
-        isNonProfit: argument.isNonProfit!,
-        isPurchase: argument.isPurchase!,
-      );
+      return const ThankYouPurchaseScreen();
     case '/payment':
       return PaymentScreen();
     case '/ShirtDetail':

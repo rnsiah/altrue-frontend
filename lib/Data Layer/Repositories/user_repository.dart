@@ -574,7 +574,11 @@ class UserRepository {
       print(response);
       if (response.statusCode == 200) {
         final data = jsonDecode(response.body);
-        return data['status'];
+        print({'the data':data['status']});
+        if(data['status'] == true){
+          return 'true';
+        }
+        return 'false';  
       } else {
         // Handle error response
         return null;

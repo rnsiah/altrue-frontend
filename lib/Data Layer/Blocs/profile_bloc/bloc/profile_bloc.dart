@@ -33,6 +33,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<FetchProfileAutoLogin>(_fetchProfileAutoLogin);
     on<AddShirt>(_addShirt);
     on<AddAtrocity>(_addAtrocity);
+    on<AddNonProfit>(_addNonProfit);
     // on<AddOrderItem>(_addOrderItem);
     on<AddFollower>(_addFollower);
     on<RemoveFollower>(_removeFollower);
@@ -256,7 +257,8 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
           .getOrderStatus(state.paymentIntentData!['clientSecret']['id']);
       print({"theId is": state.paymentIntentData!['clientSecret']['id']});
       print(status);
-      if (status == "true") {
+      if (status == 'true') {
+        print('we are here and the payment is true');
         Profile profile =
             await userRepository.fetchProfile(id: state.profile!.user!);
         ProfileState newState = state.copyWith(
@@ -265,11 +267,13 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
             paymentIntentData: null);
         emit(newState);
       } else if (status == "false") {
+        print('im getting a false statement');
         ProfileState newState =
             state.copyWith(status: ProfileStatus.paymentError);
         emit(newState);
       }
     } catch (e) {
+      print(e.toString());
       emit(state.copyWith(status: ProfileStatus.paymentError));
     }
   }
@@ -321,6 +325,19 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     } catch (e) {
       emit(state.copyWith(
           status: ProfileStatus.paymentError, message: e.toString()));
+    }
+  }
+
+  void _addNonProfit(AddNonProfit event, Emitter<ProfileState>emit)async{
+    emit(state.copyWith(status: ProfileStatus.updating));
+    try {
+      await userRepository.addNonProfitToProfileList(nonprofit: event.nonProfit);
+      Profile profile =
+          await userRepository.getProfileFromApi(user: state.user!);
+      emit(state.copyWith(profile: profile, status: ProfileStatus.successfull));
+    } catch (e) {
+      print(e.toString());
+      emit(state.copyWith(status: ProfileStatus.failure));
     }
   }
 
