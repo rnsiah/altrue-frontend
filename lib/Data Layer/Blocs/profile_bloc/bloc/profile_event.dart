@@ -169,4 +169,10 @@ class HybridPayment extends ProfileEvent {
   const HybridPayment({required this.pointAmount, required this.shirts});
 }
 
+
+class SubmitQuizScore extends ProfileEvent{
+  final QuizResult quizResult;
+  const SubmitQuizScore({required this.quizResult});
+}
+
 class LogOut extends ProfileEvent {}

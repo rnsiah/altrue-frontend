@@ -90,6 +90,7 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                               scrollDirection: Axis.horizontal,
                               itemCount: widget.project.supporters!.length,
                               itemBuilder: (context, index) => ProfileDot(
+                                textColor: Colors.amber,
                                     dotRadius: 25,
                                     profile: widget.project.supporters![index],
                                   ))),

@@ -70,41 +70,8 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                   shrinkWrap: true,
                   children: [
                     AtrocityInfo(atrocity: widget.atrocity),
-                    const SizedBox(height: 12),
-                    SingleChildScrollView(
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          const Text(
-                            'Recent Donors',
-                            style: TextStyle(color: Colors.white),
-                          ),
-                          const SizedBox(
-                            height: 7,
-                          ),
-                          SizedBox(
-                            height: widget.atrocity.recentDonors == null ||
-                                    widget.atrocity.recentDonors!.isEmpty
-                                ? 20
-                                : 80,
-                            child: widget.atrocity.recentDonors == null ||
-                                    widget.atrocity.recentDonors!.isEmpty
-                                ? const Text('No Recent Donors')
-                                : ListView.builder(
-                                    shrinkWrap: true,
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        widget.atrocity.recentDonors!.length,
-                                    itemBuilder: (context, index) {
-                                      return ProfileDot(
-                                          profile: widget
-                                              .atrocity.recentDonors![index],
-                                          dotRadius: 10);
-                                    }),
-                          )
-                        ],
-                      ),
-                    ),
+                    
+                   
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -118,7 +85,7 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                               // DriverInfo(),
 
                               const SizedBox(
-                                height: 12,
+                                height: 2,
                               ),
                             ],
                           ),
@@ -135,43 +102,46 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                             children: [
                               Flexible(
                                 flex: 3,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(0),
-                                  child: widget.profile.balance == null ||
-                                          widget.profile.balance! <= 0
-                                      ? const Text('Please refill your account')
-                                      : SfSlider(
-                                          inactiveColor: Colors.white,
-                                          min: 0,
-                                          max: widget.profile.balance,
-                                          value: _amount,
-                                          stepSize: (widget.profile.balance! /
-                                                          20)
-                                                      .ceilToDouble() >
-                                                  0
-                                              ? (widget.profile.balance! / 20)
-                                                  .ceilToDouble()
-                                              : 0.1, // Ensure stepSize is at least 0.1
-                                          interval: widget.profile.balance! /
-                                                      5 >
-                                                  0
-                                              ? widget.profile.balance! / 5
-                                              : 0.5, // Ensure interval is at least 0.5
-                                          showTicks: true,
-                                          activeColor: Colors.amber,
-                                          showLabels: true,
-                                          enableTooltip: true,
-                                          thumbIcon: Container(
-                                            decoration: BoxDecoration(
-                                                borderRadius:
-                                                    BorderRadius.circular(30)),
-                                            child: const Icon(Icons.add),
-                                          ),
-                                          onChanged: (dynamic value) {
-                                            setState(() {
-                                              _amount = value;
-                                            });
-                                          }),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(0),
+                                    child: widget.profile.balance == null ||
+                                            widget.profile.balance! <= 0
+                                        ? const Text('Please refill your account')
+                                        : SfSlider(
+                                            inactiveColor: Colors.white,
+                                            min: 0,
+                                            max: widget.profile.balance,
+                                            value: _amount,
+                                            stepSize: (widget.profile.balance! /
+                                                            20)
+                                                        .ceilToDouble() >
+                                                    0
+                                                ? (widget.profile.balance! / 20)
+                                                    .ceilToDouble()
+                                                : 0.1, // Ensure stepSize is at least 0.1
+                                            interval: widget.profile.balance! /
+                                                        5 >
+                                                    0
+                                                ? widget.profile.balance! / 5
+                                                : 0.5, // Ensure interval is at least 0.5
+                                            showTicks: true,
+                                            activeColor: Colors.amber,
+                                            showLabels: true,
+                                            enableTooltip: true,
+                                            thumbIcon: Container(
+                                              decoration: BoxDecoration(
+                                                  borderRadius:
+                                                      BorderRadius.circular(30)),
+                                              child: const Icon(Icons.add),
+                                            ),
+                                            onChanged: (dynamic value) {
+                                              setState(() {
+                                                _amount = value;
+                                              });
+                                            }),
+                                  ),
                                 ),
                               ),
                               Flexible(
@@ -184,43 +154,14 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                                       },
                                       child: Text(
                                         '\$${_amount.roundToDouble().toString()}',
-                                        style: TextStyle(fontSize: 20),
+                                        style: const TextStyle(fontSize: 20),
                                       )))
                             ],
                           ),
                         ),
                       ),
                     ),
-                    BlocBuilder<ProfileBloc, ProfileState>(
-                        builder: (context, state) {
-                      if (state.status == ProfileStatus.updating) {
-                        return const CircularProgressIndicator(
-                          color: Colors.black,
-                        );
-                      }
-                      return Column(
-                        children: [
-                          SizedBox(
-                              height: MediaQuery.of(context).size.height * .06,
-                              child: Expanded(
-                                child: MaterialButton(
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(28)),
-                                  color: Colors.amber,
-                                  onPressed: () {
-                                    context.read<ProfileBloc>().add(
-                                        MakeDonationWithAltrueFunds(
-                                            nonprofit: null,
-                                            atrocity: widget.atrocity,
-                                            project: null,
-                                            amount: _amount));
-                                  },
-                                  child: Text('Donate With Altrue Wallet'),
-                                ),
-                              )),
-                        ],
-                      );
-                    }),
+                    
                     BlocBuilder<ProfileBloc, ProfileState>(
                         builder: (context, state) {
                       if (state.status == ProfileStatus.paymentProcessing) {
@@ -251,6 +192,37 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                               child: const Text('Donate With Funds'),
                             ),
                           ));
+                    }),
+                    BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                      if (state.status == ProfileStatus.updating) {
+                        return const CircularProgressIndicator(
+                          color: Colors.black,
+                        );
+                      }
+                      return Column(
+                        children: [
+                          SizedBox(
+                            width: double.infinity,
+                              height: MediaQuery.of(context).size.height * .06,
+                              child: Expanded(
+                                child: MaterialButton(
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(28)),
+                                  color: Colors.amber,
+                                  onPressed: () {
+                                    context.read<ProfileBloc>().add(
+                                        MakeDonationWithAltrueFunds(
+                                            nonprofit: null,
+                                            atrocity: widget.atrocity,
+                                            project: null,
+                                            amount: _amount));
+                                  },
+                                  child: Text('Donate With Altrue Wallet'),
+                                ),
+                              )),
+                        ],
+                      );
                     }),
                   ],
                 ),
@@ -293,7 +265,7 @@ class AtrocityInfo extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      mainAxisAlignment: MainAxisAlignment.start,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -330,8 +302,45 @@ class AtrocityInfo extends StatelessWidget {
           ),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.end,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
+            Column(
+              mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const Text(
+                            'Recent Donors',
+                            style: TextStyle(color: Colors.white),
+                          ),
+                          const SizedBox(
+                            height: 7,
+                          ),
+                          SizedBox(
+                            height: atrocity.recentDonors == null ||
+                                    atrocity.recentDonors!.isEmpty
+                                ? 20
+                                : 80,
+                            child: atrocity.recentDonors == null ||
+                                    atrocity.recentDonors!.isEmpty
+                                ? const Text('No Recent Donors')
+                                : ListView.builder(
+                                    shrinkWrap: true,
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        5,
+                                    itemBuilder: (context, index) {
+                                      return Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: ProfileDot(
+                                          textColor: Colors.red,
+                                            profile: 
+                                                atrocity.recentDonors![index],
+                                            dotRadius: 10),
+                                      );
+                                    }),
+                          )
+                        ],
+                      ),
             Attribute(
               value: atrocity.balance.toString(),
               name: 'Donations This Wekk',
@@ -347,7 +356,8 @@ class AtrocityInfo extends StatelessWidget {
 class ProfileDot extends StatelessWidget {
   final ProfileRepresentation profile;
   final double? dotRadius;
-  const ProfileDot({Key? key, required this.profile, this.dotRadius = 25})
+  final Color? textColor;
+  const ProfileDot({Key? key, required this.profile, this.dotRadius = 25, required this.textColor})
       : super(key: key);
 
   @override
@@ -359,7 +369,7 @@ class ProfileDot extends StatelessWidget {
               radius: dotRadius,
               foregroundImage: NetworkImage(profile.profilePicture!.url),
               backgroundColor: Colors.white),
-          Text(profile.username)
+          Text(profile.username, style: TextStyle(color:textColor, fontSize: 8),)
         ],
       ),
     );

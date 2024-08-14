@@ -1,14 +1,15 @@
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lovelovelove/Data%20Layer/Models/link_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/quiz_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 
 import 'category_model.dart';
 import 'country_model.dart';
 
-part 'atrocity_model.g.dart';
 
+part 'atrocity_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class Atrocity {
   Atrocity({
@@ -26,6 +27,7 @@ class Atrocity {
     this.shirtList,
     this.nonprofitList,
     this.noOfDonations,
+    this.quizes
   });
 
   String title;
@@ -48,6 +50,7 @@ class Atrocity {
   List<NonProfit>? nonprofitList;
   List<Link>? links;
   List<ProfileRepresentation>? recentDonors;
+  List<Quiz>? quizes;
 
   factory Atrocity.fromJson(Map<String, dynamic> data) =>
       _$AtrocityFromJson(data);

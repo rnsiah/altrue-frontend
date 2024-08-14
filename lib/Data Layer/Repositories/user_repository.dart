@@ -15,6 +15,7 @@ import 'package:lovelovelove/Data%20Layer/Models/credit_card_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/order_item_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/quiz_result_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 
@@ -28,7 +29,7 @@ class UserRepository {
   final _apiProvider = ApiProvider();
 
   final String host =
-      'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/';
+      'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/';
 
   Future introDone() async {
     await userDao.introDone();
@@ -543,6 +544,15 @@ class UserRepository {
     }
   }
 
+  Future<dynamic> submitQuizScore(QuizResult quizResult)async{
+    User? user = await userDao.getCurrentUser(0);
+     String key = user!.key!;
+    int altId = user.altid!;
+    String url = 'api/submitquizscores/';
+    dynamic response = await _apiProvider.postAuthenticatedData(url:url , key:key, altId: altId, data: quizResult);
+    return response;
+  }
+
   Future<String> fetchPaymentSheet() async {
     // Make an HTTP GET request to your Django backend
     // Replace 'your_backend_url' with the actual URL of your endpoint
@@ -562,7 +572,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/order_status/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/order_status/');
 
     try {
       final response = await http.post(
@@ -598,7 +608,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/create_payment_intent/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -654,7 +664,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/donate/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -689,7 +699,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/point_payment/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -728,7 +738,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://6910-2601-2c6-500-16f0-7479-21c3-6187-5833.ngrok-free.app/api/hybrid_payment/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

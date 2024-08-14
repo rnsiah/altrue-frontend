@@ -12,7 +12,7 @@ class NonprofitProjectRepository {
   Future<dynamic> submit(NonProfitProjectCreation npProject) async {
     User? user = await userRepository.userDao.getCurrentUser(0);
     final response = apiProvider.postAuthenticatedData(
-        'api/createProject/', user!.key!, user.altid!, npProject);
+        url: 'api/createProject/', key:user!.key!, altId:user.altid!, data:npProject);
     return response;
   }
 

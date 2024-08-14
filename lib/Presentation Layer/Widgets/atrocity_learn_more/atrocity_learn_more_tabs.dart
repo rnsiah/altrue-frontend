@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/atrocity_learn_more/atroc.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/atrocity_learn_more/atrocity_quizes.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/atrocity_learn_more/atrocity_statistics.dart';
 
 class AtrocityLearnMoreTabs extends StatefulWidget {
   final Atrocity atrocity;
+  final Profile profile;
 
-  const AtrocityLearnMoreTabs({Key? key, required this.atrocity})
+  const AtrocityLearnMoreTabs({Key? key, required this.atrocity, required this.profile})
       : super(key: key);
 
   @override
@@ -28,7 +31,7 @@ class _AtrocityLearnMoreTabsState extends State<AtrocityLearnMoreTabs>
               child: Text(
             'Relevant Links',
             style: TextStyle(
-                fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),
+                fontSize: 14, color: Colors.black, fontWeight: FontWeight.bold),
           )),
         ),
       ),
@@ -37,18 +40,20 @@ class _AtrocityLearnMoreTabsState extends State<AtrocityLearnMoreTabs>
           child: Text(
             'Altrue Statistics',
             style: TextStyle(
-                fontSize: 20,
+                fontSize: 14,
                 color: Colors.black,
                 fontWeight: FontWeight.w600),
           ),
         ),
       ),
+      const Tab(child:Center(child: Text('Quizes', style:TextStyle(color: Colors.black, fontSize: 14, fontWeight: FontWeight.w600) ,),),)
       
     ];
 
     List<Widget> pages = [
       AtroLearn(atrocity: widget.atrocity),
-      AtrocityStatistics(atrocity: widget.atrocity)
+      AtrocityStatistics(atrocity: widget.atrocity),
+      AtrocityQuizes(atrocity: widget.atrocity, profile: widget.profile,)
     ];
 
     TabController tabController =
@@ -76,3 +81,5 @@ class _AtrocityLearnMoreTabsState extends State<AtrocityLearnMoreTabs>
     );
   }
 }
+
+

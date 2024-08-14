@@ -41,10 +41,10 @@ class _ThankYouPurchaseScreenState extends State<ThankYouPurchaseScreen> {
 
           final userProfile = state.profile!;
           final donation = userProfile.userdonations!.last;
-          final imageUrl = donation.nonprofit!.logo ??
-              ''
-                  ''; // Assuming imageUrl is part of the donation object
-          final title = donation.nonprofit!.name ??
+          // final imageUrl = donation.nonprofit?? donation.nonprofit!.logo ??
+          //     ''
+          // //         ''; // Assuming imageUrl is part of the donation object
+          // final title = donation.nonprofit!.name ??
               'Donation'; // Assuming title is part of the donation object
           final userName = userProfile.username ?? 'User';
           final currentBalance = userProfile.balance ?? 0.0;

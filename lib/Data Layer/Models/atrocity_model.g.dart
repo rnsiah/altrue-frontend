@@ -32,6 +32,9 @@ Atrocity _$AtrocityFromJson(Map<String, dynamic> json) => Atrocity(
           ?.map((e) => NonProfit.fromJson(e as Map<String, dynamic>))
           .toList(),
       noOfDonations: (json['noOfDonations'] as num?)?.toInt(),
+      quizes: (json['quizes'] as List<dynamic>?)
+          ?.map((e) => Quiz.fromJson(e as Map<String, dynamic>))
+          .toList(),
     )..links = (json['links'] as List<dynamic>?)
         ?.map((e) => Link.fromJson(e as Map<String, dynamic>))
         .toList();
@@ -53,6 +56,7 @@ Map<String, dynamic> _$AtrocityToJson(Atrocity instance) => <String, dynamic>{
       'np_list': instance.nonprofitList?.map((e) => e.toJson()).toList(),
       'links': instance.links?.map((e) => e.toJson()).toList(),
       'recentDonors': instance.recentDonors?.map((e) => e.toJson()).toList(),
+      'quizes': instance.quizes?.map((e) => e.toJson()).toList(),
     };
 
 AtrocityRep _$AtrocityRepFromJson(Map<String, dynamic> json) => AtrocityRep(

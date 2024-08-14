@@ -178,9 +178,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return BlocBuilder<ProfileBloc, ProfileState>(
       builder: (_, state) {
         if (state.profile == null) {
-          return const Text(
-            'Loading',
-            style: TextStyle(color: Colors.white, fontSize: 48),
+          return Center(
+            child: Container(
+              child: const Text(
+                'Loading',
+                style: TextStyle(color: Colors.white, fontSize: 48),
+              ),
+            ),
           );
         }
         return openHomePageDrawer(state, context);
@@ -443,6 +447,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         return AnimatedSwitcher(
                           duration: const Duration(milliseconds: 250),
                           child: Icon(
+                            color: Colors.white,
                             value.visible ? Icons.clear : Icons.menu,
                             key: ValueKey<bool>(value.visible),
                           ),

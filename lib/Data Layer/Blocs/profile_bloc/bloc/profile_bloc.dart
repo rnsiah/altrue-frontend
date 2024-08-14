@@ -6,6 +6,7 @@ import 'package:lovelovelove/Data%20Layer/Models/credit_card_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/order_item_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/quiz_result_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/company_match_repository.dart';
@@ -38,6 +39,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<AddFollower>(_addFollower);
     on<RemoveFollower>(_removeFollower);
     on<RateSomething>(_rateItem);
+    on<SubmitQuizScore>(_submitQuizScore);
     on<CreateCompanyMatch>(_createCompanyMatch);
     on<MakeDonationWithUserFunds>(_makeDonation);
     on<MakeDonationWithAltrueFunds>(_makeDonationWithAltrueWallet);
@@ -247,6 +249,16 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
       emit(state.copyWith(
           status: ProfileStatus.failure,
           message: 'Failed to create payment intent: ${e.toString()}'));
+    }
+  }
+
+  void _submitQuizScore(SubmitQuizScore event, Emitter<ProfileState>emit)async{
+    emit(state.copyWith(status:ProfileStatus.updating));
+    try{
+     String? score = await userRepository.submitQuizScore(event.quizResult);
+     emit(state.copyWith(status: ProfileStatus.successfull));
+    }catch(e){
+      
     }
   }
 

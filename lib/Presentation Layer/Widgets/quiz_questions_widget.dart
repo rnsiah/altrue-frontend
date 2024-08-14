@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/quiz_answers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/quiz_question_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/quiz_result_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/quiz_results_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/quiz_options_widget.dart';
 
@@ -39,7 +42,7 @@ class QuestionsWidget extends StatelessWidget {
         itemBuilder: (context, index) {
           final question = quiz.questions[index];
           if(index<=quiz.questions.length){
-            return buildQuestion(question: question,context: context,
+            return buildQuestion(question: question,context: context, quizId: quiz.id,
           numOfCorrect: numOfCorrect, isLastQuestion:index ==quiz.questions.length-1);
           }else{
             return Center(
@@ -55,7 +58,8 @@ class QuestionsWidget extends StatelessWidget {
   } 
 
   Widget buildQuestion({
-    required QuizQuestion question, required int numOfCorrect, required bool isLastQuestion, required BuildContext context
+
+    required QuizQuestion question, required int numOfCorrect, required bool isLastQuestion, required BuildContext context, required int quizId
   }) =>
       Container(
         padding: const EdgeInsets.all(16),
@@ -83,9 +87,27 @@ class QuestionsWidget extends StatelessWidget {
             Align(
               alignment: Alignment.centerRight,
               child: Text('${numOfCorrect.toString()}/${quiz.questions.length} correct', style: const TextStyle(fontWeight: FontWeight.bold,),)),
-            if(isLastQuestion) ElevatedButton(onPressed: (){
-              double theFinalScore = ((numOfCorrect/quiz.questions.length)* 100).roundToDouble();
-               Navigator.of(context).pushReplacement(MaterialPageRoute(builder: (context)=>QuizResultsScreen(quiz: quiz,numOfCorrect: numOfCorrect, numOfQuestions: quiz.questions.length, profile: profile, finalScore:theFinalScore)));
+              if(isLastQuestion) 
+              ElevatedButton(onPressed: (){
+               double theFinalScore = (
+                (numOfCorrect/quiz.questions.length)* 100).roundToDouble();
+               context.read<ProfileBloc>().add(SubmitQuizScore(
+                quizResult: QuizResult(
+                  numOfCorrect: numOfCorrect,
+                  userId: profile.user!,
+                  quizId: quizId,
+                  score: theFinalScore
+                  
+                  )
+                  )
+                );
+               Navigator.of(context).pushReplacement(
+                MaterialPageRoute(builder: (context)=>QuizResultsScreen(
+                  quiz: quiz,
+                  numOfCorrect: numOfCorrect, 
+                  numOfQuestions: quiz.questions.length, 
+                  profile: profile, 
+                  finalScore:theFinalScore)));
             }, child: const Text('See results'))
           ],
         ),

@@ -50,7 +50,9 @@ class _QuizPageState extends State<QuizPage> {
         ),
       );
 
-  AppBar buildAppBar(context) =>AppBar(title: Text(widget.quiz.title),
+  AppBar buildAppBar(context) =>AppBar(
+    centerTitle: false,
+    title: Text(widget.quiz.title, style: TextStyle(color: Colors.white),),
     actions: const [
       Icon(Icons.filter),
       SizedBox(width: 16,)

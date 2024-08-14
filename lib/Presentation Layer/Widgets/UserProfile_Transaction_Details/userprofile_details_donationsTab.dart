@@ -17,15 +17,15 @@ class UserProfileDonationsTab extends StatelessWidget {
             final bool hasAtro = profile.userdonations!
                 .contains(profile.userdonations![index].atrocity);
             return SizedBox(
-                height: 300,
+                height: 80,
                 child: ListTile(
                   leading: !hasAtro
-                      ? Image(
+                      ? Image (
                           image: NetworkImage(profile
                               .userdonations![index].nonprofit!.logo
                               .toString()),
                         )
-                      : null,
+                      : Container(),
                   subtitle: hasAtro
                       ? Text(
                           'Altrue Category: ${profile.userdonations![index].atrocity!.category[0].name}')

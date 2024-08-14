@@ -93,7 +93,7 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
                   showModalBottomSheet(
                       context: context,
                       builder: (context) =>
-                          AtrocityLearnMoreTabs(atrocity: widget.atrocity));
+                          AtrocityLearnMoreTabs(atrocity: widget.atrocity, profile: widget.profile,));
                 },
                 color: Colors.amber,
                 child: const Text('Learn More',

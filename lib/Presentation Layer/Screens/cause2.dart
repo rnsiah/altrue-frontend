@@ -81,7 +81,7 @@ class _CauseDetails2State extends State<CauseDetails2> {
           ),SliverList(delegate: SliverChildListDelegate(
             [
                Center(child: Container(
-                transform: Matrix4.translationValues(0, -25, 0),
+                transform: Matrix4.translationValues(0, -5, 0),
           
               decoration: const BoxDecoration(
                 
