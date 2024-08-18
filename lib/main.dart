@@ -209,7 +209,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<ProfileBloc>(
               create: (context) => ProfileBloc(
                     userRepository: context.read<UserRepository>(),
-                  )..add(FetchProfile())),
+                  )..add(const FetchProfile())),
           BlocProvider<CompanyListBloc>(create: (context) => CompanyListBloc()),
           BlocProvider<AllUsersBloc>(
               create: (context) => AllUsersBloc(
