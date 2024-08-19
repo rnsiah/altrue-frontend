@@ -8,10 +8,10 @@ part of 'profile_picture_model.dart';
 
 ProfilePicture _$ProfilePictureFromJson(Map<String, dynamic> json) =>
     ProfilePicture(
-      url: json['url'] as String,
+      url: json['image_url'] as String,
     );
 
 Map<String, dynamic> _$ProfilePictureToJson(ProfilePicture instance) =>
     <String, dynamic>{
-      'url': instance.url,
+      'image_url': instance.url,
     };
