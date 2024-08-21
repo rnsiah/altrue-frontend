@@ -29,7 +29,7 @@ class UserRepository {
   final _apiProvider = ApiProvider();
 
   final String host =
-      'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/';
+      'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/';
 
   Future introDone() async {
     await userDao.introDone();
@@ -272,6 +272,7 @@ class UserRepository {
 
   Future<bool> checkProfileComplete(User user) async {
     final url = Uri.parse('${host}api/checkprofile/${user.altid}');
+    print(url);
     final headers = {
       'Authorization': 'Token ${user.key}',
     };
@@ -573,7 +574,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/api/order_status/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/order_status/');
 
     try {
       final response = await http.post(
@@ -609,7 +610,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/api/create_payment_intent/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -665,7 +666,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/api/donate/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -700,7 +701,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/api/point_payment/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -739,7 +740,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://24ad-2601-2c6-500-16f0-595c-d820-d711-6061.ngrok-free.app/api/hybrid_payment/');
+        'https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

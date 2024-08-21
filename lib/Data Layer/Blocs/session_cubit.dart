@@ -48,6 +48,7 @@ class SessionBLoc extends Bloc<SessionEvent, SessionState> {
     final sessionOpen = await userRepository.hasToken();
 
     if (sessionOpen == true) {
+      print('user logged in on this phone before');
       User? user = await userRepository.userDao.getCurrentUser(0);
       final hasProfileInBackend =
           await userRepository.checkProfileComplete(user!);
