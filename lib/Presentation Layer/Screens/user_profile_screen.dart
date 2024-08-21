@@ -392,7 +392,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                         decoration: BoxDecoration(
                                           borderRadius:
                                               BorderRadius.circular(30),
-                                          color: Colors.white,
+                                          color: Colors.grey[900],
                                         ),
                                         child: Column(
                                           children: [
@@ -415,9 +415,13 @@ class _ProfileScreenState extends State<ProfileScreen>
                                                     const Text(
                                                       'Orders',
                                                     ),
-                                                    Text(widget
-                                                        .profile.orders!.length
-                                                        .toString()),
+                                                    Text(
+                                                      widget.profile.orders!
+                                                          .length
+                                                          .toString(),
+                                                      style: TextStyle(
+                                                          color: Colors.white),
+                                                    ),
                                                   ],
                                                 )
                                               ],
@@ -457,11 +461,11 @@ class _ProfileScreenState extends State<ProfileScreen>
                             height: 30,
                           ),
                           Container(
-                            height: height * .5,
+                            height: height * .7,
                             width: width,
                             decoration: BoxDecoration(
                                 borderRadius: BorderRadius.circular(30),
-                                color: Colors.white),
+                                color: Colors.grey[900]),
                             child: Padding(
                                 padding:
                                     const EdgeInsets.symmetric(horizontal: 15),
@@ -474,11 +478,14 @@ class _ProfileScreenState extends State<ProfileScreen>
                                       'My Transactions',
                                       style: TextStyle(
                                           fontSize: 18,
-                                          fontWeight: FontWeight.bold),
+                                          fontWeight: FontWeight.bold,
+                                          color: Colors.white),
                                     ),
-                                    Expanded(
-                                        child: UserProfileDetailTabs(
-                                            profile: widget.profile))
+                                    Container(
+                                      child: Expanded(
+                                          child: UserProfileDetailTabs(
+                                              profile: widget.profile)),
+                                    )
                                   ],
                                 )),
                           )

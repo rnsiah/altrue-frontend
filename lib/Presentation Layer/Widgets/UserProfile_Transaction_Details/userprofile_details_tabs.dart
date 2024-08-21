@@ -30,7 +30,7 @@ class _UserProfileDetailTabsState extends State<UserProfileDetailTabs>
     TabController controller = TabController(length: tabs.length, vsync: this);
 
     return Padding(
-        padding: const EdgeInsets.all(12),
+        padding: const EdgeInsets.all(4),
         child: Column(
           children: [
             Container(
