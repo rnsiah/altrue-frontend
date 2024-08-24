@@ -53,10 +53,10 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                         children: [
                           Text(widget.project.cause!.name!,
                               style: const TextStyle(
-                                  color: Colors.white, fontSize: 15)),
+                                  color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
                           const Text('Cause',
                               style:
-                                  TextStyle(color: Colors.white, fontSize: 15)),
+                                  TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
                         ],
                       ),
                     )

@@ -7,6 +7,9 @@ import 'package:lovelovelove/Presentation%20Layer/Widgets/Atrocity_Details/atroc
 import 'package:lovelovelove/Presentation%20Layer/Widgets/Atrocity_Details/atrocity_details_tabs.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/Circular_Clipper.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/atrocity_learn_more/atrocity_learn_more_tabs.dart';
+import 'dart:io';
+import 'package:http/http.dart' as http;
+import 'package:path_provider/path_provider.dart';
 
 import 'package:url_launcher/url_launcher.dart';
 import 'package:share_plus/share_plus.dart';
@@ -47,6 +50,32 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
             )),
           );
         });
+  }
+
+
+  Future<bool> _shareAtrocity()async{
+    final imageUrl = widget.atrocity.imageUrl!;
+    final response = await http.get(Uri.parse(imageUrl));
+    final bytes = response.bodyBytes;
+
+    final tempFile = File('${(await getTemporaryDirectory()).path}/temp_image.jpg');
+    await tempFile.writeAsBytes(bytes);
+
+    final result = await Share.shareXFiles(
+    [XFile(tempFile.path)],
+    text: widget.atrocity.info.toString(),
+    );
+    if (result.status == ShareResultStatus.unavailable) {
+    print('Sharing is unavailable on this platform.');
+    return false;
+  } else if (result.status == ShareResultStatus.dismissed) {
+    print('Share was dismissed.');
+    return false;
+  } else {
+    print('Share was successful.');
+    return true;
+  }
+  
   }
 
   @override
@@ -217,18 +246,7 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
                 left: 20.0,
                 child: Column(children: [
                   IconButton(
-                    onPressed: () async {
-                      final result = await Share.shareWithResult(
-                          widget.atrocity.info.toString(),
-                          subject: widget.atrocity.title);
-                      if (result.status == ShareResultStatus.unavailable ||
-                          result.status == ShareResultStatus.dismissed) {
-                        //write more here
-                        print('not shared');
-                      } else if (result.status == ShareResultStatus.success) {
-                        print('shared');
-                      }
-                    },
+                    
                     icon: const Icon(Icons.share),
                     iconSize: 40.0,
                     color: Colors.amber,

@@ -45,6 +45,9 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<MakeDonationWithAltrueFunds>(_makeDonationWithAltrueWallet);
     on<CreatePaymentIntentForPurchase>(_createPaymentIntentForPurchase);
     on<FetchPaymentMethod>(_fetchPaymentMethod);
+    on<ShareAtrocity>(_shareAtrocity);
+    on<ShareNonProfit>(_shareNonProfit);
+    on<ShareNonProfitProject>(_shareNonProfitProject);
     // on<InitPaymentSheetForPurchase>(_initPaymentSheetForPurchase);
     on<ConfirmOrder>(_confirmOrder);
     on<CreatePaymentMethod>(_createPaymentMethod);
@@ -502,4 +505,18 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   fetchQR(Profile profile) {
     return profile.qrCode;
   }
+
+
+  void _shareAtrocity(ShareAtrocity event, Emitter<ProfileState>emit)async{
+
+  }
+
+  void _shareNonProfit(ShareNonProfit event, Emitter<ProfileState>emit)async{
+
+  }
+
+  void _shareNonProfitProject(ShareNonProfitProject event, Emitter<ProfileState> emit)async{
+
+  }
+
 }
