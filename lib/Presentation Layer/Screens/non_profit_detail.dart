@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
@@ -8,7 +10,9 @@ import 'package:lovelovelove/Presentation%20Layer/Widgets/Circular_Clipper.dart'
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_learn_more.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_learn_more_tabs.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofitdetail_tabs.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
+import 'package:http/http.dart' as http;
 
 import 'package:share_plus/share_plus.dart';
 import 'package:url_launcher/url_launcher.dart';
@@ -39,6 +43,32 @@ class _NonProfitDetailsState extends State<NonProfitDetails> {
     }
   }
 
+
+  Future<bool> _shareNonProfit()async{
+    final imageUrl = widget.nonProfit.logo;
+    final response = await http.get(Uri.parse(imageUrl));
+    final bytes = response.bodyBytes;
+
+    final tempFile = File('${(await getTemporaryDirectory()).path}/temp_image.jpg');
+    await tempFile.writeAsBytes(bytes);
+
+    final result = await Share.shareXFiles(
+    [XFile(tempFile.path)],
+    text: widget.nonProfit.description.toString(),
+    );
+    if (result.status == ShareResultStatus.unavailable) {
+    print('Sharing is unavailable on this platform.');
+    return false;
+  } else if (result.status == ShareResultStatus.dismissed) {
+    print('Share was dismissed.');
+    return false;
+  } else {
+    print('Share was successful.');
+    return true;
+  }
+  
+  }
+
   @override
   void initState() {
     super.initState();
@@ -55,6 +85,7 @@ class _NonProfitDetailsState extends State<NonProfitDetails> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileBloc profileBloc = context.read<ProfileBloc>();
     return Scaffold(
       backgroundColor: Colors.grey[900],
       persistentFooterButtons: [
@@ -266,10 +297,12 @@ class _NonProfitDetailsState extends State<NonProfitDetails> {
                 bottom: 115.0,
                 left: 28.0,
                 child: GestureDetector(
-                  onTap: () {
-                    Share.share(widget.nonProfit.atrocity!.isEmpty
-                        ? 'Hey Everybody! Go check out ${widget.nonProfit.name}, and all the good work they are currently doing '
-                        : 'Hey Everybody! Go check out ${widget.nonProfit.name}, and all the good work they are currently doing to help ');
+                  onTap: () async{
+                      final success= await _shareNonProfit();
+                      if(success){
+                        profileBloc.add(ShareNonProfit(nonprofit: widget.nonProfit));
+
+                      }
                   },
                   child: Column(children: [
                     Container(

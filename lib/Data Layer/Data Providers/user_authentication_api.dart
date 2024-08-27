@@ -6,7 +6,7 @@ import 'package:lovelovelove/Data%20Layer/Models/authentication_models/userLogin
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 
 const _mobileBaseUrl =
-    "https://18f3-2601-2c6-500-16f0-794d-405a-f82f-f2ed.ngrok-free.app";
+    "https://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app";
 const _base = "http://127.0.0.1:8000";
 const _loginKeyEndpoint = "/auth/login/";
 const _registerKeyEndpoint = "/auth/registration/";

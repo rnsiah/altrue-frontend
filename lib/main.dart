@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:flutter/material.dart';
@@ -35,6 +36,7 @@ import 'package:lovelovelove/Presentation%20Layer/Routers/app_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/home_screen.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:stomp_dart_client/stomp_dart_client.dart';
 
 import 'Data Layer/Blocs/order_status_bloc/bloc/order_status_bloc.dart';
 import 'Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_bloc.dart';
@@ -108,6 +110,10 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  List<dynamic> _actions = [];
+
+  StompClient? _stompClient;
+
   final OrderRepository orders = OrderRepository();
 
   final ShirtGroupRepository shirtgroups = ShirtGroupRepository();
@@ -132,10 +138,34 @@ class _MyAppState extends State<MyApp> {
     print('path:$documentsDirectory');
   }
 
+
+  void connectToWebSocket() async {
+        _stompClient = StompClient(
+            config: StompConfig(
+                url: 'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/socket-server/',
+                onConnect: (frame) {
+                    print('Connected to WebSocket');
+                    _stompClient?.subscribe(destination: 'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/socket-server/', callback: (message) {
+                        final data = jsonDecode(message.body!);
+                        print('Received actions: $data');
+                        setState(() {
+                            _actions = data['actions'];
+                            
+                        });
+                    });
+                },
+            ),
+        );
+         _stompClient?.activate();
+    }
+
   @override
   void initState() {
+    connectToWebSocket();
     super.initState();
   }
+
+  
 
   Future<void> initAppLinks() async {
     AppLinks appLinks = AppLinks();

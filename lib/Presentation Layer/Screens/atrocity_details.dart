@@ -53,6 +53,8 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
   }
 
 
+  
+
   Future<bool> _shareAtrocity()async{
     final imageUrl = widget.atrocity.imageUrl!;
     final response = await http.get(Uri.parse(imageUrl));
@@ -80,6 +82,7 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
 
   @override
   Widget build(BuildContext context) {
+    ProfileBloc profileBloc = context.read<ProfileBloc>();
     return Scaffold(
       persistentFooterButtons: [
         Expanded(
@@ -246,7 +249,12 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
                 left: 20.0,
                 child: Column(children: [
                   IconButton(
-                    
+                    onPressed: ()async{
+                      final  success = await _shareAtrocity();
+                      if(success){
+                        profileBloc.add(ShareAtrocity(atrocity: widget.atrocity));
+                      }
+                    },
                     icon: const Icon(Icons.share),
                     iconSize: 40.0,
                     color: Colors.amber,

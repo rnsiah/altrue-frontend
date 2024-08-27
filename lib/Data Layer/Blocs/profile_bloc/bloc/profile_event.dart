@@ -151,6 +151,31 @@ class GetOrderStatus extends ProfileEvent {
   const GetOrderStatus({required this.stripeId});
 }
 
+
+class ShareQuiz extends ProfileEvent{
+  final Quiz quiz;
+  const ShareQuiz({required this.quiz});
+}
+
+class ShareAtrocity extends ProfileEvent{
+  final Atrocity atrocity;
+
+  const ShareAtrocity({required this.atrocity});
+}
+
+class ShareNonProfit extends ProfileEvent{
+  final NonProfit nonprofit;
+  const ShareNonProfit({required this.nonprofit});
+
+}
+
+class ShareNonProfitProject extends ProfileEvent{
+  final NonProfitProject project;
+  const ShareNonProfitProject({required this.project});
+
+
+}
+
 class HybridPaymentPoints extends ProfileEvent {
   final int? pointAmount;
   final List<OrderItem>? shirts;

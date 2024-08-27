@@ -6,6 +6,7 @@ import 'package:lovelovelove/Data%20Layer/Models/credit_card_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/order_item_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/quiz_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/quiz_result_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
@@ -48,6 +49,7 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     on<ShareAtrocity>(_shareAtrocity);
     on<ShareNonProfit>(_shareNonProfit);
     on<ShareNonProfitProject>(_shareNonProfitProject);
+    on<ShareQuiz>(_shareQuiz);
     // on<InitPaymentSheetForPurchase>(_initPaymentSheetForPurchase);
     on<ConfirmOrder>(_confirmOrder);
     on<CreatePaymentMethod>(_createPaymentMethod);
@@ -516,6 +518,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
   }
 
   void _shareNonProfitProject(ShareNonProfitProject event, Emitter<ProfileState> emit)async{
+
+  }
+
+  void _shareQuiz(ShareQuiz event, Emitter<ProfileState>emit)async{
 
   }
 

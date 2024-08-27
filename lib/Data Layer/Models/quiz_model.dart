@@ -17,8 +17,9 @@ class Quiz{
   List <QuizQuestion> questions;
   AltrueAction? action;
   Category? category;
+  String? description;
 
-  Quiz({required this.action, required this.atrocity, required this.title,required this.id, required this.questions, required this.category });
+  Quiz({required this.action, required this.atrocity, required this.title,required this.id, required this.questions, required this.category, this.description});
 
   factory Quiz.fromJson(Map<String, dynamic>data)=>_$QuizFromJson(data);
 

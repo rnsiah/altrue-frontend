@@ -1,8 +1,15 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:share_plus/share_plus.dart';
 
 import '../../Data Layer/Models/quiz_model.dart';
 import '../../Data Layer/Models/user_model.dart';
 import '../Routers/functionality_router.dart';
+import 'package:http/http.dart' as http;
 
 class QuizListScreen extends StatefulWidget {
   final List<Quiz> quizes;
@@ -15,8 +22,35 @@ class QuizListScreen extends StatefulWidget {
 }
 
 class _QuizListScreenState extends State<QuizListScreen> {
+
+  Future<bool> _shareQuiz(Quiz quiz, String imageUrl)async{
+    final url = imageUrl;
+    final response = await http.get(Uri.parse(url));
+    final bytes = response.bodyBytes;
+
+    final tempFile = File('${(await getTemporaryDirectory()).path}/temp_image.jpg');
+    await tempFile.writeAsBytes(bytes);
+
+    final result = await Share.shareXFiles(
+    [XFile(tempFile.path)],
+    text: quiz.description,
+    );
+    if (result.status == ShareResultStatus.unavailable) {
+    print('Sharing is unavailable on this platform.');
+    return false;
+  } else if (result.status == ShareResultStatus.dismissed) {
+    print('Share was dismissed.');
+    return false;
+  } else {
+    print('Share was successful.');
+    return true;
+  }
+  
+  }
+
   @override
   Widget build(BuildContext context) {
+    ProfileBloc profileBloc = context.read<ProfileBloc>();
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -99,7 +133,12 @@ class _QuizListScreenState extends State<QuizListScreen> {
                                     "SHARE",
                                     style: TextStyle(color: Colors.amber),
                                   ),
-                                  onPressed: () {},
+                                  onPressed: () async {
+                                    final success = await _shareQuiz(quiz, 'imageUrl');
+                                    if(success){
+                                      profileBloc.add(ShareQuiz(quiz: quiz));
+                                    }
+                                  },
                                 ),
                                 // Add a text button labeled "EXPLORE" with transparent foreground color and an accent color for the text
                                 TextButton(

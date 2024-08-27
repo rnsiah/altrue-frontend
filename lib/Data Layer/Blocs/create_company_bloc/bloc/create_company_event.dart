@@ -20,22 +20,23 @@ class CompanyDescriptionChange extends CreateCompanyEvent {
   final String companyDescription;
 
   const CompanyDescriptionChange({required this.companyDescription});
-
+  @override
   List<Object> get props => [companyDescription];
 }
 
 class CompanyWebsiteChange extends CreateCompanyEvent {
   final String companyWebsite;
 
-  CompanyWebsiteChange({required this.companyWebsite});
+  const CompanyWebsiteChange({required this.companyWebsite});
 
+  @override
   List<Object> get props => [companyWebsite];
 }
 
 class CompanyAddressChange extends CreateCompanyEvent {
   final String companyAddress;
 
-  CompanyAddressChange({required this.companyAddress});
+  const CompanyAddressChange({required this.companyAddress});
   @override
   List<Object> get props => [companyAddress];
 }
@@ -43,7 +44,7 @@ class CompanyAddressChange extends CreateCompanyEvent {
 class CompanyInstagramChange extends CreateCompanyEvent {
   final String comInsta;
 
-  CompanyInstagramChange({required this.comInsta});
+  const CompanyInstagramChange({required this.comInsta});
 
   @override
   List<Object> get props => [comInsta];
@@ -52,7 +53,7 @@ class CompanyInstagramChange extends CreateCompanyEvent {
 class CompanyFacebookChange extends CreateCompanyEvent {
   final String comFacebook;
 
-  CompanyFacebookChange({required this.comFacebook});
+  const CompanyFacebookChange({required this.comFacebook});
 
   @override
   List<Object> get props => [comFacebook];
@@ -61,7 +62,7 @@ class CompanyFacebookChange extends CreateCompanyEvent {
 class CompanyYearStartedChanged extends CreateCompanyEvent {
   final String companyYear;
 
-  CompanyYearStartedChanged({required this.companyYear});
+  const CompanyYearStartedChanged({required this.companyYear});
 
   @override
   List<Object> get props => [companyYear];
@@ -69,7 +70,7 @@ class CompanyYearStartedChanged extends CreateCompanyEvent {
 
 class CompanyMissionChanged extends CreateCompanyEvent {
   final String mission;
-  CompanyMissionChanged({required this.mission});
+  const CompanyMissionChanged({required this.mission});
 
   @override
   List<Object> get props => [mission];
@@ -78,7 +79,7 @@ class CompanyMissionChanged extends CreateCompanyEvent {
 class CompanyLogoChanged extends CreateCompanyEvent {
   final dynamic logo;
 
-  CompanyLogoChanged({required this.logo});
+  const CompanyLogoChanged({required this.logo});
 
   @override
   List<Object> get props => [logo];
@@ -87,7 +88,7 @@ class CompanyLogoChanged extends CreateCompanyEvent {
 class CompanyMainImageChange extends CreateCompanyEvent {
   final dynamic compMainImage;
 
-  CompanyMainImageChange({required this.compMainImage});
+  const CompanyMainImageChange({required this.compMainImage});
 
   @override
   List<Object> get props => [compMainImage];
@@ -97,7 +98,7 @@ class CompanyAttemptCreate extends CreateCompanyEvent {
   final Profile profile;
   final CompanyCompletion completedCompany;
 
-  CompanyAttemptCreate({required this.completedCompany, required this.profile});
+  const CompanyAttemptCreate({required this.completedCompany, required this.profile});
 
   @override
   List<Object> get props => [profile, completedCompany];
@@ -106,7 +107,7 @@ class CompanyAttemptCreate extends CreateCompanyEvent {
 class CompanyFailedRegistration extends CreateCompanyEvent {
   final String errorMessage;
 
-  CompanyFailedRegistration({required this.errorMessage});
+  const CompanyFailedRegistration({required this.errorMessage});
 
   @override
   List<Object> get props => [errorMessage];
