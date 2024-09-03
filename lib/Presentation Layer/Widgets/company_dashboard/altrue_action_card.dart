@@ -48,7 +48,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                           textAlign: TextAlign.center,
                           style: const TextStyle(
                               color: Colors.amber,
-                              fontSize: 14,
+                              fontSize: 10,
                               fontWeight: FontWeight.bold),
                         ),
                         Text(
@@ -82,7 +82,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
         width: 300,
         child: Padding(
           padding:
-              const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 18),
+              const EdgeInsets.only(left: 24, right: 24, top: 16, bottom: 10),
           child: Container(
             decoration: BoxDecoration(
               color: Colors.black.withOpacity(.9),
@@ -101,7 +101,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
             child: Column(
               children: <Widget>[
                 Padding(
-                  padding: const EdgeInsets.only(top: 6, left: 16, right: 18),
+                  padding: const EdgeInsets.only(top: 3, left: 16, right: 18),
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -115,7 +115,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                               textAlign: TextAlign.center,
                               style: TextStyle(
                                   fontWeight: FontWeight.w500,
-                                  fontSize: 9,
+                                  fontSize: 11,
                                   letterSpacing: -0.1,
                                   color: Colors.white),
                             ),
@@ -127,7 +127,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                         textAlign: TextAlign.left,
                         style: const TextStyle(
                           fontWeight: FontWeight.w600,
-                          fontSize: 14,
+                          fontSize: 10,
                           color: Colors.amber,
                         ),
                       )
@@ -147,7 +147,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                 // ),
                 Padding(
                   padding: const EdgeInsets.only(
-                      left: 14, right: 6, top: 0, bottom: 0),
+                      left: 14, right: 6, top: 8, bottom: 0),
                   child: Row(
                     children: <Widget>[
                       Expanded(
@@ -170,7 +170,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                               textAlign: TextAlign.justify,
                               style: const TextStyle(
                                 fontWeight: FontWeight.bold,
-                                fontSize: 14,
+                                fontSize: 10,
                                 color: Colors.amber,
                               ),
                             ),
@@ -188,7 +188,7 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                         child: Column(
                           children: [
                             const Padding(
-                              padding: EdgeInsets.only(bottom: 4.0),
+                              padding: EdgeInsets.only(bottom: 1.0),
                               child: Text(
                                 'Required Level',
                                 style:
@@ -196,12 +196,12 @@ class _AltrueActionCardState extends State<AltrueActionCard> {
                               ),
                             ),
                             Container(
-                              height: 30,
-                              width: 30,
+                              height: 25,
+                              width: 25,
                               decoration: BoxDecoration(
                                   shape: BoxShape.circle,
                                   border: Border.all(
-                                      color: Colors.white, width: 1.5)),
+                                      color: Colors.white, width: 1.0)),
                               child: Column(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 mainAxisSize: MainAxisSize.min,

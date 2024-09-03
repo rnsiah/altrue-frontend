@@ -77,7 +77,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
               const SizedBox(height: 8),
               AddressForm(),
               BlocBuilder<ProfileBloc, ProfileState>(builder: (context,state){
-                return ProfilePaymentCard(profile:state.profile!);
+                return ProfilePaymentCard(profile:state.profile!, heightFactor: .2,);
               }),
               BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {

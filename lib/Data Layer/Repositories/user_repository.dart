@@ -12,6 +12,8 @@ import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/authentication_models/userLogin_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/credit_card_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/feed_entry_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/leaderboard_entry_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/order_item_model.dart';
@@ -27,6 +29,7 @@ import '../Models/user_donation_model.dart';
 class UserRepository {
   final userDao = UserDao();
   final _apiProvider = ApiProvider();
+  final _nonAuthProvider = NonAuthenticatedApiProvider();
 
   final String host =
       'https://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/';
@@ -452,6 +455,20 @@ class UserRepository {
       }
     }
   }
+  Future<List<LeaderBoardEntry>> fetchLeaderBoard()async{
+  
+      final data = await _nonAuthProvider.get('api/leaderboard/points/');
+      return (data as List).map((item) => LeaderBoardEntry.fromJson(item)).toList();
+
+    
+  }
+
+  Future<List<FeedItem>> fetchFeed()async{
+    final data = await _nonAuthProvider.get('api/feedView');
+    return (data as List).map((item) => FeedItem.fromJson(item)).toList();
+  }
+
+
 
   Future<String> upvoteAtrocity({required Atrocity atrocity}) async {
     User? user = await userDao.getCurrentUser(0);
@@ -555,7 +572,7 @@ class UserRepository {
     User? user = await userDao.getCurrentUser(0);
     String key = user!.key!;
     int altId = user.altid!;
-    String url = 'api/submitquizscores/';
+    String url = 'api/quiz-results/';
     dynamic response = await _apiProvider.postAuthenticatedData(
         url: url, key: key, altId: altId, data: quizResult);
     return response;

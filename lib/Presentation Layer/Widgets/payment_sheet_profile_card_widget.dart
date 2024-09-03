@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 import '../../Data Layer/Models/user_model.dart';
 
 class ProfilePaymentCard extends StatelessWidget {
-  const ProfilePaymentCard({required this.profile, Key? key}) : super(key: key);
+  const ProfilePaymentCard({required this.profile, Key? key, required this.heightFactor}) : super(key: key);
 
   final Profile profile;
+  final double heightFactor;
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +14,7 @@ class ProfilePaymentCard extends StatelessWidget {
       padding: const EdgeInsets.all(2.0),
       child: Container(
         height: MediaQuery.of(context).size.height *
-            0.2, // Target 1/4 screen height
+            heightFactor, // Target 1/4 screen height
         decoration: BoxDecoration(
           color: Colors.black,
           borderRadius: BorderRadius.circular(10.0),
@@ -22,7 +23,7 @@ class ProfilePaymentCard extends StatelessWidget {
               color: Colors.grey,
               blurRadius: 1.0,
               spreadRadius: 0.0,
-              offset: Offset(1.0, 1.0),
+              offset: Offset(.5, 1.0),
             ),
           ],
         ),

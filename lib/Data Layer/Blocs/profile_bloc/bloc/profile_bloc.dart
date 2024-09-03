@@ -261,9 +261,10 @@ class ProfileBloc extends Bloc<ProfileEvent, ProfileState> {
     emit(state.copyWith(status:ProfileStatus.updating));
     try{
      String? score = await userRepository.submitQuizScore(event.quizResult);
+     print(score);
      emit(state.copyWith(status: ProfileStatus.successfull));
     }catch(e){
-      
+      print(e.toString());
     }
   }
 

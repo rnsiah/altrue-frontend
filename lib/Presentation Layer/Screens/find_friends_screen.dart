@@ -27,18 +27,22 @@ class _FindFriendsState extends State<FindFriends> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('Find Friends'),
+        title: const Text('Find Friends', style: TextStyle(color: Colors.amber),),
       ),
       body: SizedBox(
         height: double.infinity,
         child: SingleChildScrollView(
           child: Column(
             children: [
-              const ListTile(
-                title: Text('Invite Friends',
+               ListTile(
+                
+                title: const Text('Invite Friends',
                     style: TextStyle(fontWeight: FontWeight.bold)),
+                onTap: (){
+                  print('');
+                },
               ),
-              const ListTile(
+               ListTile(
                 title: Text('Contacts',
                     style: TextStyle(fontWeight: FontWeight.bold)),
               ),
@@ -113,7 +117,7 @@ class FriendTile extends StatelessWidget {
         onBackgroundImageError: (exception, stackTrace) => const NetworkImage(
             'https://i.ibb.co/yPCqbSG/altruecompany-placeholder.png'),
       ),
-      title: Text(prof.username),
+      title: Text(prof.username!),
       trailing: list.contains(prof.id)
           ? MaterialButton(
               color: Colors.black,

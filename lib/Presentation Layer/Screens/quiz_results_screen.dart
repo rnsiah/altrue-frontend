@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:flutter/widgets.dart';
 
 import '../../Data Layer/Models/quiz_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -18,39 +20,101 @@ class QuizResultsScreen extends StatefulWidget {
 class _QuizResultsScreenState extends State<QuizResultsScreen> {
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
-      appBar: AppBar(title: const Text('Quiz Results'),
-      backgroundColor: Colors.black,),
-      body: Container(
-        decoration: const BoxDecoration(image: DecorationImage(
-          fit: BoxFit.cover,
-          image: AssetImage('images/passquiz.jpeg'))),
-        child: Center(
-          child:  Container(
-            height: MediaQuery.of(context).size.height*.5,
-            width:  MediaQuery.of(context).size.width*.8,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(20),
-              color: Colors.black.withOpacity(.9)),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(height: 100,width: 400,decoration: const BoxDecoration(image: DecorationImage(image: AssetImage('images/Altrue Logo White.png'))),),
-                Text('Your Score: ${widget.finalScore} % ',style: const TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold),),
-                widget.finalScore>70?Padding(
-                  padding: const EdgeInsets.all(16.0),
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                    children: [
-                      const Text('Congratualations: You passed the quiz and are being rewarded for your heard work',textAlign: TextAlign.center, style: TextStyle(color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold)),
-                      Text('As a result, you have been awarded  ${widget.quiz.action!.pointsAwarded} Altrue points to help you level up', textAlign: TextAlign.center, style: const TextStyle(color: Colors.amber),)
-                    ],
-                  ),
-                ):const Text('Not This time.',style: TextStyle(color: Colors.white, fontSize: 25, fontWeight: FontWeight.bold)),
-                
-              ],
+     final bool passed = widget.finalScore >= 70;
+    final String resultText = passed ? 'Congratulations!' : 'Keep Trying!';
+    final String description = passed
+        ? 'You passed the quiz and earned ${widget.quiz.action!.pointsAwarded} Altrue points.'
+        : 'Don’t worry, you can always try again to improve your score.';
+
+    SystemChrome.setSystemUIOverlayStyle(
+      const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    );
+
+    return Scaffold(
+      backgroundColor: Colors.black,
+      appBar: AppBar(
+        title: const Text('Quiz Results'),
+        backgroundColor: Colors.black,
+        elevation: 0,
+      ),
+      body: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 24.0, vertical: 8.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            // Logo
+            Container(
+              height: 80,
+              width: 80,
+              decoration: const BoxDecoration(
+                image: DecorationImage(
+                  image: AssetImage('images/Altrue Logo White.png'),
+                ),
+              ),
             ),
-          )),
+             SizedBox(height: MediaQuery.of(context).size.height*.05),
+            // Result Text
+            Text(
+              resultText,
+              style: TextStyle(
+                fontSize: 28,
+                fontWeight: FontWeight.bold,
+                color: passed ? Colors.amber : Colors.redAccent,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            // Description Text
+            Text(
+              description,
+              style: const TextStyle(
+                fontSize: 18,
+                color: Colors.white,
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 32),
+            // Score Display
+            Container(
+              padding: const EdgeInsets.symmetric(vertical: 12, horizontal: 24),
+              decoration: BoxDecoration(
+                color: Colors.grey[900],
+                borderRadius: BorderRadius.circular(20),
+                border: Border.all(
+                  color: passed ? Colors.amber : Colors.redAccent,
+                  width: 2,
+                ),
+              ),
+              child: Text(
+                'Your Score: ${widget.finalScore.toStringAsFixed(1)}%',
+                style: const TextStyle(
+                  fontSize: 22,
+                  fontWeight: FontWeight.w600,
+                  color: Colors.white,
+                ),
+              ),
+            ),
+            const SizedBox(height: 32),
+            // Action Button
+            ElevatedButton(
+              onPressed: () {
+                Navigator.pop(context); // Navigate back to home or another appropriate screen
+              },
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(vertical: 14, horizontal: 32),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(30),
+                ),
+                backgroundColor: passed ? Colors.amber : Colors.redAccent,
+              ),
+              child: Text(
+                passed ? 'Continue' : 'Try Again',
+                style: const TextStyle(fontSize: 18, color: Colors.black),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

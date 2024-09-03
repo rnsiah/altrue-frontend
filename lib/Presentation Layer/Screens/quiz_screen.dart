@@ -30,6 +30,19 @@ class _QuizPageState extends State<QuizPage> {
     question = widget.quiz.questions.first;
   }
 
+
+  void resetQuiz() {
+  setState(() {
+    numOfCorrect = 0;
+    for (var question in widget.quiz.questions) {
+      question.isLocked = false;
+      question.selectedOption = null;
+    }
+    question = widget.quiz.questions.first;
+    controller.jumpToPage(0); // Jump to the first question
+  });
+}
+
   @override
   void dispose() {
     controller.dispose();
@@ -47,17 +60,23 @@ class _QuizPageState extends State<QuizPage> {
           onChangedPage: (index) => nextQuestion(index: index),
           onClickedOption: selectOption,
           numOfCorrect: numOfCorrect,
+          onQuizComplete: resetQuiz,
         ),
       );
 
   AppBar buildAppBar(context) =>AppBar(
-    centerTitle: false,
-    title: Text(widget.quiz.title, style: TextStyle(color: Colors.white),),
+    centerTitle: true,
+    title: Column(
+      children: [
+        Text(widget.quiz.title, style: TextStyle(color: Colors.white),),
+        Text(widget.quiz.action!.pointsAwarded!.toString())
+      ],
+    ),
     actions: const [
       Icon(Icons.filter),
       SizedBox(width: 16,)
       ],
-      flexibleSpace: Container(decoration: const BoxDecoration(color: Colors.black),
+      flexibleSpace: Container(decoration: const BoxDecoration(color: Colors.amber),
       ),bottom: PreferredSize(preferredSize: const Size.fromHeight(80),
       child: Container(padding: const EdgeInsets.symmetric(vertical: 16),
       child: QuestionsNumberWidget(

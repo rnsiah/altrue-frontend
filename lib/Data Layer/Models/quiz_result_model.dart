@@ -9,6 +9,7 @@ class QuizResult{
   @JsonKey(name: 'quiz')
   final int quizId;
   final double score;
+  @JsonKey(name:'num_correct')
   final int numOfCorrect;
    String? completionTime;
 

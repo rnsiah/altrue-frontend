@@ -163,7 +163,7 @@ class CompanyDonationCard extends StatelessWidget {
                           //donation_box
                           Text(matchDonation!.amount,
                               style: const TextStyle(color: Colors.amber)),
-                          Text(matchDonation!.user.username,
+                          Text(matchDonation!.user.username!,
                               style: const TextStyle(color: Colors.white)),
                           Text(
                               matchDonation!.atrocity == null

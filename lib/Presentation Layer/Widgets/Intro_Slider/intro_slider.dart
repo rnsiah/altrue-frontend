@@ -27,7 +27,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
       backgroundImageFit: BoxFit.cover,
       title: 'Ignite Your Impact',
       description:
-          'Join a community of changemakers anad make a difference in the world. Our app empowers you to amplify your philanthropic efforts and create positive change.',
+          'Ignite Your Impact. Join a global community of changemakers. Amplify your efforts and create positive change.',
       styleDescription: TextStyle(
           color: Colors.amber, fontSize: 23, fontWeight: FontWeight.bold),
       maxLineTitle: 2,
@@ -41,7 +41,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
     slides.add(const ContentConfig(
         pathImage: 'images/tmock-min.png',
         description:
-            'Express your commitment to change by donning our impactful shirts. Each shirt bears a unique QR code, enabling others to easily contribute and support the cause that matters to you.',
+            'Wear Your Cause. Empower others to give with every scan. Make a statement.',
         styleDescription: TextStyle(
             color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
         title: 'Make a Statement',
@@ -59,7 +59,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
         foregroundImageFit: BoxFit.cover,
         title: 'Connect, Donate, Inspire',
         description:
-            'Discover meaningful causes, connect with nonprofits, and donate to projects that align with your passions. Together, we can inspire a brighter future for all.',
+            'Connect & Donate. Support causes you care about. Inspire a brighter future',
         styleDescription: TextStyle(
             color: Colors.amber, fontSize: 23, fontWeight: FontWeight.bold),
         maxLineTitle: 2,
@@ -74,10 +74,10 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
         backgroundImage: 'images/hyatt-volunteers-min.png',
         backgroundImageFit: BoxFit.cover,
         description:
-            'Discover how leading companies are driving positive change. Explore their philanthropic partnerships, support their causes, and unlock exclusive benefits. Join forces with impactful corporations to make an even greater impact together.',
+            'Partner for Good. Join forces with companies making a difference.',
         styleDescription: TextStyle(
             color: Colors.amber, fontSize: 23, fontWeight: FontWeight.bold),
-        title: 'Companies Making a Difference',
+        title: 'Partner For Good',
         maxLineTitle: 2,
         styleTitle: TextStyle(
             height: .8,
@@ -94,7 +94,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
               fontSize: 70,
               fontWeight: FontWeight.bold),
           description:
-              'Sign up now and embark on your philanthropic journey. Wear your cause proudly, create lasting change, and empower your impact with every scan. Start making a difference today!',
+              'Start Today. Sign up, earn rewards, and make an impact.',
           styleDescription: TextStyle(
               color: Colors.white, fontSize: 23, fontWeight: FontWeight.bold),
           backgroundImage: 'images/tmock-min.png',
@@ -159,6 +159,12 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
   List<Widget> renderTabList() {
     List<Widget> tabs = [];
     for (int i = 0; i < slides.length; i++) {
+      Alignment alignment = Alignment.center;
+       if (i == 0) {
+      alignment = Alignment.centerRight;
+    }
+
+
       ContentConfig current = slides[i];
       tabs.add(SizedBox(
         width: double.infinity,
@@ -171,7 +177,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
                   image: AssetImage(
                       current.backgroundImage ?? 'images/tmock-min.png'),
                   fit: BoxFit.cover,
-                  alignment: Alignment.topCenter)),
+                  alignment: alignment)),
           child: ListView(
             children: [
               // GestureDetector(

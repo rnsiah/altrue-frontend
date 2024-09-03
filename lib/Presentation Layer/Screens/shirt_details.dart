@@ -254,7 +254,7 @@ class _ShirtDetailsState extends State<ShirtDetails>
                                 image: NetworkImage(widget.shirt.shirtImage!))),
                       ),
                 Container(
-                  transform: Matrix4.translationValues(-25, -100, 0),
+                  transform: Matrix4.translationValues(-35, -100, 0),
                   child: Column(children: [
                     Text('\$${widget.shirt.price}',
                         style: const TextStyle(
@@ -329,7 +329,7 @@ class _ShirtDetailsState extends State<ShirtDetails>
                           ),
                           Padding(
                               padding:
-                                  const EdgeInsets.only(right: 18.0, left: 18),
+                                  const EdgeInsets.only(right: 9.0, left: 9),
                               child: BlocConsumer<ProfileBloc, ProfileState>(
                                 listener: (context, state) {
                                   if (state.status == ProfileStatus.rated) {
@@ -343,10 +343,10 @@ class _ShirtDetailsState extends State<ShirtDetails>
                                       unratedColor: Colors.white,
                                       initialRating:
                                           widget.shirt.averageRating!,
-                                      itemSize: 25,
+                                      itemSize: 18,
                                       direction: Axis.horizontal,
                                       allowHalfRating: false,
-                                      itemCount: 5,
+                                      itemCount: 4,
                                       itemBuilder: (context, _) => const Icon(
                                             Icons.star,
                                             color: Colors.amber,

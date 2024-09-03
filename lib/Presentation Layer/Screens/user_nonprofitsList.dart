@@ -5,6 +5,7 @@ import '../Widgets/NonProfit_Details/nonprofit_learn_more/nonprofit_learn_more_t
 
 class UserNonProfits extends StatelessWidget {
   final Profile profile;
+
   const UserNonProfits({super.key, required this.profile});
 
   @override
@@ -16,163 +17,210 @@ class UserNonProfits extends StatelessWidget {
         elevation: 0,
         title: const Image(
           image: AssetImage('images/Altrue Logo White.png'),
+          height: 40, // Adjusted logo size
         ),
-      ),
-      body: ListView(
-        scrollDirection: Axis.vertical,
-        children: [
-          SizedBox(
-            height: 200,
+        centerTitle: true, // Centered the title for a balanced look
+        actions: [
+          Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Row(
-              mainAxisAlignment: MainAxisAlignment.end,
               children: [
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    profile.username!,
-                    style: const TextStyle(
-                        color: Colors.amber,
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                const SizedBox(
-                  width: 9,
-                ),
                 Text(
-                  'balance:${profile.balance}',
+                  profile.username!,
                   style: const TextStyle(
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold,
+                      color: Colors.amber,
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  'Balance: \$${profile.balance}',
+                  style: const TextStyle(
+                      fontSize: 16,
+                      fontWeight: FontWeight.w600,
                       color: Colors.white),
-                )
+                ),
               ],
             ),
           ),
-          SizedBox(
-            height: 800,
-            width: double.infinity,
-            child: ListView.builder(
-                itemExtent: 100,
+        ],
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            const Text(
+              'Your Nonprofits',
+              style: TextStyle(
+                color: Colors.amber,
+                fontSize: 24,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
+              child: ListView.builder(
                 itemCount: profile.nonProfitList!.length,
                 itemBuilder: (context, int index) {
+                  final nonProfit = profile.nonProfitList![index];
+
                   return GestureDetector(
-                      onLongPress: () {
-                        showModalBottomSheet(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return SizedBox(
-                                height: 350,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(32.0),
-                                  child: Column(
-                                    children: [
-                                      const Text('Make A Donation To: '),
-                                      const SizedBox(
-                                        height: 8,
-                                      ),
-                                      Text(
-                                        profile.nonProfitList![index].name,
-                                        style: const TextStyle(
-                                          fontWeight: FontWeight.bold,
-                                          fontSize: 18,
-                                        ),
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      const Text('Enter Donation Amount'),
-                                      const SizedBox(height: 10),
-                                      const SizedBox(
-                                        height: 40,
-                                        width: 70,
-                                        child: TextField(),
-                                      ),
-                                      const SizedBox(
-                                        height: 30,
-                                      ),
-                                      const Text('Raised By Altrue',
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 12)),
-                                      const SizedBox(
-                                        height: 14,
-                                      ),
-                                      Text(
-                                        profile.nonProfitList![index].balance
-                                            .toString(),
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16),
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              );
-                            });
-                      },
-                      child: Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
-                            side: const BorderSide(color: Colors.white)),
-                        color: Colors.grey[900],
-                        child: ListTile(
-                          leading: Image(
-                            image: NetworkImage(
-                                profile.nonProfitList![index].logo),
+                    onLongPress: () {
+                      showModalBottomSheet(
+                        context: context,
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(20),
                           ),
-                          title: Column(
+                        ),
+                        builder: (BuildContext context) {
+                          return Padding(
+                            padding: const EdgeInsets.all(24.0),
+                            child: Column(
+                              mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8.0, bottom: 5),
-                                  child: Text(
-                                    'Altrue Organization',
-                                    style: TextStyle(
-                                        fontSize: 11,
-                                        fontWeight: FontWeight.bold,
-                                        color: Colors.white),
-                                  ),
-                                ),
-                                Text(
-                                  profile.nonProfitList![index].name,
-                                  style: const TextStyle(
-                                    color: Colors.amber,
-                                    fontWeight: FontWeight.bold,
+                                const Text(
+                                  'Make A Donation To:',
+                                  style: TextStyle(
                                     fontSize: 18,
+                                    fontWeight: FontWeight.bold,
                                   ),
                                 ),
-                              ]),
-                          trailing: Column(children: [
+                                const SizedBox(height: 8),
+                                Text(
+                                  nonProfit.name,
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.amber,
+                                  ),
+                                ),
+                                const SizedBox(height: 24),
+                                const Text(
+                                  'Enter Donation Amount',
+                                  style: TextStyle(fontSize: 16),
+                                ),
+                                const SizedBox(height: 10),
+                                TextField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: const EdgeInsets.symmetric(
+                                        vertical: 8, horizontal: 16),
+                                    border: OutlineInputBorder(
+                                      borderRadius: BorderRadius.circular(12),
+                                    ),
+                                    filled: true,
+                                    fillColor: Colors.grey[200],
+                                  ),
+                                ),
+                                const SizedBox(height: 30),
+                                const Text(
+                                  'Raised By Altrue',
+                                  style: TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                    color: Colors.white70,
+                                  ),
+                                ),
+                                const SizedBox(height: 8),
+                                Text(
+                                  '\$${nonProfit.balance.toString()}',
+                                  style: const TextStyle(
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 20,
+                                    color: Colors.amber,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          );
+                        },
+                      );
+                    },
+                    child: Card(
+                      color: Colors.grey[850],
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(16),
+                      ),
+                      child: ListTile(
+                        contentPadding: const EdgeInsets.all(16.0),
+                        leading: ClipRRect(
+                          borderRadius: BorderRadius.circular(8.0),
+                          child: Image.network(
+                            nonProfit.logo,
+                            height: 50,
+                            width: 50,
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                        title: Text(
+                          nonProfit.name,
+                          style: const TextStyle(
+                            color: Colors.amber,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
+                          ),
+                        ),
+                        subtitle: Text(
+                          'Altrue Organization',
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.grey[400],
+                          ),
+                        ),
+                        trailing: Column(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          crossAxisAlignment: CrossAxisAlignment.end,
+                          children: [
                             const Text(
                               'Amount Donated',
                               style: TextStyle(
-                                  color: Colors.white,
-                                  fontSize: 8,
-                                  height: 1,
-                                  fontWeight: FontWeight.bold),
+                                color: Colors.white70,
+                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            profile.nonProfitList![index].balance != null
-                                ? Text(profile.nonProfitList![index].balance
-                                    .toString())
+                            nonProfit.balance != null
+                                ? Text(
+                                    '\$${nonProfit.balance.toString()}',
+                                    style: const TextStyle(
+                                      color: Colors.amber,
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 16,
+                                    ),
+                                  )
                                 : MaterialButton(
-                                    height: 25,
+                                    height: 30,
                                     color: Colors.amber,
                                     onPressed: () {
                                       showModalBottomSheet(
                                           context: context,
                                           builder: (context) => NpDonate(
-                                              nonProfit:
-                                                  profile.nonProfitList![index],
+                                              nonProfit: nonProfit,
                                               profile: profile));
                                     },
-                                    child: const Text('Donate'))
-                          ]),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                    child: const Text(
+                                      'Donate',
+                                      style: TextStyle(
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.bold),
+                                    ),
+                                  ),
+                          ],
                         ),
-                      ));
-                }),
-          )
-        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

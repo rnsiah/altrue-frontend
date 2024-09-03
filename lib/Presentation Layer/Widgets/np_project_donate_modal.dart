@@ -97,6 +97,7 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                 ),
                 const SizedBox(height: 3),
                 ProfilePaymentCard(
+                  heightFactor: .2,
                   profile: widget.profile,
                 ),
                 const Padding(

@@ -10,7 +10,7 @@ QuizResult _$QuizResultFromJson(Map<String, dynamic> json) => QuizResult(
       userId: (json['user'] as num).toInt(),
       quizId: (json['quiz'] as num).toInt(),
       score: (json['score'] as num).toDouble(),
-      numOfCorrect: (json['numOfCorrect'] as num).toInt(),
+      numOfCorrect: (json['num_correct'] as num).toInt(),
     )
       ..id = (json['id'] as num?)?.toInt()
       ..completionTime = json['completionTime'] as String?;
@@ -21,6 +21,6 @@ Map<String, dynamic> _$QuizResultToJson(QuizResult instance) =>
       'user': instance.userId,
       'quiz': instance.quizId,
       'score': instance.score,
-      'numOfCorrect': instance.numOfCorrect,
+      'num_correct': instance.numOfCorrect,
       'completionTime': instance.completionTime,
     };

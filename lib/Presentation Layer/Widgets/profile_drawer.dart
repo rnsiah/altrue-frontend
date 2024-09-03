@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/feed_bloc/bloc/feed_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/posts_bloc/bloc/posts_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_event_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/feed_entry_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/company_repository.dart';
@@ -20,7 +22,7 @@ class ProfileDrawer extends StatefulWidget {
 
   final NonProfitRespository nonProfitRespository = NonProfitRespository();
   final CompanyRepository companyRepository = CompanyRepository();
-  final PostRepository postRepository = PostRepository();
+  
 
   ProfileDrawer({
     Key? key,
@@ -32,6 +34,7 @@ class ProfileDrawer extends StatefulWidget {
 }
 
 final ImagePicker _picker = ImagePicker();
+// 
 
 Future<dynamic> _getImage() async {
   try {
@@ -50,6 +53,7 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
 
   @override
   Widget build(BuildContext context) {
+    FeedBloc feedbloc = context.read<FeedBloc>();
     return Theme(
         data: Theme.of(context).copyWith(
           canvasColor: Colors.black,
@@ -165,9 +169,9 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                           color: Colors.white),
                     ),
                     onTap: () async{
-                      List<Post> posts = await widget.postRepository.fetchNewPosts();
-                      Navigator.of(context)
-                        .pushNamed('/newPosts', arguments: NewPostsScreenArguments(postList: posts, profile: widget.profile));
+                      // feedbloc.add(FetchFeed());
+                      // Navigator.of(context)
+                      //   .pushNamed('/newPosts', arguments: NewPostsScreenArguments(postList: posts, profile: widget.profile));
                     },
                   ),
                 ),

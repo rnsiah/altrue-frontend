@@ -173,6 +173,7 @@ class _NpDonateState extends State<NpDonate> {
                 ),
                 ProfilePaymentCard(
                   profile: widget.profile,
+                  heightFactor: .2,
                 ),
                 SizedBox(
                   height: MediaQuery.of(context).size.height * .08,
@@ -548,7 +549,7 @@ class ProfileDot extends StatelessWidget {
           backgroundColor: Colors.black,
         ),
         Text(
-          profile.username,
+          profile.username!,
           style: const TextStyle(fontSize: 9),
         )
       ],

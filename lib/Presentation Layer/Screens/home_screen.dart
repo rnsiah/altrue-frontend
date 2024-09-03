@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -6,11 +8,13 @@ import 'package:lovelovelove/Data%20Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc
 import 'package:lovelovelove/Data%20Layer/Blocs/bloc/company_list_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/category_bloc/bloc/category_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/feed_bloc/bloc/feed_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/nonprofit_bloc/bloc/nonprofit_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/posts_bloc/bloc/posts_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/shirt_bloc/bloc/shirt_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Data%20Providers/notification_service.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
@@ -18,10 +22,15 @@ import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dar
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/atrocity_details.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/new_posts.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_bottom_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_icon.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/altrue_action_card.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet_profile_card_widget.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/weekly_featured_shirts.dart';
+import 'package:stomp_dart_client/stomp_dart_client.dart';
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/web_socket_channel.dart';
 
 import '../../Data Layer/Blocs/np_projects_bloc/bloc/np_projects_bloc.dart';
 import '../../Data Layer/Blocs/session_event_bloc.dart';
@@ -36,7 +45,7 @@ class HomePage extends StatefulWidget {
   final User user;
   final CartBloc cartBloc;
 
-  const HomePage({Key? key, required this.user, required this.cartBloc})
+  const HomePage({Key? key, required this.user, required this.cartBloc, })
       : super(key: key);
   @override
   State<HomePage> createState() => _HomePageState();
@@ -44,6 +53,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   late PageController _pageController;
+  
+  NotificationService notificationService = NotificationService();
+  // StompClient? _stompClient;
+  
+  // late WebSocketChannel _channel;
 
   final PostRepository postRepository = PostRepository();
   final NonProfitRespository nonProfitRespository = NonProfitRespository();
@@ -69,6 +83,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   //       });
   // }
 
+
+  // void connectToWebSocket() async {
+  //       _stompClient = StompClient(
+  //           config: StompConfig(
+  //               url: 'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/',
+  //               onConnect: (frame) {
+  //                   print('Connected to WebSocket');
+  //                   _stompClient?.subscribe(destination: 'queue/rewards', callback: (message) {
+  //                       final data = jsonDecode(message.body!);
+  //                       print('Received actions: $data');
+  //                       setState(() {
+                           
+  //                           print('it is finally working');
+                            
+  //                       });
+  //                   });
+  //               },
+  //           ),
+  //       );
+  //        _stompClient?.activate();
+  //   }
+  
+
   Future<List<Shirt>> getFeaturedShirts() async {
     List<Shirt> shir = [];
     List<Shirt> theshirts = await shirtRepository.featuredShirts();
@@ -81,16 +118,40 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   Future<void> updateCart(CartBloc cartBloc) async {
     cartBloc.add(CartBeingLoaded());
   }
+   void testNotification() {
+       NotificationService().showNotification('Test Title', 'Test Body');
+}
 
   @override
   void initState() {
+    // _channel = WebSocketChannel.connect(Uri.parse('ws://localhost:8000/ws/socket-server/'));
     widget.cartBloc.add(CartBeingLoaded());
+   
+    
     // updateProfileState(widget.profileBloc, widget.profile);
     _animationController = AnimationController(
         vsync: this, duration: const Duration(milliseconds: 300));
     updateCart(widget.cartBloc);
 
     _pageController = PageController(viewportFraction: 0.8, initialPage: 1);
+    testNotification();
+
+
+    
+    // channel.stream.listen(
+    //   (message) {
+    //     print('Received message: $message'); // Debug output
+    //     setState(() {});
+    //   },
+    //   onError: (error) {
+    //     print('WebSocket Error: $error'); // Debug output for errors
+    //   },
+    //   onDone: () {
+    //     print('WebSocket closed'); // Debug output for connection close
+    //   },
+    // );
+
+    // connectToWebSocket();
 
     super.initState();
   }
@@ -173,6 +234,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     );
   }
 
+ 
+
+
   @override
   Widget build(BuildContext context) {
     return BlocBuilder<ProfileBloc, ProfileState>(
@@ -228,202 +292,203 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           borderRadius: BorderRadius.all(Radius.circular(16))),
       drawer: SafeArea(
           child: Container(
-        child: Column(
-          mainAxisSize: MainAxisSize.max,
-          children: [
-            GestureDetector(
-              // onTap: () async {
-              //   try {
-              //     await _getImage().then((value) => context
-              //         .read<ProfileBloc>()
-              //         .add(ChangeProfilePicture(profilePicture: value)));
-              //   } catch (e) {
-              //     print(e.toString());
-              //   }
-              // },
-              child: Container(
-                width: 128.0,
-                height: 128.0,
-                margin: const EdgeInsets.only(
-                  top: 14.0,
-                  bottom: 12.0,
-                ),
-                clipBehavior: Clip.antiAlias,
-                decoration: const BoxDecoration(
-                  color: Colors.black26,
-                  shape: BoxShape.circle,
-                ),
-                child: Image.network(
-                  state.profile!.profilePicture!.url,
-                  fit: BoxFit.fill,
-                ),
-              ),
-            ),
-            Column(children: [
-              Align(
-                child: Text(
-                  state.profile!.username!,
-                  style: const TextStyle(
-                      fontSize: 20,
-                      color: Colors.white,
-                      fontWeight: FontWeight.bold),
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            children: [
+              GestureDetector(
+                // onTap: () async {
+                //   try {
+                //     await _getImage().then((value) => context
+                //         .read<ProfileBloc>()
+                //         .add(ChangeProfilePicture(profilePicture: value)));
+                //   } catch (e) {
+                //     print(e.toString());
+                //   }
+                // },
+                child: Container(
+                  width: 128.0,
+                  height: 128.0,
+                  margin: const EdgeInsets.only(
+                    top: 14.0,
+                    bottom: 12.0,
+                  ),
+                  clipBehavior: Clip.antiAlias,
+                  decoration: const BoxDecoration(
+                    color: Colors.black26,
+                    shape: BoxShape.circle,
+                  ),
+                  child: Image.network(
+                    state.profile!.profilePicture!.url,
+                    fit: BoxFit.fill,
+                  ),
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(bottom: 18.0),
-                child:
-                    Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                  const Text("Altrue Balance:",
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      )),
-                  Text('\$${state.profile!.balance}',
-                      style: const TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black,
-                      )),
-                ]),
-              ),
-            ]),
-            ListTile(
-              leading: const Icon(Icons.person, color: Colors.amberAccent),
-              title: const Text(
-                'My Profile',
-                style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-              onTap: () => Navigator.of(context)
-                  .pushNamed('/userProfile', arguments: state.profile),
-            ),
-            BlocProvider<PostsBloc>(
-              create: (context) => PostsBloc(),
-              child: ListTile(
+              Column(children: [
+                Align(
+                  child: Text(
+                    state.profile!.username!,
+                    style: const TextStyle(
+                        fontSize: 20,
+                        color: Colors.white,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(bottom: 18.0),
+                  child:
+                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    const Text("Altrue Balance:",
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                    Text('\$${state.profile!.balance}',
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                          color: Colors.black,
+                        )),
+                  ]),
+                ),
+              ]),
+              ListTile(
                 leading: const Icon(Icons.person, color: Colors.amberAccent),
                 title: const Text(
-                  'Altrue Updates',
+                  'My Profile',
                   style: TextStyle(
                       fontSize: 23,
                       fontWeight: FontWeight.w600,
                       color: Colors.white),
                 ),
+                onTap: () => Navigator.of(context)
+                    .pushNamed('/userProfile', arguments: state.profile),
+              ),
+              BlocProvider.value(
+                value: context.read<FeedBloc>(),
+                child: ListTile(
+                  leading: const Icon(Icons.person, color: Colors.amberAccent),
+                  title: const Text(
+                    'Altrue Updates',
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                  onTap: () async {
+                    context.read<FeedBloc>().add(FetchFeed());
+                    Navigator.of(context).pushNamed('/newPosts',arguments: state.profile
+                      );
+                  },
+                ),
+              ),
+              ListTile(
+                  onTap: () => Navigator.of(context)
+                      .pushNamed('/usernonprofits', arguments: state.profile!),
+                  leading: const Icon(Icons.favorite, color: Colors.white),
+                  title: const Text(
+                    'My Non Profits',
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  )),
+              ListTile(
+                onTap: () => Navigator.of(context)
+                    .pushNamed('/supporters', arguments: state.profile),
+                leading: const Icon(Icons.people, color: Colors.amber),
+                title: const Text(
+                  'My Supporters',
+                  style: TextStyle(
+                      fontSize: 23,
+                      fontWeight: FontWeight.w600,
+                      color: Colors.white),
+                ),
+              ),
+              ListTile(
+                  leading: const Icon(Icons.camera, color: Colors.white),
+                  title: const Text(
+                    'My Altrue Code',
+                    style: TextStyle(
+                        fontSize: 23,
+                        fontWeight: FontWeight.w600,
+                        color: Colors.white),
+                  ),
+                  onTap: () {
+                    Navigator.of(context)
+                        .pushNamed('/myQrCode', arguments: state.profile);
+                  }),
+              ListTile(
+                leading: const Icon(Icons.store, color: Colors.white),
+                title: state.profile!.hasCompany!
+                    ? const Text('My Company Details',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600))
+                    : const Text('Register A Company',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600)),
+                onTap: state.profile!.hasCompany!
+                    ? () async {
+                        ForProfitCompany company = await companyRepository
+                            .fetchCompanyById(state.profile!.comp!.id);
+                        Navigator.of(context).pushNamed('/CompanyHome',
+                            arguments: CompanyHomeArguments(
+                                company: company, profile: state.profile!));
+                      }
+                    : () {
+                        Navigator.of(context).pushNamed('/companyRegister',
+                            arguments: state.profile);
+                      },
+              ),
+              ListTile(
+                leading: const Icon(Icons.store, color: Colors.amber),
+                title: state.profile!.hasNonProfit!
+                    ? const Text('My NonProfit Details',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600))
+                    : const Text('Register A NonProfit',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontSize: 23,
+                            fontWeight: FontWeight.w600)),
                 onTap: () async {
-                  List<Post> posts = await postRepository.fetchNewPosts();
-                  Navigator.of(context).pushNamed('/newPosts',
-                      arguments: NewPostsScreenArguments(
-                          postList: posts, profile: state.profile!));
+                  if (state.profile!.hasNonProfit == true) {
+                    NonProfit nonprofit = await nonProfitRespository
+                        .fetchNonProfit(state.profile!.np!.id);
+                    Navigator.of(context).pushNamed('/mynonprofit',
+                        arguments: MyNonProfitDetailArgments(
+                            nonprofit: nonprofit, profile: state.profile!));
+                  } else if (state.profile!.hasNonProfit != true) {
+                    Navigator.of(context).pushNamed('/nonprofitRegister',
+                        arguments: state.profile);
+                  }
                 },
               ),
-            ),
-            ListTile(
-                onTap: () => Navigator.of(context)
-                    .pushNamed('/usernonprofits', arguments: state.profile!),
-                leading: const Icon(Icons.favorite, color: Colors.white),
-                title: const Text(
-                  'My Non Profits',
+              ListTile(
+                leading: Icon(
+                  Icons.logout_rounded,
+                  color: Colors.black,
+                ),
+                title: Text(
+                  'Log Out',
                   style: TextStyle(
+                      color: Colors.white,
                       fontSize: 23,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                )),
-            ListTile(
-              onTap: () => Navigator.of(context)
-                  .pushNamed('/supporters', arguments: state.profile),
-              leading: const Icon(Icons.people, color: Colors.amber),
-              title: const Text(
-                'My Supporters',
-                style: TextStyle(
-                    fontSize: 23,
-                    fontWeight: FontWeight.w600,
-                    color: Colors.white),
-              ),
-            ),
-            ListTile(
-                leading: const Icon(Icons.camera, color: Colors.white),
-                title: const Text(
-                  'My Altrue Code',
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
+                      fontWeight: FontWeight.bold),
                 ),
                 onTap: () {
-                  Navigator.of(context)
-                      .pushNamed('/myQrCode', arguments: state.profile);
-                }),
-            ListTile(
-              leading: const Icon(Icons.store, color: Colors.white),
-              title: state.profile!.hasCompany!
-                  ? const Text('My Company Details',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600))
-                  : const Text('Register A Company',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600)),
-              onTap: state.profile!.hasCompany!
-                  ? () async {
-                      ForProfitCompany company = await companyRepository
-                          .fetchCompanyById(state.profile!.comp!.id);
-                      Navigator.of(context).pushNamed('/CompanyHome',
-                          arguments: CompanyHomeArguments(
-                              company: company, profile: state.profile!));
-                    }
-                  : () {
-                      Navigator.of(context).pushNamed('/companyRegister',
-                          arguments: state.profile);
-                    },
-            ),
-            ListTile(
-              leading: const Icon(Icons.store, color: Colors.amber),
-              title: state.profile!.hasNonProfit!
-                  ? const Text('My NonProfit Details',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600))
-                  : const Text('Register A NonProfit',
-                      style: TextStyle(
-                          color: Colors.white,
-                          fontSize: 23,
-                          fontWeight: FontWeight.w600)),
-              onTap: () async {
-                if (state.profile!.hasNonProfit == true) {
-                  NonProfit nonprofit = await nonProfitRespository
-                      .fetchNonProfit(state.profile!.np!.id);
-                  Navigator.of(context).pushNamed('/mynonprofit',
-                      arguments: MyNonProfitDetailArgments(
-                          nonprofit: nonprofit, profile: state.profile!));
-                } else if (state.profile!.hasNonProfit != true) {
-                  Navigator.of(context).pushNamed('/nonprofitRegister',
-                      arguments: state.profile);
-                }
-              },
-            ),
-            ListTile(
-              leading: Icon(
-                Icons.logout_rounded,
-                color: Colors.black,
-              ),
-              title: Text(
-                'Log Out',
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 23,
-                    fontWeight: FontWeight.bold),
-              ),
-              onTap: () {
-                context.read<SessionBLoc>().add(LoggedOut());
-              },
-            )
-          ],
+                  context.read<SessionBLoc>().add(LoggedOut());
+                },
+              )
+            ],
+          ),
         ),
       )),
       child: MultiBlocProvider(
@@ -519,6 +584,14 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                     },
                     child: ListView(
                       children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text('Welcome ${state.profile!.username}', style: TextStyle(color: Colors.amber, fontWeight: FontWeight.w600),),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: ProfilePaymentCard(profile: state.profile!, heightFactor: .18,),
+                        ),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -954,6 +1027,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                               onPressed: () => Navigator.of(context)
                                   .pushNamed('/exampledonation')),
                         ),
+                        ElevatedButton(onPressed: (){
+                          Navigator.of(context).pushNamed('/testscreen', arguments: widget.user);
+                        }, child: const Text('test screen')),
+                        ElevatedButton(onPressed: (){
+                          Navigator.of(context).pushNamed('/leaderboard');
+                        }, child: const Text('LeaderBoard'))
+                      
                       ],
                     ),
                   );

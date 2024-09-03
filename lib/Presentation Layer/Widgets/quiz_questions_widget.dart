@@ -17,6 +17,8 @@ class QuestionsWidget extends StatelessWidget {
   final PageController controller;
   final ValueChanged<int> onChangedPage;
   final ValueChanged<QuizAnswers> onClickedOption;
+  final VoidCallback onQuizComplete;
+ 
 
   const QuestionsWidget({super.key, 
     
@@ -26,6 +28,7 @@ class QuestionsWidget extends StatelessWidget {
     required this.onChangedPage,
     required this.onClickedOption,
     required this.numOfCorrect,
+    required this.onQuizComplete,
   });
 
   @override
@@ -101,6 +104,7 @@ class QuestionsWidget extends StatelessWidget {
                   )
                   )
                 );
+               onQuizComplete();
                Navigator.of(context).pushReplacement(
                 MaterialPageRoute(builder: (context)=>QuizResultsScreen(
                   quiz: quiz,

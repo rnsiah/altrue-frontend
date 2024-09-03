@@ -81,6 +81,7 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                             children: [
                               ProfilePaymentCard(
                                 profile: widget.profile,
+                                heightFactor: .2,
                               ),
                               // DriverInfo(),
 
@@ -369,7 +370,7 @@ class ProfileDot extends StatelessWidget {
               radius: dotRadius,
               foregroundImage: NetworkImage(profile.profilePicture!.url),
               backgroundColor: Colors.white),
-          Text(profile.username, style: TextStyle(color:textColor, fontSize: 8),)
+          Text(profile.username!, style: TextStyle(color:textColor, fontSize: 8),)
         ],
       ),
     );

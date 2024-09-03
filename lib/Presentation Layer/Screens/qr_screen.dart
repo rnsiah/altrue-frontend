@@ -9,32 +9,59 @@ class MyQrScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          title: const Image(
-            image: AssetImage('images/Altrue Logo White.png'),
-          ),
-          centerTitle: true,
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
+        backgroundColor: Colors.black,
+        elevation: 0,
+        title: const Image(
+          image: AssetImage('images/Altrue Logo White.png'),
+          height: 30,
         ),
-        body: SingleChildScrollView(
-            child: Container(
-                padding: const EdgeInsets.all(50),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: <Widget>[
-                    Image(
-                      image: NetworkImage(profile.qrCode!, scale: .10),
-                    ),
-                    const SizedBox(height: 43),
-                    Text(
-                      'Scan${profile.username!}s profile to donate to support their favorite causes',
-                      style: const TextStyle(fontSize: 22, color: Colors.amber),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                  ],
-                ))));
+        centerTitle: true,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(32.0),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Container(
+                padding: const EdgeInsets.all(16.0),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(12),
+                ),
+                child: Image.network(
+                  profile.qrCode!,
+                  width: MediaQuery.of(context).size.width * 0.8,
+                  height: MediaQuery.of(context).size.width * 0.8,
+                  fit: BoxFit.contain,
+                ),
+              ),
+              const SizedBox(height: 40),
+              Text(
+                'Scan ${profile.username!}\'s profile to donate and support their favorite causes',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 22,
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 20),
+              Text(
+                'Thank you for your generosity and for helping make a difference!',
+                textAlign: TextAlign.center,
+                style: const TextStyle(
+                  fontSize: 16,
+                  color: Colors.white70,
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
   }
 }

@@ -23,6 +23,7 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/create_link.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/credit_card_page.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/find_friends_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/home_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/leaderboard_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/mynonprofit_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/newProject.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/non_profit_detail.dart';
@@ -35,8 +36,10 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/shirt_details.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/shirts_list.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/signup_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/supporters.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/test_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/thankyou_purchase_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/userProfile_fillScreen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/user_actions_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_nonprofitsList.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/company_detail_page.dart';
@@ -78,6 +81,12 @@ Widget _buildRoute(
     required String routeName,
     Object? arguments}) {
   switch (routeName) {
+    case '/userActionScreen':
+    return const UserActionRewardScreen();
+    case'/testscreen':
+    User user = arguments as User;
+    return TestScreen(user: user);
+
     case '/email-verified':
       return const EmailVerifiedScreen();
 
@@ -109,10 +118,9 @@ Widget _buildRoute(
       );
 
     case '/newPosts':
-      NewPostsScreenArguments argument = arguments as NewPostsScreenArguments;
+      Profile profile = arguments as Profile;
       return NewPostsScreen(
-        profile: argument.profile,
-        postList: argument.postList,
+        profile: profile,
       );
     case '/companyDonations':
       CompanyHomeArguments argument = arguments as CompanyHomeArguments;
@@ -277,6 +285,9 @@ Widget _buildRoute(
       return AltrueActionsScreen(
         profile: profile,
       );
+
+    case '/leaderboard':
+    return const LeaderboardScreen();
     case '/CompanyHome':
       CompanyHomeArguments argument = arguments as CompanyHomeArguments;
       return MyCompanyHome(
@@ -358,12 +369,7 @@ class QuizListScreenArguments {
   QuizListScreenArguments({required this.profile, required this.quizes});
 }
 
-class NewPostsScreenArguments {
-  Profile profile;
-  List<Post> postList;
 
-  NewPostsScreenArguments({required this.postList, required this.profile});
-}
 
 class NonProfitProjectDetailArguments {
   NonProfitProject project;

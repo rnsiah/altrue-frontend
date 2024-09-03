@@ -106,7 +106,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
                             Container(height: 10),
                             // Display the card's text using a font size of 15 and a light grey color
                             Text(
-                              'Lormem Ipusmsalsdhjlad lasdlakjsd askldjalksd alkdjalsdj asdkjalsd asldkjaksdj alsdjl aldskalsd alskhadj skjd skdjsd ss akdjas ajs',
+                              quiz.description?? 'the best quiz ever',
                               style: TextStyle(
                                 fontSize: 15,
                                 color: Colors.white,

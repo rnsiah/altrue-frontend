@@ -200,12 +200,12 @@ class ProfileCompletion {
 @JsonSerializable(explicitToJson: true)
 class ProfileRepresentation {
   int id;
-  String username;
+  String? username;
   @JsonKey(name: 'profile_picture')
   ProfilePicture? profilePicture;
 
   ProfileRepresentation({
-    required this.username,
+    this.username,
     required this.id,
     this.profilePicture,
   });

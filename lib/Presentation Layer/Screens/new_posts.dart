@@ -1,44 +1,78 @@
 import 'package:flutter/material.dart';
-
-import '../../Data Layer/Models/post_model.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/feed_bloc/bloc/feed_bloc.dart';
+import '../../Data Layer/Models/feed_entry_model.dart';
 import '../../Data Layer/Models/user_model.dart';
 
 class NewPostsScreen extends StatefulWidget {
   final Profile profile;
-  final List<Post> postList;
-  const NewPostsScreen({super.key, required this.profile, required this.postList});
+
+  const NewPostsScreen({Key? key, required this.profile}) : super(key: key);
 
   @override
   State<NewPostsScreen> createState() => _NewPostsScreenState();
 }
 
 class _NewPostsScreenState extends State<NewPostsScreen> {
-  @override
+   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('New Posts'),),
-        body: ListView.builder(
-                      itemCount: widget.postList.length,
-                      itemBuilder: (context, index) =>  ListTile(
-                leading: CircleAvatar(
-                  backgroundImage: NetworkImage(widget.postList[index].created_by.profilePicture!.url),
-                ),
-                title: Text(widget.postList[index].created_by.username, style: const TextStyle(color: Colors.amber, fontSize: 22),),
-                subtitle: Text(widget.postList[index].body, style: const TextStyle(color: Colors.white),),
-                trailing: IconButton(
-                  icon: const Icon(Icons.favorite_border, color: Colors.white,),
-                  onPressed: () {
-                    // Handle the like button press
-                  },
-                ),
-              ),),
+        title: const Text('New Posts'),
+      ),
+      body: BlocBuilder<FeedBloc, FeedState>(
+        builder: (context, state) {
+          if (state is FeedLoading) {
+            return Center(child: CircularProgressIndicator());
+          } else if (state is FeedLoaded) {
+            return ListView.builder(
+              itemCount: state.feedItems.length,
+              itemBuilder: (context, index) {
+                final item = state.feedItems[index];
+                return Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
+                  child: Card(
+                    color: Colors.amber,
+                    child: ListTile(
+                      contentPadding: EdgeInsets.all(8.0),
+                      leading: Icon(
+                        item.pointAmount != null ? Icons.star : Icons.attach_money,
+                        color: Colors.black,
+                      ),
+                      title: Text(
+                        item.pointAmount != null
+                            ? '${item.username} accomplished: ${item.requirement}'
+                            : '${item.receiverUsername} received a donation',
+                        style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 16.0,
+                        ),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                      subtitle: Text(
+                        item.pointAmount != null
+                            ? 'Points earned: ${item.pointAmount}'
+                            : 'Amount: \$${item.donationAmount?.toStringAsFixed(2)}',
+                        style: TextStyle(color: Colors.grey[400]),
+                      ),
+                      trailing: Text(
+                        item.timestamp?.toLocal().toString() ?? '',
+                        style: TextStyle(color: Colors.grey[500]),
+                      ),
+                    ),
+                  ),
+                );
+              },
+            );
+          } else {
+            return Center(child: CircularProgressIndicator());
+          }
+        },
+      ),
     );
   }
 }
-
-// Widget buildPost(Post post) {
-  
-// }

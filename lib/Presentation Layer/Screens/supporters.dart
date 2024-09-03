@@ -10,114 +10,142 @@ class SupporterPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[900],
+      appBar: AppBar(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-            backgroundColor: Colors.black,
-            title: const Image(
-              image: AssetImage('images/Altrue Logo White.png'),
-            )),
-        body: ListView(
-          scrollDirection: Axis.vertical,
+        elevation: 0,
+        title: const Image(
+          image: AssetImage('images/Altrue Logo White.png'),
+          height: 30,
+        ),
+      ),
+      body: Padding(
+        padding: const EdgeInsets.all(16.0),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            SizedBox(
-              child: Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                Padding(
-                  padding: const EdgeInsets.all(8),
-                  child: Text(profile.username!),
-                ),
-                const SizedBox(
-                  width: 9,
-                ),
-                Text('balance:${profile.balance}',
-                    style: const TextStyle(
-                        fontSize: 18,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.white))
-              ]),
-            ),
-            const Align(
-                alignment: Alignment.centerLeft,
-                child: Padding(
-                  padding: EdgeInsets.all(18.0),
-                  child: Text(
-                    'Recent Donations',
-                    style: TextStyle(color: Colors.white, fontSize: 22),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(
+                  profile.username!,
+                  style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.white,
                   ),
-                )),
-            SizedBox(
-              height: 800,
-              width: double.infinity,
+                ),
+                Text(
+                  'Balance: \$${profile.balance}',
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
+                    color: Colors.amber,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 24),
+            const Text(
+              'Recent Donations',
+              style: TextStyle(
+                color: Colors.white,
+                fontSize: 22,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+            const SizedBox(height: 16),
+            Expanded(
               child: ListView.builder(
-                  itemCount: profile.donor!.length,
-                  itemBuilder: (context, int index) {
-                    return GestureDetector(
-                      child: Card(
-                          shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(22),
-                              side: const BorderSide(color: Colors.white)),
-                          color: Colors.grey[900],
-                          child: Column(
-                            mainAxisSize: MainAxisSize.min,
+                itemCount: profile.donor!.length,
+                itemBuilder: (context, index) {
+                  final donor = profile.donor![index];
+                  return Card(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: const BorderSide(color: Colors.white),
+                    ),
+                    color: Colors.grey[800],
+                    margin: const EdgeInsets.symmetric(vertical: 8),
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Row(
                             children: [
-                              ListTile(
-                                leading: const Icon(
-                                  Icons.person,
-                                  color: Colors.amber,
-                                ),
-                                title: Text(
-                                  "${profile.donor![index].firstName} ${profile.donor![index].lastName}",
+                              const Icon(
+                                Icons.person,
+                                color: Colors.amber,
+                                size: 30,
+                              ),
+                              const SizedBox(width: 16),
+                              Expanded(
+                                child: Text(
+                                  "${donor.firstName} ${donor.lastName}",
                                   style: const TextStyle(
-                                      color: Colors.amber, fontSize: 20),
-                                ),
-                                subtitle: const Text(
-                                  'Donated On: ',
-                                  style: TextStyle(
-                                      fontSize: 16, color: Colors.white),
+                                    color: Colors.amber,
+                                    fontSize: 20,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
                               ),
-                              Padding(
-                                padding: const EdgeInsets.only(right: 15.0),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Text(
-                                      profile.donor![index].amountDonated,
-                                      style: const TextStyle(
-                                          color: Colors.amber, fontSize: 18),
-                                    ),
-                                    const SizedBox(
-                                      width: 10,
-                                    ),
-                                    GestureDetector(
-                                      onTap: () {
-                                        Email email = Email(
-                                            subject:
-                                                'Hey ${profile.donor![index].firstName}, thanks for donating',
-                                            body:
-                                                'Hey${profile.donor![index].firstName}I want to thank you for donating to my efforts in helping the efforts towards ${profile.donor![index].altruCategory!.name} on the Altrue platform!',
-                                            recipients: [
-                                              profile.donor![index].email
-                                            ],
-                                            isHTML: false);
-                                        FlutterEmailSender.send(email);
-                                      },
-                                      child: const Text(
-                                        'Say Thanks',
-                                        style: TextStyle(
-                                            color: Colors.blue,
-                                            decoration:
-                                                TextDecoration.underline),
-                                      ),
-                                    )
-                                  ],
+                            ],
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            'Donated On: ',
+                            style: const TextStyle(
+                              fontSize: 16,
+                              color: Colors.white70,
+                            ),
+                          ),
+                          const SizedBox(height: 16),
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Text(
+                                "\$${donor.amountDonated}",
+                                style: const TextStyle(
+                                  color: Colors.amber,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  Email email = Email(
+                                    subject:
+                                        'Hey ${donor.firstName}, thanks for donating',
+                                    body:
+                                        'Hey ${donor.firstName}, I want to thank you for donating to my efforts on the Altrue platform!',
+                                    recipients: [donor.email],
+                                    isHTML: false,
+                                  );
+                                  FlutterEmailSender.send(email);
+                                },
+                                child: const Text(
+                                  'Say Thanks',
+                                  style: TextStyle(
+                                    color: Colors.blue,
+                                    fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    decoration: TextDecoration.underline,
+                                  ),
                                 ),
                               )
                             ],
-                          )),
-                    );
-                  }),
-            )
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
+            ),
           ],
-        ));
+        ),
+      ),
+    );
   }
 }

@@ -20,12 +20,15 @@ class UserProfileDonationsTab extends StatelessWidget {
                 height: 80,
                 child: ListTile(
                   leading: !hasAtro
-                      ? Image (
-                          image: NetworkImage(profile
-                              .userdonations![index].nonprofit!.logo
-                              .toString()),
-                        )
-                      : Container(),
+                    ? Image.network(
+                        profile.userdonations![index].nonprofit!.logo.toString(),
+                        errorBuilder: (BuildContext context, Object exception, StackTrace? stackTrace) {
+                          return Image.network(
+                            'https://i.ibb.co/R7dmV9P/Nonprofit-Place-Holder.png',
+                          );
+                        },
+                      )
+                    : null,
                   subtitle: hasAtro
                       ? Text(
                           'Altrue Category: ${profile.userdonations![index].atrocity!.category[0].name}')

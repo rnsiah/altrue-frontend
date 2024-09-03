@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_swiper_null_safety/flutter_swiper_null_safety.dart';
 
 import '../../Data Layer/Models/non_profit_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -16,197 +17,164 @@ class _ProfilePresentationScreenState extends State<ProfilePresentationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      backgroundColor: Colors.black,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        title: const Image(image: AssetImage('images/Altrue Logo White.png')),
-      ),
-      body: Container(
-        color: Colors.grey[900],
-        height: MediaQuery.of(context).size.height,
-        child: Column(
-          children: [
-            SizedBox(
-              height: MediaQuery.of(context).size.height * .4,
-              child: Stack(
-                children: [
-                  Container(
-                    height: MediaQuery.of(context).size.height * .4 - 50,
-                    decoration: BoxDecoration(
-                        borderRadius: const BorderRadius.only(
-                            bottomLeft: Radius.circular(50)),
-                        image: DecorationImage(
-                          fit: BoxFit.cover,
-                          image:
-                              NetworkImage(widget.profile.profilePicture!.url),
-                        )),
-                  ),
-                  Positioned(
-                      bottom: 0,
-                      right: 0,
-                      child: Container(
-                        height: 100,
-                        width: MediaQuery.of(context).size.width * .9,
-                        decoration: BoxDecoration(
-                            border: Border.all(color: Colors.amber),
-                            borderRadius: const BorderRadius.only(
-                                bottomLeft: Radius.circular(50),
-                                topLeft: Radius.circular(50)),
-                            boxShadow: const [
-                              BoxShadow(
-                                  offset: Offset(0, 5),
-                                  blurRadius: 50,
-                                  color: Colors.black)
-                            ],
-                            color: Colors.white),
-                        child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              Container(
-                                child: Column(
-                                  children: [
-                                    Material(
-                                      elevation: 5,
-                                      child: Container(
-                                        height: 60,
-                                        width: 60,
-                                        decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            image: DecorationImage(
-                                                fit: BoxFit.contain,
-                                                image: widget
-                                                                .profile
-                                                                .altrueLevel!
-                                                                .levelNumber <
-                                                            1 &&
-                                                        widget
-                                                                .profile
-                                                                .altrueLevel!
-                                                                .levelNumber >
-                                                            4
-                                                    ? const AssetImage(
-                                                        'images/level 3.png')
-                                                    : AssetImage(
-                                                        'images/level ${widget.profile.altrueLevel!.levelNumber}.png'))),
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      height: 12,
-                                    ),
-                                    const Text('Level'),
-                                  ],
-                                ),
-                              ),
-                              Column(
-                                children: const [],
-                              ),
-                              MaterialButton(
-                                color: Colors.amber,
-                                onPressed: () {},
-                                child: const Text('Add'),
-                              )
-                            ]),
-                      ))
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(20),
-              child: Row(children: [
-                Expanded(
-                    child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+      body: Column(
+        children: [
+          // Top container (white background)
+          Container(
+            color: Colors.white,
+            child: Column(
+              children: [
+                const SizedBox(height: 20),
+                CircleAvatar(
+                  radius: 60,
+                  backgroundImage: NetworkImage('https://i.ibb.co/yPCqbSG/altruecompany-placeholder.png'), // Placeholder image
+                ),
+                const SizedBox(height: 10),
+                Text(
+                  'User Blurb Here',
+                  style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                // Row of 3 columns for information
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    Text(
-                      widget.profile.username!,
-                      style: const TextStyle(fontSize: 30, color: Colors.white),
-                    ),
-                    const SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Altrue Level:${widget.profile.altrueLevel!.name}',
-                      style: const TextStyle(color: Colors.amber, fontSize: 16),
-                    )
+                    _InfoColumn(title: 'Location', value: 'City, Country'),
+                    _InfoColumn(title: 'Favorite Cause', value: 'Cause Name'),
+                    _InfoColumn(title: 'Another Info', value: 'Some Value'),
                   ],
-                )),
-                SizedBox(
-                  height: 64,
-                  width: 64,
-                  child: ElevatedButton(
-                      style: const ButtonStyle(
-                          backgroundColor:
-                              MaterialStatePropertyAll(Colors.black)),
-                      onPressed: () {},
-                      child: const Icon(
-                        Icons.add,
-                        color: Colors.amber,
-                      )),
-                )
-              ]),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(9),
-              child: SizedBox(
-                height: 70,
-                child: ListView.builder(
-                    scrollDirection: Axis.horizontal,
-                    itemCount: widget.profile.nonProfitList!.length,
-                    itemBuilder: (context, index) => Padding(
-                          padding: const EdgeInsets.all(0),
-                          child: GestureDetector(
-                            onTap: () {},
-                            child: Padding(
-                              padding:
-                                  const EdgeInsets.symmetric(horizontal: 10),
-                              child: Container(
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(2)),
-                                child: Image.network(
-                                  widget.profile.nonProfitList![index].logo,
-                                  width: 60,
-                                  height: 60,
-                                  fit: BoxFit.cover,
-                                ),
-                              ),
-                            ),
-                          ),
-                        )),
-              ),
-            ),
-            Container(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  const Text(
-                    'About Me',
-                    style: TextStyle(
-                        color: Colors.amber,
-                        fontSize: 19,
-                        fontWeight: FontWeight.bold),
+                ),
+                const SizedBox(height: 20),
+                // Circular pill with icon and text
+                Positioned(
+                  top: -30, // To ensure it's on top of the divide
+                  left: MediaQuery.of(context).size.width * 0.5 - 60,
+                  child: Container(
+                    padding: const EdgeInsets.all(16),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      shape: BoxShape.circle,
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black.withOpacity(0.2),
+                          spreadRadius: 4,
+                          blurRadius: 8,
+                          offset: Offset(0, 4), // changes position of shadow
+                        ),
+                      ],
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Icon(Icons.info, size: 30, color: Colors.black),
+                        const SizedBox(width: 10),
+                        Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text('Title', style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+                            Text('Smaller text below', style: TextStyle(color: Colors.grey[600])),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                  Text(
-                    widget.profile.description!,
-                    style: const TextStyle(color: Colors.white, fontSize: 14),
-                  )
+                ),
+              ],
+            ),
+          ),
+          // Bottom container (black background)
+          Expanded(
+            child: Container(
+              color: Colors.black,
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  // Swipeable cards
+                  Expanded(
+                    child: Swiper(
+                      itemCount: 3,
+                      itemBuilder: (context, index) {
+                        return _buildCard(index);
+                      },
+                      pagination: SwiperPagination(
+                        builder: SwiperPagination.dots,
+                       
+                      ),
+                      control: SwiperControl(),
+                      scrollDirection: Axis.horizontal,
+                      itemWidth: double.infinity,
+                      layout: SwiperLayout.STACK,
+                    ),
+                  ),
                 ],
               ),
-            )
-          ],
-        ),
+            ),
+          ),
+        ],
       ),
+    );
+  }
+
+  Widget _buildCard(int index) {
+    switch (index) {
+      case 0:
+        return _Card(title: 'Donations', icon: Icons.attach_money, imageUrl: 'https://via.placeholder.com/150');
+      case 1:
+        return _Card(title: 'Favorite Causes', icon: Icons.favorite, imageUrl: 'https://via.placeholder.com/150');
+      case 2:
+        return _Card(title: 'Rewarded Items', icon: Icons.star, imageUrl: 'https://via.placeholder.com/150');
+      default:
+        return Container();
+    }
+  }
+}
+
+class _InfoColumn extends StatelessWidget {
+  final String title;
+  final String value;
+
+  const _InfoColumn({
+    required this.title,
+    required this.value,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(title, style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
+        Text(value, style: TextStyle(color: Colors.grey[800])),
+      ],
     );
   }
 }
 
-Widget npBox(NonProfit np) {
-  return Expanded(
-    child: Container(
-      decoration: BoxDecoration(
-          image: DecorationImage(
-              fit: BoxFit.contain, image: NetworkImage(np.logo))),
-    ),
-  );
+class _Card extends StatelessWidget {
+  final String title;
+  final IconData icon;
+  final String imageUrl;
+
+  const _Card({
+    required this.title,
+    required this.icon,
+    required this.imageUrl,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Card(
+      margin: EdgeInsets.symmetric(vertical: 10, horizontal: 20),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      elevation: 5,
+      child: Column(
+        children: [
+          ListTile(
+            leading: Icon(icon, size: 40, color: Colors.amber),
+            title: Text(title, style: TextStyle(fontWeight: FontWeight.bold)),
+            subtitle: Image.network(imageUrl, fit: BoxFit.cover, height: 150, width: double.infinity),
+          ),
+        ],
+      ),
+    );
+  }
 }

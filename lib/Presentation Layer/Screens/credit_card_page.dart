@@ -76,12 +76,12 @@ class CreditCardPageState extends State<CreditCardPage> {
             resizeToAvoidBottomInset: false,
             body: Container(
               decoration: BoxDecoration(
-                image: !useBackgroundImage
-                    ? const DecorationImage(
-                        image: ExactAssetImage('images/bg.png'),
-                        fit: BoxFit.fill,
-                      )
-                    : null,
+                // image: !useBackgroundImage
+                //     ? const DecorationImage(
+                //         image: ExactAssetImage('images/bg.png'),
+                //         fit: BoxFit.fill,
+                //       )
+                //     : null,
                 color: Colors.black,
               ),
               child: SafeArea(

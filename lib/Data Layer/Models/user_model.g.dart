@@ -192,7 +192,7 @@ Map<String, dynamic> _$ProfileCompletionToJson(ProfileCompletion instance) =>
 ProfileRepresentation _$ProfileRepresentationFromJson(
         Map<String, dynamic> json) =>
     ProfileRepresentation(
-      username: json['username'] as String,
+      username: json['username'] as String?,
       id: (json['id'] as num).toInt(),
       profilePicture: json['profile_picture'] == null
           ? null
