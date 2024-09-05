@@ -1,4 +1,5 @@
 import 'package:json_annotation/json_annotation.dart';
+import 'package:lovelovelove/Data%20Layer/Models/altrue_action_model.dart';
 
 part 'altrue_level_model.g.dart';
 
@@ -11,12 +12,14 @@ class AltrueLevel {
   int maximumPoints;
   @JsonKey(name: 'level_number')
   int levelNumber;
+  List<AltrueAction>? requiredActions;
 
   AltrueLevel(
       {required this.name,
       required this.levelNumber,
       required this.maximumPoints,
-      required this.minimumPoints});
+      required this.minimumPoints,
+       this.requiredActions});
 
   factory AltrueLevel.fromJson(Map<String, dynamic> data) =>
       _$AltrueLevelFromJson(data);

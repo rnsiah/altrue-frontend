@@ -26,7 +26,7 @@ import 'package:lovelovelove/Data%20Layer/Blocs/shirt_order_bloc/bloc/shirt_orde
 import 'package:lovelovelove/Data%20Layer/Blocs/user_completed_orders_bloc/bloc/completed_userorders_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/validationCubit.dart';
-import 'package:lovelovelove/Data%20Layer/Blocs/websocket_service/bloc/websocket_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/websocket_bloc/bloc/web_socket_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Data%20Providers/notification_service.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/all_users_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dart';
@@ -184,7 +184,7 @@ class _MyAppState extends State<MyApp> {
     ]);
     return MultiBlocProvider(
         providers: [
-          BlocProvider<WebsocketBloc>(create: (context) => WebsocketBloc()),
+          BlocProvider<WebSocketBloc>(create: (context) => WebSocketBloc()),
           BlocProvider<PaymentBlocBloc>(
             create: (context) => PaymentBlocBloc(),
           ),
@@ -247,17 +247,17 @@ class _MyAppState extends State<MyApp> {
             BlocBuilder<SessionBLoc, SessionState>(builder: (context, state) {
           if (state is Authenticated) {
             final userId = state.user.altid;
-            context.read<WebsocketBloc>().add(WebsocketConnect(
+            context.read<WebSocketBloc>().add(WebsocketConnect(
                 url:
                     'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/$userId/'));
 
-            return BlocListener<WebsocketBloc, WebsocketState>(
+            return BlocListener<WebSocketBloc, WebSocketState>(
               listener: (context, state) {
                 if(state is WebsocketShowSnackbar){
                   final scaffoldMessenger = ScaffoldMessenger.maybeOf(context);
                   if(scaffoldMessenger!=null){
                     ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message['data'].toString())
+                    SnackBar(content: Text(state.message.toString())
                     )
                     );
                   }
@@ -265,12 +265,13 @@ class _MyAppState extends State<MyApp> {
                 }
               },
               child: UserProfileComplete(
+                userId: state.user.altid.toString(),
                 user: state.user,
               ),
             );
           } else if (state is AuthenticatedWithProfile) {
             final userId = state.user.altid;
-            context.read<WebsocketBloc>().add(WebsocketConnect(
+            context.read<WebSocketBloc>().add(WebsocketConnect(
                 url:
                     'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/$userId/'));
           }
@@ -279,17 +280,12 @@ class _MyAppState extends State<MyApp> {
               providers: [
                 BlocProvider.value(
                   value: context.read<ProfileBloc>(),
-                ),
+                ),  
               ],
-              child: BlocListener<WebsocketBloc, WebsocketState>(
+              child: BlocListener<WebSocketBloc, WebSocketState>(
                 listener: (context, state) {
                  if(state is WebsocketShowSnackbar){
-                  String jsonString = state.message['the message'];
-
-                  Map<String, dynamic> messageMap = jsonDecode(jsonString);
-
-// Access the data field
-                Map<String, dynamic>? data = messageMap['data'];
+                  print(state.message);
                   // if(state.message[])
                   Future.delayed(Duration(seconds: 5), () {
                   
@@ -306,11 +302,11 @@ class _MyAppState extends State<MyApp> {
                                         
                                         action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>Navigator.of(context).pushNamed('/userActionScreen')),
                                         content: Text(
-                                          'Action: ${data.toString()}',
-                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 18),
+                                          'Action: ${state.message}',
+                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
                                         ), 
-                                        backgroundColor: Colors.green,
-                                        duration: Duration(seconds: 6),
+                                        backgroundColor:state.color,
+                                        duration: const Duration(seconds: 6),
                                       )
       );
     });
@@ -318,13 +314,15 @@ class _MyAppState extends State<MyApp> {
                 child: MainScreen(
                               cartBloc: context.read<CartBloc>(),
                               user: state.user,
+                              profileBloc: context.read<ProfileBloc>(),
                             ),
               ),
             );
           } else if (state is Authenticated) {
             return BlocProvider.value(
-              value: context.read<WebsocketBloc>(),
+              value: context.read<WebSocketBloc>(),
               child: UserProfileComplete(
+                userId: state.user.altid.toString(),
                 user: state.user,
               ),
             );

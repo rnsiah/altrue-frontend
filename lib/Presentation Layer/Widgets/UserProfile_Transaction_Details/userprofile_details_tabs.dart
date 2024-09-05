@@ -36,6 +36,7 @@ class _UserProfileDetailTabsState extends State<UserProfileDetailTabs>
             Container(
               color: Colors.black,
               child: TabBar(
+                splashBorderRadius: BorderRadius.circular(12),
                 controller: controller,
                 tabs: tabs,
                 indicatorColor: Colors.amber,
@@ -43,7 +44,7 @@ class _UserProfileDetailTabsState extends State<UserProfileDetailTabs>
               ),
             ),
             SizedBox.fromSize(
-              size: const Size.fromHeight(300.0),
+              size: const Size.fromHeight(450.0),
               child: TabBarView(
                 controller: controller,
                 children: pages,

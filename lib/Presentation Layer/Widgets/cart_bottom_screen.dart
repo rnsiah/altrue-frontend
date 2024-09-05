@@ -44,7 +44,7 @@ class _CartBottomScreenState extends State<CartBottomScreen> {
        }
       },
       child: Container(
-        color: Colors.black87,
+        color: Colors.black,
         height: 400,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,

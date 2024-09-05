@@ -77,7 +77,7 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                   ),
                 ),
                 Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
+                  padding: const EdgeInsets.only(left: 8.0, top: 8),
                   child: SizedBox(
                       height: widget.project.supporters!.isEmpty ? 20 : 80,
                       child: widget.project.supporters!.isEmpty
@@ -91,7 +91,7 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                               itemCount: widget.project.supporters!.length,
                               itemBuilder: (context, index) => ProfileDot(
                                 textColor: Colors.amber,
-                                    dotRadius: 25,
+                                    dotRadius: 18,
                                     profile: widget.project.supporters![index],
                                   ))),
                 ),
@@ -134,15 +134,15 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                               child: Center(
                                 child: Expanded(
                                   child: SfSlider(
-                                      min: 0,
-                                      stepSize: (widget.profile.balance! / 20)
+                                      min: 1,
+                                      stepSize: (widget.profile.balance! / 200)
                                                   .ceilToDouble() >
                                               0
-                                          ? (widget.profile.balance! / 20)
+                                          ? (widget.profile.balance! / 200)
                                               .ceilToDouble()
                                           : 0.1, // Ensure stepSize is at least 0.1
-                                      interval: widget.profile.balance! / 5 > 0
-                                          ? widget.profile.balance! / 5
+                                      interval: widget.profile.balance! / 200 > 0
+                                          ? widget.profile.balance! / 200
                                           : 0.5, // Ensure interval is at least 0.5
                                       max: widget.profile.balance,
                                       value: amount,
@@ -174,80 +174,134 @@ class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
                           ],
                         ),
                 ),
-                Center(
-                  child: SizedBox(
-                    height: MediaQuery.of(context).size.height * .07,
-                    width: MediaQuery.of(context).size.width * .8,
-                    child: BlocBuilder<ProfileBloc, ProfileState>(
-                      builder: (context, state) {
-                        if (state.status == ProfileStatus.paymentProcessing) {
-                          Navigator.of(context).pop();
-                          _handlePaymentProcessing(
-                              context.read<ProfileBloc>(), state);
-                          context
-                              .read<ProfileBloc>()
-                              .add(CheckDonationStatus());
-                        }
-                        return ElevatedButton(
-                          onPressed: () {
-                            final totalAmountInCents =
-                                (amount.ceilToDouble() * 100).toInt();
-
-                            context.read<ProfileBloc>().add(
-                                MakeDonationWithUserFunds(
-                                    donationData: DonationData(
-                                        amount: totalAmountInCents,
-                                        id: widget.project.id.toString(),
-                                        donationType: "project")));
+                Column(
+                  
+                  children: [
+                    Center(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .05,
+                        width: MediaQuery.of(context).size.width * .8,
+                        child: BlocBuilder<ProfileBloc, ProfileState>(
+                          builder: (context, state) {
+                            if (state.status == ProfileStatus.paymentProcessing) {
+                              Navigator.of(context).pop();
+                              _handlePaymentProcessing(
+                                  context.read<ProfileBloc>(), state);
+                              context
+                                  .read<ProfileBloc>()
+                                  .add(CheckDonationStatus());
+                            }
+                            return ElevatedButton(
+                              onPressed: () {
+                                final totalAmountInCents =
+                                    (amount.ceilToDouble() * 100).toInt();
+                    
+                                context.read<ProfileBloc>().add(
+                                    MakeDonationWithUserFunds(
+                                        donationData: DonationData(
+                                            amount: totalAmountInCents,
+                                            id: widget.project.id.toString(),
+                                            donationType: "project")));
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(
+                                      Colors.amber),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18),
+                                          side: const BorderSide(
+                                              color: Colors.white)))),
+                              child: const Text(
+                                'Donate With Funds',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15),
+                              ),
+                            );
                           },
-                          style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all<Color>(
-                                  Colors.amber),
-                              shape: MaterialStateProperty.all<
-                                      RoundedRectangleBorder>(
-                                  RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(18),
-                                      side: const BorderSide(
-                                          color: Colors.white)))),
-                          child: const Text(
-                            'Donate With Funds',
-                            style: TextStyle(
-                                color: Colors.black,
-                                fontWeight: FontWeight.w600,
-                                fontSize: 22),
-                          ),
-                        );
-                      },
-                    ),
-                  ),
-                ),
-                BlocBuilder<ProfileBloc, ProfileState>(
-                  builder: (context, state) {
-                    return MaterialButton(
-                      onPressed: () {
-                        context
-                            .read<ProfileBloc>()
-                            .add(MakeDonationWithAltrueFunds(
-                              amount: amount.ceilToDouble(),
-                              atrocity: null,
-                              project: widget.project,
-                              nonprofit: null,
-                            ));
-                      },
-                      height: MediaQuery.of(context).size.height * .06,
-                      color: Colors.amber,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(28),
-                      ),
-                      child: const Text(
-                        'Donate From Altrue Wallet',
-                        style: TextStyle(
-                          color: Colors.white,
                         ),
                       ),
-                    );
-                  },
-                )
+                    ),
+                    SizedBox(height: 10,),
+                    Center(
+                      child: SizedBox(
+                        height: MediaQuery.of(context).size.height * .05,
+                        width: MediaQuery.of(context).size.width * .8,
+                        child: BlocBuilder<ProfileBloc, ProfileState>(
+                          builder: (context, state) {
+                            if (state.status == ProfileStatus.paymentProcessing) {
+                              Navigator.of(context).pop();
+                              _handlePaymentProcessing(
+                                  context.read<ProfileBloc>(), state);
+                              context
+                                  .read<ProfileBloc>()
+                                  .add(CheckDonationStatus());
+                            }
+                            return ElevatedButton(
+                              onPressed: () {
+                                final totalAmountInCents =
+                                    (amount.ceilToDouble() * 100).toInt();
+                    
+                                context.read<ProfileBloc>().add(
+                                    MakeDonationWithUserFunds(
+                                        donationData: DonationData(
+                                            amount: totalAmountInCents,
+                                            id: widget.project.id.toString(),
+                                            donationType: "project")));
+                              },
+                              style: ButtonStyle(
+                                  backgroundColor: MaterialStateProperty.all<Color>(
+                                      Colors.amber),
+                                  shape: MaterialStateProperty.all<
+                                          RoundedRectangleBorder>(
+                                      RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(18),
+                                          side: const BorderSide(
+                                              color: Colors.white)))),
+                              child: const Text(
+                                'Donate With Altrue wallet',
+                                style: TextStyle(
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w600,
+                                    fontSize: 15),
+                              ),
+                            );
+                          },
+                        ),
+                      ),
+                      
+                    ),
+                  ],
+                ),
+                // BlocBuilder<ProfileBloc, ProfileState>(
+                //   builder: (context, state) {
+                //     return MaterialButton(
+                //       onPressed: () {
+                //         context
+                //             .read<ProfileBloc>()
+                //             .add(MakeDonationWithAltrueFunds(
+                //               aatrocitymount: amount.ceilToDouble(),
+                //               : null,
+                //               project: widget.project,
+                //               nonprofit: null,
+                //             ));
+                //       },
+                //       height: MediaQuery.of(context).size.height * .06,
+                //       color: Colors.amber,
+                //       shape: RoundedRectangleBorder(
+                //         borderRadius: BorderRadius.circular(28),
+                //       ),
+                //       child: const Text(
+                //         'Donate From Altrue Wallet',
+                //         style: TextStyle(
+                //           color: Colors.white,
+                //         ),
+                //       ),
+                //     );
+                //   },
+                // )
               ])
         ]),
       ),

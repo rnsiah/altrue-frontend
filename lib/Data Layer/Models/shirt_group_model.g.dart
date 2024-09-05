@@ -10,6 +10,7 @@ ShirtGroup _$ShirtGroupFromJson(Map<String, dynamic> json) => ShirtGroup(
       name: json['name'] as String?,
       creator: json['creator'] as String?,
       description: json['description'] as String?,
+      id: (json['id'] as num?)?.toInt(),
       groupImage: json['groupImage'] as String?,
       shirts: (json['shirts'] as List<dynamic>?)
           ?.map((e) => Shirt.fromJson(e as Map<String, dynamic>))
@@ -19,6 +20,7 @@ ShirtGroup _$ShirtGroupFromJson(Map<String, dynamic> json) => ShirtGroup(
 Map<String, dynamic> _$ShirtGroupToJson(ShirtGroup instance) =>
     <String, dynamic>{
       'name': instance.name,
+      'id': instance.id,
       'groupImage': instance.groupImage,
       'description': instance.description,
       'creator': instance.creator,

@@ -14,9 +14,10 @@ import '../Widgets/shirt_order/shirt_order_widget.dart';
 
 class ShirtGroupListPage extends StatefulWidget {
   final ShirtGroup shirtGroup;
+  final String shirtGroupId;
   final Profile profile;
   const ShirtGroupListPage(
-      {super.key, required this.shirtGroup, required this.profile});
+      {super.key, required this.shirtGroup, required this.profile, required this.shirtGroupId});
 
   @override
   State<ShirtGroupListPage> createState() => _ShirtGroupListPageState();

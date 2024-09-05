@@ -10,7 +10,8 @@ import '../../Data Layer/Models/user_model.dart';
 class CauseDetails2 extends StatefulWidget {
   final Category cause;
   final Profile profile;
-  const CauseDetails2({super.key, required this.cause, required this.profile});
+  final String causeId;
+  const CauseDetails2({super.key, required this.cause, required this.profile, required this.causeId});
 
   @override
   State<CauseDetails2> createState() => _CauseDetails2State();

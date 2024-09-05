@@ -9,7 +9,8 @@ import '../../Data Layer/Models/user_model.dart';
 class NonProfitProjectList extends StatefulWidget {
   final NonProfit nonprofit;
   final Profile profile;
-  const NonProfitProjectList({super.key, required this.nonprofit, required this.profile});
+  final String nonprofitId;
+  const NonProfitProjectList({super.key, required this.nonprofit, required this.profile, required this.nonprofitId});
 
   @override
   State<NonProfitProjectList> createState() => _NonProfitProjectListState();

@@ -10,6 +10,7 @@ import 'package:lovelovelove/Data%20Layer/Local%20Storage/user_data_access_objec
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/UserProfile_Transaction_Details/userprofile_details_tabs.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/profile_recent_donations_tab.dart';
 
 import '../Widgets/company_dashboard/water_view.dart';
 
@@ -123,253 +124,8 @@ class _ProfileScreenState extends State<ProfileScreen>
                       Size.fromHeight(MediaQuery.of(context).size.height * .7),
                   child: TabBarView(controller: _controller, children: [
                     AltrueStats(widget: widget),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * .5,
-                      child: SingleChildScrollView(
-                        child: Column(children: [
-                          const Padding(
-                            padding: EdgeInsets.only(left: 12.0, bottom: 12),
-                            child: Align(
-                              alignment: Alignment.centerLeft,
-                              child: Text(
-                                'Recent Donations',
-                                textAlign: TextAlign.start,
-                                style: TextStyle(
-                                    color: Colors.amber, fontSize: 20),
-                              ),
-                            ),
-                          ),
-                          widget.profile.userdonations!.isNotEmpty
-                              ? SizedBox(
-                                  width: double.infinity,
-                                  height: 400,
-                                  child: ListView.builder(
-                                      scrollDirection: Axis.horizontal,
-                                      itemCount:
-                                          widget.profile.userdonations!.length,
-                                      itemBuilder: (context, index) {
-                                        if (widget.profile.userdonations![index]
-                                                .nonprofit !=
-                                            null) {
-                                          return Column(
-                                            children: [
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8.0),
-                                                child: GestureDetector(
-                                                  onLongPress: () {
-                                                    showDialog(
-                                                        context: (context),
-                                                        builder: (_) {
-                                                          return Dialog(
-                                                            backgroundColor:
-                                                                Colors.grey,
-                                                            child: Container(
-                                                                decoration: BoxDecoration(
-                                                                    borderRadius:
-                                                                        BorderRadius.circular(
-                                                                            60)),
-                                                                height: MediaQuery.of(
-                                                                            context)
-                                                                        .size
-                                                                        .height *
-                                                                    .4,
-                                                                child:
-                                                                    const Text(
-                                                                        'hey')),
-                                                          );
-                                                        });
-                                                  },
-                                                  child: Container(
-                                                      height: 100,
-                                                      width: 100,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadiusDirectional
-                                                                .circular(14),
-                                                        image: DecorationImage(
-                                                            image: NetworkImage(
-                                                                widget
-                                                                    .profile
-                                                                    .userdonations![
-                                                                        index]
-                                                                    .nonprofit!
-                                                                    .logo!)),
-                                                        shape:
-                                                            BoxShape.rectangle,
-                                                      )),
-                                                ),
-                                              )
-                                            ],
-                                          );
-                                        } else if (widget
-                                                .profile
-                                                .userdonations![index]
-                                                .atrocity !=
-                                            null) {
-                                          return Column(
-                                            children: [
-                                              Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: Container(
-                                                      height: 100,
-                                                      width: 100,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(14),
-                                                        color:
-                                                            Colors.amberAccent,
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(
-                                                        widget
-                                                            .profile
-                                                            .userdonations![
-                                                                index]
-                                                            .atrocity!
-                                                            .title,
-                                                        style: const TextStyle(
-                                                            color: Colors.white,
-                                                            fontSize: 12,
-                                                            fontWeight:
-                                                                FontWeight.bold,
-                                                            backgroundColor:
-                                                                Colors.black38),
-                                                      ))))
-                                            ],
-                                          );
-                                        } else if (widget
-                                                .profile
-                                                .userdonations![index]
-                                                .project !=
-                                            null) {
-                                          return Column(
-                                            children: [
-                                              Padding(
-                                                  padding:
-                                                      const EdgeInsets.all(8),
-                                                  child: Container(
-                                                      height: 100,
-                                                      width: 100,
-                                                      decoration: BoxDecoration(
-                                                        borderRadius:
-                                                            BorderRadius
-                                                                .circular(14),
-                                                        color: Colors.white,
-                                                      ),
-                                                      child: Center(
-                                                          child: Text(widget
-                                                              .profile
-                                                              .userdonations![
-                                                                  index]
-                                                              .project!
-                                                              .title
-                                                              .toString()))))
-                                            ],
-                                          );
-                                        }
-                                        return Container(
-                                          child: Text(
-                                            widget.profile.userdonations![index]
-                                                .id
-                                                .toString(),
-                                            style: const TextStyle(
-                                                color: Colors.white),
-                                          ),
-                                        );
-                                      }),
-
-                                  // Column(
-                                  //       children: [
-                                  //         profile.userdonations![index].nonprofit !=
-                                  //                 null
-                                  //  Container(
-                                  //     height: 100,
-                                  //     width: 100,
-                                  //     decoration: BoxDecoration(
-                                  //       image: DecorationImage(
-                                  //           image: NetworkImage(profile
-                                  //               .userdonations![index]
-                                  //               .nonprofit!
-                                  //               .logo)),
-                                  //       shape: BoxShape.circle,
-                                  //     ))
-                                  //             :profile.userdonations![index].atrocity!=null?
-
-                                  //             Padding(
-                                  //                 padding: const EdgeInsets.only(
-                                  //                     left: 6.0, right: 6),
-                                  //                 child: Container(
-                                  //                   height: 100,
-                                  //                   width: 100,
-                                  //                   decoration: BoxDecoration(
-                                  //                     borderRadius:
-                                  //                         BorderRadius.circular(14),
-                                  //                     color: Colors.red,
-                                  //                   ),
-                                  //                   child: Center(
-                                  //                       child: profile
-                                  //                                   .userdonations![
-                                  //                                       index]
-                                  //                                   .atrocity !=
-                                  //                               null
-                                  //                           ? Text(
-                                  //                               profile
-                                  //                                   .userdonations![
-                                  //                                       index]
-                                  //                                   .atrocity!
-                                  //                                   .title,
-                                  //                               softWrap: true,
-                                  //                             )
-                                  //                           : Text(profile
-                                  //                               .userdonations![index]
-                                  //                               .project!
-                                  //                               .title)),
-                                  //                 ),
-                                  //               ),
-                                  //         profile.userdonations![index].nonprofit !=
-                                  //                 null
-                                  //             ? Text(profile.userdonations![index]
-                                  //                 .nonprofit!.name)
-                                  //             : Text('The Atrocity')
-                                  //       ],
-                                  //     )),
-                                  // itemBuilder: (context, index) => Column(
-                                  //       children: [
-                                  //         Container(
-                                  //             decoration:
-                                  //                 profile.userdonations![index].nonprofit !=
-                                  //                         null
-                                  //                     ? BoxDecoration(
-                                  //                         image: DecorationImage(
-                                  //                             image: NetworkImage(profile
-                                  //                                 .userdonations![index]
-                                  //                                 .nonprofit!
-                                  //                                 .logo)),
-                                  //                         shape: BoxShape.circle)
-                                  //                     : BoxDecoration(color: Colors.black),
-                                  //             child:
-                                  //                 profile.userdonations![index].nonprofit !=
-                                  //                         null
-                                  //                     ? null
-                                  //                     : Text('Altrue Cause')),
-                                  //         profile.userdonations![index].nonprofit != null
-                                  //             ? Text(profile
-                                  //                 .userdonations![index].nonprofit!.name)
-                                  //             : Text(profile
-                                  //                 .userdonations![index].atrocity!.title)
-                                  //       ],
-                                  //     )),
-                                )
-                              : Container(
-                                  child: const Text(
-                                      "You have not made any donations to any organizations."),
-                                ),
-                        ]),
-                      ),
-                    ),
+                    ProfileRecentDonations(profile: widget.profile,),
+                    // buildProfileRecentDonations(context),
                     SingleChildScrollView(
                       child: Column(
                         children: [
@@ -503,6 +259,256 @@ class _ProfileScreenState extends State<ProfileScreen>
         ),
       )
     ]);
+  }
+
+  SizedBox buildProfileRecentDonations(BuildContext context) {
+    return SizedBox(
+                    height: MediaQuery.of(context).size.height * .5,
+                    child: SingleChildScrollView(
+                      child: Column(children: [
+                        const Padding(
+                          padding: EdgeInsets.only(left: 12.0, bottom: 12),
+                          child: Align(
+                            alignment: Alignment.centerLeft,
+                            child: Text(
+                              'Recent Donations',
+                              textAlign: TextAlign.start,
+                              style: TextStyle(
+                                  color: Colors.amber, fontSize: 20),
+                            ),
+                          ),
+                        ),
+                        widget.profile.userdonations!.isNotEmpty
+                            ? SizedBox(
+                                width: double.infinity,
+                                height: 400,
+                                child: ListView.builder(
+                                    scrollDirection: Axis.horizontal,
+                                    itemCount:
+                                        widget.profile.userdonations!.length,
+                                    itemBuilder: (context, index) {
+                                      if (widget.profile.userdonations![index]
+                                              .nonprofit !=
+                                          null) {
+                                        return Column(
+                                          children: [
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(8.0),
+                                              child: GestureDetector(
+                                                onLongPress: () {
+                                                  showDialog(
+                                                      context: (context),
+                                                      builder: (_) {
+                                                        return Dialog(
+                                                          backgroundColor:
+                                                              Colors.grey,
+                                                          child: Container(
+                                                              decoration: BoxDecoration(
+                                                                  borderRadius:
+                                                                      BorderRadius.circular(
+                                                                          60)),
+                                                              height: MediaQuery.of(
+                                                                          context)
+                                                                      .size
+                                                                      .height *
+                                                                  .4,
+                                                              child:
+                                                                  const Text(
+                                                                      'hey')),
+                                                        );
+                                                      });
+                                                },
+                                                child: Container(
+                                                    height: 100,
+                                                    width: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadiusDirectional
+                                                              .circular(14),
+                                                      image: DecorationImage(
+                                                          image: NetworkImage(
+                                                              widget
+                                                                  .profile
+                                                                  .userdonations![
+                                                                      index]
+                                                                  .nonprofit!
+                                                                  .logo!)),
+                                                      shape:
+                                                          BoxShape.rectangle,
+                                                    )),
+                                              ),
+                                            )
+                                          ],
+                                        );
+                                      } else if (widget
+                                              .profile
+                                              .userdonations![index]
+                                              .atrocity !=
+                                          null) {
+                                        return Column(
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Container(
+                                                    height: 100,
+                                                    width: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius
+                                                              .circular(14),
+                                                      color:
+                                                          Colors.amberAccent,
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(
+                                                      widget
+                                                          .profile
+                                                          .userdonations![
+                                                              index]
+                                                          .atrocity!
+                                                          .title,
+                                                      style: const TextStyle(
+                                                          color: Colors.white,
+                                                          fontSize: 12,
+                                                          fontWeight:
+                                                              FontWeight.bold,
+                                                          backgroundColor:
+                                                              Colors.black38),
+                                                    ))))
+                                          ],
+                                        );
+                                      } else if (widget
+                                              .profile
+                                              .userdonations![index]
+                                              .project !=
+                                          null) {
+                                        return Column(
+                                          children: [
+                                            Padding(
+                                                padding:
+                                                    const EdgeInsets.all(8),
+                                                child: Container(
+                                                    height: 100,
+                                                    width: 100,
+                                                    decoration: BoxDecoration(
+                                                      borderRadius:
+                                                          BorderRadius
+                                                              .circular(14),
+                                                      color: Colors.white,
+                                                    ),
+                                                    child: Center(
+                                                        child: Text(widget
+                                                            .profile
+                                                            .userdonations![
+                                                                index]
+                                                            .project!
+                                                            .title
+                                                            .toString()))))
+                                          ],
+                                        );
+                                      }
+                                      return Container(
+                                        child: Text(
+                                          widget.profile.userdonations![index]
+                                              .id
+                                              .toString(),
+                                          style: const TextStyle(
+                                              color: Colors.white),
+                                        ),
+                                      );
+                                    }),
+
+                                // Column(
+                                //       children: [
+                                //         profile.userdonations![index].nonprofit !=
+                                //                 null
+                                //  Container(
+                                //     height: 100,
+                                //     width: 100,
+                                //     decoration: BoxDecoration(
+                                //       image: DecorationImage(
+                                //           image: NetworkImage(profile
+                                //               .userdonations![index]
+                                //               .nonprofit!
+                                //               .logo)),
+                                //       shape: BoxShape.circle,
+                                //     ))
+                                //             :profile.userdonations![index].atrocity!=null?
+
+                                //             Padding(
+                                //                 padding: const EdgeInsets.only(
+                                //                     left: 6.0, right: 6),
+                                //                 child: Container(
+                                //                   height: 100,
+                                //                   width: 100,
+                                //                   decoration: BoxDecoration(
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(14),
+                                //                     color: Colors.red,
+                                //                   ),
+                                //                   child: Center(
+                                //                       child: profile
+                                //                                   .userdonations![
+                                //                                       index]
+                                //                                   .atrocity !=
+                                //                               null
+                                //                           ? Text(
+                                //                               profile
+                                //                                   .userdonations![
+                                //                                       index]
+                                //                                   .atrocity!
+                                //                                   .title,
+                                //                               softWrap: true,
+                                //                             )
+                                //                           : Text(profile
+                                //                               .userdonations![index]
+                                //                               .project!
+                                //                               .title)),
+                                //                 ),
+                                //               ),
+                                //         profile.userdonations![index].nonprofit !=
+                                //                 null
+                                //             ? Text(profile.userdonations![index]
+                                //                 .nonprofit!.name)
+                                //             : Text('The Atrocity')
+                                //       ],
+                                //     )),
+                                // itemBuilder: (context, index) => Column(
+                                //       children: [
+                                //         Container(
+                                //             decoration:
+                                //                 profile.userdonations![index].nonprofit !=
+                                //                         null
+                                //                     ? BoxDecoration(
+                                //                         image: DecorationImage(
+                                //                             image: NetworkImage(profile
+                                //                                 .userdonations![index]
+                                //                                 .nonprofit!
+                                //                                 .logo)),
+                                //                         shape: BoxShape.circle)
+                                //                     : BoxDecoration(color: Colors.black),
+                                //             child:
+                                //                 profile.userdonations![index].nonprofit !=
+                                //                         null
+                                //                     ? null
+                                //                     : Text('Altrue Cause')),
+                                //         profile.userdonations![index].nonprofit != null
+                                //             ? Text(profile
+                                //                 .userdonations![index].nonprofit!.name)
+                                //             : Text(profile
+                                //                 .userdonations![index].atrocity!.title)
+                                //       ],
+                                //     )),
+                              )
+                            : Container(
+                                child: const Text(
+                                    "You have not made any donations to any organizations."),
+                              ),
+                      ]),
+                    ),
+                  );
   }
 
   Widget _profileForm() {

@@ -158,22 +158,13 @@ class _AllNpProjectsCardState extends State<AllNpProjectsCard> {
                         padding: const EdgeInsets.symmetric(vertical: 10),
                         alignment: Alignment.center,
                         child: const Text(
-                          'Support',
+                          'Learn More',
                           style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold),
+                              color: Colors.black, fontWeight: FontWeight.bold,fontSize: 10),
                         ),
                       ),
                     ),
-                    SizedBox(
-                        height: 40,
-                        width: MediaQuery.of(context).size.width * .2,
-                        child: TwoSideRoundedButton(
-                          press: () {
-                            Navigator.of(context).pushNamed('/npProjectDetails',
-                                arguments: widget.project);
-                          },
-                          text: 'Learn',
-                        ))
+                  
                   ],
                 ),
               )

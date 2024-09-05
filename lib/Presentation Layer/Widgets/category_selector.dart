@@ -93,7 +93,7 @@ class _CategorySelectorState extends State<CategorySelector> {
                 Text(
                   widget.categoryList[index].name!,
                   style: TextStyle(
-                      fontSize: 22,
+                      fontSize: 16,
                       color:
                           selectedIndex == index ? Colors.black : Colors.amber),
                 ),

@@ -9,9 +9,10 @@ import '../Widgets/quiz_questions_widget.dart';
 
 class QuizPage extends StatefulWidget {
   final Quiz quiz;
+  final String quizId;
   final Profile profile;
 
-  const QuizPage({super.key, required this.quiz, required this.profile});
+  const QuizPage({super.key, required this.quiz, required this.profile, required this.quizId});
 
   @override
   _QuizPageState createState() => _QuizPageState();

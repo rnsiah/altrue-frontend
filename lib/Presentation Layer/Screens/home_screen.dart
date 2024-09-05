@@ -22,6 +22,7 @@ import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dar
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/atrocity_details.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/find_friends_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/new_posts.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_bottom_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_icon.dart';
@@ -115,6 +116,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     return shir;
   }
 
+
+
   Future<void> updateCart(CartBloc cartBloc) async {
     cartBloc.add(CartBeingLoaded());
   }
@@ -162,6 +165,29 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
     super.dispose();
   }
 
+
+ListTile _buildDrawerItem({
+  required IconData icon,
+  required String text,
+  required Color color,
+  required BuildContext context,
+  required VoidCallback onTap,
+}) {
+  return ListTile(
+    leading: Icon(icon, color: color),
+    title: Text(
+      text,
+      style: const TextStyle(
+        fontSize: 20,
+        fontWeight: FontWeight.w600,
+        color: Colors.white,
+      ),
+    ),
+    onTap: onTap,
+  );
+}
+
+
   AnimationController? _animationController;
 
   _shirtSelector(int index, List<Atrocity> atrocities, Profile profile) {
@@ -186,6 +212,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             context,
             MaterialPageRoute(
                 builder: (_) => AtrocityDetails(
+                  atrocityId: atrocities[index].id.toString(),
                     profile: profile, atrocity: atrocities[index]))),
         child: Stack(
           children: [
@@ -266,8 +293,8 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              Colors.amber,
-              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.2)
+              Colors.amber.shade600,
+              const Color.fromARGB(255, 0, 0, 0).withOpacity(0.7)
             ],
           ),
         ),
@@ -291,206 +318,147 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
           // ],
           borderRadius: BorderRadius.all(Radius.circular(16))),
       drawer: SafeArea(
-          child: Container(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              GestureDetector(
-                // onTap: () async {
-                //   try {
-                //     await _getImage().then((value) => context
-                //         .read<ProfileBloc>()
-                //         .add(ChangeProfilePicture(profilePicture: value)));
-                //   } catch (e) {
-                //     print(e.toString());
-                //   }
-                // },
-                child: Container(
-                  width: 128.0,
-                  height: 128.0,
-                  margin: const EdgeInsets.only(
-                    top: 14.0,
-                    bottom: 12.0,
+          child: SingleChildScrollView(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              children: [
+               Container(
+                padding: EdgeInsets.symmetric(vertical: 20),
+               child: Column(
+                children: [
+                  CircleAvatar(
+                    radius: 64,
+                    backgroundImage: NetworkImage(state.profile!.profilePicture!.url),
+                    foregroundImage:  NetworkImage(state.profile!.profilePicture!.url),
+                    backgroundColor: Colors.transparent,
+                    child: Container(
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: [Colors.amber.shade300, Colors.amber.shade600],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                        ),
+                      ),
+                    ),
                   ),
-                  clipBehavior: Clip.antiAlias,
-                  decoration: const BoxDecoration(
-                    color: Colors.black26,
-                    shape: BoxShape.circle,
-                  ),
-                  child: Image.network(
-                    state.profile!.profilePicture!.url,
-                    fit: BoxFit.fill,
-                  ),
-                ),
-              ),
-              Column(children: [
-                Align(
-                  child: Text(
+                   const SizedBox(height: 12),
+                  Text(
                     state.profile!.username!,
                     style: const TextStyle(
-                        fontSize: 20,
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(bottom: 18.0),
-                  child:
-                      Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-                    const Text("Altrue Balance:",
-                        style: TextStyle(
-                          fontSize: 16,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                    Text('\$${state.profile!.balance}',
-                        style: const TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
-                          color: Colors.black,
-                        )),
-                  ]),
-                ),
-              ]),
-              ListTile(
-                leading: const Icon(Icons.person, color: Colors.amberAccent),
-                title: const Text(
-                  'My Profile',
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
-                onTap: () => Navigator.of(context)
-                    .pushNamed('/userProfile', arguments: state.profile),
-              ),
-              BlocProvider.value(
-                value: context.read<FeedBloc>(),
-                child: ListTile(
-                  leading: const Icon(Icons.person, color: Colors.amberAccent),
-                  title: const Text(
-                    'Altrue Updates',
-                    style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                  onTap: () async {
-                    context.read<FeedBloc>().add(FetchFeed());
-                    Navigator.of(context).pushNamed('/newPosts',arguments: state.profile
-                      );
-                  },
-                ),
-              ),
-              ListTile(
-                  onTap: () => Navigator.of(context)
-                      .pushNamed('/usernonprofits', arguments: state.profile!),
-                  leading: const Icon(Icons.favorite, color: Colors.white),
-                  title: const Text(
-                    'My Non Profits',
-                    style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  )),
-              ListTile(
-                onTap: () => Navigator.of(context)
-                    .pushNamed('/supporters', arguments: state.profile),
-                leading: const Icon(Icons.people, color: Colors.amber),
-                title: const Text(
-                  'My Supporters',
-                  style: TextStyle(
-                      fontSize: 23,
-                      fontWeight: FontWeight.w600,
-                      color: Colors.white),
-                ),
-              ),
-              ListTile(
-                  leading: const Icon(Icons.camera, color: Colors.white),
-                  title: const Text(
-                    'My Altrue Code',
-                    style: TextStyle(
-                        fontSize: 23,
-                        fontWeight: FontWeight.w600,
-                        color: Colors.white),
-                  ),
-                  onTap: () {
-                    Navigator.of(context)
-                        .pushNamed('/myQrCode', arguments: state.profile);
-                  }),
-              ListTile(
-                leading: const Icon(Icons.store, color: Colors.white),
-                title: state.profile!.hasCompany!
-                    ? const Text('My Company Details',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600))
-                    : const Text('Register A Company',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600)),
-                onTap: state.profile!.hasCompany!
-                    ? () async {
-                        ForProfitCompany company = await companyRepository
-                            .fetchCompanyById(state.profile!.comp!.id);
-                        Navigator.of(context).pushNamed('/CompanyHome',
-                            arguments: CompanyHomeArguments(
-                                company: company, profile: state.profile!));
-                      }
-                    : () {
-                        Navigator.of(context).pushNamed('/companyRegister',
-                            arguments: state.profile);
-                      },
-              ),
-              ListTile(
-                leading: const Icon(Icons.store, color: Colors.amber),
-                title: state.profile!.hasNonProfit!
-                    ? const Text('My NonProfit Details',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600))
-                    : const Text('Register A NonProfit',
-                        style: TextStyle(
-                            color: Colors.white,
-                            fontSize: 23,
-                            fontWeight: FontWeight.w600)),
-                onTap: () async {
-                  if (state.profile!.hasNonProfit == true) {
-                    NonProfit nonprofit = await nonProfitRespository
-                        .fetchNonProfit(state.profile!.np!.id);
-                    Navigator.of(context).pushNamed('/mynonprofit',
-                        arguments: MyNonProfitDetailArgments(
-                            nonprofit: nonprofit, profile: state.profile!));
-                  } else if (state.profile!.hasNonProfit != true) {
-                    Navigator.of(context).pushNamed('/nonprofitRegister',
-                        arguments: state.profile);
-                  }
-                },
-              ),
-              ListTile(
-                leading: Icon(
-                  Icons.logout_rounded,
-                  color: Colors.black,
-                ),
-                title: Text(
-                  'Log Out',
-                  style: TextStyle(
+                      fontSize: 22,
+                      fontWeight: FontWeight.bold,
                       color: Colors.white,
-                      fontSize: 23,
-                      fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                  const SizedBox(height: 8),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const Text("Altrue Balance: ",
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white70,
+                          )),
+                      Text('\$${state.profile!.balance}',
+                          style: const TextStyle(
+                            fontSize: 24,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.white,
+                          )),
+                    ],
+                  ),
+                ],
+                
+               ),
+               ),
+               Divider(color: Colors.white38,),
+                _buildDrawerItem(
+              icon: Icons.person,
+              text: 'My Profile',
+              color: Colors.amberAccent,
+              context: context,
+              onTap: () => Navigator.of(context)
+                  .pushNamed('/userProfile', arguments: state.profile),
+            ),
+               
+            
+                BlocProvider.value(
+                  value: context.read<FeedBloc>(),
+                  child: _buildDrawerItem(icon: Icons.feed_outlined, text: 'My Feed', color: Colors.white, context: context, onTap: () async {
+                      context.read<FeedBloc>().add(FetchFeed());
+                      Navigator.of(context).pushNamed('/newPosts',arguments: state.profile
+                        );
+                    },)
                 ),
-                onTap: () {
-                  context.read<SessionBLoc>().add(LoggedOut());
-                },
-              )
-            ],
-          ),
-        ),
-      )),
+                _buildDrawerItem(icon: Icons.house_outlined, text: 'My Non Profits', color: Colors.white, context: context, onTap: ()=>Navigator.of(context)
+                        .pushNamed('/usernonprofits', arguments: state.profile!),),
+                
+                _buildDrawerItem(icon: Icons.people_alt_outlined, text: 'My Supporters', color: Colors.white, context: context, onTap: ()=> Navigator.of(context)
+                      .pushNamed('/supporters', arguments: state.profile),),
+                
+                _buildDrawerItem(icon: Icons.qr_code, text: 'My Altrue Code', color: Colors.white, context: context, onTap: () {
+                      Navigator.of(context)
+                          .pushNamed('/myQrCode', arguments: state.profile);
+                    }),
+              
+                _buildDrawerItem(
+              icon: Icons.store,
+              text: state.profile!.hasCompany!
+                  ? 'My Company Details'
+                  : 'Register A Company',
+              color: Colors.white,
+              context: context,
+              onTap: state.profile!.hasCompany!
+                      ? () async {
+                          ForProfitCompany company = await companyRepository
+                              .fetchCompanyById(state.profile!.comp!.id);
+                          Navigator.of(context).pushNamed('/CompanyHome',
+                              arguments: CompanyHomeArguments(
+                                  company: company, profile: state.profile!));
+                        }
+                      : () {
+                          Navigator.of(context).pushNamed('/companyRegister',
+                              arguments: state.profile);
+                        },
+            ),
+               
+                      _buildDrawerItem(
+                    icon: Icons.store,
+                    text: state.profile!.hasNonProfit!
+                        ? 'My NonProfit Details'
+                        : 'Register A NonProfit',
+                    color: Colors.white,
+                    context: context,
+                    onTap: () async {
+                    if (state.profile!.hasNonProfit == true) {
+                      NonProfit nonprofit = await nonProfitRespository
+                          .fetchNonProfit(state.profile!.np!.id);
+                      Navigator.of(context).pushNamed('/mynonprofit',
+                          arguments: MyNonProfitDetailArgments(
+                              nonprofit: nonprofit, profile: state.profile!));
+                    } else if (state.profile!.hasNonProfit != true) {
+                      Navigator.of(context).pushNamed('/nonprofitRegister',
+                          arguments: state.profile);
+                    }
+                  },
+                  ),
+                
+                const Divider(color: Colors.white38),
+                  _buildDrawerItem(
+                      icon: Icons.logout_rounded,
+                      text: 'Log Out',
+                      color: Colors.redAccent,
+                      context: context,
+                      onTap: () {
+                        context.read<SessionBLoc>().add(LoggedOut());
+                      },
+                    ),
+                
+              ],
+            ),
+          )),
       child: MultiBlocProvider(
         providers: [
           BlocProvider.value(
@@ -979,12 +947,9 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   context
                                       .read<AllUsersBloc>()
                                       .add(FetchFindUserList());
-                                  Navigator.of(context).pushNamed(
-                                      '/findfriends',
-                                      arguments: context
-                                          .read<ProfileBloc>()
-                                          .state
-                                          .profile!);
+                                  Navigator.of(context).push(
+                                    MaterialPageRoute(builder: (context)=>FindFriends(profile:state.profile!))
+                                  );
                                 },
                                 child: const Text(
                                   'Find Friends',

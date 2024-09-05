@@ -38,18 +38,18 @@ class _AllProjectsListState extends State<AllProjectsList> {
             const Align(
               alignment: Alignment.centerLeft,
               child: Padding(
-                padding: EdgeInsets.only(left: 16, top: 10, bottom: 10),
+                padding: EdgeInsets.only(left: 16, top: 7, bottom: 5),
                 child: Text(
                   'Global Causes',
                   style: TextStyle(
-                      fontSize: 20,
+                      fontSize: 12,
                       fontWeight: FontWeight.bold,
                       color: Colors.white),
                 ),
               ),
             ),
             Padding(
-              padding: const EdgeInsets.only(bottom: 18.0),
+              padding: const EdgeInsets.only(bottom: 12.0),
               child: BlocBuilder<CategoryBloc, CategoryState>(
                 builder: (context, state) {
                   return CategorySelector(

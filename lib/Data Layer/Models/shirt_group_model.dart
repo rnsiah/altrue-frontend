@@ -5,6 +5,7 @@ part 'shirt_group_model.g.dart';
 @JsonSerializable(explicitToJson: true)
 class ShirtGroup {
   String? name;
+  int? id;
   String? groupImage;
   String? description;
   String? creator;
@@ -14,6 +15,7 @@ class ShirtGroup {
       {required this.name,
       required this.creator,
       required this.description,
+      required this.id,
       required this.groupImage,
       this.shirts});
 

@@ -13,10 +13,12 @@ import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 
 class UserProfileComplete extends StatefulWidget {
   final User user;
+  String userId;
 
   UserProfileComplete({
     Key? key,
     required this.user,
+    required this.userId,
   }) : super(key: key);
 
   @override

@@ -17,9 +17,10 @@ import 'package:share_plus/share_plus.dart';
 class AtrocityDetails extends StatefulWidget {
   final Atrocity atrocity;
   final Profile profile;
+  final String atrocityId;
 
   const AtrocityDetails(
-      {super.key, required this.atrocity, required this.profile});
+      {super.key, required this.atrocity, required this.profile, required this.atrocityId});
   @override
   State<AtrocityDetails> createState() => _AtrocityDetailsState();
 }

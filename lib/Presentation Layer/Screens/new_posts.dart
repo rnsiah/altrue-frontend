@@ -14,18 +14,25 @@ class NewPostsScreen extends StatefulWidget {
 }
 
 class _NewPostsScreenState extends State<NewPostsScreen> {
-   @override
+     @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.black,
-        title: const Text('New Posts'),
+        title: const Text('Feed'),
+        leading: IconButton(
+          icon: const Icon(Icons.person_search),
+          onPressed: () {
+            // Navigate to Find My Friends screen
+            Navigator.of(context).pushNamed('/findfriends', arguments: widget.profile);
+          },
+        ),
       ),
       body: BlocBuilder<FeedBloc, FeedState>(
         builder: (context, state) {
           if (state is FeedLoading) {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           } else if (state is FeedLoaded) {
             return ListView.builder(
               itemCount: state.feedItems.length,
@@ -34,45 +41,80 @@ class _NewPostsScreenState extends State<NewPostsScreen> {
                 return Padding(
                   padding: const EdgeInsets.symmetric(vertical: 4.0, horizontal: 8.0),
                   child: Card(
-                    color: Colors.amber,
+                    elevation: 2,
+                    color: Colors.grey[850],
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(15),
+                    ),
                     child: ListTile(
-                      contentPadding: EdgeInsets.all(8.0),
-                      leading: Icon(
-                        item.pointAmount != null ? Icons.star : Icons.attach_money,
-                        color: Colors.black,
+                      leading: CircleAvatar(
+                        radius: 24,
+                        backgroundColor: Colors.grey[700],
+                        child: Icon(
+                          item.pointAmount != null
+                              ? Icons.star
+                              : Icons.attach_money,
+                          color: Colors.amber,
+                        ),
                       ),
                       title: Text(
                         item.pointAmount != null
-                            ? '${item.username} accomplished: ${item.requirement}'
+                            ? '${item.username} completed: ${item.requirement}'
                             : '${item.receiverUsername} received a donation',
-                        style: TextStyle(
-                          color: Colors.black,
+                        style: const TextStyle(
+                          color: Colors.white,
                           fontWeight: FontWeight.bold,
                           fontSize: 16.0,
                         ),
-                        maxLines: 1,
+                        maxLines: 2,
                         overflow: TextOverflow.ellipsis,
                       ),
-                      subtitle: Text(
-                        item.pointAmount != null
-                            ? 'Points earned: ${item.pointAmount}'
-                            : 'Amount: \$${item.donationAmount?.toStringAsFixed(2)}',
-                        style: TextStyle(color: Colors.grey[400]),
+                      subtitle: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          const SizedBox(height: 4),
+                          Text(
+                            item.pointAmount != null
+                                ? 'Points earned: ${item.pointAmount}'
+                                : 'Donation: \$${item.donationAmount?.toStringAsFixed(2)}',
+                            style: TextStyle(
+                              color: Colors.amber[200],
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 4),
+                          Text(
+                            item.timestamp?.toLocal().toString() ?? '',
+                            style: const TextStyle(
+                              color: Colors.grey,
+                              fontSize: 12,
+                            ),
+                          ),
+                        ],
                       ),
-                      trailing: Text(
-                        item.timestamp?.toLocal().toString() ?? '',
-                        style: TextStyle(color: Colors.grey[500]),
+                      isThreeLine: true,
+                      contentPadding: const EdgeInsets.all(12.0),
+                      trailing: Icon(
+                        item.isPromotion != null && item.isPromotion!
+                            ? Icons.local_offer
+                            : Icons.arrow_forward_ios,
+                        color: Colors.grey[600],
+                        size: 16,
                       ),
+                      onTap: () {
+                        // Show more details on tap
+                      },
                     ),
                   ),
                 );
               },
             );
           } else {
-            return Center(child: CircularProgressIndicator());
+            return const Center(child: CircularProgressIndicator());
           }
         },
       ),
     );
   }
+
 }

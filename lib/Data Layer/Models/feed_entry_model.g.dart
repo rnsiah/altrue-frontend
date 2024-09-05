@@ -10,18 +10,13 @@ FeedItem _$FeedItemFromJson(Map<String, dynamic> json) => FeedItem(
       username: json['username'] as String?,
       receiverUsername: json['receiver_username'] as String?,
       requirement: json['requirement'] as String?,
-        pointAmount: json['amount'] != null
-          ? int.tryParse(json['amount'].toString())
-          : null,
+      pointAmount: (json['amount'] as num?)?.toInt(),
       description: json['description'] as String?,
       timestamp: json['timestamp'] == null
           ? null
           : DateTime.parse(json['timestamp'] as String),
       isPromotion: json['is_promotion'] as bool?,
-           donationAmount: json['donation_amount'] != null
-          ? double.tryParse(json['donation_amount'].toString())
-          : null,
-
+      donationAmount: (json['donation_amount'] as num?)?.toDouble(),
     );
 
 Map<String, dynamic> _$FeedItemToJson(FeedItem instance) => <String, dynamic>{

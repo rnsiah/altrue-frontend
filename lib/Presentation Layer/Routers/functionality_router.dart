@@ -82,7 +82,8 @@ Widget _buildRoute(
     Object? arguments}) {
   switch (routeName) {
     case '/userActionScreen':
-    return const UserActionRewardScreen();
+    Profile profile = arguments as Profile;
+    return  UserActionRewardScreen(profile: profile,);
     case'/testscreen':
     User user = arguments as User;
     return TestScreen(user: user);
@@ -175,6 +176,7 @@ Widget _buildRoute(
       return AtrocityDetails(
         atrocity: atrocity.atrocity,
         profile: atrocity.profile,
+        atrocityId: atrocity.atrocity.id!.toString(),
       );
     case '/causes':
       final CauseListArguments argument = arguments as CauseListArguments;
@@ -184,6 +186,7 @@ Widget _buildRoute(
       return CauseDetails2(
         cause: argument.category,
         profile: argument.profile,
+        causeId: argument.category.id.toString(),
       );
     case '/companies':
       final argument = arguments as CompaniesListArguments;
@@ -202,7 +205,7 @@ Widget _buildRoute(
       return CompanYDetailPage(company: company);
     case '/editprofile':
       User user = arguments as User;
-      return UserProfileComplete(user: user);
+      return UserProfileComplete(user: user,userId: user.altid.toString(),);
     case '/findfriends':
       Profile profile = arguments as Profile;
       return FindFriends(
@@ -210,7 +213,7 @@ Widget _buildRoute(
       );
     case '/quizpage':
       QuizPageArguments argument = arguments as QuizPageArguments;
-      return QuizPage(quiz: argument.quiz, profile: argument.profile);
+      return QuizPage(quiz: argument.quiz, profile: argument.profile, quizId: argument.quiz.id.toString(),);
     case '/quizResults':
       QuizResultsScreenArguments argument =
           arguments as QuizResultsScreenArguments;
@@ -251,6 +254,7 @@ Widget _buildRoute(
       NonProfitProjectListArguments argument =
           arguments as NonProfitProjectListArguments;
       return NonProfitProjectList(
+        nonprofitId: argument.nonProfit.id.toString(),
         profile: argument.profile,
         nonprofit: argument.nonProfit,
       );
@@ -258,6 +262,7 @@ Widget _buildRoute(
       final ShirtGroupArguments argument = arguments as ShirtGroupArguments;
       return ShirtGroupListPage(
         profile: argument.profile,
+        shirtGroupId: argument.shirtGroup.id.toString(),
         shirtGroup: argument.shirtGroup,
       );
     case '/companyDashboard':

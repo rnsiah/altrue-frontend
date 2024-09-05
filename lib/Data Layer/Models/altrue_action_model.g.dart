@@ -8,6 +8,7 @@ part of 'altrue_action_model.dart';
 
 AltrueAction _$AltrueActionFromJson(Map<String, dynamic> json) => AltrueAction(
       name: json['requirement'] as String?,
+      id: (json['id'] as num).toInt(),
       pointsAwarded: (json['points_awarded'] as num?)?.toInt(),
       isPromoted: json['is_promoted'] as bool,
     )
@@ -19,14 +20,17 @@ AltrueAction _$AltrueActionFromJson(Map<String, dynamic> json) => AltrueAction(
           ? null
           : AltrueActionCode.fromJson(
               json['action_code'] as Map<String, dynamic>)
-      ..info = json['info'] as String?;
+      ..info = json['info'] as String?
+      ..isCompleted = json['isCompleted'] as bool?;
 
 Map<String, dynamic> _$AltrueActionToJson(AltrueAction instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'requirement': instance.name,
       'points_awarded': instance.pointsAwarded,
       'is_promoted': instance.isPromoted,
       'promotion': instance.promotion?.toJson(),
       'action_code': instance.actionCode?.toJson(),
       'info': instance.info,
+      'isCompleted': instance.isCompleted,
     };

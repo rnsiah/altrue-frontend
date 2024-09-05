@@ -17,6 +17,7 @@ class FindFriends extends StatefulWidget {
   _FindFriendsState createState() => _FindFriendsState();
 }
 
+
 class _FindFriendsState extends State<FindFriends> {
   final ScrollController _scrollController = ScrollController();
   UserRepository userRepository = UserRepository();
