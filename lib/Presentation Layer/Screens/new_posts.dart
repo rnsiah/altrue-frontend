@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/feed_bloc/bloc/feed_bloc.dart';
 import '../../Data Layer/Models/feed_entry_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -25,7 +26,7 @@ class _NewPostsScreenState extends State<NewPostsScreen> {
           icon: const Icon(Icons.person_search),
           onPressed: () {
             // Navigate to Find My Friends screen
-            Navigator.of(context).pushNamed('/findfriends', arguments: widget.profile);
+            context.go('/newPosts/findfriends', extra: widget.profile);
           },
         ),
       ),

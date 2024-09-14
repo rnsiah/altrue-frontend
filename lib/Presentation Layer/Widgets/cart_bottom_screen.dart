@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/shirt_order_bloc/bloc/shirt_order_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/order_item_model.dart';
@@ -40,11 +41,11 @@ class _CartBottomScreenState extends State<CartBottomScreen> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
        if(state.status== ProfileStatus.paymentSheetInitalized){
-        Navigator.of(context).popAndPushNamed('/payment');
+       context.go('/userProfile/payment');
        }
       },
       child: Container(
-        color: Colors.black,
+        color: Colors.grey[900],
         height: 400,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -221,7 +222,7 @@ class _CartBottomScreenState extends State<CartBottomScreen> {
                             print('this some bullshit');
                           }
 
-                          // Navigator.of(context).pushNamed('/payment',
+                          // context.go('/payment',
                           //     arguments: context.read<ProfileBloc>().state);
                           // print(state.paymentIntentData);
                           // widget.profilebloc.add(CreatePaymentIntentForPurchase(

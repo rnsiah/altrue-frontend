@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/np_project_rating.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/two_sided_rounded_button.dart';
 
@@ -25,8 +27,8 @@ class _NpProjectCardState extends State<NpProjectCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Navigator.of(context).pushNamed('/npProjectDetails',
-            arguments: NonProfitProjectDetailArguments(
+        context.go('/allProjectsList/npProjectDetails',
+            extra: NonProfitProjectDetailArguments(
                 project: widget.project, profile: widget.profile));
       },
       child: Container(
@@ -168,9 +170,9 @@ class _NpProjectCardState extends State<NpProjectCard> {
                                       width: 101,
                                       child: TwoSideRoundedButton(
                                         press: () {
-                                          Navigator.of(context).pushNamed(
+                                          context.go(
                                               '/npProjectDetails',
-                                              arguments:
+                                              extra:
                                                   NonProfitProjectDetailArguments(
                                                       project: widget.project,
                                                       profile: widget.profile));

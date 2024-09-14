@@ -1,4 +1,5 @@
 import 'package:awesome_select/awesome_select.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -9,6 +10,7 @@ import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/nonProfit_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/np_project_card.dart';
 
 
@@ -280,8 +282,8 @@ class _CompanyMatchScreenState extends State<CompanyMatchScreen> {
                           print(profile.username);
                           print(theAtrocity!.nonprofitList![index].id);
 
-                          Navigator.of(context).pushNamed('/nonProfitView',
-                              arguments: NonProfitDetailArguments(
+                          context.go('/allProjectsList/nonProfitView',
+                              extra: NonProfitDetailArguments(
                                   nonProfit: nonprofit, profile: profile));
                         },
                         child: Container(

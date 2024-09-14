@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/feed_bloc/bloc/feed_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/posts_bloc/bloc/posts_bloc.dart';
@@ -14,6 +15,7 @@ import 'package:lovelovelove/Data%20Layer/Repositories/company_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/new_posts_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/nonProfit_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/post_model.dart';
 
@@ -184,9 +186,9 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: ListTile(
-                    onTap: () => Navigator.of(context).pushNamed(
+                    onTap: () => context.go(
                         '/usernonprofits',
-                        arguments: widget.profile),
+                        extra: widget.profile),
                     leading: const Icon(Icons.favorite, color: Colors.white),
                     title: const Text(
                       'My Non Profits',
@@ -202,8 +204,7 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                   borderRadius: BorderRadius.circular(30),
                 ),
                 child: ListTile(
-                  onTap: () => Navigator.of(context)
-                      .pushNamed('/supporters', arguments: widget.profile),
+                  onTap: () => context.go('/userProfile/supporters', extra: widget.profile),
                   leading: const Icon(Icons.people, color: Colors.amber),
                   title: const Text(
                     'My Supporters',
@@ -250,13 +251,13 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                         ForProfitCompany company = await widget
                             .companyRepository
                             .fetchCompanyById(widget.profile.comp!.id);
-                        Navigator.of(context).pushNamed('/CompanyHome',
-                            arguments: CompanyHomeArguments(
+                        context.go('/userProfile/CompanyHome',
+                            extra: CompanyHomeArguments(
                                 company: company, profile: widget.profile));
                       }
                     : () {
-                        Navigator.of(context).pushNamed('/companyRegister',
-                            arguments: widget.profile);
+                        context.go('/userProfile/companyRegister',
+                            extra: widget.profile);
                       },
               ),
             ),
@@ -277,12 +278,12 @@ class _ProfileDrawerState extends State<ProfileDrawer> {
                   if (widget.profile.hasNonProfit == true) {
                     NonProfit nonprofit = await widget.nonProfitRespository
                         .fetchNonProfit(widget.profile.np!.id);
-                    Navigator.of(context).pushNamed('/mynonprofit',
-                        arguments: MyNonProfitDetailArgments(
+                    context.go('/mynonprofit',
+                        extra: MyNonProfitDetailArgments(
                             nonprofit: nonprofit, profile: widget.profile));
                   } else if (widget.profile.hasNonProfit != true) {
-                    Navigator.of(context).pushNamed('/nonprofitRegister',
-                        arguments: widget.profile);
+                    context.go('/nonprofitRegister',
+                        extra: widget.profile);
                   }
                 },
               ),

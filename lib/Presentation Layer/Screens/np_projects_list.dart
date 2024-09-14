@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/np_projects_bloc/bloc/np_projects_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/myNpProjects_card.dart';
 
 import '../../Data Layer/Models/user_model.dart';
@@ -69,8 +71,8 @@ class _AllNPProjectsState extends State<AllNPProjects> {
                             borderRadius: BorderRadius.circular(15)),
                         color: Colors.amber,
                         onPressed: () {
-                          Navigator.of(context).pushNamed('/allProjectsList',
-                              arguments: widget.profile);
+                          context.go('/allProjectsList',
+                              extra: widget.profile);
                         },
                         child: const Text(
                           'All Projects',
@@ -181,8 +183,8 @@ class _AllNPProjectsState extends State<AllNPProjects> {
       padding: const EdgeInsets.all(18.0),
       child: GestureDetector(
         onTap: () {
-          Navigator.of(context).pushNamed('/npProjectDetails',
-              arguments: NonProfitProjectDetailArguments(
+          context.go('/allProjectsList/npProjectDetails',
+              extra: NonProfitProjectDetailArguments(
                   profile: widget.profile, project: project));
         },
         child: Container(

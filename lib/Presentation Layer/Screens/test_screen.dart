@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -19,7 +20,7 @@ class _TestScreenState extends State<TestScreen> {
     @override
   void initState() {
    channel = IOWebSocketChannel.connect( 
-      Uri.parse('wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/${widget.user.altid}/'),
+      Uri.parse('wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/${widget.user.altid}/'),
       );
     super.initState();
   }
@@ -62,7 +63,7 @@ class _TestScreenState extends State<TestScreen> {
                                             right: 20,
                                             left: 20),
                                         
-                                        action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>Navigator.of(context).pushNamed('/userActionScreen')),
+                                        action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>context.go('/userActionScreen')),
                                         content: Text(
                                           'Action: ${requirement.toString()}\nPoints Awarded: ${pointsAwarded.toString()}',
                                           style: TextStyle(color: Colors.white),

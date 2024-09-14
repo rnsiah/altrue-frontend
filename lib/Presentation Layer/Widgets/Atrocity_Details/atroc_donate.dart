@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/np_atributes.dart';
 import 'package:syncfusion_flutter_core/theme.dart';
 
@@ -47,8 +49,8 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state.status == ProfileStatus.paymentAccepted) {
-          Navigator.of(context).popAndPushNamed('/thankyou',
-              arguments: ThankYouScreenArguments(
+          context.go('/userActionScreen/thankyou',
+              extra: ThankYouScreenArguments(
                   isAtrocity: true,
                   isNonProfit: false,
                   isProject: false,

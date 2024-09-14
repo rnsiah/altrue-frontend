@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/user_model.dart';
 
@@ -25,7 +27,7 @@ class _CompanyRewardsScreenState extends State<CompanyRewardsScreen> {
         MaterialButton(
       child: const Text('Create New Reward'),
       onPressed: (){
-        Navigator.of(context).pushNamed('/createCompanyReward', arguments: CompanyHomeArguments(company: widget.company, profile: widget.profile));
+        context.go('/userProfile/createCompanyReward', extra: CompanyHomeArguments(company: widget.company, profile: widget.profile));
       },
     )
       ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/category_bloc/bloc/category_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/nonprofit_bloc/bloc/nonprofit_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
@@ -7,6 +8,7 @@ import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/category_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
 
 class NonProfitList extends StatefulWidget {
@@ -128,8 +130,8 @@ class NonProfitSquare extends StatelessWidget {
         context
             .read<NonprofitBloc>()
             .add(FetchNonProfitItem(nonProfit: nonProfit));
-        Navigator.of(context).pushNamed('/nonProfitView',
-            arguments: NonProfitDetailArguments(
+        context.go('/allProjectsList/nonProfitView',
+            extra: NonProfitDetailArguments(
                 nonProfit: nonProfit, profile: profile));
       },
       child: Card(

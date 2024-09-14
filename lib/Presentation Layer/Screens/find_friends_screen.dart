@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/all_users_bloc/bloc/all_users_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
@@ -105,7 +106,7 @@ class FriendTile extends StatelessWidget {
         Profile profile = await userRepository.fetchProfile(
           id: prof.id,
         );
-        Navigator.of(context).pushNamed('/userProfilePage', arguments: profile);
+        context.go('/newPosts/userProfilePage', extra: profile);
       },
       leading: CircleAvatar(
         radius: 45.0,

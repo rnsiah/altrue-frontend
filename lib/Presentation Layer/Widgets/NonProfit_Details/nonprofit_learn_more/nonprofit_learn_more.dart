@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../../../Data Layer/Models/user_model.dart';
 
@@ -72,9 +74,9 @@ class _NPLearnMoreState extends State<NPLearnMore> {
                       itemCount: widget.nonprofit.projects!.length,
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
-                              Navigator.of(context).pushNamed(
-                                  '/npProjectDetails',
-                                  arguments: NonProfitProjectDetailArguments(
+                              context.go(
+                                  '/allProjectsList/npProjectDetails',
+                                  extra: NonProfitProjectDetailArguments(
                                       project:
                                           widget.nonprofit.projects![index],
                                       profile: widget.profile));

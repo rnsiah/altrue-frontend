@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/bloc/company_list_bloc.dart';
 
 import '../../Data Layer/Blocs/category_bloc/bloc/category_bloc.dart';
@@ -80,9 +81,9 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
                 crossAxisCount: 2),
             itemBuilder: (context, index) => CompanyCard(
                   company: state.companies[index],
-                  press: () => Navigator.of(context).pushNamed(
+                  press: () => context.go(
                       '/companyDetails',
-                      arguments: state.companies[index]),
+                      extra: state.companies[index]),
                 )),
       ),
     );
@@ -101,8 +102,8 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
               crossAxisCount: 2),
           itemBuilder: (context, index) => CompanyCard(
               company: state.companies[index],
-              press: () => Navigator.of(context).pushNamed('/companyDetails',
-                  arguments: state.companies[index]))),
+              press: () => context.go('/newPosts/companyDetails',
+                  extra: state.companies[index]))),
     ));
   }
 }

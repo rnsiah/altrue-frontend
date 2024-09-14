@@ -7,7 +7,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
 import 'package:app_links/app_links.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/all_users_bloc/bloc/all_users_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/altrue_statistics_bloc/bloc/altrue_statistics_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/bloc/company_list_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
@@ -18,6 +20,7 @@ import 'package:lovelovelove/Data%20Layer/Blocs/nonprofit_bloc/bloc/nonprofit_bl
 import 'package:lovelovelove/Data%20Layer/Blocs/np_projects_bloc/bloc/np_projects_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/payment_bloc/bloc/payment_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/promoted_actions_bloc/bloc/promoted_actions_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_event_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_state.dart';
@@ -37,10 +40,15 @@ import 'package:lovelovelove/Data%20Layer/Repositories/nonprofit_proj_repository
 import 'package:lovelovelove/Data%20Layer/Repositories/order_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
+import 'package:lovelovelove/Presentation%20Layer/Forms/user_login_form.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/AppNavigation.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/app_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/home_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/main_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/signup_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/Intro_Slider/intro_slider.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -93,88 +101,70 @@ void main() async {
           final userRepository = context.read<UserRepository>();
           return SessionBLoc(userRepository: userRepository)..add(Apploaded());
         },
-        child: MultiRepositoryProvider(providers: [
-          RepositoryProvider(
-            create: (context) => ShirtRepository(),
-          ),
-          RepositoryProvider(
-            create: (context) => NonProfitRespository(),
-          ),
-          RepositoryProvider(
-            create: (context) => AtrocityRepository(),
-          ),
-          RepositoryProvider(
-            create: (context) => OrderRepository(),
-          ),
-          RepositoryProvider(create: (context) => CategoryRepository()),
-          RepositoryProvider(create: (context) => ShirtGroupRepository()),
-          RepositoryProvider(create: (context) => CompanyRepository()),
-          RepositoryProvider(create: (context) => AllUsersRepository()),
-          RepositoryProvider(create: (context) => NonprofitProjectRepository())
-        ], child: const MyApp()),
+        child: MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider(
+                create: (context) => ShirtRepository(),
+              ),
+              RepositoryProvider(
+                create: (context) => NonProfitRespository(),
+              ),
+              RepositoryProvider(
+                create: (context) => AtrocityRepository(),
+              ),
+              RepositoryProvider(
+                create: (context) => OrderRepository(),
+              ),
+              RepositoryProvider(create: (context) => CategoryRepository()),
+              RepositoryProvider(create: (context) => ShirtGroupRepository()),
+              RepositoryProvider(create: (context) => CompanyRepository()),
+              RepositoryProvider(create: (context) => AllUsersRepository()),
+              RepositoryProvider(
+                  create: (context) => NonprofitProjectRepository())
+            ],
+            child: BlocProvider<SessionBLoc>(
+              create: (context) {
+                final userRepository = context.read<UserRepository>();
+                return SessionBLoc(userRepository: userRepository)
+                  ..add(Apploaded());
+              },
+              child: MyApp(),
+            )),
       )));
 }
 
-class MyApp extends StatefulWidget {
+class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  @override
-  State<MyApp> createState() => _MyAppState();
-}
-
-class _MyAppState extends State<MyApp> {
-  List<dynamic> _actions = [];
-
-  final OrderRepository orders = OrderRepository();
-
-  final ShirtGroupRepository shirtgroups = ShirtGroupRepository();
-
-  final AtrocityRepository atrocity = AtrocityRepository();
-
-  final ShirtRepository shirt = ShirtRepository();
-
-  final NonProfitRespository nonprofit = NonProfitRespository();
-
-  final CategoryRepository categoryRepository = CategoryRepository();
-
-  final CompanyRepository companyRepository = CompanyRepository();
-
-  final AllUsersRepository allUsersRepository = AllUsersRepository();
-
-  final NonprofitProjectRepository projectsRepository =
-      NonprofitProjectRepository();
+  // List<dynamic> _actions = [];
 
   Future<void> getPath() async {
     Directory documentsDirectory = await getApplicationDocumentsDirectory();
     print('path:$documentsDirectory');
   }
 
-  @override
-  void initState() {
-    super.initState();
-  }
+  // Future<void> initAppLinks(BuildContext context) async {
+  //   AppLinks appLinks = AppLinks();
 
-  Future<void> initAppLinks() async {
-    AppLinks appLinks = AppLinks();
+  //   final Uri? initialUri = await appLinks.getInitialAppLink();
+  //   if (initialUri != null) {
+  //     _handleDeepLink(initialUri);
+  //   }
 
-    final Uri? initialUri = await appLinks.getInitialAppLink();
-    if (initialUri != null) {
-      _handleDeepLink(initialUri);
-    }
+  //   final _sub = appLinks.uriLinkStream.listen((Uri uri) {
+  //     if (uri != null) {
+  //       _handleDeepLink( uri);
+  //     }
+  //   });
+  // }
 
-    final _sub = appLinks.uriLinkStream.listen((Uri uri) {
-      if (uri != null) {
-        _handleDeepLink(uri);
-      }
-    });
-  }
-
-  void _handleDeepLink(Uri uri) {
-    if (uri.toString() ==
-        'https://962c-2601-2c6-500-16f0-7df8-a440-cb4c-da0e.ngrok-free.app/email-verified') {
-      Navigator.pushNamed(context, '/emailVerificationScreen');
-    }
-  }
+  // void _handleDeepLink(Uri uri ) {
+  //   BuildContext context;
+  //   if (uri.toString() ==
+  //       'https://962c-2601-2c6-500-16f0-7df8-a440-cb4c-da0e.ngrok-free.app/email-verified') {
+  //     Navigator.pushNamed( contet ,'/emailVerificationScreen');
+  //   }
+  // }
 
   @override
   Widget build(BuildContext context) {
@@ -196,30 +186,36 @@ class _MyAppState extends State<MyApp> {
           ),
           BlocProvider<CompletedUserordersBloc>(
               create: (context) => CompletedUserordersBloc(
-                  orderRepository: orders,
+                  orderRepository: context.read<OrderRepository>(),
                   userRepository: context.read<UserRepository>())),
           BlocProvider<AtrocityBlocBloc>(
-            create: (context) => AtrocityBlocBloc(atrocityRepository: atrocity),
+            create: (context) => AtrocityBlocBloc(
+                atrocityRepository: context.read<AtrocityRepository>()),
           ),
           BlocProvider<ShirtOrderBlocBloc>(
             create: (context) => ShirtOrderBlocBloc(),
           ),
-          BlocProvider(create: (context) => FeedBloc(),),
+          BlocProvider(
+            create: (context) => FeedBloc()..add(FetchFeed()),
+          ),
           BlocProvider(
             create: (context) =>
                 ShirtBloc(shirtRepository: context.read<ShirtRepository>()),
           ),
+          BlocProvider<PromotedActionsBloc>(create: (context)=> PromotedActionsBloc()..add(FetchPromotedActions()),),
           BlocProvider<NonprofitBloc>(
             create: (context) => NonprofitBloc(
                 nonProfitRespository: context.read<NonProfitRespository>()),
           ),
           BlocProvider<CategoryBloc>(
-            create: (context) =>
-                CategoryBloc(categoryRepository: categoryRepository),
+            create: (context) => CategoryBloc(
+                categoryRepository: context.read<CategoryRepository>())..add(FetchCategory()),  
+          ),
+          BlocProvider<AltrueStatisticsBloc>(create:(context)=> AltrueStatisticsBloc(),
           ),
           BlocProvider<ShirtgroupBloc>(
-            create: (context) =>
-                ShirtgroupBloc(shirtGroupRepository: shirtgroups),
+            create: (context) => ShirtgroupBloc(
+                shirtGroupRepository: context.read<ShirtGroupRepository>()),
           ),
           BlocProvider<UserProfileEditBloc>(
             create: (context) =>
@@ -232,7 +228,7 @@ class _MyAppState extends State<MyApp> {
           BlocProvider<CompanyListBloc>(create: (context) => CompanyListBloc()),
           BlocProvider<AllUsersBloc>(
               create: (context) => AllUsersBloc(
-                    allUsersRepository: allUsersRepository,
+                    allUsersRepository: context.read<AllUsersRepository>(),
                   )),
           BlocProvider<ShirtOrderBlocBloc>(
             create: (context) => ShirtOrderBlocBloc(),
@@ -240,111 +236,167 @@ class _MyAppState extends State<MyApp> {
           BlocProvider(create: (context) => CartBloc()),
           BlocProvider(
               create: (context) => NpProjectsBloc(
-                  nonprofitProjectRepository: projectsRepository)),
-          BlocProvider(create: (context)=> LeaderboardBloc())
+                  nonprofitProjectRepository:
+                      context.read<NonprofitProjectRepository>())),
+          BlocProvider(create: (context) => LeaderboardBloc()..add(FetchLeaderboard())),
         ],
-        child: MaterialApp(home:
-            BlocBuilder<SessionBLoc, SessionState>(builder: (context, state) {
-          if (state is Authenticated) {
-            final userId = state.user.altid;
-            context.read<WebSocketBloc>().add(WebsocketConnect(
-                url:
-                    'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/$userId/'));
+        child: BlocProvider(
+          create: (context) => ValidationCubit(userRepository: context.read<UserRepository>(), sessionBloc: context.read<SessionBLoc>(), userProfileEditBloc: context.read<UserProfileEditBloc>()),
+          child: MaterialApp.router(
+            routerDelegate:AppNavigation.router.routerDelegate,
+            routeInformationParser: AppNavigation.router.routeInformationParser,
+            routeInformationProvider: AppNavigation.router.routeInformationProvider,
+          ),
+        )
 
-            return BlocListener<WebSocketBloc, WebSocketState>(
-              listener: (context, state) {
-                if(state is WebsocketShowSnackbar){
-                  final scaffoldMessenger = ScaffoldMessenger.maybeOf(context);
-                  if(scaffoldMessenger!=null){
-                    ScaffoldMessenger.of(context).showSnackBar(
-                    SnackBar(content: Text(state.message.toString())
-                    )
-                    );
-                  }
-                  
-                }
-              },
-              child: UserProfileComplete(
-                userId: state.user.altid.toString(),
-                user: state.user,
-              ),
-            );
-          } else if (state is AuthenticatedWithProfile) {
-            final userId = state.user.altid;
-            context.read<WebSocketBloc>().add(WebsocketConnect(
-                url:
-                    'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/$userId/'));
-          }
-          if (state is AuthenticatedWithProfile) {
-            return MultiBlocProvider(
-              providers: [
-                BlocProvider.value(
-                  value: context.read<ProfileBloc>(),
-                ),  
-              ],
-              child: BlocListener<WebSocketBloc, WebSocketState>(
-                listener: (context, state) {
-                 if(state is WebsocketShowSnackbar){
-                  print(state.message);
-                  // if(state.message[])
-                  Future.delayed(Duration(seconds: 5), () {
-                  
-                      ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(
-                                        behavior: SnackBarBehavior.floating,
-                                        shape:  RoundedRectangleBorder(
-                                        borderRadius: BorderRadius.circular(24),
-                                          ),
-                                           margin: EdgeInsets.only(
-                                            bottom: MediaQuery.of(context).size.height - 250,
-                                            right: 20,
-                                            left: 20),
-                                        
-                                        action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>Navigator.of(context).pushNamed('/userActionScreen')),
-                                        content: Text(
-                                          'Action: ${state.message}',
-                                          style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold, fontSize: 11),
-                                        ), 
-                                        backgroundColor:state.color,
-                                        duration: const Duration(seconds: 6),
-                                      )
-      );
-    });
-                }},
-                child: MainScreen(
-                              cartBloc: context.read<CartBloc>(),
-                              user: state.user,
-                              profileBloc: context.read<ProfileBloc>(),
-                            ),
-              ),
-            );
-          } else if (state is Authenticated) {
-            return BlocProvider.value(
-              value: context.read<WebSocketBloc>(),
-              child: UserProfileComplete(
-                userId: state.user.altid.toString(),
-                user: state.user,
-              ),
-            );
-          }
-          return BlocProvider(
-            create: (context) => ValidationCubit(
-                sessionBloc: context.read<SessionBLoc>(),
-                userProfileEditBloc: context.read<UserProfileEditBloc>(),
-                userRepository: context.read<UserRepository>()),
-            child: Builder(builder: (context) {
-              return const AuthNavigator();
-            }),
-          );
-        }), onGenerateRoute: (RouteSettings settings) {
-          return MaterialPageRoute(
-            builder: (BuildContext context) => makeRoute(
-                context: context,
-                routeName: settings.name!,
-                arguments: settings.arguments),
-          );
-        }));
+        // MaterialApp(home:
+        //     BlocBuilder<SessionBLoc, SessionState>(builder: (context, state) {
+        //   if (state is Authenticated) {
+        //     final userId = state.user.altid;
+        //     context.read<WebSocketBloc>().add(WebsocketConnect(
+        //         url:
+        //             'wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/$userId/'));
+
+        //     return BlocListener<WebSocketBloc, WebSocketState>(
+        //       listener: (context, state) {
+        //         if (state is WebsocketShowSnackbar) {
+        //           final scaffoldMessenger = ScaffoldMessenger.maybeOf(context);
+        //           if (scaffoldMessenger != null) {
+        //             ScaffoldMessenger.of(context).showSnackBar(
+        //                 SnackBar(content: Text(state.message.toString())));
+        //           }
+        //         }
+        //       },
+        //       child: UserProfileComplete(
+        //         userId: state.user.altid.toString(),
+        //         user: state.user,
+        //       ),
+        //     );
+        //   } else if (state is AuthenticatedWithProfile) {
+        //     final userId = state.user.altid;
+        //     context.read<WebSocketBloc>().add(WebsocketConnect(
+        //         url:
+        //             'wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/$userId/'));
+        //   }
+        //   if (state is AuthenticatedWithProfile) {
+        //     return MultiBlocProvider(
+        //       providers: [
+        //         BlocProvider.value(
+        //           value: context.read<ProfileBloc>(),
+        //         ),
+        //       ],
+        //       child: BlocListener<WebSocketBloc, WebSocketState>(
+        //         listener: (context, state) {
+        //           if (state is WebsocketShowSnackbar) {
+        //             print(state.message);
+        //             // if(state.message[])
+        //             Future.delayed(Duration(seconds: 5), () {
+        //               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        //                 behavior: SnackBarBehavior.floating,
+        //                 shape: RoundedRectangleBorder(
+        //                   borderRadius: BorderRadius.circular(24),
+        //                 ),
+        //                 margin: EdgeInsets.only(
+        //                     bottom: MediaQuery.of(context).size.height - 250,
+        //                     right: 20,
+        //                     left: 20),
+        //                 action: SnackBarAction(
+        //                     label: 'Go Check it out',
+        //                     onPressed: () => Navigator.of(context)
+        //                         .pushNamed('/userActionScreen')),
+        //                 content: Text(
+        //                   'Action: ${state.message}',
+        //                   style: TextStyle(
+        //                       color: Colors.white,
+        //                       fontWeight: FontWeight.bold,
+        //                       fontSize: 11),
+        //                 ),
+        //                 backgroundColor: state.color,
+        //                 duration: Duration(seconds: 6),
+        //               ));
+        //             });
+        //           }
+        //         },
+        //         child: MainScreen(
+        //           cartBloc: context.read<CartBloc>(),
+        //           user: state.user,
+        //           profileBloc: context.read<ProfileBloc>(),
+        //         ),
+        //       ),
+        //     );
+        //   } else if (state is Authenticated) {
+        //     return BlocProvider.value(
+        //       value: context.read<WebSocketBloc>(),
+        //       child: UserProfileComplete(
+        //         userId: state.user.altid.toString(),
+        //         user: state.user,
+        //       ),
+        //     );
+        //   }
+        //   return BlocProvider(
+        //     create: (context) => ValidationCubit(
+        //         sessionBloc: context.read<SessionBLoc>(),
+        //         userProfileEditBloc: context.read<UserProfileEditBloc>(),
+        //         userRepository: context.read<UserRepository>()),
+        //     child: Builder(builder: (context) {
+        //       return const AuthNavigator();
+        //     }),
+        //   );
+        // }), onGenerateRoute: (RouteSettings settings) {
+        //   return MaterialPageRoute(
+        //     builder: (BuildContext context) => makeRoute(
+        //         context: context,
+        //         routeName: settings.name!,
+        //         arguments: settings.arguments),
+        //   );
+        // })
+
+        );
   }
+//   GoRouter _goRouter(BuildContext context) {
+//   final sessionBloc = context.read<SessionBLoc>();
+
+//   return GoRouter(
+//     initialLocation: '/',
+//     redirect: (context, state) {
+//       final sessionState = sessionBloc.state;
+//       if (sessionState is Authenticated) {
+//         return '/home';
+//       } else if (sessionState is Unauthenticated) {
+//         return '/login';
+//       }
+//       return null;
+//     },
+//     routes: [
+//       StatefulShellRoute.indexedStack(
+//       branches: [
+//           StatefulShellBranch(
+
+//             routes: [
+//               GoRoute(
+//       path: '/home',
+//       pageBuilder: (context, state) => MaterialPage(
+//         child: BlocBuilder<SessionBLoc, SessionState>(
+//           builder: (context, sessionState) {
+//             if (sessionState is AuthenticatedWithProfile) {
+//               // You can now pass the user from the sessionState
+//               final user = sessionState.user;
+//               return BlocProvider<CartBloc>(
+//                 create: (context) => CartBloc(),  // Provide CartBloc to HomeScreen
+//                 child: HomePage(user: user, cartBloc: context.read<CartBloc>(),),    // Pass the user to HomeScreen
+//               );
+//             } else if (sessionState is Unauthenticated) {
+//               return IntroductionSlider();  // If not authenticated, return the login screen
+//             } else {
+//               return CircularProgressIndicator();  // Loading state, you can change this as needed
+//             }
+//           },
+//         ),
+//       ),
+//     ),
+//   ],
+// ),
+//          
 }
 
 Future<void> onDidReceiveLocalNotification(

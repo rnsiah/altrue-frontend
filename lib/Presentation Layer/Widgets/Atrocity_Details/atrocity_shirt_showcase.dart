@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../../Data Layer/Repositories/shirt_repository.dart';
 
@@ -31,8 +33,8 @@ class AtrocityShirtShowcase extends StatelessWidget {
               Shirt shirt = await shirtRepository
                   .fetchShirt(atrocity.shirtList![index].id!);
 
-              Navigator.of(context).pushNamed('/ShirtDetail',
-                  arguments:
+              context.go('/userActionScreen/ShirtDetail',
+                  extra:
                       ShirtDetailArguments(profile: profile, shirt: shirt));
             }
           },

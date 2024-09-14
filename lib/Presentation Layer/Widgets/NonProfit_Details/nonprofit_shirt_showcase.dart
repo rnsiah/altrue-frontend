@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 class NonProfitShirtCase extends StatelessWidget {
   final NonProfit nonProfit;
@@ -30,8 +32,8 @@ class NonProfitShirtCase extends StatelessWidget {
             Shirt shirt = await shirtRepository
                 .fetchShirt(nonProfit.shirtList![index].id!);
 
-            Navigator.of(context).pushNamed('/ShirtDetail',
-                arguments:
+            context.go('/userActionScreen/ShirtDetail',
+                extra:
                     ShirtDetailArguments(shirt: shirt, profile: profile));
           },
           child: Column(

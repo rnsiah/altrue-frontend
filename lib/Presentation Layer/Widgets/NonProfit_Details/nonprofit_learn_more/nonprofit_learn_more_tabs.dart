@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_stripe/flutter_stripe.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import 'package:selection_menu/selection_menu.dart';
 import 'package:syncfusion_flutter_sliders/sliders.dart';
@@ -71,8 +73,8 @@ class _NpDonateState extends State<NpDonate> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state.status == ProfileStatus.paymentAccepted) {
-          Navigator.of(context).popAndPushNamed('/thankyou',
-              arguments: ThankYouScreenArguments(
+         context.go('/userActionScreen/thankyou',
+              extra: ThankYouScreenArguments(
                   isNonProfit: true,
                   isAtrocity: false,
                   isProject: false,

@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/form_submission_status.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/sign_up_bloc/sign_up_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/sign_up_bloc/sign_up_event.dart';
@@ -224,16 +225,21 @@ class _SignUpScreenState extends State<SignUpScreen> {
   }
 
   Widget _showLoginLink(BuildContext context) {
-    return SafeArea(
-      child: TextButton(
-          child: const Text(
-            "Already have an account? Log in Now",
-            style: TextStyle(color: Colors.amber),
-          ),
-          onPressed: () {
-            _controller!.pause();
-            context.read<ValidationCubit>().showLogin();
-          }),
+    return BlocProvider.value(
+      value: context.read<ValidationCubit>(),
+      child: SafeArea(
+        child: TextButton(
+            child: const Text(
+              "Already have an account? Log in Now",
+              style: TextStyle(color: Colors.amber),
+            ),
+            onPressed: () {
+              // _controller!.pause();
+              context.read<ValidationCubit>().showLogin();
+              context.go('/login');
+              print('hello');
+            }),
+      ),
     );
   }
 

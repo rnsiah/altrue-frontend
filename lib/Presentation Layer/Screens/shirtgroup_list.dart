@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/shirt_order_bloc/bloc/shirt_order_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_group_model.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
 import '../../Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_bloc.dart';
@@ -47,7 +49,7 @@ class _ShirtGroupListPageState extends State<ShirtGroupListPage> {
                 Expanded(
                   child: BlocBuilder<ShirtgroupBloc, ShirtgroupState>(
                     builder: (context, state) {
-                      if (state == ShirtChanging) {
+                      if (state is ShirtChanging) {
                         return const CircularProgressIndicator();
                       }
                       return Column(
@@ -260,7 +262,7 @@ class _ShirtGroupListPageState extends State<ShirtGroupListPage> {
     //         ),
     //       ],
     //     ),
-    //   ]),
+    //   ]),fe
     // );
   }
 
@@ -271,8 +273,8 @@ class _ShirtGroupListPageState extends State<ShirtGroupListPage> {
         children: [
           GestureDetector(
             onTap: () {
-              Navigator.of(context).pushNamed('/ShirtDetail',
-                  arguments: ShirtDetailArguments(
+              context.go('/userActionScreen/ShirtDetail',
+                  extra: ShirtDetailArguments(
                       profile: widget.profile,
                       shirt: widget.shirtGroup.shirts![index]));
             },

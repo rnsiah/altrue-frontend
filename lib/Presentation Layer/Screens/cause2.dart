@@ -1,7 +1,9 @@
 import 'package:expandable/expandable.dart';
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/category_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/category_model.dart';
 import '../../Data Layer/Models/quiz_model.dart';
@@ -63,7 +65,7 @@ class _CauseDetails2State extends State<CauseDetails2> {
                     List<Quiz>allQuizes = <Quiz>[];
                    
                     Future<List<Quiz>> quizes =  categoryRepository.fetchQuizList(widget.cause);
-                    quizes.then((value) => Navigator.of(context).pushNamed('/quizList', arguments: QuizListScreenArguments(quizes: value, profile: widget.profile)));
+                    quizes.then((value) => context.go('/allProjectsList/quizList', extra: QuizListScreenArguments(quizes: value, profile: widget.profile)));
                    },),
               ),),
               )]),

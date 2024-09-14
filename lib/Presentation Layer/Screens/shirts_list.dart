@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/category_bloc/bloc/category_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/shirt_bloc/bloc/shirt_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
 
 class ShirtList extends StatefulWidget {
@@ -107,8 +109,8 @@ class _ShirtListState extends State<ShirtList> {
                   crossAxisCount: 2),
               itemBuilder: (context, index) => ShirtCard(
                   shirt: state.shirtlist[index],
-                  press: () => Navigator.of(context).pushNamed('/ShirtDetail',
-                      arguments: ShirtDetailArguments(
+                  press: () => context.go('/userActionScreen/ShirtDetail',
+                      extra: ShirtDetailArguments(
                           shirt: state.shirtlist[index],
                           profile: widget.profile))))),
     );
@@ -127,8 +129,8 @@ class _ShirtListState extends State<ShirtList> {
               crossAxisCount: 2),
           itemBuilder: (context, index) => ShirtCard(
               shirt: state.categoryShirtList[index],
-              press: () => Navigator.of(context).pushNamed('/ShirtDetail',
-                  arguments: ShirtDetailArguments(
+              press: () => context.go('/userActionScreen/ShirtDetail',
+                  extra: ShirtDetailArguments(
                       shirt: state.categoryShirtList[index],
                       profile: widget.profile)))),
     ));

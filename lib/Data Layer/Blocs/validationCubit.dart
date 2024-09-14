@@ -30,8 +30,11 @@ class ValidationCubit extends Cubit<ValidationState> {
 
   void showIntro() => emit(ValidationState.intro);
   void showLogin() => emit(ValidationState.login);
-  void showSignUp() => emit(ValidationState.signup);
-
+  
+  void showSignUp() {
+  print('Changing state to signup');
+  emit(ValidationState.signup);
+}
   void showConfirmSignUp(
       {required String email, required String password, String? id}) {
     credentials =

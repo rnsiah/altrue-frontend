@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_bloc.dart';
 
@@ -50,8 +52,8 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                   onTap: () {
                     context.read<ShirtgroupBloc>().add(FetchGroups());
 
-                    Navigator.of(context).pushNamed('/featuredShirts',
-                        arguments: widget.profile);
+                    context.go('/userActionScreen/featuredShirts',
+                        extra: widget.profile);
                   },
                   child: const Text(
                     'See More',
@@ -76,8 +78,8 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                   padding: const EdgeInsets.only(left: 4.0, right: 4),
                   child: GestureDetector(
                     onTap: () {
-                      Navigator.of(context).pushNamed('/ShirtDetail',
-                          arguments: ShirtDetailArguments(
+                      context.go('/userActionScreen/ShirtDetail',
+                          extra: ShirtDetailArguments(
                               shirt: widget.shirtlist[index],
                               profile: widget.profile));
                     },
@@ -94,14 +96,39 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                         //       blurRadius: 10.0),
                         // ],
                       ),
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: Image(
-                          image:
-                              NetworkImage(widget.shirtlist[index].shirtImage!),
-                          fit: BoxFit.fitHeight,
+                      child: Stack(
+                        children:[ ClipRRect(
+                          borderRadius: BorderRadius.circular(10),
+                          child: Image(
+                            image:
+                                NetworkImage(widget.shirtlist[index].shirtImage!),
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),Positioned(
+                            bottom: 0, // Position near the bottom
+                            left: 30,   // Position near the left side
+                            child: Align(
+                              alignment: Alignment.bottomRight,
+                              child: Container(
+                                padding: const EdgeInsets.symmetric(
+                                    vertical: 4.0, horizontal: 6.0),
+                                decoration: BoxDecoration(
+                                  color: Colors.black.withOpacity(0.7),
+                                  borderRadius: BorderRadius.circular(5),
+                                ),
+                                child: Text(
+                                  '${widget.shirtlist[index].pointsNeededToPurchase} Points',
+                                  style: const TextStyle(
+                                    color: Colors.amber,
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+                          ]
                         ),
-                      ),
                     ),
                   ),
                 );

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/title_viiew.dart';
 
@@ -71,8 +73,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                               backgroundColor: Colors.black,
                               elevation: 12),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/companyDonations',
-                                arguments: CompanyHomeArguments(
+                            context.go('/userProfile/companyDonations',
+                                extra: CompanyHomeArguments(
                                     company: widget.company,
                                     profile: widget.profile));
                           },
@@ -89,8 +91,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                               shape: RoundedRectangleBorder(
                                   borderRadius: BorderRadius.circular(12))),
                           onPressed: () {
-                            Navigator.of(context).pushNamed('/comapnyRewards',
-                                arguments: CompanyHomeArguments(
+                            context.go('/comapnyRewards',
+                                extra: CompanyHomeArguments(
                                     company: widget.company,
                                     profile: widget.profile));
                           },
@@ -108,8 +110,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/companymatch',
-                          arguments: CompanyMatchScreenArguments(
+                      context.go('/companymatch',
+                          extra: CompanyMatchScreenArguments(
                               profile: widget.profile,
                               company: widget.company));
                     },

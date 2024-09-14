@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/category_bloc/bloc/category_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
 
 class AtrocityList extends StatelessWidget {
@@ -116,8 +118,8 @@ class AtrocityBox extends StatelessWidget {
         context
             .read<AtrocityBlocBloc>()
             .add(AtrocityItemFteched(atrocity: atrocity));
-        Navigator.of(context).pushNamed('/atrocityView',
-            arguments:
+        context.go('/allProjectsList/atrocityView',
+            extra:
                 AtrocityDetailArguments(atrocity: atrocity, profile: profile));
       },
       child: atrocity.id == 2 || atrocity.id == 4

@@ -10,7 +10,7 @@ class NonProfitRespository {
   final NonAuthenticatedApiProvider _provider = NonAuthenticatedApiProvider();
   ApiProvider authProvider = ApiProvider();
   final String host =
-      'https://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app';
+      'https://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app';
 
   Future<List<NonProfit>> fetchNonProfits() async {
     List<NonProfit> nonProfitList = [];

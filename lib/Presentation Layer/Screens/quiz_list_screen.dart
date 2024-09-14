@@ -2,7 +2,9 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:share_plus/share_plus.dart';
 
@@ -150,8 +152,8 @@ class _QuizListScreenState extends State<QuizListScreen> {
                                     style: TextStyle(color: Colors.amber),
                                   ),
                                   onPressed: () {
-                                    Navigator.of(context).pushNamed('/quizpage',
-                                        arguments: QuizPageArguments(
+                                    context.go('/allProjectsList/quizpage',
+                                        extra: QuizPageArguments(
                                             quiz: quiz,
                                             profile: widget.profile));
                                   },

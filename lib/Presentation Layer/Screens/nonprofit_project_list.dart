@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/non_profit_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -26,7 +28,7 @@ class _NonProfitProjectListState extends State<NonProfitProjectList> {
       floatingActionButton: FloatingActionButton.extended(
         backgroundColor: Colors.amber,
         onPressed: (){
-          Navigator.of(context).pushNamed('/createProject', arguments: CreateProjectArguments(nonprofit: widget.nonprofit, profile: widget.profile));
+          context.go('/createProject', extra: CreateProjectArguments(nonprofit: widget.nonprofit, profile: widget.profile));
         },
       label: const Text('Add ', style: TextStyle(color: Colors.black),),
       icon: 
@@ -38,7 +40,7 @@ class _NonProfitProjectListState extends State<NonProfitProjectList> {
         actions:   [
           GestureDetector(
             onTap: (){
-              Navigator.of(context).pushNamed('/createProject', arguments: CreateProjectArguments(nonprofit: widget.nonprofit, profile: widget.profile));
+              context.go('/createProject', extra: CreateProjectArguments(nonprofit: widget.nonprofit, profile: widget.profile));
             },
             child: const Icon(Icons.plus_one,))
         ],

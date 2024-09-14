@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/meals_list.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
@@ -91,7 +92,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
         color: Colors.amber,
         ontap: () {
           Navigator.of(context)
-              .pushNamed('/creditCardDetails', arguments: widget.profile);
+              .pushNamed('/userProfile/creditCardDetails', arguments: widget.profile);
         },
         titleTxt: 'My Altrue Stats',
         subTxt: 'Payment Details',
@@ -109,8 +110,7 @@ class _MyDiaryScreenState extends State<MyDiaryScreen>
     listViews.add(
       TitleView(
         ontap: () {
-          Navigator.of(context)
-              .pushNamed('/supporters', arguments: widget.profile);
+          context.go('/userProfile/supporters', extra: widget.profile);
         },
         titleTxt: 'Recent Donations',
         subTxt: 'See All',

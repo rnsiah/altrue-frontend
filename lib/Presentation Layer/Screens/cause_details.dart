@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/category_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/nonProfit_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 class CauseDetails extends StatelessWidget {
   final Category cause;
@@ -121,8 +123,8 @@ class CauseDetails extends StatelessWidget {
                               NonProfit nonprofit =
                                   await nonProfitRespository.fetchNonProfit(
                                       cause.nonprofitList![index].id);
-                              Navigator.of(context).pushNamed('/nonProfitView',
-                                  arguments: NonProfitDetailArguments(
+                              context.go('/allProjectsList/nonProfitView',
+                                  extra: NonProfitDetailArguments(
                                       nonProfit: nonprofit, profile: profile));
                             },
                             child: Column(

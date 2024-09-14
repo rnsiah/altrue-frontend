@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_nonprofit_matching_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/non_profit_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/nonProfit_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/title_viiew.dart';
 
@@ -67,8 +69,8 @@ class MyNonProfitHomeState extends State<MyNonProfitHome> {
                         backgroundColor: Colors.black,
                         elevation: 12),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/npDonationManagement',
-                          arguments: widget.nonprofit);
+                      context.go('/npDonationManagement',
+                          extra: widget.nonprofit);
                     },
                     child: const Text(
                       'Donations',
@@ -83,8 +85,8 @@ class MyNonProfitHomeState extends State<MyNonProfitHome> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/nonprofitProjectList',
-                          arguments: NonProfitProjectListArguments(
+                      context.go('/nonprofitProjectList',
+                          extra: NonProfitProjectListArguments(
                               nonProfit: widget.nonprofit,
                               profile: widget.profile));
                     },
@@ -99,8 +101,8 @@ class MyNonProfitHomeState extends State<MyNonProfitHome> {
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(12))),
                     onPressed: () {
-                      Navigator.of(context).pushNamed('/npMatchinginfo',
-                          arguments: widget.nonprofit);
+                      context.go('/npMatchinginfo',
+                          extra: widget.nonprofit);
                     },
                     child: const Text(
                       'Partnerships',
@@ -121,8 +123,8 @@ class MyNonProfitHomeState extends State<MyNonProfitHome> {
                       shape: RoundedRectangleBorder(
                           borderRadius: BorderRadius.circular(12))),
                   onPressed: () {
-                    Navigator.of(context).pushNamed('/nonprofitProjectList',
-                        arguments: NonProfitProjectListArguments(
+                    context.go('/nonprofitProjectList',
+                        extra: NonProfitProjectListArguments(
                             nonProfit: widget.nonprofit,
                             profile: widget.profile));
                   },
@@ -140,7 +142,7 @@ class MyNonProfitHomeState extends State<MyNonProfitHome> {
         //       NonProfit np = await widget.nonProfitRepository
         //           .fetchNonProfit(widget.profile.np!.id);
 
-        //       Navigator.of(context).pushNamed('/createProject',
+        //       context.go('/createProject',
         //           arguments: CreateProjectArguments(
         //               nonprofit: np, profile: widget.profile));
         //     },

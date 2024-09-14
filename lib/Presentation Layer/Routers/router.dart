@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/session_state.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/category_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
@@ -74,11 +76,12 @@ import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet.dart';
 class AppRouter {
   final UserRepository userRepository = UserRepository();
   
-
+  static final _rootNavigatorKey= GlobalKey<NavigatorState>();
   
   static final router = GoRouter(
+    navigatorKey: _rootNavigatorKey,
     initialLocation: '/intro',
-    routes: [
+    routes: <RouteBase>[
       // GoRoute(
       //   path: '/userActionScreen',
       //   builder: (context, state) {
@@ -86,10 +89,9 @@ class AppRouter {
       //   },
       // ),
       GoRoute(
-        path: '/testscreen',
+        path: '/intro',
         builder: (context, state) {
-          final user = context.read<ProfileBloc>().state.user; // Assuming you have a UserBloc
-        return TestScreen(user: user!);
+        return  IntroductionSlider();
         },
       ),
       GoRoute(
@@ -106,6 +108,7 @@ GoRoute(
 ),
 GoRoute(
   path: '/home',
+  
   builder: (context, state) {
     final cartBloc = context.read<CartBloc>(); // Assuming CartBloc is provided
     final user = context.read<ProfileBloc>().state.user; // Assuming UserBloc is provided
@@ -171,7 +174,7 @@ GoRoute(
   },
 ),
 GoRoute(
-  path: '/myQrCode/:profileId',
+  path: '/myQrCode',
   builder: (context, state) {
     final profileId = state.pathParameters['profileId']!;
     final profileState = context.read<ProfileBloc>().state;
@@ -222,51 +225,41 @@ GoRoute(
     }
   },
 ),
-GoRoute(
-  path: '/companyDonations/:companyId',
-  builder: (context, state) {
-    final companyId = state.pathParameters['companyId']!;
+// GoRoute(
+//   path: '/companyDonations/:companyId',
+//   builder: (context, state) {
+    
 
-    // Instantiate CompanyService
-    final companyService = CompanyRepository();
+//     // Instantiate CompanyService
+//     final companyService = CompanyRepository();
 
-    // Fetch company data
-    return FutureBuilder<ForProfitCompany>(
-      future: companyService.fetchCompanyById(companyId as int),
-      builder: (context, companySnapshot) {
-        if (companySnapshot.connectionState == ConnectionState.waiting) {
-          return const Center(child: CircularProgressIndicator());
-        } else if (companySnapshot.hasError) {
-          return const ErrorScreen(message: 'Failed to load company data.');
-        } else if (!companySnapshot.hasData) {
-          return const ErrorScreen(message: 'Company data not found.');
-        }
+//     // Fetch company data
+    
+    
 
-        final company = companySnapshot.data!;
-
-        // Fetch profile from ProfileBloc
-        return BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, profileState) {
-            if (profileState.status == ProfileStatus.initial ||
-                profileState.status == ProfileStatus.updating) {
-              return const Center(child: CircularProgressIndicator());
-            } else if (profileState.status == ProfileStatus.successfull 
-                ) {
-              return CompanyDonationScreen(
-                company: company,
-                profile: profileState.profile!,
-              );
-            } else if (profileState.status == ProfileStatus.failure) {
-              return ErrorScreen(message: profileState.message ?? 'Profile could not be loaded.');
-            } else {
-              return const ErrorScreen(message: 'Unknown error occurred');
-            }
-          },
-        );
-      },
-    );
-  },
-),
+//         // Fetch profile from ProfileBloc
+//         return BlocBuilder<ProfileBloc, ProfileState>(
+//           builder: (context, profileState) {
+//             if (profileState.status == ProfileStatus.initial ||
+//                 profileState.status == ProfileStatus.updating) {
+//               return const Center(child: CircularProgressIndicator());
+//             } else if (profileState.status == ProfileStatus.successfull 
+//                 ) {
+//               return CompanyDonationScreen(
+//                 company: company,
+//                 profile: profileState.profile!,
+//               );
+//             } else if (profileState.status == ProfileStatus.failure) {
+//               return ErrorScreen(message: profileState.message ?? 'Profile could not be loaded.');
+//             } else {
+//               return const ErrorScreen(message: 'Unknown error occurred');
+//             }
+//           },
+//         );
+//       },
+    
+  
+// ),
 GoRoute(
   path: '/supporters/:profileId',
   builder: (context, state) {
@@ -294,7 +287,7 @@ GoRoute(
   },
 ),
 GoRoute(
-  path: '/shirts/',
+  path: 'shirts',
   builder: (context, state) {
     
     final profileState = context.read<ProfileBloc>().state;
@@ -663,7 +656,7 @@ GoRoute(
   },
 ),
 GoRoute(
-  path: '/CompanyHome',
+  path: 'CompanyHome',
   builder: (context, state) {
     final args = state.extra as CompanyHomeArguments;
 
@@ -724,7 +717,6 @@ GoRoute(
 GoRoute(
   path: '/npProjectDetails/:projectId',
   builder: (context, state) {
-    final projectId = state.pathParameters['projectId']!;
     final args = state.extra as NonProfitProjectDetailArguments;
 
     return NonProjectDetail(
@@ -739,7 +731,9 @@ GoRoute(
       // ... other routes
     ],
   );
+  
 }
+   
 
 
 class QuizResultsScreenArguments {

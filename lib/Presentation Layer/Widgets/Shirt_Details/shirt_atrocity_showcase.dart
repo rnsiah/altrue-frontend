@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 class ShirtAtrocityShowcase extends StatelessWidget {
   final Shirt shirt;
@@ -26,8 +28,8 @@ class ShirtAtrocityShowcase extends StatelessWidget {
             onTap: () async {
               Atrocity atrocity = await atrocityRepository
                   .getAtrocity(shirt.atrocity![index].id!);
-              Navigator.of(context).pushNamed('/atrocityView',
-                  arguments: AtrocityDetailArguments(
+              context.go('/allProjectsList/atrocityView',
+                  extra: AtrocityDetailArguments(
                       atrocity: atrocity, profile: profile));
             },
             child: Container(

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 
 import '../../Data Layer/Models/company_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -18,11 +19,11 @@ class __CompanyDonationScreen extends State<CompanyDonationScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButtonLocation: FloatingActionButtonLocation.endFloat,
       floatingActionButton:FloatingActionButton(
         backgroundColor: Colors.amber,
         
-        onPressed: ()=>Navigator.of(context).pushNamed('/companyaddDonation', arguments: widget.company),
+        onPressed: ()=>context.go('/companyaddDonation', extra: widget.company),
         child: const Icon(Icons.add,
         color: Colors.white,),
       ),
@@ -30,27 +31,7 @@ class __CompanyDonationScreen extends State<CompanyDonationScreen> {
         title: const Text('Our Donations'),
         backgroundColor: Colors.black,
       ),
-      bottomNavigationBar: BottomNavigationBar(
-        elevation: 10,
-        type: BottomNavigationBarType.fixed,
-        unselectedItemColor: Colors.white,
-        selectedItemColor: Colors.amber,
-        
-        backgroundColor: Colors.black,
-        items: const [
-          
-         BottomNavigationBarItem(
-          label: 'Home',
-          icon:Icon(Icons.home)),
-          BottomNavigationBarItem(
-            label: 'My Cart',
-            icon: Icon(Icons.shop)),BottomNavigationBarItem(
-          label: 'Home',
-          icon:Icon(Icons.home)),
-          BottomNavigationBarItem(
-          label: 'Home',
-          icon:Icon(Icons.home)),
-      ]),
+      
       
       body: Column(children: [
         const SizedBox(height: 100,),
@@ -73,8 +54,8 @@ class __CompanyDonationScreen extends State<CompanyDonationScreen> {
                       ),
                       InkWell(
                         onTap: () {
-                          Navigator.of(context).pushNamed('/companymatch',
-                              arguments: widget.company);
+                          context.go('/companymatch',
+                              extra: widget.company);
                         },
                         child: const Text(
                           'Get Started Now',

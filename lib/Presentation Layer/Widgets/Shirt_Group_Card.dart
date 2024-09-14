@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/shirt_group_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -59,9 +61,9 @@ class _ShirtGroupCardState extends State<ShirtGroupCard> {
       setState(() => isExpanded = true);
       return;
     }
-    Navigator.of(context).pushNamed(
+    context.go(
       '/shirtGroupList',
-      arguments: ShirtGroupArguments(
+      extra: ShirtGroupArguments(
           profile: widget.profile, shirtGroup: widget.shirtgroup),
     );
   }

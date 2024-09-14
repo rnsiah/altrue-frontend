@@ -1,6 +1,7 @@
 import 'package:country_code_picker/country_code_picker.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_bloc.dart';
@@ -95,8 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   TextStyle(color: Colors.amber, fontSize: 10),
                             ),
                             onPressed: () async {
-                              Navigator.of(context).pushNamed('/editmyprofile',
-                                  arguments: widget.profile);
+                              context.go('/userProfile/editmyprofile');
                             },
                           )
                         ]),

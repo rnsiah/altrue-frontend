@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 class AtrocityQuizes extends StatefulWidget {
   final Atrocity atrocity;
@@ -21,8 +23,8 @@ class _AtrocityQuizesState extends State<AtrocityQuizes> {
         child: ListTile(title: 
         Text(widget.atrocity.quizes![index].title),
         onTap: ()=>{
-          Navigator.of(context).pushNamed('/quizpage',
-          arguments: QuizPageArguments(
+          context.go('/allProjectsList/quizpage',
+          extra: QuizPageArguments(
           quiz: widget.atrocity.quizes![index],
            profile: widget.profile))
         },

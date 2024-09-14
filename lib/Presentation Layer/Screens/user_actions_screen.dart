@@ -19,7 +19,7 @@ class _UserActionRewardScreenState extends State<UserActionRewardScreen> {
   List<AltrueLevel> levels = [];
 
   Future<List<AltrueLevel>> fetchLevels() async {
-    final url = Uri.parse('https://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/api/levels/');
+    final url = Uri.parse('https://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/api/levels/');
     print('Fetching levels from: $url');  // Debug statement
 
     final response = await http.get(url);

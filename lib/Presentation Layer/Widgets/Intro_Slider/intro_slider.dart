@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intro_slider/intro_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/validationCubit.dart';
@@ -131,7 +132,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
           color: Colors.white,
           size: 35,
         ),
-        onPressed: () => Navigator.of(context).popAndPushNamed('/signUp'));
+        onPressed: () => context.go('/signUp'));
   }
 
   Widget skipBtn() {

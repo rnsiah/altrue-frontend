@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/category_bloc/bloc/category_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 class CauseList extends StatefulWidget {
   final Profile profile;
@@ -69,9 +71,9 @@ class _CauseListState extends State<CauseList> {
                       scrollDirection: Axis.horizontal,
                       itemCount: state.categoryList.length,
                       itemBuilder: (context, index) => InkWell(
-                            onTap: () => Navigator.of(context).pushNamed(
-                              '/causeView',
-                              arguments: CategoryArguments(
+                            onTap: () => context.go(
+                              '/allProjectsList/causeView',
+                              extra: CategoryArguments(
                                   category: state.categoryList[index],
                                   profile: widget.profile),
                             ),

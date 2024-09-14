@@ -3,11 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/nonprofit_bloc/bloc/nonprofit_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/nonProfit_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Models/non_profit_model.dart';
 import '../../Data Layer/Models/rating_model.dart';
@@ -283,9 +285,9 @@ class _NonProjectDetailState extends State<NonProjectDetail> {
                                             NonProfit nonProfit =
                                                 await repo.fetchNonProfit(widget
                                                     .project.nonprofit!.id);
-                                            Navigator.of(context).pushNamed(
-                                                '/nonProfitView',
-                                                arguments:
+                                            context.go(
+                                                '/allProjectsList/nonProfitView',
+                                                extra:
                                                     NonProfitDetailArguments(
                                                         nonProfit: nonProfit,
                                                         profile:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 
 import '../../Data Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart';
 import '../../Data Layer/Models/atrocity_model.dart';
@@ -22,8 +24,8 @@ class AtrocityBox extends StatelessWidget {
         context
             .read<AtrocityBlocBloc>()
             .add(AtrocityItemFteched(atrocity: atrocity));
-        Navigator.of(context).pushNamed('/atrocityView',
-            arguments:
+        context.go('/allProjectsList/atrocityView',
+            extra:
                 AtrocityDetailArguments(atrocity: atrocity, profile: profile));
       },
       child: atrocity.id == 2 || atrocity.id == 4

@@ -3,7 +3,9 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:flutter_advanced_drawer/flutter_advanced_drawer.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/all_users_bloc/bloc/all_users_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/altrue_statistics_bloc/bloc/altrue_statistics_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/bloc/company_list_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/cart_bloc/bloc/cart_bloc.dart';
@@ -15,12 +17,14 @@ import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.d
 import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/shirt_bloc/bloc/shirt_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Data%20Providers/notification_service.dart';
+import 'package:lovelovelove/Data%20Layer/Models/altrue_statistics_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/atrocity_details.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/find_friends_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/new_posts.dart';
@@ -88,7 +92,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // void connectToWebSocket() async {
   //       _stompClient = StompClient(
   //           config: StompConfig(
-  //               url: 'wss://1488-2601-2c6-500-16f0-c53d-8305-278c-79f0.ngrok-free.app/ws/rewards/',
+  //               url: 'wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/',
   //               onConnect: (frame) {
   //                   print('Connected to WebSocket');
   //                   _stompClient?.subscribe(destination: 'queue/rewards', callback: (message) {
@@ -208,12 +212,12 @@ ListTile _buildDrawerItem({
         );
       },
       child: GestureDetector(
-        onTap: () => Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (_) => AtrocityDetails(
-                  atrocityId: atrocities[index].id.toString(),
-                    profile: profile, atrocity: atrocities[index]))),
+        onTap: () {
+            context.go(
+          '/allProjectsList/atrocityView/',
+          extra: AtrocityDetailArguments(profile: profile, atrocity: atrocities[index],)
+        );
+        } ,
         child: Stack(
           children: [
             Center(
@@ -379,8 +383,7 @@ ListTile _buildDrawerItem({
               text: 'My Profile',
               color: Colors.amberAccent,
               context: context,
-              onTap: () => Navigator.of(context)
-                  .pushNamed('/userProfile', arguments: state.profile),
+              onTap: () => context.go('/userprofile')
             ),
                
             
@@ -388,19 +391,16 @@ ListTile _buildDrawerItem({
                   value: context.read<FeedBloc>(),
                   child: _buildDrawerItem(icon: Icons.feed_outlined, text: 'My Feed', color: Colors.white, context: context, onTap: () async {
                       context.read<FeedBloc>().add(FetchFeed());
-                      Navigator.of(context).pushNamed('/newPosts',arguments: state.profile
+                      context.go('/newPosts',extra: state.profile
                         );
                     },)
                 ),
-                _buildDrawerItem(icon: Icons.house_outlined, text: 'My Non Profits', color: Colors.white, context: context, onTap: ()=>Navigator.of(context)
-                        .pushNamed('/usernonprofits', arguments: state.profile!),),
+                _buildDrawerItem(icon: Icons.house_outlined, text: 'My Non Profits', color: Colors.white, context: context, onTap: ()=> context.go('/home/usernonprofits')),
                 
-                _buildDrawerItem(icon: Icons.people_alt_outlined, text: 'My Supporters', color: Colors.white, context: context, onTap: ()=> Navigator.of(context)
-                      .pushNamed('/supporters', arguments: state.profile),),
+                _buildDrawerItem(icon: Icons.people_alt_outlined, text: 'My Supporters', color: Colors.white, context: context, onTap: ()=> context.go('/userProfile/supporters', extra: state.profile),),
                 
                 _buildDrawerItem(icon: Icons.qr_code, text: 'My Altrue Code', color: Colors.white, context: context, onTap: () {
-                      Navigator.of(context)
-                          .pushNamed('/myQrCode', arguments: state.profile);
+                     context.go('/userProfile/myQrCode');
                     }),
               
                 _buildDrawerItem(
@@ -414,13 +414,13 @@ ListTile _buildDrawerItem({
                       ? () async {
                           ForProfitCompany company = await companyRepository
                               .fetchCompanyById(state.profile!.comp!.id);
-                          Navigator.of(context).pushNamed('/CompanyHome',
-                              arguments: CompanyHomeArguments(
+                          context.go('/userProfile/CompanyHome',
+                              extra: CompanyHomeArguments(
                                   company: company, profile: state.profile!));
                         }
                       : () {
-                          Navigator.of(context).pushNamed('/companyRegister',
-                              arguments: state.profile);
+                          context.go('/userProfile/companyRegister',
+                              extra: state.profile);
                         },
             ),
                
@@ -435,12 +435,12 @@ ListTile _buildDrawerItem({
                     if (state.profile!.hasNonProfit == true) {
                       NonProfit nonprofit = await nonProfitRespository
                           .fetchNonProfit(state.profile!.np!.id);
-                      Navigator.of(context).pushNamed('/mynonprofit',
-                          arguments: MyNonProfitDetailArgments(
+                      context.go('/mynonprofit',
+                          extra: MyNonProfitDetailArgments(
                               nonprofit: nonprofit, profile: state.profile!));
                     } else if (state.profile!.hasNonProfit != true) {
-                      Navigator.of(context).pushNamed('/nonprofitRegister',
-                          arguments: state.profile);
+                      context.go('/nonprofitRegister',
+                          extra: state.profile);
                     }
                   },
                   ),
@@ -578,8 +578,8 @@ ListTile _buildDrawerItem({
                                 context
                                     .read<CategoryBloc>()
                                     .add(FetchCategory());
-                                Navigator.of(context).pushNamed('/atrocities',
-                                    arguments: AtrocityListArguments(
+                                context.go('/allProjectsList/atrocities',
+                                    extra: AtrocityListArguments(
                                         profile: context
                                             .read<ProfileBloc>()
                                             .state
@@ -731,10 +731,9 @@ ListTile _buildDrawerItem({
                                                     context
                                                         .read<CategoryBloc>()
                                                         .add(FetchCategory());
-                                                    Navigator.of(context)
-                                                        .pushNamed(
-                                                            '/nonprofits',
-                                                            arguments: context
+                                                   context.go(
+                                                            '/allProjectsList/nonprofits',
+                                                            extra: context
                                                                 .read<
                                                                     ProfileBloc>()
                                                                 .state
@@ -762,9 +761,9 @@ ListTile _buildDrawerItem({
                                           context
                                               .read<CategoryBloc>()
                                               .add(FetchCategory());
-                                          Navigator.of(context).pushNamed(
-                                              '/causes',
-                                              arguments: CauseListArguments(
+                                          context.go(
+                                              '/allProjectsList/causes',
+                                              extra: CauseListArguments(
                                                   profile: context
                                                       .read<ProfileBloc>()
                                                       .state
@@ -806,14 +805,7 @@ ListTile _buildDrawerItem({
                                                     context
                                                         .read<CategoryBloc>()
                                                         .add(FetchCategory());
-                                                    Navigator.of(context)
-                                                        .pushNamed(
-                                                            '/shirts',
-                                                            arguments: context
-                                                                .read<
-                                                                    ProfileBloc>()
-                                                                .state
-                                                                .profile!);
+                                                    context.go('/userActionScreen/shirts');
                                                     // context.read<ShirtBloc>().add(FetchShirts());
                                                   },
                                                 );
@@ -827,8 +819,7 @@ ListTile _buildDrawerItem({
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                  Navigator.of(context)
-                                                      .pushNamed('/shirts');
+                                                 context.go('/userActionScreen/shirts', extra: Shirt);
                                                   // context.read<ShirtBloc>().add(FetchShirts());
                                                   // context.read<CategoryBloc>().add(FetchCategory());
                                                 },
@@ -872,9 +863,9 @@ ListTile _buildDrawerItem({
                                                     .add(FetchCompanyList(
                                                         user: widget.user));
 
-                                                Navigator.of(context).pushNamed(
-                                                    '/companies',
-                                                    arguments:
+                                                context.go(
+                                                    '/newPosts/companies',
+                                                    extra:
                                                         CompaniesListArguments(
                                                             companies:
                                                                 state.companies,
@@ -965,7 +956,7 @@ ListTile _buildDrawerItem({
                         //       color: Colors.black,
                         //       child: const Text('User DashBoard',
                         //           style: TextStyle(color: Colors.white)),
-                        //       onPressed: () => Navigator.of(context).pushNamed(
+                        //       onPressed: () => context.go(
                         //           '/companyDashboard',
                         //           arguments:
                         //               DashBoardScreenArguments(profile: widget.profile))),
@@ -978,8 +969,7 @@ ListTile _buildDrawerItem({
                                 'Payment Details',
                                 style: TextStyle(color: Colors.white),
                               ),
-                              onPressed: () => Navigator.of(context)
-                                  .pushNamed('/creditCardDetails')),
+                              onPressed: () =>context.go('/userProfile/creditCardDetails')),
                         ),
                         Padding(
                           padding: const EdgeInsets.only(left: 8.0, right: 8),
@@ -993,12 +983,15 @@ ListTile _buildDrawerItem({
                                   .pushNamed('/exampledonation')),
                         ),
                         ElevatedButton(onPressed: (){
-                          Navigator.of(context).pushNamed('/testscreen', arguments: widget.user);
+                          context.go('/testscreen', extra: widget.user);
                         }, child: const Text('test screen')),
                         ElevatedButton(onPressed: (){
-                          Navigator.of(context).pushNamed('/leaderboard');
-                        }, child: const Text('LeaderBoard'))
-                      
+                          context.go('/leaderboard');
+                        }, child: const Text('LeaderBoard')),
+                      ElevatedButton(onPressed: (){
+                        context.read<AltrueStatisticsBloc>().add(FetchAltrueStatistics());
+                        context.go('/userActionScreen/rewardhome');
+                      }, child: const Text('rewardHome'))
                       ],
                     ),
                   );

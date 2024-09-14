@@ -57,7 +57,7 @@ class _FeaturedShirtScreenState extends State<FeaturedShirtScreen> {
                   //         color: Colors.amber,
                   //         child: const Text('All Shirts'),
                   //         onPressed: () {
-                  //           Navigator.of(context).pushNamed('/');
+                  //           context.go('/');
                   //         }),
                   //     Text('Hey'),
                   //     Text('Hey'),
@@ -67,7 +67,7 @@ class _FeaturedShirtScreenState extends State<FeaturedShirtScreen> {
                 BlocBuilder<ShirtgroupBloc, ShirtgroupState>(
                   builder: (context, state) {
                     return SizedBox(
-                      height: MediaQuery.of(context).size.height * .7,
+                      height: MediaQuery.of(context).size.height * .65,
                       child: PageView.builder(
                         itemCount: state.shirtgroups.length,
                         itemBuilder: (context, index) => ShirtGroupsList(
@@ -78,14 +78,10 @@ class _FeaturedShirtScreenState extends State<FeaturedShirtScreen> {
                     );
                   },
                 ),
-                SizedBox(
-                  height: MediaQuery.of(context).size.height * .05,
-                ),
-                Container(
-                  child: const Text(
-                    'hey',
-                    style: TextStyle(color: Colors.white),
-                  ),
+                
+                const Text(
+                  'hey',
+                  style: TextStyle(color: Colors.white),
                 )
               ],
             ),
