@@ -72,7 +72,7 @@ class _CauseListState extends State<CauseList> {
                       itemCount: state.categoryList.length,
                       itemBuilder: (context, index) => InkWell(
                             onTap: () => context.go(
-                              '/allProjectsList/causeView',
+                              '/allNpProjects/causeView',
                               extra: CategoryArguments(
                                   category: state.categoryList[index],
                                   profile: widget.profile),

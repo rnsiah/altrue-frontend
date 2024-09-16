@@ -92,7 +92,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // void connectToWebSocket() async {
   //       _stompClient = StompClient(
   //           config: StompConfig(
-  //               url: 'wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/',
+  //               url: 'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/',
   //               onConnect: (frame) {
   //                   print('Connected to WebSocket');
   //                   _stompClient?.subscribe(destination: 'queue/rewards', callback: (message) {
@@ -214,7 +214,7 @@ ListTile _buildDrawerItem({
       child: GestureDetector(
         onTap: () {
             context.go(
-          '/allProjectsList/atrocityView/',
+          '/allNpProjects/atrocityView/',
           extra: AtrocityDetailArguments(profile: profile, atrocity: atrocities[index],)
         );
         } ,
@@ -578,7 +578,7 @@ ListTile _buildDrawerItem({
                                 context
                                     .read<CategoryBloc>()
                                     .add(FetchCategory());
-                                context.go('/allProjectsList/atrocities',
+                                context.go('/allNpProjects/atrocities',
                                     extra: AtrocityListArguments(
                                         profile: context
                                             .read<ProfileBloc>()
@@ -697,10 +697,9 @@ ListTile _buildDrawerItem({
                                                           color: Colors.white),
                                                     ),
                                                     onPressed: () {
-                                                      Navigator.of(context)
-                                                          .pushNamed(
-                                                              '/allNpProjects',
-                                                              arguments: context
+                                                     context.go(
+                                                              '/allNpProjects/allProjectsList',
+                                                              extra: context
                                                                   .read<
                                                                       ProfileBloc>()
                                                                   .state
@@ -732,7 +731,7 @@ ListTile _buildDrawerItem({
                                                         .read<CategoryBloc>()
                                                         .add(FetchCategory());
                                                    context.go(
-                                                            '/allProjectsList/nonprofits',
+                                                            '/allNpProjects/nonprofits',
                                                             extra: context
                                                                 .read<
                                                                     ProfileBloc>()
@@ -762,7 +761,7 @@ ListTile _buildDrawerItem({
                                               .read<CategoryBloc>()
                                               .add(FetchCategory());
                                           context.go(
-                                              '/allProjectsList/causes',
+                                              '/allNpProjects/causes',
                                               extra: CauseListArguments(
                                                   profile: context
                                                       .read<ProfileBloc>()

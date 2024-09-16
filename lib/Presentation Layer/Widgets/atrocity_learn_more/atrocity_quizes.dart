@@ -23,7 +23,7 @@ class _AtrocityQuizesState extends State<AtrocityQuizes> {
         child: ListTile(title: 
         Text(widget.atrocity.quizes![index].title),
         onTap: ()=>{
-          context.go('/allProjectsList/quizpage',
+          context.go('/allNpProjects/quizpage',
           extra: QuizPageArguments(
           quiz: widget.atrocity.quizes![index],
            profile: widget.profile))

@@ -130,7 +130,7 @@ class NonProfitSquare extends StatelessWidget {
         context
             .read<NonprofitBloc>()
             .add(FetchNonProfitItem(nonProfit: nonProfit));
-        context.go('/allProjectsList/nonProfitView',
+        context.go('/allNpProjects/nonProfitView',
             extra: NonProfitDetailArguments(
                 nonProfit: nonProfit, profile: profile));
       },

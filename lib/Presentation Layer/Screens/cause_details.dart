@@ -123,7 +123,7 @@ class CauseDetails extends StatelessWidget {
                               NonProfit nonprofit =
                                   await nonProfitRespository.fetchNonProfit(
                                       cause.nonprofitList![index].id);
-                              context.go('/allProjectsList/nonProfitView',
+                              context.go('/allNpProjects/nonProfitView',
                                   extra: NonProfitDetailArguments(
                                       nonProfit: nonprofit, profile: profile));
                             },

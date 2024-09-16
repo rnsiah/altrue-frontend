@@ -34,6 +34,7 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/new_posts.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/non_profit_detail.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/nonprofit_list_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/nonprofit_project_detail.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/np_projects_list.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/qr_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/quiz_list_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/quiz_screen.dart';
@@ -108,17 +109,26 @@ class AppNavigation {
                           ),
                           margin: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height - 250,
-                              right: 20,
-                              left: 20),
+                              right: 13,
+                              left: 13),
                           action: SnackBarAction(
                               label: 'Go Check it out',
                               onPressed: () => context.go('/userActionScreen')),
-                          content: Text(
-                            'Action: ${state.message}',
-                            style: TextStyle(
-                                color: Colors.white,
-                                fontWeight: FontWeight.bold,
-                                fontSize: 11),
+                          content: Row(
+                            children: [
+                              const Icon(Icons.check_circle, color: Colors.greenAccent),
+                              const SizedBox(width: 10),
+                              Expanded(
+                                child: Text(
+                                  'Action: ${state.message}',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontWeight: FontWeight.bold,
+                                    fontSize: 14,
+                                  ),
+                                ),
+                              ),
+                            ],
                           ),
                           backgroundColor: state.color,
                           duration: const Duration(seconds: 6),
@@ -134,7 +144,7 @@ class AppNavigation {
                     final userId = state.user.altid;
                     context.read<WebSocketBloc>().add(WebsocketConnect(
                         url:
-                            'wss://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app/ws/rewards/$userId/'));
+                            'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/$userId/'));
                   }
                 },
               ),
@@ -385,12 +395,20 @@ class AppNavigation {
           ),
           StatefulShellBranch(navigatorKey: _shellNavigatorSupport, routes: [
             GoRoute(
-                path: '/allProjectsList',
+
+
+                path: '/allNpProjects',
+                builder: (context, state) {
+                  final profile = context.read<ProfileBloc>().state.profile!;
+                  return AllNPProjects(profile: profile);
+                },
+                routes: [
+
+                  GoRoute(path: 'allProjectsList',
                 builder: (context, state) {
                   final profile = context.read<ProfileBloc>().state.profile!;
                   return AllProjectsList(profile: profile);
-                },
-                routes: [
+                }),
                   GoRoute(
                     path: 'atrocities',
                     builder: (context, state) {

@@ -75,7 +75,7 @@ class _NPLearnMoreState extends State<NPLearnMore> {
                       itemBuilder: (context, index) => GestureDetector(
                             onTap: () {
                               context.go(
-                                  '/allProjectsList/npProjectDetails',
+                                  '/allNpProjects/npProjectDetails',
                                   extra: NonProfitProjectDetailArguments(
                                       project:
                                           widget.nonprofit.projects![index],

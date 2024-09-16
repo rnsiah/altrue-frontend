@@ -24,7 +24,7 @@ class NonprofitAtrocityShowcase extends StatelessWidget {
             onTap: () async {
               Atrocity atrocity = await atrocityRepository
                   .getAtrocity(nonprofit.atrocity![index].id!);
-              context.go('/allProjectsList/atrocityView',
+              context.go('/allNpProjects/atrocityView',
                   extra: AtrocityDetailArguments(
                       atrocity: atrocity, profile: profile));
             },

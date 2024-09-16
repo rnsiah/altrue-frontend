@@ -65,7 +65,7 @@ class _CauseDetails2State extends State<CauseDetails2> {
                     List<Quiz>allQuizes = <Quiz>[];
                    
                     Future<List<Quiz>> quizes =  categoryRepository.fetchQuizList(widget.cause);
-                    quizes.then((value) => context.go('/allProjectsList/quizList', extra: QuizListScreenArguments(quizes: value, profile: widget.profile)));
+                    quizes.then((value) => context.go('/allNpProjects/quizList', extra: QuizListScreenArguments(quizes: value, profile: widget.profile)));
                    },),
               ),),
               )]),

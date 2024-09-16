@@ -24,7 +24,7 @@ class AtrocityBox extends StatelessWidget {
         context
             .read<AtrocityBlocBloc>()
             .add(AtrocityItemFteched(atrocity: atrocity));
-        context.go('/allProjectsList/atrocityView',
+        context.go('/allNpProjects/atrocityView',
             extra:
                 AtrocityDetailArguments(atrocity: atrocity, profile: profile));
       },

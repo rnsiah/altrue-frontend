@@ -282,7 +282,7 @@ class _CompanyMatchScreenState extends State<CompanyMatchScreen> {
                           print(profile.username);
                           print(theAtrocity!.nonprofitList![index].id);
 
-                          context.go('/allProjectsList/nonProfitView',
+                          context.go('/allNpProjects/nonProfitView',
                               extra: NonProfitDetailArguments(
                                   nonProfit: nonprofit, profile: profile));
                         },

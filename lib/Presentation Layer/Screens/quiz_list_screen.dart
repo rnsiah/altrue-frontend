@@ -152,7 +152,7 @@ class _QuizListScreenState extends State<QuizListScreen> {
                                     style: TextStyle(color: Colors.amber),
                                   ),
                                   onPressed: () {
-                                    context.go('/allProjectsList/quizpage',
+                                    context.go('/allNpProjects/quizpage',
                                         extra: QuizPageArguments(
                                             quiz: quiz,
                                             profile: widget.profile));

@@ -286,7 +286,7 @@ class _NonProjectDetailState extends State<NonProjectDetail> {
                                                 await repo.fetchNonProfit(widget
                                                     .project.nonprofit!.id);
                                             context.go(
-                                                '/allProjectsList/nonProfitView',
+                                                '/allNpProjects/nonProfitView',
                                                 extra:
                                                     NonProfitDetailArguments(
                                                         nonProfit: nonProfit,

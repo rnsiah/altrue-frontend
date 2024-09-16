@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class RatingsRepository {
   final ApiProvider authProvider = ApiProvider();
   final String host =
-      'https://6ebc-2601-2c6-500-16f0-f98e-16e3-2b1-5ab6.ngrok-free.app';
+      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app';
 
   Future<dynamic> rateSomething(
       {required User? user, required Rating rating}) async {

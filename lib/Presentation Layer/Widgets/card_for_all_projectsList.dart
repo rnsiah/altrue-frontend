@@ -27,7 +27,7 @@ class _AllNpProjectsCardState extends State<AllNpProjectsCard> {
       padding: const EdgeInsets.only(left: 5.0, bottom: 10, right: 5),
       child: GestureDetector(
         onTap: () {
-          context.go('/allProjectsList/npProjectDetails',
+          context.go('/allNpProjects/npProjectDetails',
               extra: NonProfitProjectDetailArguments(
                   project: widget.project, profile: widget.profile));
         },

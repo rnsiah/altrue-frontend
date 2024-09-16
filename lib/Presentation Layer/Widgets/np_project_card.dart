@@ -27,7 +27,7 @@ class _NpProjectCardState extends State<NpProjectCard> {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        context.go('/allProjectsList/npProjectDetails',
+        context.go('/allNpProjects/npProjectDetails',
             extra: NonProfitProjectDetailArguments(
                 project: widget.project, profile: widget.profile));
       },

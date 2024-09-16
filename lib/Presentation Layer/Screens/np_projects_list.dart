@@ -71,7 +71,7 @@ class _AllNPProjectsState extends State<AllNPProjects> {
                             borderRadius: BorderRadius.circular(15)),
                         color: Colors.amber,
                         onPressed: () {
-                          context.go('/allProjectsList',
+                          context.go('/allNpProjects',
                               extra: widget.profile);
                         },
                         child: const Text(
@@ -183,7 +183,7 @@ class _AllNPProjectsState extends State<AllNPProjects> {
       padding: const EdgeInsets.all(18.0),
       child: GestureDetector(
         onTap: () {
-          context.go('/allProjectsList/npProjectDetails',
+          context.go('/allNpProjects/npProjectDetails',
               extra: NonProfitProjectDetailArguments(
                   profile: widget.profile, project: project));
         },

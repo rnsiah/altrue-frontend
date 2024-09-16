@@ -39,7 +39,7 @@ class AtrocityNonProfitShowcase extends StatelessWidget {
             onTap: () async {
               NonProfit nonprofit = await nonProfitRespository
                   .fetchNonProfit(atrocity.nonprofitList![index].id);
-              context.go('/allProjectsList/nonProfitView',
+              context.go('/allNpProjects/nonProfitView',
                   extra: NonProfitDetailArguments(
                       nonProfit: nonprofit, profile: profile));
             },
