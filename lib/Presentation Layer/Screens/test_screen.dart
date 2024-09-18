@@ -63,7 +63,7 @@ class _TestScreenState extends State<TestScreen> {
                                             right: 20,
                                             left: 20),
                                         
-                                        action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>context.go('/userActionScreen')),
+                                        action: SnackBarAction(label: 'Go Check it out', onPressed: ()=>context.go('/rewardhome/userActionScreen')),
                                         content: Text(
                                           'Action: ${requirement.toString()}\nPoints Awarded: ${pointsAwarded.toString()}',
                                           style: TextStyle(color: Colors.white),

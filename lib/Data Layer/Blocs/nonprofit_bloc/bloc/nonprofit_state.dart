@@ -1,6 +1,6 @@
 part of 'nonprofit_bloc.dart';
 
-enum NonProfitStatus { initial, success, failure }
+enum NonProfitStatus { initial, success, failure, loading }
 
 class NonprofitState extends Equatable {
   final List<NonProfit> nonprofitList;
@@ -8,10 +8,12 @@ class NonprofitState extends Equatable {
   final List<NonProfit> categoryNonProfitList;
   final bool categoryChange;
   final List<NonProfit> featuredNonProfits;
+  final String? message;
 
   const NonprofitState(
       {this.nonprofitList = const <NonProfit>[],
       this.status = NonProfitStatus.initial,
+      this.message ='',
       this.categoryChange = false,
       this.categoryNonProfitList = const <NonProfit>[],
       this.featuredNonProfits = const <NonProfit>[]});

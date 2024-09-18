@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/altrue_statistics_bloc/bloc/altrue_statistics_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/leaderboard_bloc/bloc/leaderboard_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/promoted_actions_bloc/bloc/promoted_actions_bloc.dart';
@@ -24,10 +25,23 @@ class _RewardsHomeScreenState extends State<RewardsHomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      floatingActionButton: FloatingActionButton.extended(
+        extendedPadding: const EdgeInsets.symmetric(horizontal: 20),
+        elevation: 20,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(24)
+        ),
+        backgroundColor: Colors.grey[900],
+        tooltip: 'Redeem Altrue Points',
+        onPressed: (){
+          context.go('/rewardhome/');
+        }, label:const Text('Redeem Rewards', style: TextStyle(fontSize: 14, color: Colors.amber),) ,
+        icon:const Icon(Icons.card_giftcard, size: 28,color: Colors.amber,)),
       backgroundColor: Colors.grey[900],
       appBar: AppBar(
         backgroundColor: Colors.amber,
-        title: Text('Reward Home'),
+        title: const Text('Reward Home'),
+        
       ),
       body: SingleChildScrollView(
         child: Column(

@@ -109,11 +109,10 @@ class AppNavigation {
                           ),
                           margin: EdgeInsets.only(
                               bottom: MediaQuery.of(context).size.height - 250,
-                              right: 13,
                               left: 13),
                           action: SnackBarAction(
                               label: 'Go Check it out',
-                              onPressed: () => context.go('/userActionScreen')),
+                              onPressed: () => context.go('/rewardhome/userActionScreen')),
                           content: Row(
                             children: [
                               const Icon(Icons.check_circle, color: Colors.greenAccent),
@@ -220,179 +219,7 @@ class AppNavigation {
               ),
             ],
           ),
-          StatefulShellBranch(
-            navigatorKey: _shellNavigatorProfile,
-            routes: [
-              GoRoute(
-                  path: '/userProfile',
-                  builder: (context, state) {
-                    // Access ProfileBloc to check the current state
-                    final profileState = context.read<ProfileBloc>().state;
-
-                    if (profileState.profile != null) {
-                      // Profile is already available and matches the requested profileId
-                      return ProfileScreen(profile: profileState.profile!);
-                    } else {
-                      // Dispatch event to fetch the profile if it's not available
-                      context.read<ProfileBloc>().add(const FetchProfile());
-
-                      // Return a loading screen while the profile is being fetched
-                      return BlocBuilder<ProfileBloc, ProfileState>(
-                        builder: (context, state) {
-                          if (state.status == ProfileStatus.initial ||
-                              state.status == ProfileStatus.updating) {
-                            return const Center(
-                                child: CircularProgressIndicator());
-                          } else if (state.status ==
-                              ProfileStatus.successfull) {
-                            return ProfileScreen(profile: state.profile!);
-                          } else if (state.status == ProfileStatus.failure) {
-                            return ErrorScreen(
-                                message: state.message ??
-                                    'Profile could not be loaded.');
-                          } else {
-                            return const ErrorScreen(
-                                message: 'Unknown error occurred');
-                          }
-                        },
-                      );
-                    }
-                  },
-                  routes: [
-                    GoRoute(
-                      path: 'supporters',
-                      builder: (context, state) {
-                        final profileState = context.read<ProfileBloc>().state;
-
-                        if (profileState.profile != null ) {
-                          return SupporterPage(profile: profileState.profile!);
-                        } else {
-                          context.read<ProfileBloc>().add(FetchProfile());
-                          return BlocBuilder<ProfileBloc, ProfileState>(
-                            builder: (context, state) {
-                              if (state.status == ProfileStatus.initial || state.status == ProfileStatus.updating) {
-                                return const Center(child: CircularProgressIndicator());
-                              } else if (state.status == ProfileStatus.successfull ) {
-                                return SupporterPage(profile: state.profile!);
-                              } else if (state.status == ProfileStatus.failure) {
-                                return ErrorScreen(message: state.message ?? 'Profile could not be loaded.');
-                              } else {
-                                return const ErrorScreen(message: 'Unknown error occurred');
-                              }
-                            },
-                          );
-                        }
-                      },
-                    ),
-                    GoRoute(
-                      path: 'editmyprofile',
-                      builder: (context, state) {
-                        final profile =
-                            context.read<ProfileBloc>().state.profile!;
-                        return ProfileEditScreen(profile: profile);
-                      },
-                    ),
-                    GoRoute(
-                      path: 'myQrCode',
-                      builder: (context, state) {
-                        final profileState = context.read<ProfileBloc>().state;
-
-                        if (profileState.profile != null) {
-                          return MyQrScreen(profile: profileState.profile!);
-                        } else {
-                          context.read<ProfileBloc>().add(FetchProfile());
-                          return BlocBuilder<ProfileBloc, ProfileState>(
-                            builder: (context, state) {
-                              if (state.status == ProfileStatus.initial ||
-                                  state.status == ProfileStatus.updating) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              } else if (state.status ==
-                                  ProfileStatus.successfull) {
-                                return MyQrScreen(profile: state.profile!);
-                              } else if (state.status ==
-                                  ProfileStatus.failure) {
-                                return ErrorScreen(
-                                    message: state.message ??
-                                        'Profile could not be loaded.');
-                              } else {
-                                return const ErrorScreen(
-                                    message: 'Unknown error occurred');
-                              }
-                            },
-                          );
-                        }
-                      },
-                    ),
-                    GoRoute(
-                      path: 'CompanyHome',
-                      builder: (context, state) {
-                        final args = state.extra as CompanyHomeArguments;
-
-                        return MyCompanyHome(
-                          profile: args.profile,
-                          company: args.company,
-                        );
-                      },
-                    ),
-                    GoRoute(
-                      path: 'companyDonations',
-                      builder: (context, state) {
-                        final args= state.extra as CompanyHomeArguments;
-                            return BlocBuilder<ProfileBloc, ProfileState>(
-                              builder: (context, profileState) {
-                                if (profileState.status == ProfileStatus.initial ||
-                                    profileState.status == ProfileStatus.updating) {
-                                  return const Center(child: CircularProgressIndicator());
-                                } else if (profileState.status == ProfileStatus.successfull 
-                                    ) {
-                                  return CompanyDonationScreen(
-                                    company: args.company,
-                                    profile: profileState.profile!,
-                                  );
-                                } else if (profileState.status == ProfileStatus.failure) {
-                                  return ErrorScreen(message: profileState.message ?? 'Profile could not be loaded.');
-                                } else {
-                                  return const ErrorScreen(message: 'Unknown error occurred');
-                                }
-                              },
-                            );
-                          },
-                        ),
-                    GoRoute(
-                      path: 'creditCardDetails',
-                      builder: (context, state) {
-                        return const CreditCardPage();
-                      },
-                      ),
-                      GoRoute(
-                        path: 'payment',
-                        builder: (context, state) {
-                          return const PaymentScreen();
-                        },
-                      ),
-                      GoRoute(
-                        path: 'companyRewards',
-                        builder: (context, state) {
-                          final args = state.extra as CompanyHomeArguments; // Expect the arguments as a custom object
-
-                        
-                            return CompanyRewardsScreen(
-                              profile: args.profile,
-                              company: args.company,
-                            );
-                          
-                        },
-                      ),
-                      GoRoute(path: 'createCompanyReward',
-                      builder: (context, state){
-                        final args = state.extra as CompanyHomeArguments;
-                        return CreateRewardsScreen(company: args.company, profile: args.profile);
-                      })
-                  ]),
-
-            ],
-          ),
+          
           StatefulShellBranch(navigatorKey: _shellNavigatorSupport, routes: [
             GoRoute(
 
@@ -404,7 +231,7 @@ class AppNavigation {
                 },
                 routes: [
 
-                  GoRoute(path: 'allProjectsList',
+                  GoRoute(path: ' . allProjectsList',
                 builder: (context, state) {
                   final profile = context.read<ProfileBloc>().state.profile!;
                   return AllProjectsList(profile: profile);
@@ -499,8 +326,18 @@ class AppNavigation {
                 ]),
           ]),
           StatefulShellBranch(navigatorKey: _shellNavigatorRewards, routes: [
-            GoRoute(
-                path: '/userActionScreen',
+            
+            GoRoute(path: '/rewardhome',
+                  builder: (context, state){
+                    return BlocBuilder<ProfileBloc, ProfileState>(
+                      builder: (context, state) {
+                        return RewardsHomeScreen(profile: context.read<ProfileBloc>().state.profile!);
+                      },
+                    );
+                  },
+               
+                routes: [
+                  GoRoute( path: 'userActionScreen',
                 builder: (context, state) {
                   return BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
@@ -509,16 +346,7 @@ class AppNavigation {
                       );
                     },
                   );
-                },
-                routes: [
-                  GoRoute(path: 'rewardhome',
-                  builder: (context, state){
-                    return BlocBuilder<ProfileBloc, ProfileState>(
-                      builder: (context, state) {
-                        return RewardsHomeScreen(profile: context.read<ProfileBloc>().state.profile!);
-                      },
-                    );
-                  }),
+                },),
                   GoRoute(
                     path: 'shirts',
                     builder: (context, state) {
@@ -702,7 +530,180 @@ class AppNavigation {
 
               ]
             ),
-          ])
+          ]),
+          StatefulShellBranch(
+            navigatorKey: _shellNavigatorProfile,
+            routes: [
+              GoRoute(
+                  path: '/userProfile',
+                  builder: (context, state) {
+                    // Access ProfileBloc to check the current state
+                    final profileState = context.read<ProfileBloc>().state;
+
+                    if (profileState.profile != null) {
+                      // Profile is already available and matches the requested profileId
+                      return ProfileScreen(profile: profileState.profile!);
+                    } else {
+                      // Dispatch event to fetch the profile if it's not available
+                      context.read<ProfileBloc>().add(const FetchProfile());
+
+                      // Return a loading screen while the profile is being fetched
+                      return BlocBuilder<ProfileBloc, ProfileState>(
+                        builder: (context, state) {
+                          if (state.status == ProfileStatus.initial ||
+                              state.status == ProfileStatus.updating) {
+                            return const Center(
+                                child: CircularProgressIndicator());
+                          } else if (state.status ==
+                              ProfileStatus.successfull) {
+                            return ProfileScreen(profile: state.profile!);
+                          } else if (state.status == ProfileStatus.failure) {
+                            return ErrorScreen(
+                                message: state.message ??
+                                    'Profile could not be loaded.');
+                          } else {
+                            return const ErrorScreen(
+                                message: 'Unknown error occurred');
+                          }
+                        },
+                      );
+                    }
+                  },
+                  routes: [
+                    GoRoute(
+                      path: 'supporters',
+                      builder: (context, state) {
+                        final profileState = context.read<ProfileBloc>().state;
+
+                        if (profileState.profile != null ) {
+                          return SupporterPage(profile: profileState.profile!);
+                        } else {
+                          context.read<ProfileBloc>().add(FetchProfile());
+                          return BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              if (state.status == ProfileStatus.initial || state.status == ProfileStatus.updating) {
+                                return const Center(child: CircularProgressIndicator());
+                              } else if (state.status == ProfileStatus.successfull ) {
+                                return SupporterPage(profile: state.profile!);
+                              } else if (state.status == ProfileStatus.failure) {
+                                return ErrorScreen(message: state.message ?? 'Profile could not be loaded.');
+                              } else {
+                                return const ErrorScreen(message: 'Unknown error occurred');
+                              }
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    GoRoute(
+                      path: 'editmyprofile',
+                      builder: (context, state) {
+                        final profile =
+                            context.read<ProfileBloc>().state.profile!;
+                        return ProfileEditScreen(profile: profile);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'myQrCode',
+                      builder: (context, state) {
+                        final profileState = context.read<ProfileBloc>().state;
+
+                        if (profileState.profile != null) {
+                          return MyQrScreen(profile: profileState.profile!);
+                        } else {
+                          context.read<ProfileBloc>().add(FetchProfile());
+                          return BlocBuilder<ProfileBloc, ProfileState>(
+                            builder: (context, state) {
+                              if (state.status == ProfileStatus.initial ||
+                                  state.status == ProfileStatus.updating) {
+                                return const Center(
+                                    child: CircularProgressIndicator());
+                              } else if (state.status ==
+                                  ProfileStatus.successfull) {
+                                return MyQrScreen(profile: state.profile!);
+                              } else if (state.status ==
+                                  ProfileStatus.failure) {
+                                return ErrorScreen(
+                                    message: state.message ??
+                                        'Profile could not be loaded.');
+                              } else {
+                                return const ErrorScreen(
+                                    message: 'Unknown error occurred');
+                              }
+                            },
+                          );
+                        }
+                      },
+                    ),
+                    GoRoute(
+                      path: 'CompanyHome',
+                      builder: (context, state) {
+                        final args = state.extra as CompanyHomeArguments;
+
+                        return MyCompanyHome(
+                          profile: args.profile,
+                          company: args.company,
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: 'companyDonations',
+                      builder: (context, state) {
+                        final args= state.extra as CompanyHomeArguments;
+                            return BlocBuilder<ProfileBloc, ProfileState>(
+                              builder: (context, profileState) {
+                                if (profileState.status == ProfileStatus.initial ||
+                                    profileState.status == ProfileStatus.updating) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (profileState.status == ProfileStatus.successfull 
+                                    ) {
+                                  return CompanyDonationScreen(
+                                    company: args.company,
+                                    profile: profileState.profile!,
+                                  );
+                                } else if (profileState.status == ProfileStatus.failure) {
+                                  return ErrorScreen(message: profileState.message ?? 'Profile could not be loaded.');
+                                } else {
+                                  return const ErrorScreen(message: 'Unknown error occurred');
+                                }
+                              },
+                            );
+                          },
+                        ),
+                    GoRoute(
+                      path: 'creditCardDetails',
+                      builder: (context, state) {
+                        return const CreditCardPage();
+                      },
+                      ),
+                      GoRoute(
+                        path: 'payment',
+                        builder: (context, state) {
+                          return const PaymentScreen();
+                        },
+                      ),
+                      GoRoute(
+                        path: 'companyRewards',
+                        builder: (context, state) {
+                          final args = state.extra as CompanyHomeArguments; // Expect the arguments as a custom object
+
+                        
+                            return CompanyRewardsScreen(
+                              profile: args.profile,
+                              company: args.company,
+                            );
+                          
+                        },
+                      ),
+                      GoRoute(path: 'createCompanyReward',
+                      builder: (context, state){
+                        final args = state.extra as CompanyHomeArguments;
+                        return CreateRewardsScreen(company: args.company, profile: args.profile);
+                      })
+                  ]),
+
+            ],
+          ),
         ],
       ),
       GoRoute(
@@ -750,4 +751,10 @@ class GoRouterRefreshStream extends ChangeNotifier {
       notifyListeners(); // Triggers GoRouter to refresh
     });
   }
+}
+
+
+class CauseListArguments {
+  Profile profile;
+  CauseListArguments({required this.profile});
 }

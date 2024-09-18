@@ -280,10 +280,10 @@ class _ShirtDetailsState extends State<ShirtDetails>
                     SizedBox(height: 20),
                     const Text(
                       'Level Required ',
-                      style: TextStyle(fontSize: 12, color: Colors.amber),
+                      style: TextStyle(fontSize: 9, color: Colors.amber),
                       textAlign: TextAlign.center,
                     ),
-                    showLevelIcon(widget.shirt, 80, 80)
+                    showLevelIcon(widget.shirt, 70, 80)
                   ]),
                 )
               ]),
@@ -320,7 +320,7 @@ class _ShirtDetailsState extends State<ShirtDetails>
                         children: [
                           const Text(
                             'Rate This Shirt',
-                            style: TextStyle(
+                            style: TextStyle(fontSize: 8,
                                 color: Colors.white,
                                 fontWeight: FontWeight.bold),
                           ),

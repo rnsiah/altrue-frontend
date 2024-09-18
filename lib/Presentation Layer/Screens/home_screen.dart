@@ -23,11 +23,13 @@ import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/atrocity_repositories.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
+import 'package:lovelovelove/Presentation%20Layer/Routers/AppNavigation.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/atrocity_details.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/find_friends_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/new_posts.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/AltrueStatsCard.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_bottom_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_icon.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/altrue_action_card.dart';
@@ -194,8 +196,7 @@ ListTile _buildDrawerItem({
 
   AnimationController? _animationController;
 
-  _shirtSelector(int index, List<Atrocity> atrocities, Profile profile) {
-    return AnimatedBuilder(
+  _shirtSelector(int index, List<Atrocity> atrocities, Profile profile) => AnimatedBuilder(
       animation: _pageController,
       builder: (BuildContext context, Widget? widget) {
         double value = 1;
@@ -263,7 +264,6 @@ ListTile _buildDrawerItem({
         ),
       ),
     );
-  }
 
  
 
@@ -275,10 +275,15 @@ ListTile _buildDrawerItem({
         if (state.profile == null) {
           return Center(
             child: Container(
-              child: const Text(
-                'Loading',
-                style: TextStyle(color: Colors.white, fontSize: 48),
-              ),
+              
+              child: 
+              BlocBuilder<AltrueStatisticsBloc,AltrueStatisticsState>(builder: (context,state){
+                if(state is AltrueStatisticsLoaded){
+                  return CumulativeStatsHeroCard(statistics: state.statistics);
+                }
+                return Text('Loading');
+              },)
+             
             ),
           );
         }
@@ -525,9 +530,9 @@ ListTile _buildDrawerItem({
                               builder: (_) {
                                 return DraggableScrollableSheet(
                                   expand: false,
-                                  maxChildSize: .65,
+                                  maxChildSize: .8,
                                   minChildSize: .5,
-                                  initialChildSize: .6,
+                                  initialChildSize: .8,
                                   builder: (_, controller) => CartBottomScreen(
                                     controller: controller,
                                     cartList: state.cart,
@@ -804,7 +809,7 @@ ListTile _buildDrawerItem({
                                                     context
                                                         .read<CategoryBloc>()
                                                         .add(FetchCategory());
-                                                    context.go('/userActionScreen/shirts');
+                                                    context.go('/rewardhome/shirts');
                                                     // context.read<ShirtBloc>().add(FetchShirts());
                                                   },
                                                 );
@@ -818,7 +823,7 @@ ListTile _buildDrawerItem({
                                                   ),
                                                 ),
                                                 onPressed: () {
-                                                 context.go('/userActionScreen/shirts', extra: Shirt);
+                                                 context.go('/rewardhome/shirts', extra: Shirt);
                                                   // context.read<ShirtBloc>().add(FetchShirts());
                                                   // context.read<CategoryBloc>().add(FetchCategory());
                                                 },
@@ -989,7 +994,7 @@ ListTile _buildDrawerItem({
                         }, child: const Text('LeaderBoard')),
                       ElevatedButton(onPressed: (){
                         context.read<AltrueStatisticsBloc>().add(FetchAltrueStatistics());
-                        context.go('/userActionScreen/rewardhome');
+                        context.go('/rewardhome/rewardhome');
                       }, child: const Text('rewardHome'))
                       ],
                     ),

@@ -52,7 +52,7 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                   onTap: () {
                     context.read<ShirtgroupBloc>().add(FetchGroups());
 
-                    context.go('/userActionScreen/featuredShirts',
+                    context.go('/rewardhome/featuredShirts',
                         extra: widget.profile);
                   },
                   child: const Text(
@@ -78,7 +78,7 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                   padding: const EdgeInsets.only(left: 4.0, right: 4),
                   child: GestureDetector(
                     onTap: () {
-                      context.go('/userActionScreen/ShirtDetail',
+                      context.go('/rewardhome/ShirtDetail',
                           extra: ShirtDetailArguments(
                               shirt: widget.shirtlist[index],
                               profile: widget.profile));

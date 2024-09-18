@@ -15,6 +15,7 @@ class NonprofitBloc extends Bloc<NonprofitEvent, NonprofitState> {
     on<FetchNonProfitList>(_fetchNonProfitList);
     on<FetchNonProfitItem>(_fetchNonProfitItem);
     on<FetchNonProfitsByCategory>(_fetchNonProfitsByCategory);
+    on<FetchFeaturedNonProfits>(_fetchFeaturedNonProfits);
     fetchNonProfitsOnLogin();
   
   }
@@ -42,9 +43,11 @@ class NonprofitBloc extends Bloc<NonprofitEvent, NonprofitState> {
     if (state.status == NonProfitStatus.initial) {
       try {
         List<NonProfit> all = await nonProfitRespository.fetchNonProfits();
+        List<NonProfit> featured = await nonProfitRespository.fetchFeaturedNonProfits();
 
         if (all.isNotEmpty) {
           NonprofitState newState = state.copyWith(
+            featuredNonProfits: featured,
               nonprofitList: all, status: NonProfitStatus.success);
           emit(newState);
         }
@@ -72,9 +75,22 @@ class NonprofitBloc extends Bloc<NonprofitEvent, NonprofitState> {
     } catch (e) {
       emit(state.copyWith(status: NonProfitStatus.failure));
     }
+  }
 
-  
-
+  void _fetchFeaturedNonProfits(FetchFeaturedNonProfits event, Emitter<NonprofitState> emit)async {
+    NonprofitState state = this.state;
+    NonprofitState newState = state.copyWith(status: NonProfitStatus.loading);
+    emit(newState);
+    try{
+      List<NonProfit> featuredNonProfits = await nonProfitRespository.fetchFeaturedNonProfits();
+      NonprofitState theState = newState.copyWith(featuredNonProfits: featuredNonProfits);
+      emit(theState);
+    }
+    catch(e){
+      null;
+    }
+  }
+}
   // Stream<NonprofitState> mapEventToState(
   //   NonprofitEvent event,
   // ) async* {
@@ -121,5 +137,4 @@ class NonprofitBloc extends Bloc<NonprofitEvent, NonprofitState> {
   //     }
   //   }
   // }
-}
-}
+

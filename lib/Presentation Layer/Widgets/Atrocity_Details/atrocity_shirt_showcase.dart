@@ -33,7 +33,7 @@ class AtrocityShirtShowcase extends StatelessWidget {
               Shirt shirt = await shirtRepository
                   .fetchShirt(atrocity.shirtList![index].id!);
 
-              context.go('/userActionScreen/ShirtDetail',
+              context.go('/rewardhome/ShirtDetail',
                   extra:
                       ShirtDetailArguments(profile: profile, shirt: shirt));
             }

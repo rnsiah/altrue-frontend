@@ -273,7 +273,7 @@ class _ShirtGroupListPageState extends State<ShirtGroupListPage> {
         children: [
           GestureDetector(
             onTap: () {
-              context.go('/userActionScreen/ShirtDetail',
+              context.go('/rewardhome/ShirtDetail',
                   extra: ShirtDetailArguments(
                       profile: widget.profile,
                       shirt: widget.shirtGroup.shirts![index]));

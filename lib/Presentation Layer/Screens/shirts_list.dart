@@ -109,7 +109,7 @@ class _ShirtListState extends State<ShirtList> {
                   crossAxisCount: 2),
               itemBuilder: (context, index) => ShirtCard(
                   shirt: state.shirtlist[index],
-                  press: () => context.go('/userActionScreen/ShirtDetail',
+                  press: () => context.go('/rewardhome/ShirtDetail',
                       extra: ShirtDetailArguments(
                           shirt: state.shirtlist[index],
                           profile: widget.profile))))),
@@ -129,7 +129,7 @@ class _ShirtListState extends State<ShirtList> {
               crossAxisCount: 2),
           itemBuilder: (context, index) => ShirtCard(
               shirt: state.categoryShirtList[index],
-              press: () => context.go('/userActionScreen/ShirtDetail',
+              press: () => context.go('/rewardhome/ShirtDetail',
                   extra: ShirtDetailArguments(
                       shirt: state.categoryShirtList[index],
                       profile: widget.profile)))),

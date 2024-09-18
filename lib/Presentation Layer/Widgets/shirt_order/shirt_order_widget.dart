@@ -236,7 +236,7 @@ class _ShirtOrderFormState extends State<ShirtOrderForm> {
               BlocBuilder<ShirtOrderBlocBloc, ShirtOrderBlocState>(
                 builder: (context, state) {
                   return Text(
-                    '\$${widget.shirt.price! * state.quantity}',
+                    '\$${(widget.shirt.price! * state.quantity).toStringAsFixed(2)}',
                     style: const TextStyle(
                         fontSize: 25,
                         fontWeight: FontWeight.bold,

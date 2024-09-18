@@ -70,7 +70,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                   ),
                 ],
               ),
-
+        
               const SizedBox(height: 8),
               const Text(
                 'Payment Details',
@@ -97,15 +97,15 @@ class _PaymentScreenState extends State<PaymentScreen> {
                 },
               ),
               // Text(items[0].shirt.name!),
-
+        
               Column(
                 children: [
                   BlocListener<ProfileBloc, ProfileState>(
                     listener: (context, state) {
                       if (state.status == ProfileStatus.paymentAccepted) {
                         context.read<CartBloc>().add(PaymentAccepted());
-
-                        context.go('/userActionScreen/thankyou',extra: ThankYouScreenArguments(isPurchase: true));
+        
+                        context.go('/rewardhome/thankyou',extra: ThankYouScreenArguments(isPurchase: true));
                       }
                       // TODO: implement listener
                     },
@@ -155,7 +155,7 @@ class _PaymentScreenState extends State<PaymentScreen> {
                           await Stripe.instance.presentPaymentSheet();
                           await Future.delayed(Duration(seconds: 9));
                           profileBloc.add(ConfirmOrder());
-
+        
                           try {} catch (e) {
                             print('Did not make a payment $e');
                           }

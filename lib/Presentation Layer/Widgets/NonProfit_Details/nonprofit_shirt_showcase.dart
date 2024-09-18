@@ -32,7 +32,7 @@ class NonProfitShirtCase extends StatelessWidget {
             Shirt shirt = await shirtRepository
                 .fetchShirt(nonProfit.shirtList![index].id!);
 
-            context.go('/userActionScreen/ShirtDetail',
+            context.go('/rewardhome/ShirtDetail',
                 extra:
                     ShirtDetailArguments(shirt: shirt, profile: profile));
           },

@@ -211,7 +211,7 @@ class MyApp extends StatelessWidget {
             create: (context) => CategoryBloc(
                 categoryRepository: context.read<CategoryRepository>())..add(FetchCategory()),  
           ),
-          BlocProvider<AltrueStatisticsBloc>(create:(context)=> AltrueStatisticsBloc(),
+          BlocProvider<AltrueStatisticsBloc>(create:(context)=> AltrueStatisticsBloc()..add(FetchAltrueStatistics()),
           ),
           BlocProvider<ShirtgroupBloc>(
             create: (context) => ShirtgroupBloc(

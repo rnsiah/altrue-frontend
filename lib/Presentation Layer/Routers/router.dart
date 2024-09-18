@@ -430,13 +430,8 @@ GoRoute(
     );
   },
 ),
+
 GoRoute(
-  path: '/causes',
-  builder: (context, state) {
-    final argument = state.extra as CauseListArguments;
-    return CauseList(profile: argument.profile);
-  },
-),GoRoute(
   path: '/causeView/:causeId',
   builder: (context, state) {
     final causeId = state.pathParameters['causeId']!;
@@ -798,10 +793,7 @@ class ShirtDetailArguments {
   ShirtDetailArguments({required this.shirt, required this.profile});
 }
 
-class CauseListArguments {
-  Profile profile;
-  CauseListArguments({required this.profile});
-}
+
 
 class ShirtGroupArguments {
   ShirtGroup shirtGroup;

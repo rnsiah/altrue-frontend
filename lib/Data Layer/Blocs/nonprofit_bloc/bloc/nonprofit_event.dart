@@ -22,3 +22,8 @@ class FetchNonProfitsByCategory extends NonprofitEvent {
   final Category category;
   const FetchNonProfitsByCategory({required this.category});
 }
+
+
+class FetchFeaturedNonProfits extends NonprofitEvent{
+  
+}

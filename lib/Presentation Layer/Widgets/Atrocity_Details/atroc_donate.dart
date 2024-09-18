@@ -49,7 +49,7 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
     return BlocListener<ProfileBloc, ProfileState>(
       listener: (context, state) {
         if (state.status == ProfileStatus.paymentAccepted) {
-          context.go('/userActionScreen/thankyou',
+          context.go('/rewardhome/thankyou',
               extra: ThankYouScreenArguments(
                   isAtrocity: true,
                   isNonProfit: false,
