@@ -66,6 +66,7 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/user_actions_screen.da
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_nonprofitsList.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_presentation_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/users_profile_page.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/Intro_Slider/intro_slider.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/company_detail_page.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dontation_form.dart';
@@ -379,7 +380,9 @@ GoRoute(
 GoRoute(
   path: '/payment',
   builder: (context, state) {
-    return const PaymentScreen();
+        final profile = context.read<ProfileBloc>().state.profile!;
+
+    return  PaymentScreen(profile: profile,);
   },
 ),
 
@@ -539,7 +542,7 @@ GoRoute(
   path: '/userProfilePage',
   builder: (context, state) {
     final profile = state.extra as Profile;
-    return ProfilePresentationScreen(profile: profile);
+    return UsersProfilePage(profile: profile);
   },
 ),
 

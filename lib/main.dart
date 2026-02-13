@@ -42,8 +42,6 @@ import 'package:lovelovelove/Data%20Layer/Repositories/shirt_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Forms/user_login_form.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/AppNavigation.dart';
-import 'package:lovelovelove/Presentation%20Layer/Routers/app_router.dart';
-import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/home_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/main_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/signup_screen.dart';
@@ -249,154 +247,9 @@ class MyApp extends StatelessWidget {
           ),
         )
 
-        // MaterialApp(home:
-        //     BlocBuilder<SessionBLoc, SessionState>(builder: (context, state) {
-        //   if (state is Authenticated) {
-        //     final userId = state.user.altid;
-        //     context.read<WebSocketBloc>().add(WebsocketConnect(
-        //         url:
-        //             'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/$userId/'));
-
-        //     return BlocListener<WebSocketBloc, WebSocketState>(
-        //       listener: (context, state) {
-        //         if (state is WebsocketShowSnackbar) {
-        //           final scaffoldMessenger = ScaffoldMessenger.maybeOf(context);
-        //           if (scaffoldMessenger != null) {
-        //             ScaffoldMessenger.of(context).showSnackBar(
-        //                 SnackBar(content: Text(state.message.toString())));
-        //           }
-        //         }
-        //       },
-        //       child: UserProfileComplete(
-        //         userId: state.user.altid.toString(),
-        //         user: state.user,
-        //       ),
-        //     );
-        //   } else if (state is AuthenticatedWithProfile) {
-        //     final userId = state.user.altid;
-        //     context.read<WebSocketBloc>().add(WebsocketConnect(
-        //         url:
-        //             'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/$userId/'));
-        //   }
-        //   if (state is AuthenticatedWithProfile) {
-        //     return MultiBlocProvider(
-        //       providers: [
-        //         BlocProvider.value(
-        //           value: context.read<ProfileBloc>(),
-        //         ),
-        //       ],
-        //       child: BlocListener<WebSocketBloc, WebSocketState>(
-        //         listener: (context, state) {
-        //           if (state is WebsocketShowSnackbar) {
-        //             print(state.message);
-        //             // if(state.message[])
-        //             Future.delayed(Duration(seconds: 5), () {
-        //               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-        //                 behavior: SnackBarBehavior.floating,
-        //                 shape: RoundedRectangleBorder(
-        //                   borderRadius: BorderRadius.circular(24),
-        //                 ),
-        //                 margin: EdgeInsets.only(
-        //                     bottom: MediaQuery.of(context).size.height - 250,
-        //                     right: 20,
-        //                     left: 20),
-        //                 action: SnackBarAction(
-        //                     label: 'Go Check it out',
-        //                     onPressed: () => Navigator.of(context)
-        //                         .pushNamed('/userActionScreen')),
-        //                 content: Text(
-        //                   'Action: ${state.message}',
-        //                   style: TextStyle(
-        //                       color: Colors.white,
-        //                       fontWeight: FontWeight.bold,
-        //                       fontSize: 11),
-        //                 ),
-        //                 backgroundColor: state.color,
-        //                 duration: Duration(seconds: 6),
-        //               ));
-        //             });
-        //           }
-        //         },
-        //         child: MainScreen(
-        //           cartBloc: context.read<CartBloc>(),
-        //           user: state.user,
-        //           profileBloc: context.read<ProfileBloc>(),
-        //         ),
-        //       ),
-        //     );
-        //   } else if (state is Authenticated) {
-        //     return BlocProvider.value(
-        //       value: context.read<WebSocketBloc>(),
-        //       child: UserProfileComplete(
-        //         userId: state.user.altid.toString(),
-        //         user: state.user,
-        //       ),
-        //     );
-        //   }
-        //   return BlocProvider(
-        //     create: (context) => ValidationCubit(
-        //         sessionBloc: context.read<SessionBLoc>(),
-        //         userProfileEditBloc: context.read<UserProfileEditBloc>(),
-        //         userRepository: context.read<UserRepository>()),
-        //     child: Builder(builder: (context) {
-        //       return const AuthNavigator();
-        //     }),
-        //   );
-        // }), onGenerateRoute: (RouteSettings settings) {
-        //   return MaterialPageRoute(
-        //     builder: (BuildContext context) => makeRoute(
-        //         context: context,
-        //         routeName: settings.name!,
-        //         arguments: settings.arguments),
-        //   );
-        // })
-
         );
   }
-//   GoRouter _goRouter(BuildContext context) {
-//   final sessionBloc = context.read<SessionBLoc>();
 
-//   return GoRouter(
-//     initialLocation: '/',
-//     redirect: (context, state) {
-//       final sessionState = sessionBloc.state;
-//       if (sessionState is Authenticated) {
-//         return '/home';
-//       } else if (sessionState is Unauthenticated) {
-//         return '/login';
-//       }
-//       return null;
-//     },
-//     routes: [
-//       StatefulShellRoute.indexedStack(
-//       branches: [
-//           StatefulShellBranch(
-
-//             routes: [
-//               GoRoute(
-//       path: '/home',
-//       pageBuilder: (context, state) => MaterialPage(
-//         child: BlocBuilder<SessionBLoc, SessionState>(
-//           builder: (context, sessionState) {
-//             if (sessionState is AuthenticatedWithProfile) {
-//               // You can now pass the user from the sessionState
-//               final user = sessionState.user;
-//               return BlocProvider<CartBloc>(
-//                 create: (context) => CartBloc(),  // Provide CartBloc to HomeScreen
-//                 child: HomePage(user: user, cartBloc: context.read<CartBloc>(),),    // Pass the user to HomeScreen
-//               );
-//             } else if (sessionState is Unauthenticated) {
-//               return IntroductionSlider();  // If not authenticated, return the login screen
-//             } else {
-//               return CircularProgressIndicator();  // Loading state, you can change this as needed
-//             }
-//           },
-//         ),
-//       ),
-//     ),
-//   ],
-// ),
-//          
 }
 
 Future<void> onDidReceiveLocalNotification(

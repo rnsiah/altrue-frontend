@@ -34,7 +34,9 @@ class _UserProfileDetailTabsState extends State<UserProfileDetailTabs>
         child: Column(
           children: [
             Container(
-              color: Colors.black,
+              margin: EdgeInsets.all(10),
+             decoration: BoxDecoration(color: Colors.black,
+             borderRadius: BorderRadius.circular(20)),
               child: TabBar(
                 splashBorderRadius: BorderRadius.circular(12),
                 controller: controller,

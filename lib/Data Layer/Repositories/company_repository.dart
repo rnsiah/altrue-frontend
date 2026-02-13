@@ -14,7 +14,8 @@ class CompanyRepository {
   NonAuthenticatedApiProvider nonauthprov = NonAuthenticatedApiProvider();
   UserRepository userRepository = UserRepository();
   final String host =
-      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app';
+      'https://92457f366a93.ngrok-free.app';
+  final String baseHost ="http://127.0.0.1:8000";
 
   Future<List<ForProfitCompany>> getCompanyList() async {
     List<ForProfitCompany> companies = [];
@@ -76,7 +77,7 @@ class CompanyRepository {
 
   Future<bool> newCompany(
       {required CompanyCompletion company, User? user}) async {
-    String url = '$host/api/registerCompany/';
+    String url = '$baseHost/api/registerCompany/';
 
     var response = await http.post(Uri.parse(url),
         headers: <String, String>{
@@ -107,7 +108,7 @@ class CompanyRepository {
 
   Future<void> editCompanyDetails(
       User user, ForProfitCompany company, Profile profile) async {
-    var postUri = Uri.parse('$host/api/companies/${company.id}/');
+    var postUri = Uri.parse('$baseHost/api/companies/${company.id}/');
     var request = http.MultipartRequest('patch', postUri);
     request.headers['Authorization'] = 'Token ${user.key}';
     request.fields['owner'] = profile.username.toString();

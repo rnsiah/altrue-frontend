@@ -7,12 +7,21 @@ part 'order_model.g.dart';
 class Order {
   List<OrderItem> shirts;
   @JsonKey(name: 'pk')
-  int id;
+  int? id;
   @JsonKey(name: 'start_date')
-  String orderDate;
+  @JsonKey(name: 'ordered_date')
+  String? orderDate;
+  String? status;
+  String? carrier;
+  @JsonKey(name: 'tracking_number')
+  String? trackingNumber;
 
-  Order({required this.shirts, required this.id, required this.orderDate});
 
+  Order({this.carrier, this.trackingNumber, this.status,
+    required this.shirts,
+    required this.id,
+    required this.orderDate,
+  });
   factory Order.fromJson(Map<String, dynamic> data) => _$OrderFromJson(data);
 
   Map<String, dynamic> toJson() => _$OrderToJson(this);

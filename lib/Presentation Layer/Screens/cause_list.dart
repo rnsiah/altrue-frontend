@@ -27,13 +27,13 @@ class _CauseListState extends State<CauseList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: const Image(
-          image: AssetImage('images/Altrue Logo White.png'),
-        ),
-        elevation: 0,
-        backgroundColor: Colors.black,
-      ),
+      // appBar: AppBar(
+      //   title: const Image(
+      //     image: AssetImage('images/Altrue Logo White.png'),
+      //   ),
+      //   elevation: 0,
+      //   backgroundColor: Colors.black,
+      // ),
       body: SafeArea(
           child: SingleChildScrollView(
         child: Column(

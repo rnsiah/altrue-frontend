@@ -32,7 +32,9 @@ class UserRepository {
   final _nonAuthProvider = NonAuthenticatedApiProvider();
 
   final String host =
-      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/';
+      'https://92457f366a93.ngrok-free.app/';
+
+  final String baseHost = 'http://127.0.0.1:8000';
 
   Future introDone() async {
     await userDao.introDone();
@@ -305,7 +307,7 @@ class UserRepository {
     if (user != null) {
       const String local = 'localhost:8000';
       var postUri =
-          Uri.parse('$host/api/userprofile/${user.altid}/add_profilePic/');
+          Uri.parse('$local/api/userprofile/${user.altid}/add_profilePic/');
       var request = http.MultipartRequest('patch', postUri);
       request.headers['Authorization'] = 'Token ${user.key}';
       http.MultipartFile multipartFile =
@@ -332,10 +334,10 @@ class UserRepository {
     User? user = await userDao.getCurrentUser(0);
     if (user != null) {
       // ignore: unused_local_variable
-      const String local = 'localhost:8000';
+      const String local = 'localhost:8000/';
 
       final response = await http.patch(
-          Uri.parse('${host}api/userprofile/${user.altid}/add_nonprofit/'),
+          Uri.parse('${local}api/userprofile/${user.altid}/add_nonprofit/'),
           headers: <String, String>{
             'Content-Type': 'application/json',
             HttpHeaders.authorizationHeader: "Token ${user.key}"
@@ -352,10 +354,10 @@ class UserRepository {
   Future<void> addAtrocityToProfileList({required Atrocity atrocity}) async {
     User? user = await userDao.getCurrentUser(0);
     if (user != null) {
-      const String local = 'localhost:8000';
+      const String local = 'localhost:8000/';
 
       final response = await http.patch(
-          Uri.parse('${host}api/userprofile/${user.altid}/add_atrocity/'),
+          Uri.parse('${local}api/userprofile/${user.altid}/add_atrocity/'),
           headers: <String, String>{
             'Content-Type': 'application/json',
             HttpHeaders.authorizationHeader: "Token ${user.key}"
@@ -404,7 +406,7 @@ class UserRepository {
   }
 
   Future<String> getSetupIntentClientSecret() async {
-    final response = await http.get(Uri.parse('${host}api/getsetupintent'));
+    final response = await http.get(Uri.parse('$host/api/getsetupintent'));
     print(response.toString());
     if (response.statusCode != 200) {
       throw Exception('Failed to create SetupIntent');
@@ -597,7 +599,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/api/order_status/');
+        'https://92457f366a93.ngrok-free.app/api/order_status/');
 
     try {
       final response = await http.post(
@@ -633,7 +635,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/api/create_payment_intent/');
+        'https://92457f366a93.ngrok-free.app/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -689,7 +691,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/api/donate/');
+        'https://92457f366a93.ngrok-free.app/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -724,7 +726,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/api/point_payment/');
+        'https://92457f366a93.ngrok-free.app/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -763,7 +765,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/api/hybrid_payment/');
+        'https://92457f366a93.ngrok-free.app/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

@@ -42,9 +42,9 @@ class _AllNPProjectsState extends State<AllNPProjects> {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.black,
+      // ),
       backgroundColor: Colors.grey[900],
       body: SingleChildScrollView(
         child: Column(
@@ -113,7 +113,7 @@ class _AllNPProjectsState extends State<AllNPProjects> {
                   ),
                   SizedBox(height:size.height *.15,
                   width:double.infinity,
-                  child: Expanded(child: BlocProvider.value(value: context.read<NonprofitBloc>(),
+                  child: BlocProvider.value(value: context.read<NonprofitBloc>(),
                   child: BlocBuilder<NonprofitBloc, NonprofitState>(builder: (context, state){
                     return ListView.builder(
                       itemCount: state.featuredNonProfits.length,
@@ -121,18 +121,24 @@ class _AllNPProjectsState extends State<AllNPProjects> {
                       itemBuilder: (context, index)=>
                         Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Container(
-                            height:100,
-                            width: 100,
-                            decoration: BoxDecoration(
-                              color: Colors.white,
-                              image: DecorationImage(
-                                fit: BoxFit.contain,
-                                image: NetworkImage(state.featuredNonProfits[index].logo))),),
+                          child: GestureDetector(
+                            onTap: (){
+                              context.go('/allNpProjects/nonProfitView',extra: NonProfitDetailArguments(nonProfit: state.featuredNonProfits[index], profile: widget.profile));
+                              print('go to onprofit');
+                            },
+                            child: Container(
+                              
+                              height:100,
+                              width: 100,
+                              decoration: BoxDecoration(
+                                color: Colors.white,
+                                image: DecorationImage(
+                                  fit: BoxFit.contain,
+                                  image: NetworkImage(state.featuredNonProfits[index].logo))),),
+                          ),
                         )
                     );
                   },) ,
-                  ),
                   ),),
                   // SizedBox(
                   //   height: size.height * .32,

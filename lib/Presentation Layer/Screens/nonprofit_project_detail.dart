@@ -35,11 +35,11 @@ class _NonProjectDetailState extends State<NonProjectDetail> {
     double amount = 0;
     final size = MediaQuery.of(context).size;
     return Scaffold(
-      extendBodyBehindAppBar: true,
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        title: const Image(image: AssetImage('images/Altrue Logo White.png')),
-      ),
+      // extendBodyBehindAppBar: true,
+      // appBar: AppBar(
+      //   backgroundColor: Colors.transparent,
+      //   title: const Image(image: AssetImage('images/Altrue Logo White.png')),
+      // ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
       floatingActionButton: SizedBox(
         height: size.height * .065,

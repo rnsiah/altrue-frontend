@@ -34,50 +34,53 @@ class _NonProfitListState extends State<NonProfitList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Image(
-          image: AssetImage('images/Altrue Logo White.png'),
-        ),
-      ),
-      body: MultiRepositoryProvider(
-          providers: [
-            RepositoryProvider(create: (_) => CategoryRepository()),
-          ],
-          child: Column(
-            children: [
-              BlocBuilder<CategoryBloc, CategoryState>(
-                builder: (context, state) {
-                  return CategorySelector(
-                    isProject: false,
-                    isNonProfit: true,
-                    isAtrocity: false,
-                    isCompany: false,
-                    isShirt: false,
-                    categoryList: state.categoryList,
-                  );
-                },
-              ),
-              BlocConsumer<NonprofitBloc, NonprofitState>(
-                listener: (context, state) {
-                  if (state.status == NonProfitStatus.initial) {
-                    context.read<NonprofitBloc>().add(FetchNonProfitList());
-                  }
-                },
-                buildWhen: (p, c) => p.nonprofitList != c.categoryNonProfitList,
-                builder: (context, state) {
-                  if (state.categoryNonProfitList.isNotEmpty) {
-                    return buildCategoryNonProfitList(state);
-                  } else if (state.categoryNonProfitList.isEmpty &&
-                      state.nonprofitList.isNotEmpty) {
-                    return buildNonProfitList(state);
-                  }
-                  return buildNonProfitList(state);
-                },
-              )
+      // appBar: AppBar(
+      //   backgroundColor: Colors.black,
+      //   elevation: 0,
+      //   title: const Image(
+      //     image: AssetImage('images/Altrue Logo White.png'),
+      //   ),
+      // ),
+      body: Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: MultiRepositoryProvider(
+            providers: [
+              RepositoryProvider(create: (_) => CategoryRepository()),
             ],
-          )),
+            child: Column(
+              children: [
+                BlocBuilder<CategoryBloc, CategoryState>(
+                  builder: (context, state) {
+                    return CategorySelector(
+                      isProject: false,
+                      isNonProfit: true,
+                      isAtrocity: false,
+                      isCompany: false,
+                      isShirt: false,
+                      categoryList: state.categoryList,
+                    );
+                  },
+                ),
+                BlocConsumer<NonprofitBloc, NonprofitState>(
+                  listener: (context, state) {
+                    if (state.status == NonProfitStatus.initial) {
+                      context.read<NonprofitBloc>().add(FetchNonProfitList());
+                    }
+                  },
+                  buildWhen: (p, c) => p.nonprofitList != c.categoryNonProfitList,
+                  builder: (context, state) {
+                    if (state.categoryNonProfitList.isNotEmpty) {
+                      return buildCategoryNonProfitList(state);
+                    } else if (state.categoryNonProfitList.isEmpty &&
+                        state.nonprofitList.isNotEmpty) {
+                      return buildNonProfitList(state);
+                    }
+                    return buildNonProfitList(state);
+                  },
+                )
+              ],
+            )),
+      ),
     );
   }
 

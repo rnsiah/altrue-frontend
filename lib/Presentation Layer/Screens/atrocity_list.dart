@@ -16,11 +16,11 @@ class AtrocityList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            title: const Image(
-              image: AssetImage('images/Altrue Logo White.png'),
-            ),
-            backgroundColor: Colors.black),
+        // appBar: AppBar(
+        //     title: const Image(
+        //       image: AssetImage('images/Altrue Logo White.png'),
+        //     ),
+        //     backgroundColor: Colors.black),
         body: SafeArea(
           child: MultiBlocProvider(
             providers: [

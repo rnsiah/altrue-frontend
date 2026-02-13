@@ -22,8 +22,11 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/company_donations_scre
 import 'package:lovelovelove/Presentation%20Layer/Screens/company_home.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/company_rewards_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/confirmation_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/connect_wallet.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/create_company_rewards_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/create_wallet_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/credit_card_page.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/crypto_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/edit_my_profile_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/error_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/featured_shirts.dart';
@@ -50,6 +53,7 @@ import 'package:lovelovelove/Presentation%20Layer/Screens/user_actions_screen.da
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_nonprofitsList.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_presentation_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/user_profile_screen.dart';
+import 'package:lovelovelove/Presentation%20Layer/Screens/users_profile_page.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/Intro_Slider/intro_slider.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/company_detail_page.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet.dart';
@@ -71,7 +75,7 @@ class AppNavigation {
 
   static final GoRouter router = GoRouter(
     debugLogDiagnostics: true,
-    initialLocation: '/home',
+    initialLocation: '/login',
     navigatorKey: _rootNavigatorKey,
     routes: [
       GoRoute(
@@ -80,7 +84,25 @@ class AppNavigation {
       ),
       GoRoute(
         path: '/login',
-        builder: (context, state) => LoginPageUp(),
+        builder: (context, state) => MultiBlocListener(
+          listeners: [
+            BlocListener<SessionBLoc, SessionState>(
+              listener: (context,state){
+                print('SessionBloc state in /login: $state'); // Debug
+              if (state is AuthenticatedWithProfile) {
+                print('Navigating to /home');
+                context.go('/home');
+              } else if (state is Authenticated) {
+                print('Navigating to /profile-incomplete');
+                context.go('/profile-incomplete');
+              } else if (state is AuthFailure) {
+                print('AuthFailure: ${state.message}');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
+              }})
+          ],
+           child: LoginPageUp())
       ),
       GoRoute(
         path: '/signup',
@@ -108,7 +130,7 @@ class AppNavigation {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           margin: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.height - 250,
+                              bottom: MediaQuery.of(context).size.height *.6,
                               left: 13),
                           action: SnackBarAction(
                               label: 'Go Check it out',
@@ -143,7 +165,7 @@ class AppNavigation {
                     final userId = state.user.altid;
                     context.read<WebSocketBloc>().add(WebsocketConnect(
                         url:
-                            'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/$userId/'));
+                            'wss://92457f366a93.ngrok-free.app/ws/rewards/$userId/'));
                   }
                 },
               ),
@@ -152,6 +174,9 @@ class AppNavigation {
               builder: (context, state) {
                 if(state is AuthenticatedWithProfile){
                   return MainScreen(navigationShell: navigationShell);
+                }
+                if(state is Authenticated){
+                  return UserProfileComplete(user: state.user, userId: state.user.altid.toString());
                 }
                 return IntroductionSlider();
               },
@@ -276,7 +301,7 @@ class AppNavigation {
                     },
                   ),
                   GoRoute(
-                    path:'quizlist',
+                    path:'quizList',
                     builder:(context, state){
                       final args = state.extra as QuizListScreenArguments;
                       return QuizListScreen(quizes: args.quizes, profile: args.profile);
@@ -488,7 +513,7 @@ class AppNavigation {
                   path: 'userProfilePage',
                   builder: (context, state) {
                     final profile = state.extra as Profile;
-                    return ProfilePresentationScreen(profile: profile);
+                    return UsersProfilePage(profile: profile);
                   },
                 ),
                   GoRoute(
@@ -535,7 +560,7 @@ class AppNavigation {
             navigatorKey: _shellNavigatorProfile,
             routes: [
               GoRoute(
-                  path: '/userProfile',
+                  path: '/userprofile',
                   builder: (context, state) {
                     // Access ProfileBloc to check the current state
                     final profileState = context.read<ProfileBloc>().state;
@@ -602,6 +627,14 @@ class AppNavigation {
                             context.read<ProfileBloc>().state.profile!;
                         return ProfileEditScreen(profile: profile);
                       },
+                    ),
+                    GoRoute(path: 'cryptoScreen',
+                    builder: (context, state) => WalletChoiceScreen(),),
+                    GoRoute(path: 'createWallet',
+                    builder: (context,state) => CreateWalletScreen(),
+                    ),
+                    GoRoute(path: 'connectWallet',
+                    builder: (context,sttate) => ConnectWalletScreen(),
                     ),
                     GoRoute(
                       path: 'myQrCode',
@@ -679,7 +712,9 @@ class AppNavigation {
                       GoRoute(
                         path: 'payment',
                         builder: (context, state) {
-                          return const PaymentScreen();
+                      final profile = context.read<ProfileBloc>().state.profile!;
+
+                          return  PaymentScreen(profile: profile,);
                         },
                       ),
                       GoRoute(
@@ -699,7 +734,8 @@ class AppNavigation {
                       builder: (context, state){
                         final args = state.extra as CompanyHomeArguments;
                         return CreateRewardsScreen(company: args.company, profile: args.profile);
-                      })
+                      }),
+                      
                   ]),
 
             ],

@@ -76,7 +76,7 @@ class UserNonProfits extends StatelessWidget {
                         ),
                         builder: (BuildContext context) {
                           return Padding(
-                            padding: const EdgeInsets.all(24.0),
+                            padding: const EdgeInsets.all(12.0),
                             child: Column(
                               mainAxisSize: MainAxisSize.min,
                               crossAxisAlignment: CrossAxisAlignment.start,
@@ -160,13 +160,13 @@ class UserNonProfits extends StatelessWidget {
                           style: const TextStyle(
                             color: Colors.amber,
                             fontWeight: FontWeight.bold,
-                            fontSize: 18,
+                            fontSize: 14,
                           ),
                         ),
                         subtitle: Text(
                           'Altrue Organization',
                           style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 8,
                             color: Colors.grey[400],
                           ),
                         ),
@@ -178,7 +178,7 @@ class UserNonProfits extends StatelessWidget {
                               'Amount Donated',
                               style: TextStyle(
                                 color: Colors.white70,
-                                fontSize: 12,
+                                fontSize: 8,
                                 fontWeight: FontWeight.bold,
                               ),
                             ),

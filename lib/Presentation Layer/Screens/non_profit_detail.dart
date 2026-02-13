@@ -185,36 +185,36 @@ class _NonProfitDetailsState extends State<NonProfitDetails> {
               AnimatedOpacity(
                 opacity: showVideo ? 0.0 : 1.0,
                 duration: Duration(milliseconds: 300),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: <Widget>[
-                    IconButton(
-                      padding: const EdgeInsets.only(left: 30),
-                      onPressed: () => Navigator.pop(context),
-                      icon: const Icon(Icons.arrow_back),
-                      iconSize: 30,
-                      color: Colors.white,
-                    ),
-                    const Image(
-                      image: AssetImage('images/Altrue Logo White.png'),
-                      fit: BoxFit.scaleDown,
-                      height: 60,
-                      width: 150,
-                    ),
-                    IconButton(
-                      padding: const EdgeInsets.only(left: 0),
-                      onPressed: () {
-                        context
-                            .read<ProfileBloc>()
-                            .add(AddNonProfit(nonProfit: widget.nonProfit));
-                        print(widget.nonProfit.name);
-                      },
-                      icon: const Icon(Icons.favorite),
-                      iconSize: 30,
-                      color: Colors.amber,
-                    ),
-                  ],
-                ),
+                // child: Row(
+                //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //   children: <Widget>[
+                //     IconButton(
+                //       padding: const EdgeInsets.only(left: 30),
+                //       onPressed: () => Navigator.pop(context),
+                //       icon: const Icon(Icons.arrow_back),
+                //       iconSize: 30,
+                //       color: Colors.white,
+                //     ),
+                //     const Image(
+                //       image: AssetImage('images/Altrue Logo White.png'),
+                //       fit: BoxFit.scaleDown,
+                //       height: 60,
+                //       width: 150,
+                //     ),
+                //     IconButton(
+                //       padding: const EdgeInsets.only(left: 0),
+                //       onPressed: () {
+                //         context
+                //             .read<ProfileBloc>()
+                //             .add(AddNonProfit(nonProfit: widget.nonProfit));
+                //         print(widget.nonProfit.name);
+                //       },
+                //       icon: const Icon(Icons.favorite),
+                //       iconSize: 30,
+                //       color: Colors.amber,
+                //     ),
+                //   ],
+                // ),
               ),
               Positioned.fill(
                 bottom: 30.0,

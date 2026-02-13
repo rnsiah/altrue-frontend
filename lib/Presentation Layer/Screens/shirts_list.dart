@@ -26,31 +26,31 @@ class _ShirtListState extends State<ShirtList> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-            centerTitle: true,
-            backgroundColor: Colors.white,
-            elevation: 0,
-            leading: IconButton(
-              icon: const Icon(Icons.arrow_back),
-              onPressed: () {},
-              color: Colors.black,
-            ),
-            title: const Text(
-              'Altrue Tees',
-              style: TextStyle(fontWeight: FontWeight.w900),
-            ),
-            actions: [
-              IconButton(
-                icon: const Icon(Icons.search),
-                onPressed: () {},
-                color: Colors.black,
-              ),
-              IconButton(
-                icon: const Icon(Icons.shopping_cart),
-                onPressed: () {},
-                color: Colors.black,
-              ),
-            ]),
+        // appBar: AppBar(
+        //     centerTitle: true,
+        //     backgroundColor: Colors.white,
+        //     elevation: 0,
+        //     leading: IconButton(
+        //       icon: const Icon(Icons.arrow_back),
+        //       onPressed: () {},
+        //       color: Colors.black,
+        //     ),
+        //     title: const Text(
+        //       'Altrue Tees',
+        //       style: TextStyle(fontWeight: FontWeight.w900),
+        //     ),
+        //     actions: [
+        //       IconButton(
+        //         icon: const Icon(Icons.search),
+        //         onPressed: () {},
+        //         color: Colors.black,
+        //       ),
+        //       IconButton(
+        //         icon: const Icon(Icons.shopping_cart),
+        //         onPressed: () {},
+        //         color: Colors.black,
+        //       ),
+        //     ]),
         body: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: <Widget>[

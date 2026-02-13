@@ -23,11 +23,11 @@ class _FeaturedShirtScreenState extends State<FeaturedShirtScreen> {
     final pageController = PageController(viewportFraction: .8);
     int pageIndex = 0;
     return Scaffold(
-        backgroundColor: Colors.grey[900],
-        appBar: AppBar(
-          title: const Text('Altrue'),
-          backgroundColor: Colors.black,
-        ),
+        // backgroundColor: Colors.grey[900],
+        // appBar: AppBar(
+        //   title: const Text('Altrue'),
+        //   backgroundColor: Colors.black,
+        // ),
         body: SizedBox(
           height: double.infinity,
           width: double.infinity,

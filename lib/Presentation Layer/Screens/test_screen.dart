@@ -20,7 +20,7 @@ class _TestScreenState extends State<TestScreen> {
     @override
   void initState() {
    channel = IOWebSocketChannel.connect( 
-      Uri.parse('wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/${widget.user.altid}/'),
+      Uri.parse('wss://92457f366a93.ngrok-free.app/ws/rewards/${widget.user.altid}/'),
       );
     super.initState();
   }

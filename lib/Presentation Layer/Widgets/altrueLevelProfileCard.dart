@@ -104,12 +104,15 @@ class UserLevelHeroCard extends StatelessWidget {
                     "Points Progress:",
                     style: TextStyle(color: Colors.white),
                   ),
-                  LinearProgressIndicator(
-                    value: pointsProgress,
-                    backgroundColor: Colors.white24,
-                    color: Colors.amber,
-                    minHeight: 8.0,
-                  ),
+                  // SizedBox(
+                  //   height: 20,
+                  //   child: LinearProgressIndicator(
+                  //     value: pointsProgress,
+                  //     backgroundColor: Colors.white24,
+                  //     color: Colors.amber,
+                  //     minHeight: 8.0,
+                  //   ),
+                  // ),
                   const SizedBox(height: 4.0),
                   Text(
                     '${profile.altruePoints!} / ${profile.altruePoints!} points to next level',

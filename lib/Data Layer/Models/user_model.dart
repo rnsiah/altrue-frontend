@@ -91,6 +91,7 @@ class Profile {
       this.altruePoints,
       this.address,
       this.country,
+      this.state,
       this.city,
       this.zip,
       this.qrCode,
@@ -115,21 +116,18 @@ class Profile {
   String? dob;
   @JsonKey(name: 'stripe_customer_id')
   String? stripeCustomerId;
-  @JsonKey(includeIfNull: false)
   String? address;
-  @JsonKey(includeIfNull: false)
   String? country;
-  @JsonKey(includeIfNull: false)
   String? city;
-  @JsonKey(includeIfNull: false)
   String? zip;
+  String? state;
   @JsonKey(includeIfNull: false, name: "qr_code_img")
   String? qrCode;
-  @JsonKey(includeIfNull: false, name: 'shirt_list')
+  @JsonKey( name: 'shirt_list')
   List<Shirt>? shirtList;
   @JsonKey(name: 'atrocity_list')
   List<Atrocity>? atrocityList;
-  @JsonKey(includeIfNull: false, name: 'nonProfit_list')
+  @JsonKey(name: 'nonProfit_list')
   List<NonProfit>? nonProfitList;
   double? balance;
   List<Donor>? donor;
@@ -174,6 +172,7 @@ class ProfileCompletion {
   String? title;
   String? altrueDonorCode;
   String dob;
+  String state;
   String address;
   String city;
   String country;
@@ -184,6 +183,7 @@ class ProfileCompletion {
   ProfileCompletion(
       {required this.username,
       this.title,
+      required this.state,
       required this.dob,
       required this.address,
       required this.city,

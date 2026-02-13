@@ -49,13 +49,13 @@ class _ProfileScreenState extends State<ProfileScreen>
       ),
       Scaffold(
         backgroundColor: Colors.black,
-        appBar: AppBar(
-          backgroundColor: Colors.black,
-          elevation: 0,
-          title: const Image(
-            image: AssetImage('images/Altrue Logo White.png'),
-          ),
-        ),
+        // appBar: AppBar(
+        //   backgroundColor: Colors.black,
+        //   elevation: 0,
+        //   title: const Image(
+        //     image: AssetImage('images/Altrue Logo White.png'),
+        //   ),
+        // ),
         body: SingleChildScrollView(
           child: Padding(
             padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 15),
@@ -96,7 +96,7 @@ class _ProfileScreenState extends State<ProfileScreen>
                                   TextStyle(color: Colors.amber, fontSize: 10),
                             ),
                             onPressed: () async {
-                              context.go('/userProfile/editmyprofile');
+                              context.go('/userprofile/editmyprofile');
                             },
                           )
                         ]),

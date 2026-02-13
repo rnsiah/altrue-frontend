@@ -205,6 +205,7 @@ class _AtrocityDonateModalState extends State<AtrocityDonateModal> {
                       }
                       return Column(
                         children: [
+                          SizedBox(height: 20,),
                           SizedBox(
                             width: double.infinity,
                               height: MediaQuery.of(context).size.height * .06,

@@ -36,7 +36,7 @@ class SessionBLoc extends Bloc<SessionEvent, SessionState> {
     emit(AuthenticatedWithProfile(
         profile: profile,
         user: event.user,
-        status: ProfileComplete.incomplete));
+        status: ProfileComplete.complete));
   }
 
   // void _attemptAutoLogin(Apploaded event, Emitter<SessionState>emit)async{

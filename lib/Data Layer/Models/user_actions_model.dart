@@ -10,7 +10,7 @@ class UserActions {
   final AltrueAction altrueAction;
   @JsonKey(name:'date_completed')
   final String dateCompleted;
-  @JsonKey(name: 'is_promotion', includeIfNull: false)
+  @JsonKey(name: 'is_promotion')
   final bool? isPromotion;
   final bool? is_aggregate;
   final String? aggregate_complete_date;

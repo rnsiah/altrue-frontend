@@ -8,7 +8,7 @@ class ApiProvider {
   // ignore: unused_field
 
   final String _mobileBaseUrl =
-      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/';
+      'https://92457f366a93.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> getUserAuthenticatedData(String url, String key) async {
@@ -120,7 +120,7 @@ class ApiProvider {
 
 class NonAuthenticatedApiProvider {
   final String _mobileBaseUrl =
-      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/';
+      'https://92457f366a93.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> get(String url) async {

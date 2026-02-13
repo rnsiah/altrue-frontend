@@ -86,57 +86,55 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
     ProfileBloc profileBloc = context.read<ProfileBloc>();
     return Scaffold(
       persistentFooterButtons: [
-        Expanded(
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              MaterialButton(
-                elevation: 12,
-                color: Colors.black,
-                onPressed: () {
-                  showModalBottomSheet(
-                      backgroundColor: Colors.black.withOpacity(.8),
-                      isDismissible: true,
-                      isScrollControlled: true,
-                      context: context,
-                      shape: const RoundedRectangleBorder(
-                        borderRadius:
-                            BorderRadius.vertical(top: Radius.circular(20.0)),
-                      ),
-                      builder: (context) => DraggableScrollableSheet(
-                          initialChildSize: 0.7,
-                          minChildSize: 0.5,
-                          maxChildSize: 0.90,
-                          expand: false,
-                          builder: (_, controller) => AtrocityDonateModal(
-                              atrocity: widget.atrocity,
-                              profile: widget.profile)));
-                },
-                child: const Text(
-                  'Donate Now',
-                  style: TextStyle(
-                      color: Colors.amber,
-                      fontSize: 18,
-                      fontWeight: FontWeight.bold),
-                ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          children: [
+            MaterialButton(
+              elevation: 12,
+              color: Colors.black,
+              onPressed: () {
+                showModalBottomSheet(
+                    backgroundColor: Colors.black.withOpacity(.8),
+                    isDismissible: true,
+                    isScrollControlled: true,
+                    context: context,
+                    shape: const RoundedRectangleBorder(
+                      borderRadius:
+                          BorderRadius.vertical(top: Radius.circular(20.0)),
+                    ),
+                    builder: (context) => DraggableScrollableSheet(
+                        initialChildSize: 0.7,
+                        minChildSize: 0.5,
+                        maxChildSize: 0.90,
+                        expand: false,
+                        builder: (_, controller) => AtrocityDonateModal(
+                            atrocity: widget.atrocity,
+                            profile: widget.profile)));
+              },
+              child: const Text(
+                'Donate Now',
+                style: TextStyle(
+                    color: Colors.amber,
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold),
               ),
-              MaterialButton(
-                elevation: 12,
-                onPressed: () {
-                  showModalBottomSheet(
-                      context: context,
-                      builder: (context) =>
-                          AtrocityLearnMoreTabs(atrocity: widget.atrocity, profile: widget.profile,));
-                },
-                color: Colors.amber,
-                child: const Text('Learn More',
-                    style: TextStyle(
-                        color: Colors.black,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 18)),
-              )
-            ],
-          ),
+            ),
+            MaterialButton(
+              elevation: 12,
+              onPressed: () {
+                showModalBottomSheet(
+                    context: context,
+                    builder: (context) =>
+                        AtrocityLearnMoreTabs(atrocity: widget.atrocity, profile: widget.profile,));
+              },
+              color: Colors.amber,
+              child: const Text('Learn More',
+                  style: TextStyle(
+                      color: Colors.black,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 18)),
+            )
+          ],
         )
       ],
       backgroundColor: Colors.black26,
@@ -165,33 +163,33 @@ class _AtrocityDetailsState extends State<AtrocityDetails> {
                   ),
                 ),
               ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: <Widget>[
-                  IconButton(
-                    padding: const EdgeInsets.only(left: 30),
-                    onPressed: () => Navigator.pop(context),
-                    icon: const Icon(Icons.arrow_back),
-                    iconSize: 30,
-                    color: Colors.amber,
-                  ),
-                  const Image(
-                    image: AssetImage('images/Altrue Logo White.png'),
-                    fit: BoxFit.scaleDown,
-                    height: 60,
-                    width: 150,
-                  ),
-                  IconButton(
-                    padding: const EdgeInsets.only(left: 20),
-                    onPressed: () {
-                      print(widget.atrocity.slug);
-                    },
-                    icon: const Icon(Icons.favorite),
-                    iconSize: 30,
-                    color: Colors.amber,
-                  ),
-                ],
-              ),
+              // Row(
+              //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              //   children: <Widget>[
+              //     IconButton(
+              //       padding: const EdgeInsets.only(left: 30),
+              //       onPressed: () => Navigator.pop(context),
+              //       icon: const Icon(Icons.arrow_back),
+              //       iconSize: 30,
+              //       color: Colors.amber,
+              //     ),
+              //     const Image(
+              //       image: AssetImage('images/Altrue Logo White.png'),
+              //       fit: BoxFit.scaleDown,
+              //       height: 60,
+              //       width: 150,
+              //     ),
+              //     IconButton(
+              //       padding: const EdgeInsets.only(left: 20),
+              //       onPressed: () {
+              //         print(widget.atrocity.slug);
+              //       },
+              //       icon: const Icon(Icons.favorite),
+              //       iconSize: 30,
+              //       color: Colors.amber,
+              //     ),
+              //   ],
+              // ),
               Positioned.fill(
                 bottom: 30.0,
                 child: Align(

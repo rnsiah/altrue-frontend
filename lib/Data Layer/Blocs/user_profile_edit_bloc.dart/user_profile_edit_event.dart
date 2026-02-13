@@ -42,6 +42,13 @@ class UserProfileAddressChange extends UserProfileEditEvent {
   List<Object?> get props => [address];
 }
 
+class UserProfileStateChange extends UserProfileEditEvent{
+  final String  state;
+  UserProfileStateChange({required this.state});
+
+  @override
+  List<Object?> get props => [state];
+}
 class UserProfileCountryChange extends UserProfileEditEvent {
   final String country;
 

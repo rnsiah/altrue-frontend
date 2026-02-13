@@ -8,6 +8,7 @@ class UserProfileEditState extends Equatable {
   User? user;
   String username;
   String dob;
+  String state;
   String title;
   String address;
   String country;
@@ -21,6 +22,7 @@ class UserProfileEditState extends Equatable {
   UserProfileEditState(
       {this.user,
       this.profilePicture,
+      this.state = '',
       this.address = '',
       this.username = '',
       this.city = '',
@@ -38,6 +40,7 @@ class UserProfileEditState extends Equatable {
     String? title,
     String? address,
     String? country,
+    String? state,
     String? city,
     String? zip,
     String? altrueDonorCode,
@@ -48,6 +51,7 @@ class UserProfileEditState extends Equatable {
         user: user ?? this.user,
         profilePicture: profilePicture ?? this.profilePicture,
         username: username ?? this.username,
+        state: state?? this.state,
         formStatus: formStatus!,
         dob: dob ?? this.dob,
         alrueDonorCode: alrueDonorCode,
@@ -58,8 +62,8 @@ class UserProfileEditState extends Equatable {
         zip: zip ?? this.zip);
   }
 
-  @override
+  @override 
   // TODO: implement props
   List<Object?> get props =>
-      [user, username, profilePicture, dob, alrueDonorCode, country, city, zip];
+      [user, username, profilePicture, dob, alrueDonorCode,state,country, city, zip];
 }

@@ -132,7 +132,7 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
           color: Colors.white,
           size: 35,
         ),
-        onPressed: () => context.go('/signUp'));
+        onPressed: () => context.go('/signup'));
   }
 
   Widget skipBtn() {

@@ -11,14 +11,14 @@ class SupporterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Image(
-          image: AssetImage('images/Altrue Logo White.png'),
-          height: 30,
-        ),
-      ),
+      // appBar: AppBar(
+      //   backgroundColor: Colors.black,
+      //   elevation: 0,
+      //   title: const Image(
+      //     image: AssetImage('images/Altrue Logo White.png'),
+      //     height: 30,
+      //   ),
+      // ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(

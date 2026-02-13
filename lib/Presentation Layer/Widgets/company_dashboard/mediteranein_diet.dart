@@ -184,7 +184,7 @@ class MediterranesnDietView extends StatelessWidget {
                                           padding: const EdgeInsets.only(
                                               left: 9, bottom: 3),
                                           child: Text(
-                                            'points',
+                                            'pts',
                                             textAlign: TextAlign.center,
                                             style: TextStyle(
                                               fontWeight: FontWeight.w600,

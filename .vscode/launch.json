@@ -1,27 +1,122 @@
 {
-    // Use IntelliSense to learn about possible attributes.
-    // Hover to view descriptions of existing attributes.
-    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
-    "version": "0.2.0",
-    "configurations": [
-        {
-            "name": "lovelovelove",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "debug"
-            
-        },
-        {
-            "name": "lovelovelove (profile mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "profile"
-        },
-        {
-            "name": "lovelovelove (release mode)",
-            "request": "launch",
-            "type": "dart",
-            "flutterMode": "release"
-        }
-    ]
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Single Device",
+      "request": "launch",
+      "type": "dart",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone SE (3rd generation)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "8C07D56F-76BD-461B-9434-32459C0E8173",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone 14 Pro Max",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "BB0D38DA-B18D-49D7-BF94-3761C13210C5",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone 16 Pro",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "0C15727E-CA9E-4189-8CE0-02D1651B3F81",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone 16 Pro Max",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "8C6AF7F1-9A3E-43CB-9426-F742A7941B32",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone 16",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "C1E49096-4A49-4EE3-A121-90ABD66BF2A6",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPhone 16 Plus",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "5CBBB010-16B6-488B-B022-49BF3452D454",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad (10th generation)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "8204D581-DB07-4BE3-9E85-6CA74227EA11",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad Air 11-inch (M2)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "E052227B-CAA6-41B5-B05B-CF387C83A033",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad Air 13-inch (M2)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "D5604F41-A687-48D3-BB44-98C4198EE579",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad mini (A17 Pro)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "DFC4E3E1-0359-409B-9227-5659FC3B1C78",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad Pro 11-inch (M4)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "922F6426-7A15-426E-83FB-9307C7CFC9E2",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "iPad Pro 13-inch (M4)",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "29AE17F3-8DB3-46B8-9B69-E7C195D2F197",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Pixel 6",
+      "request": "launch",
+      "type": "dart",
+      "deviceId": "emulator-5554",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    }
+  ],
+  "compounds": [
+    {
+      "name": "All Selected Devices",
+      "configurations": ["iPhone 14 Pro Max", "iPhone 16 Plus", "Pixel 6"]
+    }
+  ]
 }

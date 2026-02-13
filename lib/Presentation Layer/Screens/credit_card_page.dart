@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_credit_card/credit_card_brand.dart';
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
 
@@ -135,47 +134,47 @@ class CreditCardPageState extends State<CreditCardPage> {
                                 isExpiryDateVisible: true,
                                 cardHolderName: cardHolderName,
                                 expiryDate: expiryDate,
-                                themeColor: Colors.blue,
-                                textColor: Colors.white,
-                                cardNumberDecoration: InputDecoration(
-                                  labelText: 'Number',
-                                  hintText: 'XXXX XXXX XXXX XXXX',
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white),
-                                  labelStyle:
-                                      const TextStyle(color: Colors.white),
-                                  focusedBorder: border,
-                                  enabledBorder: border,
-                                ),
-                                expiryDateDecoration: InputDecoration(
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white),
-                                  labelStyle:
-                                      const TextStyle(color: Colors.white),
-                                  focusedBorder: border,
-                                  enabledBorder: border,
-                                  labelText: 'Expired Date',
-                                  hintText: 'XX/XX',
-                                ),
-                                cvvCodeDecoration: InputDecoration(
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white),
-                                  labelStyle:
-                                      const TextStyle(color: Colors.white),
-                                  focusedBorder: border,
-                                  enabledBorder: border,
-                                  labelText: 'CVV',
-                                  hintText: 'XXX',
-                                ),
-                                cardHolderDecoration: InputDecoration(
-                                  hintStyle:
-                                      const TextStyle(color: Colors.white),
-                                  labelStyle:
-                                      const TextStyle(color: Colors.white),
-                                  focusedBorder: border,
-                                  enabledBorder: border,
-                                  labelText: 'Card Holder',
-                                ),
+                                // themeColor: Colors.blue,
+                                // textColor: Colors.white,
+                                // cardNumberDecoration: InputDecoration(
+                                //   labelText: 'Number',
+                                //   hintText: 'XXXX XXXX XXXX XXXX',
+                                //   hintStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   labelStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   focusedBorder: border,
+                                //   enabledBorder: border,
+                                // ),
+                                // expiryDateDecoration: InputDecoration(
+                                //   hintStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   labelStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   focusedBorder: border,
+                                //   enabledBorder: border,
+                                //   labelText: 'Expired Date',
+                                //   hintText: 'XX/XX',
+                                // ),
+                                // cvvCodeDecoration: InputDecoration(
+                                //   hintStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   labelStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   focusedBorder: border,
+                                //   enabledBorder: border,
+                                //   labelText: 'CVV',
+                                //   hintText: 'XXX',
+                                // ),
+                                // cardHolderDecoration: InputDecoration(
+                                //   hintStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   labelStyle:
+                                //       const TextStyle(color: Colors.white),
+                                //   focusedBorder: border,
+                                //   enabledBorder: border,
+                                //   labelText: 'Card Holder',
+                                // ),
                                 onCreditCardModelChange:
                                     onCreditCardModelChange),
                             const SizedBox(

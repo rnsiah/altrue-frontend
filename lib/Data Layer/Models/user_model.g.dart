@@ -68,6 +68,7 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
       (json['altruepoints'] as num?)?.toInt(),
       json['address'] as String?,
       json['country'] as String?,
+      json['state'] as String?,
       json['city'] as String?,
       json['zip'] as String?,
       json['qr_code_img'] as String?,
@@ -112,62 +113,50 @@ Profile _$ProfileFromJson(Map<String, dynamic> json) => Profile(
           ? null
           : AltrueLevel.fromJson(json['altrue_level'] as Map<String, dynamic>);
 
-Map<String, dynamic> _$ProfileToJson(Profile instance) {
-  final val = <String, dynamic>{
-    'user': instance.user,
-    'username': instance.username,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('title', instance.title);
-  val['description'] = instance.description;
-  val['dob'] = instance.dob;
-  val['stripe_customer_id'] = instance.stripeCustomerId;
-  writeNotNull('address', instance.address);
-  writeNotNull('country', instance.country);
-  writeNotNull('city', instance.city);
-  writeNotNull('zip', instance.zip);
-  writeNotNull('qr_code_img', instance.qrCode);
-  writeNotNull(
-      'shirt_list', instance.shirtList?.map((e) => e.toJson()).toList());
-  val['atrocity_list'] = instance.atrocityList?.map((e) => e.toJson()).toList();
-  writeNotNull('nonProfit_list',
-      instance.nonProfitList?.map((e) => e.toJson()).toList());
-  val['balance'] = instance.balance;
-  val['donor'] = instance.donor?.map((e) => e.toJson()).toList();
-  val['orders'] = instance.orders?.map((e) => e.toJson()).toList();
-  val['profile_picture'] = instance.profilePicture?.toJson();
-  val['userdonations'] =
-      instance.userdonations?.map((e) => e.toJson()).toList();
-  val['has_nonprofit'] = instance.hasNonProfit;
-  val['has_company'] = instance.hasCompany;
-  val['is_companyContributor'] = instance.isCompanyContributor;
-  val['is_nonprofitContributor'] = instance.isNonProfitContributor;
-  val['requirementsForNextLevel'] =
-      instance.requirementsForNextLevel?.map((e) => e.toJson()).toList();
-  val['altrue_level'] = instance.altrueLevel?.toJson();
-  val['altruepoints'] = instance.altruePoints;
-  val['amount_following'] = instance.amountFollowing;
-  val['profiles_following'] =
-      instance.following?.map((e) => e.toJson()).toList();
-  val['np'] = instance.np?.toJson();
-  val['comp'] = instance.comp?.toJson();
-  val['donationTotal'] = instance.donationTotal;
-  val['userActions'] = instance.userActions?.map((e) => e.toJson()).toList();
-  val['projects_following'] =
-      instance.projectsFollowing?.map((e) => e.toJson()).toList();
-  return val;
-}
+Map<String, dynamic> _$ProfileToJson(Profile instance) => <String, dynamic>{
+      'user': instance.user,
+      'username': instance.username,
+      if (instance.title != null) 'title': instance.title,
+      'description': instance.description,
+      'dob': instance.dob,
+      'stripe_customer_id': instance.stripeCustomerId,
+      'address': instance.address,
+      'country': instance.country,
+      'city': instance.city,
+      'zip': instance.zip,
+      'state': instance.state,
+      if (instance.qrCode !=null) 'qr_code_img': instance.qrCode,
+      'shirt_list': instance.shirtList?.map((e) => e.toJson()).toList(),
+      'atrocity_list': instance.atrocityList?.map((e) => e.toJson()).toList(),
+      'nonProfit_list': instance.nonProfitList?.map((e) => e.toJson()).toList(),
+      'balance': instance.balance,
+      'donor': instance.donor?.map((e) => e.toJson()).toList(),
+      'orders': instance.orders?.map((e) => e.toJson()).toList(),
+      'profile_picture': instance.profilePicture?.toJson(),
+      'userdonations': instance.userdonations?.map((e) => e.toJson()).toList(),
+      'has_nonprofit': instance.hasNonProfit,
+      'has_company': instance.hasCompany,
+      'is_companyContributor': instance.isCompanyContributor,
+      'is_nonprofitContributor': instance.isNonProfitContributor,
+      'requirementsForNextLevel':
+          instance.requirementsForNextLevel?.map((e) => e.toJson()).toList(),
+      'altrue_level': instance.altrueLevel?.toJson(),
+      'altruepoints': instance.altruePoints,
+      'amount_following': instance.amountFollowing,
+      'profiles_following': instance.following?.map((e) => e.toJson()).toList(),
+      'np': instance.np?.toJson(),
+      'comp': instance.comp?.toJson(),
+      'donationTotal': instance.donationTotal,
+      'userActions': instance.userActions?.map((e) => e.toJson()).toList(),
+      'projects_following':
+          instance.projectsFollowing?.map((e) => e.toJson()).toList(),
+    };
 
 ProfileCompletion _$ProfileCompletionFromJson(Map<String, dynamic> json) =>
     ProfileCompletion(
       username: json['username'] as String,
       title: json['title'] as String?,
+      state: json['state'] as String,
       dob: json['dob'] as String,
       address: json['address'] as String,
       city: json['city'] as String,
@@ -182,6 +171,7 @@ Map<String, dynamic> _$ProfileCompletionToJson(ProfileCompletion instance) =>
       'title': instance.title,
       'altrueDonorCode': instance.altrueDonorCode,
       'dob': instance.dob,
+      'state': instance.state,
       'address': instance.address,
       'city': instance.city,
       'country': instance.country,

@@ -36,13 +36,22 @@ class _CategorySelectorState extends State<CategorySelector> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(),
-      child: SizedBox(
-        height: 35,
-        child: ListView.builder(
-          itemBuilder: (context, index) => buildCategory(index),
-          itemCount: widget.categoryList.length,
-          scrollDirection: Axis.horizontal,
-        ),
+      child: Column(
+        children: [
+          Text('Choose Category',
+              style: TextStyle(
+                  fontSize: 20,
+                  color: Colors.amber,
+                  fontWeight: FontWeight.bold)),
+          SizedBox(
+            height: 35,
+            child: ListView.builder(
+              itemBuilder: (context, index) => buildCategory(index),
+              itemCount: widget.categoryList.length,
+              scrollDirection: Axis.horizontal,
+            ),
+          ),
+        ],
       ),
     );
   }

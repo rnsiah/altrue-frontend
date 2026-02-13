@@ -13,10 +13,13 @@ class UserDonation {
 
   UserDonationNonProfit? nonprofit;
   NonProfitProject? project;
+  @JsonKey(name: 'donation_date')
+  final String donationDate;
 
   UserDonation(
       {required this.dollarAmount,
       this.id,
+      required this.donationDate,
       this.nonprofit,
       this.atrocity,
       this.project});

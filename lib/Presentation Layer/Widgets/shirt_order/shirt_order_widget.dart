@@ -60,7 +60,7 @@ class _ShirtOrderFormState extends State<ShirtOrderForm> {
           color: Colors.white,
           borderRadius: BorderRadius.only(
               topLeft: Radius.circular(18), topRight: Radius.circular(18))),
-      height: 700,
+      height: MediaQuery.of(context).size.height * 0.55,
       child: BlocBuilder<ShirtOrderBlocBloc, ShirtOrderBlocState>(
         builder: (context, state) {
           return Column(

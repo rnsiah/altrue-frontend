@@ -9,11 +9,13 @@ class ProfileRecentDonations extends StatelessWidget {
   final Profile profile;
   const ProfileRecentDonations({super.key, required this.profile});
 
+  
+
   @override
   Widget build(BuildContext context) {
-    final nonprofits = profile.userdonations!.where((donation) => donation.nonprofit != null).toList();
-    final atrocities = profile.userdonations!.where((donation) => donation.atrocity != null).toList();
-    final projects = profile.userdonations!.where((donation) => donation.project != null).toList();
+    final nonprofits = profile.userdonations!.where((donation) => donation.nonprofit != null).toList().reversed.toList();
+    final atrocities = profile.userdonations!.where((donation) => donation.atrocity != null).toList().reversed.toList();
+    final projects = profile.userdonations!.where((donation) => donation.project != null).toList().reversed.toList();
     return SizedBox(
                     height: MediaQuery.of(context).size.height * .5,
                     child: SingleChildScrollView(
@@ -37,14 +39,21 @@ class ProfileRecentDonations extends StatelessWidget {
                   
   }
   Widget _buildDonationCategory(String categoryName, List<UserDonation> donations) {
+    double totalDonations = donations.fold(0, (sum, donation)=> sum+ double.parse(donation.dollarAmount));
+    
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
           padding: const EdgeInsets.only(left: 12.0, bottom: 8.0),
-          child: Text(
-            categoryName,
-            style: TextStyle(color: Colors.amber, fontSize: 18),
+          child: Row(mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                categoryName,
+                style: TextStyle(color: Colors.amber, fontSize: 18),
+              ),
+              Text("Total: \$${totalDonations.toStringAsFixed(2)}", style: TextStyle(color: Colors.amber, fontWeight: FontWeight.w500),)
+            ],
           ),
         ),
         SizedBox(
@@ -68,11 +77,25 @@ class ProfileRecentDonations extends StatelessWidget {
       ],
     );
   }
+  String getMonthName(int month) {
+  const months = [
+    "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December"
+  ];
+  return months[month - 1]; // Months are 1-based in DateTime
+}
   Widget _buildNonprofitItem(BuildContext context, UserDonationNonProfit nonprofit, UserDonation donation) {
+   
+    DateTime parsedDate =DateTime.parse(donation.donationDate);
+    String month = getMonthName(parsedDate.month);
+    String formattedDate = "$month ${parsedDate.day}, ${parsedDate.year}";
+
+    
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap:()=>_showDonationDetails(context,donation),
+        onTap:()=>_showDonationDetails(context,donation, formattedDate),
         child: Container(
           height: 100,
           width: 100,
@@ -89,10 +112,14 @@ class ProfileRecentDonations extends StatelessWidget {
   }
 
   Widget _buildAtrocityItem(BuildContext context, UserDonationAtrocity atrocity, UserDonation donation) {
+    DateTime parsedDate =DateTime.parse(donation.donationDate);
+    String month = getMonthName(parsedDate.month);
+    String formattedDate = "$month ${parsedDate.day}, ${parsedDate.year}";
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: ()=>_showDonationDetails(context, donation),
+        onTap: ()=>_showDonationDetails(context, donation, formattedDate),
         child: Container(
           height: 100,
           width: 100,
@@ -118,20 +145,27 @@ class ProfileRecentDonations extends StatelessWidget {
   }
 
   Widget _buildProjectItem(BuildContext context ,NonProfitProject project, UserDonation donation) {
+    DateTime parsedDate =DateTime.parse(donation.donationDate);
+    String month = getMonthName(parsedDate.month);
+    String formattedDate = "$month ${parsedDate.day}, ${parsedDate.year}";
+
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: GestureDetector(
-        onTap: ()=>_showDonationDetails(context,donation),
+        onTap: ()=>_showDonationDetails(context,donation,formattedDate),
         child: Container(
           height: 100,
           width: 100,
           decoration: BoxDecoration(
+            image: DecorationImage(image: NetworkImage(project.projectImage!),
+            fit: BoxFit.fill) ,
             borderRadius: BorderRadius.circular(14),
             color: Colors.white,
           ),
           child: Center(
             child: Text(
               project.title,
+              style: TextStyle(backgroundColor: Colors.black. withOpacity(.4), color: Colors.white),
               textAlign: TextAlign.center,
             ),
           ),
@@ -139,7 +173,7 @@ class ProfileRecentDonations extends StatelessWidget {
       ),
     );
   }
-  void _showDonationDetails(BuildContext context, UserDonation donation) {
+  void _showDonationDetails(BuildContext context, UserDonation donation, String date) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -185,7 +219,7 @@ class ProfileRecentDonations extends StatelessWidget {
                   Icon(Icons.calendar_today, color: Colors.amber),
                   const SizedBox(width: 10),
                   Text(
-                    'Date: today',
+                    'Date: $date',
                     style: TextStyle(
                       color: Colors.amber,
                       fontSize: 16,

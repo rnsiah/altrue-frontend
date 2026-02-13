@@ -22,17 +22,17 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text('Altrue Companies'),
-          centerTitle: true,
-          backgroundColor: Colors.black,
-          elevation: 0,
-          leading: IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.arrow_back),
-            color: Colors.amber,
-          ),
-        ),
+        // appBar: AppBar(
+        //   title: const Text('Altrue Companies'),
+        //   centerTitle: true,
+        //   backgroundColor: Colors.black,
+        //   elevation: 0,
+        //   leading: IconButton(
+        //     onPressed: () {},
+        //     icon: const Icon(Icons.arrow_back),
+        //     color: Colors.amber,
+        //   ),
+        // ),
         body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: <Widget>[

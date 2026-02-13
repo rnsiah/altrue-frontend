@@ -71,12 +71,21 @@ class LoginPageUp extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             style: const TextStyle(
-                fontSize: 25, color: Colors.amber, fontWeight: FontWeight.bold),
-            decoration: const InputDecoration(
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
+            decoration:  InputDecoration(
+              focusedBorder: OutlineInputBorder(
+
+                  borderRadius:BorderRadius.circular(30) ,
+                    borderSide: BorderSide(color: Colors.white)
+              ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius:BorderRadius.circular(30) ,
                     borderSide: BorderSide(color: Colors.white)),
                 labelText: 'email',
-                labelStyle: TextStyle(fontSize: 25, color: Colors.white)),
+                labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                contentPadding: const EdgeInsets.all(16),
+                filled: true,
+                fillColor: Colors.black),
             onChanged: (value) =>
                 context.read<LoginBloc>().add(LoginEmailChange(value)),
             validator: (value) =>
@@ -94,13 +103,22 @@ class LoginPageUp extends StatelessWidget {
           padding: const EdgeInsets.all(8.0),
           child: TextFormField(
             style: const TextStyle(
-                fontSize: 25, color: Colors.amber, fontWeight: FontWeight.bold),
+                fontSize: 18, color: Colors.white, fontWeight: FontWeight.bold),
             obscureText: true,
-            decoration: const InputDecoration(
+            decoration:  InputDecoration(
+              focusedBorder: OutlineInputBorder(
+
+                  borderRadius:BorderRadius.circular(30) ,
+                    borderSide: BorderSide(color: Colors.white)
+              ),
                 enabledBorder: OutlineInputBorder(
+                  borderRadius:BorderRadius.circular(30) ,
                     borderSide: BorderSide(color: Colors.white)),
-                labelText: 'password',
-                labelStyle: TextStyle(fontSize: 25, color: Colors.white)),
+                labelText: 'Password',
+                labelStyle: TextStyle(fontSize: 16, color: Colors.grey),
+                contentPadding: const EdgeInsets.all(16),
+                filled: true,
+                fillColor: Colors.black),
             onChanged: (value) =>
                 context.read<LoginBloc>().add(LoginPassWordChange(value)),
             validator: (value) => state.password.length > 5

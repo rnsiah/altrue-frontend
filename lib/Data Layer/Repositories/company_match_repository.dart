@@ -9,12 +9,14 @@ import 'package:http/http.dart' as http;
 class CompanyMatchRepository {
   final ApiProvider authProvider = ApiProvider();
   final String host =
-      'https://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app';
+      'https://92457f366a93.ngrok-free.app';
+
+  final String baseHost = 'http://127.0.0.1:8000';
 
   Future<dynamic> createMatchRelationship(
       {required User? user,
       required SendCompanyNonProfitRelationShip relationship}) async {
-    String url = '$host/api/createCompanyNPMatch/';
+    String url = '$baseHost/api/createCompanyNPMatch/';
     var response = await http.post(Uri.parse(url),
         headers: <String, String>{
           'Content-Type': 'application/json; charset=UTF-8',

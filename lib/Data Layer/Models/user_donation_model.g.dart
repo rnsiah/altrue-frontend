@@ -9,6 +9,7 @@ part of 'user_donation_model.dart';
 UserDonation _$UserDonationFromJson(Map<String, dynamic> json) => UserDonation(
       dollarAmount: json['dollar_amount'] as String,
       id: (json['id'] as num?)?.toInt(),
+      donationDate: json['donation_date'] as String,
       nonprofit: json['nonprofit'] == null
           ? null
           : UserDonationNonProfit.fromJson(
@@ -29,6 +30,7 @@ Map<String, dynamic> _$UserDonationToJson(UserDonation instance) =>
       'atrocity': instance.atrocity?.toJson(),
       'nonprofit': instance.nonprofit?.toJson(),
       'project': instance.project?.toJson(),
+      'donation_date': instance.donationDate,
     };
 
 UserDonationAtrocity _$UserDonationAtrocityFromJson(

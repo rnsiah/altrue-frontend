@@ -38,11 +38,11 @@ class _RewardsHomeScreenState extends State<RewardsHomeScreen> {
         }, label:const Text('Redeem Rewards', style: TextStyle(fontSize: 14, color: Colors.amber),) ,
         icon:const Icon(Icons.card_giftcard, size: 28,color: Colors.amber,)),
       backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.amber,
-        title: const Text('Reward Home'),
+      // appBar: AppBar(
+      //   backgroundColor: C   olors.amber,
+      //   title: const Text('Reward Home'),
         
-      ),
+      // ),
       body: SingleChildScrollView(
         child: Column(
           children: [

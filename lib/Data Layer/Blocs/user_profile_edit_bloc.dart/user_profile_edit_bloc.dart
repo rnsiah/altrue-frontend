@@ -83,6 +83,7 @@ class UserProfileEditBloc
     emit(state.copyWith(formStatus: FormSubmitting()));
     User? user = await userRepository.userDao.getCurrentUser(0);
     ProfileCompletion profileComplete = ProfileCompletion(
+      state:state.state,
         username: state.username,
         dob: state.dob,
         address: state.address,

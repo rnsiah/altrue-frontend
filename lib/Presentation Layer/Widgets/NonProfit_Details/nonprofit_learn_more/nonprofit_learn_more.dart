@@ -32,6 +32,7 @@ class _NPLearnMoreState extends State<NPLearnMore> {
                 ? ListView.builder(
                     itemCount: widget.nonprofit.links!.length,
                     itemBuilder: (context, index) => Card(
+                      elevation: 6,
                           child: ListTile(
                               subtitle: Text(
                                 widget.nonprofit.links![index].publication,

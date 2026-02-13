@@ -1,0 +1,15 @@
+{
+    "continue": {
+    "models": [
+      {
+        "name": "ollama-3.2",
+        "type": "text"
+      },
+      {
+        "name": "mistral-7b",
+        "type": "text"
+      }
+    ]
+  }
+
+}

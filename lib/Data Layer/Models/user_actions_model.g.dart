@@ -14,20 +14,11 @@ UserActions _$UserActionsFromJson(Map<String, dynamic> json) => UserActions(
       json['aggregate_complete_date'] as String?,
     );
 
-Map<String, dynamic> _$UserActionsToJson(UserActions instance) {
-  final val = <String, dynamic>{
-    'altrue_action': instance.altrueAction.toJson(),
-    'date_completed': instance.dateCompleted,
-  };
-
-  void writeNotNull(String key, dynamic value) {
-    if (value != null) {
-      val[key] = value;
-    }
-  }
-
-  writeNotNull('is_promotion', instance.isPromotion);
-  val['is_aggregate'] = instance.is_aggregate;
-  val['aggregate_complete_date'] = instance.aggregate_complete_date;
-  return val;
-}
+Map<String, dynamic> _$UserActionsToJson(UserActions instance) =>
+    <String, dynamic>{
+      'altrue_action': instance.altrueAction.toJson(),
+      'date_completed': instance.dateCompleted,
+      'is_promotion': instance.isPromotion,
+      'is_aggregate': instance.is_aggregate,
+      'aggregate_complete_date': instance.aggregate_complete_date,
+    };

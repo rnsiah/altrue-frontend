@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 
 class AddressForm extends StatefulWidget {
+  Profile profile;
+   AddressForm({super.key, required this.profile});
+
   @override
   _AddressFormState createState() => _AddressFormState();
 }
@@ -13,6 +17,14 @@ class _AddressFormState extends State<AddressForm> {
   TextEditingController zipController = TextEditingController();
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  
+  @override
+  void initState(){
+    super.initState();
+    addressController = TextEditingController(text: widget.profile.address);
+    cityController = TextEditingController(text:widget.profile.city);
+    zipController = TextEditingController(text: widget.profile.zip);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,7 +123,7 @@ class _AddressFormState extends State<AddressForm> {
                   });
                 },
               ),
-              Text('Use already uploaded address'),
+              Text('Use a new address'),
             ],
           ),
         ],

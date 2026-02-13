@@ -10,6 +10,8 @@ class ProfilePaymentCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+     final screenHeight = MediaQuery.of(context).size.height;
+    final screenWidth = MediaQuery.of(context).size.width;
     return Padding(
       padding: const EdgeInsets.all(2.0),
       child: Container(
@@ -28,7 +30,7 @@ class ProfilePaymentCard extends StatelessWidget {
           ],
         ),
         child: Padding(
-          padding: const EdgeInsets.all(16.0),
+          padding: const EdgeInsets.all(6.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -41,8 +43,9 @@ class ProfilePaymentCard extends StatelessWidget {
                         image: DecorationImage(
                             fit: BoxFit.contain,
                             image: AssetImage('images/Altrue Logo White.png'))),
-                    height: 40.0,
-                    width: 50.0,
+                    height: screenHeight * 0.04,
+                    width: screenWidth * 0.05,
+                    
                   ),
                   Row(
                     children: [
@@ -52,9 +55,9 @@ class ProfilePaymentCard extends StatelessWidget {
                       ),
                       Text(
                         '\$${profile.altruePoints!}',
-                        style: const TextStyle(
+                        style:  TextStyle(
                             color: Colors.amber,
-                            fontSize: 12,
+                            fontSize: screenHeight * 0.02,
                             fontWeight: FontWeight.w600),
                       )
                     ],
@@ -69,28 +72,28 @@ class ProfilePaymentCard extends StatelessWidget {
                         image: DecorationImage(
                             fit: BoxFit.contain,
                             image: NetworkImage(profile.profilePicture!.url))),
-                    height: 50.0,
-                    width: 50,
+                     height: screenHeight * 0.06, // Adjust
+                    width: screenWidth * 0.1,
                   ),
                   Text(
                     profile.username!,
-                    style: TextStyle(color: Colors.white, fontSize: 18),
+                    style: TextStyle(color: Colors.white, fontSize: screenHeight * 0.03),
                   ),
                   Spacer(), // Adjust height as needed
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      const Text(
+                       Text(
                         "Altrue Level", // Placeholder text
                         style: TextStyle(
-                            fontSize: 16.0,
+                            fontSize: screenHeight * 0.02,
                             fontWeight: FontWeight.bold,
                             color: Colors.white),
                       ),
                       Text(
                         profile.altrueLevel!.name, // Placeholder text
-                        style: const TextStyle(
-                            fontSize: 16.0, color: Colors.white),
+                        style:  TextStyle(
+                            fontSize: screenHeight * 0.025, color: Colors.white),
                       ),
                     ],
                   ),
@@ -104,9 +107,9 @@ class ProfilePaymentCard extends StatelessWidget {
                   ),
                   Text(
                     '\$${profile.balance!}',
-                    style: const TextStyle(
+                    style:  TextStyle(
                         color: Colors.amber,
-                        fontSize: 16,
+                        fontSize: screenHeight * 0.02,
                         fontWeight: FontWeight.w600),
                   )
                 ],

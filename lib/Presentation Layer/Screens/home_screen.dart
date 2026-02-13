@@ -94,7 +94,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
   // void connectToWebSocket() async {
   //       _stompClient = StompClient(
   //           config: StompConfig(
-  //               url: 'wss://3e2f-2601-2c6-500-16f0-4d5f-6af6-5b47-3b45.ngrok-free.app/ws/rewards/',
+  //               url: 'wss://92457f366a93.ngrok-free.app/ws/rewards/',
   //               onConnect: (frame) {
   //                   print('Connected to WebSocket');
   //                   _stompClient?.subscribe(destination: 'queue/rewards', callback: (message) {
@@ -224,14 +224,14 @@ ListTile _buildDrawerItem({
             Center(
               child: Container(
                 margin:
-                    const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                    const EdgeInsets.symmetric(horizontal: 4, vertical: 10),
                 decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(10),
+                    borderRadius: BorderRadius.circular(20),
                     boxShadow: const [
                       BoxShadow(
                           color: Colors.black54,
-                          offset: Offset(0, 4),
-                          blurRadius: 6)
+                          offset: Offset(1, 2),
+                          blurRadius: 1)
                     ]),
                 child: Center(
                   child: Hero(
@@ -241,6 +241,7 @@ ListTile _buildDrawerItem({
                         child: Image(
                           image: NetworkImage(atrocities[index].imageUrl!),
                           height: 220,
+                          width: 315,
                           fit: BoxFit.fill,
                         ),
                       )),
@@ -287,13 +288,7 @@ ListTile _buildDrawerItem({
             ),
           );
         }
-        return openHomePageDrawer(state, context);
-      },
-    );
-  }
-
-  AdvancedDrawer openHomePageDrawer(ProfileState state, BuildContext context) {
-    return AdvancedDrawer(
+        return AdvancedDrawer(
       backdrop: Container(
         width: double.infinity,
         height: double.infinity,
@@ -476,75 +471,7 @@ ListTile _buildDrawerItem({
               // onDrawerChanged: (isOpened) {},
               backgroundColor: Colors.grey[900],
               // drawer: ProfileDrawer(profile: widget.profile),
-              appBar: AppBar(
-                leading: IconButton(
-                  onPressed: (_handleMenuButtonPressed),
-                  icon: ValueListenableBuilder<AdvancedDrawerValue>(
-                      valueListenable: _advancedDrawerController,
-                      builder: (_, value, __) {
-                        return AnimatedSwitcher(
-                          duration: const Duration(milliseconds: 250),
-                          child: Icon(
-                            color: Colors.white,
-                            value.visible ? Icons.clear : Icons.menu,
-                            key: ValueKey<bool>(value.visible),
-                          ),
-                        );
-                      }),
-                ),
-                automaticallyImplyLeading: false,
-                backgroundColor: Colors.black,
-                elevation: 0,
-                title: Stack(children: [
-                  const Image(
-                    image: AssetImage('images/Altrue Logo White.png'),
-                  ),
-                  Positioned(
-                      right: -22,
-                      bottom: -12,
-                      child: IconButton(
-                          onPressed: () {},
-                          icon: const Icon(
-                            Icons.arrow_drop_down,
-                            color: Colors.orange,
-                          ))),
-                ]),
-                actions: <Widget>[
-                  BlocBuilder<CartBloc, CartState>(
-                    builder: (context, state) {
-                      return CartIcon(
-                        notificationCount: state.status == CartStatus.loaded
-                            ? state.cart.length
-                            : 0,
-                        text: 'cart',
-                        iconData: Icons.shopping_cart,
-                        onTap: () async {
-                          showModalBottomSheet(
-                              isDismissible: true,
-                              isScrollControlled: true,
-                              context: context,
-                              shape: const RoundedRectangleBorder(
-                                borderRadius: BorderRadius.vertical(
-                                    top: Radius.circular(25.0)),
-                              ),
-                              builder: (_) {
-                                return DraggableScrollableSheet(
-                                  expand: false,
-                                  maxChildSize: .8,
-                                  minChildSize: .5,
-                                  initialChildSize: .8,
-                                  builder: (_, controller) => CartBottomScreen(
-                                    controller: controller,
-                                    cartList: state.cart,
-                                  ),
-                                );
-                              });
-                        },
-                      );
-                    },
-                  )
-                ],
-              ),
+              // appBar: builAppBar(),
               body: BlocBuilder<ProfileBloc, ProfileState>(
                 builder: (context, state) {
                   // if (state.status != ProfileStatus.successfull ||
@@ -627,6 +554,7 @@ ListTile _buildDrawerItem({
                                     controller: _pageController,
                                     itemCount: state.featuredAtrocities.length,
                                     itemBuilder:
+                                    
                                         (BuildContext context, int index) {
                                       return _shirtSelector(
                                           index,
@@ -995,6 +923,10 @@ ListTile _buildDrawerItem({
                       ElevatedButton(onPressed: (){
                         context.read<AltrueStatisticsBloc>().add(FetchAltrueStatistics());
                         context.go('/rewardhome/rewardhome');
+                      }, child: const Text('rewardHome')),
+                      ElevatedButton(onPressed: (){
+                        
+                        context.go('/userprofile/cryptoScreen');
                       }, child: const Text('rewardHome'))
                       ],
                     ),
@@ -1006,6 +938,80 @@ ListTile _buildDrawerItem({
         ),
       ),
     );
+      },
+    );
+  }
+
+  AppBar builAppBar() {
+    return AppBar(
+              leading: IconButton(
+                onPressed: (_handleMenuButtonPressed),
+                icon: ValueListenableBuilder<AdvancedDrawerValue>(
+                    valueListenable: _advancedDrawerController,
+                    builder: (_, value, __) {
+                      return AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 250),
+                        child: Icon(
+                          color: Colors.white,
+                          value.visible ? Icons.clear : Icons.menu,
+                          key: ValueKey<bool>(value.visible),
+                        ),
+                      );
+                    }),
+              ),
+              automaticallyImplyLeading: false,
+              backgroundColor: Colors.black,
+              elevation: 0,
+              title: Stack(children: [
+                const Image(
+                  image: AssetImage('images/Altrue Logo White.png'),
+                ),
+                Positioned(
+                    right: -22,
+                    bottom: -12,
+                    child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(
+                          Icons.arrow_drop_down,
+                          color: Colors.orange,
+                        ))),
+              ]),
+              actions: <Widget>[
+                BlocBuilder<CartBloc, CartState>(
+                  builder: (context, state) {
+                    return CartIcon(
+                      notificationCount: state.status == CartStatus.loaded
+                          ? state.cart.length
+                          : 0,
+                      text: 'cart',
+                      iconData: Icons.shopping_cart,
+                      onTap: () async {
+                        showModalBottomSheet(
+                            isDismissible: true,
+                            isScrollControlled: true,
+                            context: context,
+                            shape: const RoundedRectangleBorder(
+                              borderRadius: BorderRadius.vertical(
+                                  top: Radius.circular(25.0)),
+                            ),
+                            builder: (_) {
+                              return DraggableScrollableSheet(
+                                expand: false,
+                                maxChildSize: .8,
+                                minChildSize: .5,
+                                initialChildSize: .8,
+                                builder: (_, controller) => CartBottomScreen(
+                                  controller: controller,
+                                  cartList: state.cart,
+                                ),
+                              );
+                            });
+                      },
+                    );
+                  },
+                )
+              ],
+            );
   }
 
   void _handleMenuButtonPressed() {
