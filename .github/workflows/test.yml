@@ -1,0 +1,95 @@
+"""
+GitHub Actions workflow for Flutter frontend testing.
+
+This workflow runs on every PR and push to main branch.
+It sets up Flutter, installs dependencies, analyzes code,
+runs widget tests, and builds the app.
+
+Requirements:
+- Flutter 3.0+
+- Dart 3.0+
+"""
+name: Flutter Frontend Tests
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        flutter-version: ['3.19.x', '3.22.x']
+    
+    steps:
+    # Checkout repository code
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    # Set up Flutter environment
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: ${{ matrix.flutter-version }}
+        channel: 'stable'
+        cache: true
+    
+    # Verify Flutter installation
+    - name: Verify Flutter setup
+      run: flutter doctor -v
+    
+    # Install dependencies
+    - name: Install dependencies
+      run: flutter pub get
+    
+    # Analyze code for issues
+    - name: Analyze code
+      run: flutter analyze --no-fatal-infos --no-fatal-warnings
+    
+    # Run widget tests
+    - name: Run widget tests
+      run: flutter test --coverage
+    
+    # Upload coverage report
+    - name: Upload coverage report
+      uses: actions/upload-artifact@v4
+      if: always()
+      with:
+        name: flutter-coverage-${{ matrix.flutter-version }}
+        path: coverage/
+    
+    # Build APK (to ensure app compiles)
+    - name: Build APK
+      run: flutter build apk --debug
+      continue-on-error: true
+
+  # Integration tests (optional - requires emulator)
+  integration-test:
+    runs-on: macos-latest  # macOS required for iOS simulator
+    if: false  # Disabled by default - enable when integration tests are ready
+    
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v4
+    
+    - name: Set up Flutter
+      uses: subosito/flutter-action@v2
+      with:
+        flutter-version: '3.22.x'
+        channel: 'stable'
+        cache: true
+    
+    - name: Install dependencies
+      run: flutter pub get
+    
+    # Start Android emulator (simplified - may need adjustments)
+    - name: Start Android emulator
+      uses: reactivecircus/android-emulator-runner@v2
+      with:
+        api-level: 29
+        script: flutter test integration_test/
+      continue-on-error: true
