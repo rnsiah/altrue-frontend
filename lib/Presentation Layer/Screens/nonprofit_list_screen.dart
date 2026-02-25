@@ -52,6 +52,7 @@ class _NonProfitListState extends State<NonProfitList> {
                 BlocBuilder<CategoryBloc, CategoryState>(
                   builder: (context, state) {
                     return CategorySelector(
+                      onCategorySelected: (category) {},
                       isProject: false,
                       isNonProfit: true,
                       isAtrocity: false,

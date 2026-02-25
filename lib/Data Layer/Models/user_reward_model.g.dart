@@ -7,7 +7,7 @@ part of 'user_reward_model.dart';
 // **************************************************************************
 
 UserReward _$UserRewardFromJson(Map<String, dynamic> json) => UserReward(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       reward: CompanyReward.fromJson(json['reward'] as Map<String, dynamic>),
       status: json['status'] as String,
       unlockedAt: DateTime.parse(json['unlocked_at'] as String),
@@ -47,18 +47,19 @@ Map<String, dynamic> _$UserRewardToJson(UserReward instance) =>
 
 CompanyReward _$CompanyRewardFromJson(Map<String, dynamic> json) =>
     CompanyReward(
-      id: json['id'] as int,
-      company: ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
+      id: (json['id'] as num).toInt(),
+      company:
+          ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
       name: json['name'] as String,
       description: json['description'] as String,
       rewardType: json['reward_type'] as String,
       imageUrl: json['image_url'] as String?,
       minDonationAmount: (json['min_donation_amount'] as num?)?.toDouble(),
-      minAltrueLevel: json['min_altrue_level'] as int?,
+      minAltrueLevel: (json['min_altrue_level'] as num?)?.toInt(),
       isAvailable: json['is_available'] as bool,
-      totalQuantity: json['total_quantity'] as int?,
-      claimedCount: json['claimed_count'] as int?,
-      expirationDays: json['expiration_days'] as int?,
+      totalQuantity: (json['total_quantity'] as num?)?.toInt(),
+      claimedCount: (json['claimed_count'] as num?)?.toInt(),
+      expirationDays: (json['expiration_days'] as num?)?.toInt(),
       termsConditions: json['terms_conditions'] as String?,
     );
 
@@ -81,11 +82,11 @@ Map<String, dynamic> _$CompanyRewardToJson(CompanyReward instance) =>
 
 WalletSummary _$WalletSummaryFromJson(Map<String, dynamic> json) =>
     WalletSummary(
-      pointsBalance: json['points_balance'] as int,
-      activeRewardsCount: json['active_rewards_count'] as int,
-      newUnlocksCount: json['new_unlocks_count'] as int,
-      totalRewardsEarned: json['total_rewards_earned'] as int,
-      totalRewardsRedeemed: json['total_rewards_redeemed'] as int,
+      pointsBalance: (json['points_balance'] as num).toInt(),
+      activeRewardsCount: (json['active_rewards_count'] as num).toInt(),
+      newUnlocksCount: (json['new_unlocks_count'] as num).toInt(),
+      totalRewardsEarned: (json['total_rewards_earned'] as num).toInt(),
+      totalRewardsRedeemed: (json['total_rewards_redeemed'] as num).toInt(),
     );
 
 Map<String, dynamic> _$WalletSummaryToJson(WalletSummary instance) =>

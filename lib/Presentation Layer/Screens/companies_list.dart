@@ -33,10 +33,10 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
         children: <Widget>[
           // Search Bar
           _buildSearchBar(),
-          
+
           // Filter Chips
           _buildFilterChips(),
-          
+
           // Category Selector
           BlocBuilder<CategoryBloc, CategoryState>(
             builder: (context, state) {
@@ -55,9 +55,9 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
               );
             },
           ),
-          
+
           const SizedBox(height: 10),
-          
+
           // Results Count
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -74,20 +74,20 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
               },
             ),
           ),
-          
+
           const SizedBox(height: 10),
-          
+
           // Company Grid
           Expanded(
             child: BlocConsumer<CompanyListBloc, CompanyListState>(
               buildWhen: (p, c) => p.companies != c.companies,
               builder: (context, state) {
                 final filteredCompanies = _getFilteredCompanies(state);
-                
+
                 if (filteredCompanies.isEmpty) {
                   return _buildEmptyState();
                 }
-                
+
                 return _buildCompanyGrid(filteredCompanies);
               },
               listener: (context, state) => {},
@@ -117,7 +117,8 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
           hintStyle: TextStyle(color: Colors.grey[500]),
           prefixIcon: const Icon(Icons.search, color: Colors.amber),
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+          contentPadding:
+              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
         ),
       ),
     );
@@ -133,7 +134,7 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
         itemBuilder: (context, index) {
           final filter = _filters[index];
           final isSelected = _selectedFilter == filter;
-          
+
           return Padding(
             padding: const EdgeInsets.symmetric(horizontal: 4),
             child: FilterChip(
@@ -162,31 +163,31 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
 
   List<ForProfitCompany> _getFilteredCompanies(CompanyListState state) {
     List<ForProfitCompany> companies = state.companies;
-    
+
     // Apply search filter
     if (_searchQuery.isNotEmpty) {
       companies = companies.where((company) {
         return company.name.toLowerCase().contains(_searchQuery) ||
-               (company.mission?.toLowerCase().contains(_searchQuery) ?? false) ||
-               (company.description?.toLowerCase().contains(_searchQuery) ?? false);
+            (company.mission?.toLowerCase().contains(_searchQuery) ?? false) ||
+            (company.description?.toLowerCase().contains(_searchQuery) ??
+                false);
       }).toList();
     }
-    
+
     // Apply category filter
     if (_selectedCause != null) {
       companies = companies.where((company) {
-        return company.categories?.any(
-          (cat) => cat.id == _selectedCause!.id
-        ) ?? false;
+        return company.categories?.any((cat) => cat.id == _selectedCause!.id) ??
+            false;
       }).toList();
     }
-    
+
     // Apply main filter
     switch (_selectedFilter) {
       case 'Active Matching':
         companies = companies.where((company) {
           return company.atrocityMatchRelationships?.isNotEmpty == true ||
-                 company.nonprofitMatchRelationships?.isNotEmpty == true;
+              company.nonprofitMatchRelationships?.isNotEmpty == true;
         }).toList();
         break;
       case 'Has Campaign':
@@ -194,11 +195,11 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
         // For now, we'll check if they have matching relationships
         companies = companies.where((company) {
           return company.atrocityMatchRelationships?.isNotEmpty == true ||
-                 company.nonprofitMatchRelationships?.isNotEmpty == true;
+              company.nonprofitMatchRelationships?.isNotEmpty == true;
         }).toList();
         break;
     }
-    
+
     return companies;
   }
 
@@ -256,38 +257,38 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
 class CompanyCard extends StatelessWidget {
   final ForProfitCompany company;
   final Function press;
-  
+
   const CompanyCard({super.key, required this.company, required this.press});
 
-  bool get hasActiveMatching => 
+  bool get hasActiveMatching =>
       company.atrocityMatchRelationships?.isNotEmpty == true ||
       company.nonprofitMatchRelationships?.isNotEmpty == true;
 
   String? getMatchBadge() {
     if (!hasActiveMatching) return null;
-    
+
     // Check for campaign match
-    final hasCampaign = company.atrocityMatchRelationships?.any(
-      (r) => r.match != null && r.match! > 100
-    ) ?? false;
-    
+    final hasCampaign = company.atrocityMatchRelationships
+            ?.any((r) => r.match != null && r.match! > 100) ??
+        false;
+
     if (hasCampaign) return '2x Campaign';
-    
+
     // Check base match percentage
     final baseMatch = company.nonprofitMatchRelationships?.firstOrNull?.match ??
-                      company.atrocityMatchRelationships?.firstOrNull?.match;
-    
+        company.atrocityMatchRelationships?.firstOrNull?.match;
+
     if (baseMatch != null && baseMatch > 0) {
       return '${baseMatch.toInt()}% Match';
     }
-    
+
     return 'Matching';
   }
 
   @override
   Widget build(BuildContext context) {
     final badge = getMatchBadge();
-    
+
     return GestureDetector(
       onTap: () => press(),
       child: Container(
@@ -330,7 +331,7 @@ class CompanyCard extends StatelessWidget {
                       ),
               ),
             ),
-            
+
             // Info Section
             Expanded(
               flex: 2,
@@ -350,9 +351,10 @@ class CompanyCard extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                     ),
                     const SizedBox(height: 4),
-                    
+
                     // Causes chips
-                    if (company.categories != null && company.categories!.isNotEmpty)
+                    if (company.categories != null &&
+                        company.categories!.isNotEmpty)
                       Wrap(
                         spacing: 4,
                         children: company.categories!.take(2).map((cat) {
@@ -366,7 +368,7 @@ class CompanyCard extends StatelessWidget {
                               borderRadius: BorderRadius.circular(4),
                             ),
                             child: Text(
-                              cat.name,
+                              cat.name!,
                               style: const TextStyle(
                                 color: Colors.amber,
                                 fontSize: 9,
@@ -375,9 +377,9 @@ class CompanyCard extends StatelessWidget {
                           );
                         }).toList(),
                       ),
-                    
+
                     const Spacer(),
-                    
+
                     // Badge
                     if (badge != null)
                       Container(
@@ -387,7 +389,7 @@ class CompanyCard extends StatelessWidget {
                         ),
                         decoration: BoxDecoration(
                           gradient: LinearGradient(
-                            colors: badge.contains('2x') 
+                            colors: badge.contains('2x')
                                 ? [Colors.purple, Colors.purple.shade800]
                                 : [Colors.green, Colors.green.shade800],
                           ),
@@ -397,7 +399,9 @@ class CompanyCard extends StatelessWidget {
                           mainAxisSize: MainAxisSize.min,
                           children: [
                             Icon(
-                              badge.contains('2x') ? Icons.star : Icons.favorite,
+                              badge.contains('2x')
+                                  ? Icons.star
+                                  : Icons.favorite,
                               color: Colors.white,
                               size: 10,
                             ),

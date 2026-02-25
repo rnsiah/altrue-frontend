@@ -64,6 +64,7 @@ class _ShirtListState extends State<ShirtList> {
             BlocBuilder<CategoryBloc, CategoryState>(
               builder: (context, state) {
                 return CategorySelector(
+                  onCategorySelected: (category) {},
                   isProject: false,
                   isNonProfit: false,
                   isShirt: true,

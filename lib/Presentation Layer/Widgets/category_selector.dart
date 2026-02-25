@@ -14,10 +14,12 @@ class CategorySelector extends StatefulWidget {
   final bool? isAtrocity;
   final bool? isShirt;
   final bool? isProject;
+  final Function(Category)? onCategorySelected;
 
   const CategorySelector(
       {Key? key,
       required this.isShirt,
+      required this.onCategorySelected,
       required this.isProject,
       required this.categoryList,
       required this.isNonProfit,

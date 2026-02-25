@@ -53,6 +53,9 @@ class _AllProjectsListState extends State<AllProjectsList> {
               child: BlocBuilder<CategoryBloc, CategoryState>(
                 builder: (context, state) {
                   return CategorySelector(
+                    onCategorySelected: (category) {
+                      null;
+                    },
                     isNonProfit: false,
                     isAtrocity: false,
                     isCompany: false,

@@ -8,6 +8,8 @@ part 'company_atrocity_matching_model.g.dart';
 class CompanyAtrocityMatchRelationShip {
   @JsonKey(name: 'match_level')
   final int matchLevel;
+  @JsonKey(name: 'match')
+  final int? match;
   @JsonKey(name: 'total_raised')
   final double totalRaised;
   final CompanyAtrocity atrocity;
@@ -16,6 +18,7 @@ class CompanyAtrocityMatchRelationShip {
 
   CompanyAtrocityMatchRelationShip(
       {required this.atrocity,
+      this.match,
       required this.fundingLimit,
       required this.matchLevel,
       required this.totalRaised});

@@ -123,7 +123,7 @@ class Profile {
   String? state;
   @JsonKey(includeIfNull: false, name: "qr_code_img")
   String? qrCode;
-  @JsonKey( name: 'shirt_list')
+  @JsonKey(name: 'shirt_list')
   List<Shirt>? shirtList;
   @JsonKey(name: 'atrocity_list')
   List<Atrocity>? atrocityList;

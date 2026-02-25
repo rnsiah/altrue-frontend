@@ -42,6 +42,7 @@ class _FeaturedShirtScreenState extends State<FeaturedShirtScreen> {
                     return Padding(
                                   padding: const EdgeInsets.all(8.0),
                                   child: CategorySelector(
+                                      onCategorySelected: (category) {},
                                       isShirt: false,
                                       isProject: false,
                                       categoryList: state.categoryList,

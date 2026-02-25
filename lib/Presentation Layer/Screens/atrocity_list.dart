@@ -22,55 +22,55 @@ class AtrocityList extends StatelessWidget {
         //     ),
         //     backgroundColor: Colors.black),
         body: SafeArea(
-          child: MultiBlocProvider(
-            providers: [
-              BlocProvider.value(
-                value: context.read<AtrocityBlocBloc>(),
-              ),
-              BlocProvider.value(value: context.read<CategoryBloc>())
-            ],
-            child: Column(
-              children: [
-                const Align(
-                  alignment: Alignment.centerLeft,
-                  child: Padding(
-                    padding: EdgeInsets.only(left: 16),
-                    child: Text(
-                      'Global Causes',
-                      style:
-                          TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
-                    ),
-                  ),
-                ),
-                BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                    return CategorySelector(
-                      isNonProfit: false,
-                      isAtrocity: true,
-                      isCompany: false,
-                      isShirt: false,
-                      isProject: false,
-                      categoryList: state.categoryList,
-                    );
-                  },
-                ),
-                BlocConsumer<AtrocityBlocBloc, AtrocityBlocState>(
-                  listener: (context, state) {},
-                  buildWhen: (p, c) => p.atrocities != p.atrocityCategoryList,
-                  builder: (context, state) {
-                    if (state.atrocityCategoryList.isNotEmpty) {
-                      return buildCategoryAtrocityList(state);
-                    } else if (state.atrocityCategoryList.isEmpty &&
-                        state.atrocities.isNotEmpty) {
-                      return buildAtrocityList(state);
-                    }
-                    return buildAtrocityList(state);
-                  },
-                ),
-              ],
-            ),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider.value(
+            value: context.read<AtrocityBlocBloc>(),
           ),
-        ));
+          BlocProvider.value(value: context.read<CategoryBloc>())
+        ],
+        child: Column(
+          children: [
+            const Align(
+              alignment: Alignment.centerLeft,
+              child: Padding(
+                padding: EdgeInsets.only(left: 16),
+                child: Text(
+                  'Global Causes',
+                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+                ),
+              ),
+            ),
+            BlocBuilder<CategoryBloc, CategoryState>(
+              builder: (context, state) {
+                return CategorySelector(
+                  onCategorySelected: (category) {},
+                  isNonProfit: false,
+                  isAtrocity: true,
+                  isCompany: false,
+                  isShirt: false,
+                  isProject: false,
+                  categoryList: state.categoryList,
+                );
+              },
+            ),
+            BlocConsumer<AtrocityBlocBloc, AtrocityBlocState>(
+              listener: (context, state) {},
+              buildWhen: (p, c) => p.atrocities != p.atrocityCategoryList,
+              builder: (context, state) {
+                if (state.atrocityCategoryList.isNotEmpty) {
+                  return buildCategoryAtrocityList(state);
+                } else if (state.atrocityCategoryList.isEmpty &&
+                    state.atrocities.isNotEmpty) {
+                  return buildAtrocityList(state);
+                }
+                return buildAtrocityList(state);
+              },
+            ),
+          ],
+        ),
+      ),
+    ));
   }
 
   Expanded buildAtrocityList(AtrocityBlocState state) {

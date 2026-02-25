@@ -8,10 +8,10 @@ part of 'company_campaign_model.dart';
 
 CompanyCampaign _$CompanyCampaignFromJson(Map<String, dynamic> json) =>
     CompanyCampaign(
-      id: json['id'] as int,
+      id: (json['id'] as num).toInt(),
       name: json['name'] as String,
       description: json['description'] as String?,
-      matchMultiplier: (json['match_multiplier'] as num).toDouble(),
+      matchMultiplier: (json['matchMultiplier'] as num).toDouble(),
       budgetCap: (json['budget_cap'] as num).toDouble(),
       amountMatched: (json['amount_matched'] as num).toDouble(),
       startDate: DateTime.parse(json['start_date'] as String),
@@ -19,7 +19,7 @@ CompanyCampaign _$CompanyCampaignFromJson(Map<String, dynamic> json) =>
       isActive: json['is_active'] as bool,
       sponsorLogoPlacement: json['sponsor_logo_placement'] as String?,
       causeCategories: json['cause_categories'] as List<dynamic>?,
-      daysRemaining: json['days_remaining'] as int?,
+      daysRemaining: (json['days_remaining'] as num?)?.toInt(),
       progressPercentage: (json['progress_percentage'] as num?)?.toDouble(),
     );
 
@@ -28,7 +28,7 @@ Map<String, dynamic> _$CompanyCampaignToJson(CompanyCampaign instance) =>
       'id': instance.id,
       'name': instance.name,
       'description': instance.description,
-      'match_multiplier': instance.matchMultiplier,
+      'matchMultiplier': instance.matchMultiplier,
       'budget_cap': instance.budgetCap,
       'amount_matched': instance.amountMatched,
       'start_date': instance.startDate.toIso8601String(),
@@ -41,8 +41,9 @@ Map<String, dynamic> _$CompanyCampaignToJson(CompanyCampaign instance) =>
     };
 
 MatchOffer _$MatchOfferFromJson(Map<String, dynamic> json) => MatchOffer(
-      company: ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
-      matchPercentage: (json['match_percentage'] as num).toDouble(),
+      company:
+          ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
+      matchPercentage: (json['matchPercentage'] as num).toDouble(),
       isBaseMatch: json['is_base_match'] as bool,
       isCampaignMatch: json['is_campaign_match'] as bool,
       campaignName: json['campaign_name'] as String?,
@@ -50,9 +51,10 @@ MatchOffer _$MatchOfferFromJson(Map<String, dynamic> json) => MatchOffer(
       matchMultiplier: (json['match_multiplier'] as num?)?.toDouble(),
     );
 
-Map<String, dynamic> _$MatchOfferToJson(MatchOffer instance) => <String, dynamic>{
+Map<String, dynamic> _$MatchOfferToJson(MatchOffer instance) =>
+    <String, dynamic>{
       'company': instance.company.toJson(),
-      'match_percentage': instance.matchPercentage,
+      'matchPercentage': instance.matchPercentage,
       'is_base_match': instance.isBaseMatch,
       'is_campaign_match': instance.isCampaignMatch,
       'campaign_name': instance.campaignName,

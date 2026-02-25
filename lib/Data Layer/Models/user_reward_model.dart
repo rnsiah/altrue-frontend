@@ -1,3 +1,6 @@
+import 'dart:ui';
+
+import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 
@@ -8,29 +11,29 @@ class UserReward {
   final int id;
   final CompanyReward reward;
   final String status;
-  
+
   @JsonKey(name: 'unlocked_at')
   final DateTime unlockedAt;
-  
+
   @JsonKey(name: 'viewed_at')
   final DateTime? viewedAt;
-  
+
   @JsonKey(name: 'claimed_at')
   final DateTime? claimedAt;
-  
+
   @JsonKey(name: 'redeemed_at')
   final DateTime? redeemedAt;
-  
+
   @JsonKey(name: 'expires_at')
   final DateTime? expiresAt;
   final String? code;
-  
+
   @JsonKey(name: 'shipping_status')
   final String? shippingStatus;
-  
+
   @JsonKey(name: 'tracking_number')
   final String? trackingNumber;
-  
+
   @JsonKey(name: 'shipping_address')
   final String? shippingAddress;
 
@@ -59,8 +62,10 @@ class UserReward {
   bool get isViewed => status == 'viewed' || viewedAt != null;
   bool get isClaimed => status == 'claimed' || claimedAt != null;
   bool get isRedeemed => status == 'redeemed' || redeemedAt != null;
-  bool get isExpired => status == 'expired' || (expiresAt != null && expiresAt!.isBefore(DateTime.now()));
-  
+  bool get isExpired =>
+      status == 'expired' ||
+      (expiresAt != null && expiresAt!.isBefore(DateTime.now()));
+
   bool get isDigital => reward.rewardType == 'digital';
   bool get isPhysical => reward.rewardType == 'physical';
   bool get isExperience => reward.rewardType == 'experience';
@@ -110,31 +115,31 @@ class CompanyReward {
   final ForProfitCompany company;
   final String name;
   final String description;
-  
+
   @JsonKey(name: 'reward_type')
   final String rewardType;
-  
+
   @JsonKey(name: 'image_url')
   final String? imageUrl;
-  
+
   @JsonKey(name: 'min_donation_amount')
   final double? minDonationAmount;
-  
+
   @JsonKey(name: 'min_altrue_level')
   final int? minAltrueLevel;
-  
+
   @JsonKey(name: 'is_available')
   final bool isAvailable;
-  
+
   @JsonKey(name: 'total_quantity')
   final int? totalQuantity;
-  
+
   @JsonKey(name: 'claimed_count')
   final int? claimedCount;
-  
+
   @JsonKey(name: 'expiration_days')
   final int? expirationDays;
-  
+
   @JsonKey(name: 'terms_conditions')
   final String? termsConditions;
 
@@ -160,14 +165,14 @@ class CompanyReward {
   Map<String, dynamic> toJson() => _$CompanyRewardToJson(this);
 
   bool get hasLimitedQuantity => totalQuantity != null && totalQuantity! > 0;
-  
+
   int? get remainingQuantity {
     if (totalQuantity == null || claimedCount == null) return null;
     return totalQuantity! - claimedCount!;
   }
-  
+
   bool get isOutOfStock => remainingQuantity != null && remainingQuantity! <= 0;
-  
+
   String get formattedValue {
     if (name.toLowerCase().contains('%')) {
       return name;
@@ -183,16 +188,16 @@ class CompanyReward {
 class WalletSummary {
   @JsonKey(name: 'points_balance')
   final int pointsBalance;
-  
+
   @JsonKey(name: 'active_rewards_count')
   final int activeRewardsCount;
-  
+
   @JsonKey(name: 'new_unlocks_count')
   final int newUnlocksCount;
-  
+
   @JsonKey(name: 'total_rewards_earned')
   final int totalRewardsEarned;
-  
+
   @JsonKey(name: 'total_rewards_redeemed')
   final int totalRewardsRedeemed;
 
