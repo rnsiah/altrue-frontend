@@ -318,12 +318,10 @@ class CompanyCard extends StatelessWidget {
                 child: company.logo != null
                     ? ClipRRect(
                         borderRadius: BorderRadius.circular(12),
-                        child: Padding(
+                        child: Image.network(
+                          company.logo!,
+                          fit: BoxFit.contain,
                           padding: const EdgeInsets.all(8),
-                          child: Image.network(
-                            company.logo!,
-                            fit: BoxFit.contain,
-                          ),
                         ),
                       )
                     : const Icon(

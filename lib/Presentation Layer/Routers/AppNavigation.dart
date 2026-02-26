@@ -83,25 +83,27 @@ class AppNavigation {
         builder: (context, state) => const IntroductionSlider(),
       ),
       GoRoute(
-          path: '/login',
-          builder: (context, state) => MultiBlocListener(listeners: [
-                BlocListener<SessionBLoc, SessionState>(
-                    listener: (context, state) {
-                  print('SessionBloc state in /login: $state'); // Debug
-                  if (state is AuthenticatedWithProfile) {
-                    print('Navigating to /home');
-                    context.go('/home');
-                  } else if (state is Authenticated) {
-                    print('Navigating to /profile-incomplete');
-                    context.go('/profile-incomplete');
-                  } else if (state is AuthFailure) {
-                    print('AuthFailure: ${state.message}');
-                    ScaffoldMessenger.of(context).showSnackBar(
-                      SnackBar(content: Text(state.message)),
-                    );
-                  }
-                })
-              ], child: LoginPageUp())),
+        path: '/login',
+        builder: (context, state) => MultiBlocListener(
+          listeners: [
+            BlocListener<SessionBLoc, SessionState>(
+              listener: (context,state){
+                print('SessionBloc state in /login: $state'); // Debug
+              if (state is AuthenticatedWithProfile) {
+                print('Navigating to /home');
+                context.go('/home');
+              } else if (state is Authenticated) {
+                print('Navigating to /profile-incomplete');
+                context.go('/profile-incomplete');
+              } else if (state is AuthFailure) {
+                print('AuthFailure: ${state.message}');
+                ScaffoldMessenger.of(context).showSnackBar(
+                  SnackBar(content: Text(state.message)),
+                );
+              }})
+          ],
+           child: LoginPageUp())
+      ),
       GoRoute(
         path: '/signup',
         builder: (context, state) => const SignUpScreen(),
@@ -128,16 +130,14 @@ class AppNavigation {
                             borderRadius: BorderRadius.circular(24),
                           ),
                           margin: EdgeInsets.only(
-                              bottom: MediaQuery.of(context).size.height * .6,
+                              bottom: MediaQuery.of(context).size.height *.6,
                               left: 13),
                           action: SnackBarAction(
                               label: 'Go Check it out',
-                              onPressed: () =>
-                                  context.go('/rewardhome/userActionScreen')),
+                              onPressed: () => context.go('/rewardhome/userActionScreen')),
                           content: Row(
                             children: [
-                              const Icon(Icons.check_circle,
-                                  color: Colors.greenAccent),
+                              const Icon(Icons.check_circle, color: Colors.greenAccent),
                               const SizedBox(width: 10),
                               Expanded(
                                 child: Text(
@@ -165,19 +165,18 @@ class AppNavigation {
                     final userId = state.user.altid;
                     context.read<WebSocketBloc>().add(WebsocketConnect(
                         url:
-                            'ws://localhost:8000/ws/rewards/$userId/'));
+                            'wss://92457f366a93.ngrok-free.app/ws/rewards/$userId/'));
                   }
                 },
               ),
             ],
             child: BlocBuilder<SessionBLoc, SessionState>(
               builder: (context, state) {
-                if (state is AuthenticatedWithProfile) {
+                if(state is AuthenticatedWithProfile){
                   return MainScreen(navigationShell: navigationShell);
                 }
-                if (state is Authenticated) {
-                  return UserProfileComplete(
-                      user: state.user, userId: state.user.altid.toString());
+                if(state is Authenticated){
+                  return UserProfileComplete(user: state.user, userId: state.user.altid.toString());
                 }
                 return IntroductionSlider();
               },
@@ -245,21 +244,23 @@ class AppNavigation {
               ),
             ],
           ),
+          
           StatefulShellBranch(navigatorKey: _shellNavigatorSupport, routes: [
             GoRoute(
+
+
                 path: '/allNpProjects',
                 builder: (context, state) {
                   final profile = context.read<ProfileBloc>().state.profile!;
                   return AllNPProjects(profile: profile);
                 },
                 routes: [
-                  GoRoute(
-                      path: ' . allProjectsList',
-                      builder: (context, state) {
-                        final profile =
-                            context.read<ProfileBloc>().state.profile!;
-                        return AllProjectsList(profile: profile);
-                      }),
+
+                  GoRoute(path: ' . allProjectsList',
+                builder: (context, state) {
+                  final profile = context.read<ProfileBloc>().state.profile!;
+                  return AllProjectsList(profile: profile);
+                }),
                   GoRoute(
                     path: 'atrocities',
                     builder: (context, state) {
@@ -289,6 +290,7 @@ class AppNavigation {
                   GoRoute(
                     path: 'causeView',
                     builder: (context, state) {
+
                       final argument = state.extra as CategoryArguments;
 
                       return CauseDetails2(
@@ -299,12 +301,12 @@ class AppNavigation {
                     },
                   ),
                   GoRoute(
-                      path: 'quizList',
-                      builder: (context, state) {
-                        final args = state.extra as QuizListScreenArguments;
-                        return QuizListScreen(
-                            quizes: args.quizes, profile: args.profile);
-                      }),
+                    path:'quizList',
+                    builder:(context, state){
+                      final args = state.extra as QuizListScreenArguments;
+                      return QuizListScreen(quizes: args.quizes, profile: args.profile);
+                    }
+                  ),
                   GoRoute(
                     path: 'quizpage',
                     builder: (context, state) {
@@ -312,68 +314,64 @@ class AppNavigation {
 
                       return QuizPage(
                         quizId: args.quiz.id.toString(),
-                        quiz: args
-                            .quiz, // Make sure you handle this accordingly if needed
+                        quiz: args.quiz, // Make sure you handle this accordingly if needed
                         profile: args.profile,
                       );
                     },
-                  ),
-                  GoRoute(
-                    path: 'npProjectDetails',
-                    builder: (context, state) {
-                      final args =
-                          state.extra as NonProfitProjectDetailArguments;
+                    ),
+                    GoRoute(
+                      path: 'npProjectDetails',
+                      builder: (context, state) {
+                        final args = state.extra as NonProfitProjectDetailArguments;
 
-                      return NonProjectDetail(
-                        project: args.project,
-                        profile: args.profile,
-                      );
-                    },
-                  ),
-                  GoRoute(
-                    path: 'nonprofits',
-                    builder: (context, state) {
-                      final profile =
-                          context.read<ProfileBloc>().state.profile!;
-                      return NonProfitList(profile: profile);
-                    },
-                  ),
-                  GoRoute(
-                    path: 'nonProfitView',
-                    builder: (context, state) {
-                      final argument = state.extra as NonProfitDetailArguments;
-                      return NonProfitDetails(
-                        nonProfit: argument.nonProfit,
-                        profile: argument.profile,
-                      );
-                    },
-                  ),
+                        return NonProjectDetail(
+                          project: args.project,
+                          profile: args.profile,
+                        );
+                      },
+                    ),
+                    GoRoute(
+                      path: 'nonprofits',
+                      builder: (context, state) {
+                        final profile = context.read<ProfileBloc>().state.profile!;
+                        return NonProfitList(profile: profile);
+                      },
+                    ),
+                    GoRoute(
+                      path: 'nonProfitView',
+                      builder: (context, state) {
+                        final argument = state.extra as NonProfitDetailArguments;
+                        return NonProfitDetails(
+                          nonProfit: argument.nonProfit,
+                          profile: argument.profile,
+                        );
+                      },
+                    ),
+                  
                 ]),
           ]),
           StatefulShellBranch(navigatorKey: _shellNavigatorRewards, routes: [
-            GoRoute(
-                path: '/rewardhome',
+            
+            GoRoute(path: '/rewardhome',
+                  builder: (context, state){
+                    return BlocBuilder<ProfileBloc, ProfileState>(
+                      builder: (context, state) {
+                        return RewardsHomeScreen(profile: context.read<ProfileBloc>().state.profile!);
+                      },
+                    );
+                  },
+               
+                routes: [
+                  GoRoute( path: 'userActionScreen',
                 builder: (context, state) {
                   return BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
-                      return RewardsHomeScreen(
-                          profile: context.read<ProfileBloc>().state.profile!);
-                    },
-                  );
-                },
-                routes: [
-                  GoRoute(
-                    path: 'userActionScreen',
-                    builder: (context, state) {
-                      return BlocBuilder<ProfileBloc, ProfileState>(
-                        builder: (context, state) {
-                          return UserActionRewardScreen(
-                            profile: state.profile!,
-                          );
-                        },
+                      return UserActionRewardScreen(
+                        profile: state.profile!,
                       );
                     },
-                  ),
+                  );
+                },),
                   GoRoute(
                     path: 'shirts',
                     builder: (context, state) {
@@ -449,78 +447,75 @@ class AppNavigation {
                     },
                   ),
                   GoRoute(
-                    path: 'featuredShirts',
-                    builder: (context, state) {
-                      final profile = state.extra as Profile;
+                  path: 'featuredShirts',
+                  builder: (context, state) {
+                    final profile = state.extra as Profile;
 
-                      return FeaturedShirtScreen(
-                        profile: profile,
-                      );
+                    return FeaturedShirtScreen(
+                      profile: profile,
+                    );
                     },
                   ),
                   GoRoute(
-                    path: 'thankyou',
-                    builder: (context, state) {
-                      // Extract the arguments
-                      final ThankYouScreenArguments args =
-                          state.extra as ThankYouScreenArguments;
+                      path: 'thankyou',
+                      builder: (context, state) {
+                        // Extract the arguments
+                        final ThankYouScreenArguments args = state.extra as ThankYouScreenArguments;
 
-                      return ThankYouPurchaseScreen(
-                        isNonProfit: args.isNonProfit,
-                        isPurchase: args.isPurchase,
-                        isAtrocity: args.isAtrocity,
-                        isProject: args.isProject,
-                      );
-                    },
-                  ),
+                        return ThankYouPurchaseScreen(
+                          isNonProfit: args.isNonProfit,
+                          isPurchase: args.isPurchase,
+                          isAtrocity: args.isAtrocity,
+                          isProject: args.isProject,
+                        );
+                      },
+                    ),
                 ]),
           ]),
           StatefulShellBranch(navigatorKey: _shellNavigatorCommunity, routes: [
             GoRoute(
-                path: '/newPosts',
-                builder: (context, state) {
-                  final profileState = context.read<ProfileBloc>().state;
+              path: '/newPosts',
+              builder: (context, state) {
+                final profileState = context.read<ProfileBloc>().state;
 
-                  if (profileState.profile != null) {
-                    return NewPostsScreen(profile: profileState.profile!);
-                  } else {
-                    context.read<ProfileBloc>().add(FetchProfile());
-                    return BlocBuilder<ProfileBloc, ProfileState>(
-                      builder: (context, state) {
-                        if (state.status == ProfileStatus.initial ||
-                            state.status == ProfileStatus.updating) {
-                          return const Center(
-                              child: CircularProgressIndicator());
-                        } else if (state.status == ProfileStatus.successfull) {
-                          return NewPostsScreen(profile: state.profile!);
-                        } else if (state.status == ProfileStatus.failure) {
-                          return ErrorScreen(
-                              message: state.message ??
-                                  'Profile could not be loaded.');
-                        } else {
-                          return const ErrorScreen(
-                              message: 'Unknown error occurred');
-                        }
-                      },
-                    );
-                  }
-                },
-                routes: [
-                  GoRoute(
-                    path: 'companyDetails',
+                if (profileState.profile != null) {
+                  return NewPostsScreen(profile: profileState.profile!);
+                } else {
+                  context.read<ProfileBloc>().add(FetchProfile());
+                  return BlocBuilder<ProfileBloc, ProfileState>(
                     builder: (context, state) {
-                      final company = state.extra
-                          as ForProfitCompany; // Assuming the company object is passed via extra
-                      return CompanYDetailPage(company: company);
+                      if (state.status == ProfileStatus.initial ||
+                          state.status == ProfileStatus.updating) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state.status == ProfileStatus.successfull) {
+                        return NewPostsScreen(profile: state.profile!);
+                      } else if (state.status == ProfileStatus.failure) {
+                        return ErrorScreen(
+                            message: state.message ??
+                                'Profile could not be loaded.');
+                      } else {
+                        return const ErrorScreen(
+                            message: 'Unknown error occurred');
+                      }
                     },
-                  ),
-                  GoRoute(
-                    path: 'userProfilePage',
-                    builder: (context, state) {
-                      final profile = state.extra as Profile;
-                      return UsersProfilePage(profile: profile);
-                    },
-                  ),
+                  );
+                }
+              },
+              routes: [
+                GoRoute(
+                  path: 'companyDetails',
+                  builder: (context, state) {
+                    
+                    final company = state.extra as ForProfitCompany; // Assuming the company object is passed via extra
+                    return CompanYDetailPage(company: company);
+                  },
+                ),GoRoute(
+                  path: 'userProfilePage',
+                  builder: (context, state) {
+                    final profile = state.extra as Profile;
+                    return UsersProfilePage(profile: profile);
+                  },
+                ),
                   GoRoute(
                     path: 'findfriends',
                     builder: (context, state) {
@@ -532,20 +527,14 @@ class AppNavigation {
                         context.read<ProfileBloc>().add(FetchProfile());
                         return BlocBuilder<ProfileBloc, ProfileState>(
                           builder: (context, state) {
-                            if (state.status == ProfileStatus.initial ||
-                                state.status == ProfileStatus.updating) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (state.status ==
-                                ProfileStatus.successfull) {
+                            if (state.status == ProfileStatus.initial || state.status == ProfileStatus.updating) {
+                              return const Center(child: CircularProgressIndicator());
+                            } else if (state.status == ProfileStatus.successfull) {
                               return FindFriends(profile: state.profile!);
                             } else if (state.status == ProfileStatus.failure) {
-                              return ErrorScreen(
-                                  message: state.message ??
-                                      'Profile could not be loaded.');
+                              return ErrorScreen(message: state.message ?? 'Profile could not be loaded.');
                             } else {
-                              return const ErrorScreen(
-                                  message: 'Unknown error occurred');
+                              return const ErrorScreen(message: 'Unknown error occurred');
                             }
                           },
                         );
@@ -562,7 +551,10 @@ class AppNavigation {
                       );
                     },
                   ),
-                ]),
+
+
+              ]
+            ),
           ]),
           StatefulShellBranch(
             navigatorKey: _shellNavigatorProfile,
@@ -608,27 +600,20 @@ class AppNavigation {
                       builder: (context, state) {
                         final profileState = context.read<ProfileBloc>().state;
 
-                        if (profileState.profile != null) {
+                        if (profileState.profile != null ) {
                           return SupporterPage(profile: profileState.profile!);
                         } else {
                           context.read<ProfileBloc>().add(FetchProfile());
                           return BlocBuilder<ProfileBloc, ProfileState>(
                             builder: (context, state) {
-                              if (state.status == ProfileStatus.initial ||
-                                  state.status == ProfileStatus.updating) {
-                                return const Center(
-                                    child: CircularProgressIndicator());
-                              } else if (state.status ==
-                                  ProfileStatus.successfull) {
+                              if (state.status == ProfileStatus.initial || state.status == ProfileStatus.updating) {
+                                return const Center(child: CircularProgressIndicator());
+                              } else if (state.status == ProfileStatus.successfull ) {
                                 return SupporterPage(profile: state.profile!);
-                              } else if (state.status ==
-                                  ProfileStatus.failure) {
-                                return ErrorScreen(
-                                    message: state.message ??
-                                        'Profile could not be loaded.');
+                              } else if (state.status == ProfileStatus.failure) {
+                                return ErrorScreen(message: state.message ?? 'Profile could not be loaded.');
                               } else {
-                                return const ErrorScreen(
-                                    message: 'Unknown error occurred');
+                                return const ErrorScreen(message: 'Unknown error occurred');
                               }
                             },
                           );
@@ -643,17 +628,13 @@ class AppNavigation {
                         return ProfileEditScreen(profile: profile);
                       },
                     ),
-                    GoRoute(
-                      path: 'cryptoScreen',
-                      builder: (context, state) => WalletChoiceScreen(),
+                    GoRoute(path: 'cryptoScreen',
+                    builder: (context, state) => WalletChoiceScreen(),),
+                    GoRoute(path: 'createWallet',
+                    builder: (context,state) => CreateWalletScreen(),
                     ),
-                    GoRoute(
-                      path: 'createWallet',
-                      builder: (context, state) => CreateWalletScreen(),
-                    ),
-                    GoRoute(
-                      path: 'connectWallet',
-                      builder: (context, sttate) => ConnectWalletScreen(),
+                    GoRoute(path: 'connectWallet',
+                    builder: (context,sttate) => ConnectWalletScreen(),
                     ),
                     GoRoute(
                       path: 'myQrCode',
@@ -701,69 +682,62 @@ class AppNavigation {
                     GoRoute(
                       path: 'companyDonations',
                       builder: (context, state) {
-                        final args = state.extra as CompanyHomeArguments;
-                        return BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, profileState) {
-                            if (profileState.status == ProfileStatus.initial ||
-                                profileState.status == ProfileStatus.updating) {
-                              return const Center(
-                                  child: CircularProgressIndicator());
-                            } else if (profileState.status ==
-                                ProfileStatus.successfull) {
-                              return CompanyDonationScreen(
-                                company: args.company,
-                                profile: profileState.profile!,
-                              );
-                            } else if (profileState.status ==
-                                ProfileStatus.failure) {
-                              return ErrorScreen(
-                                  message: profileState.message ??
-                                      'Profile could not be loaded.');
-                            } else {
-                              return const ErrorScreen(
-                                  message: 'Unknown error occurred');
-                            }
+                        final args= state.extra as CompanyHomeArguments;
+                            return BlocBuilder<ProfileBloc, ProfileState>(
+                              builder: (context, profileState) {
+                                if (profileState.status == ProfileStatus.initial ||
+                                    profileState.status == ProfileStatus.updating) {
+                                  return const Center(child: CircularProgressIndicator());
+                                } else if (profileState.status == ProfileStatus.successfull 
+                                    ) {
+                                  return CompanyDonationScreen(
+                                    company: args.company,
+                                    profile: profileState.profile!,
+                                  );
+                                } else if (profileState.status == ProfileStatus.failure) {
+                                  return ErrorScreen(message: profileState.message ?? 'Profile could not be loaded.');
+                                } else {
+                                  return const ErrorScreen(message: 'Unknown error occurred');
+                                }
+                              },
+                            );
                           },
-                        );
-                      },
-                    ),
+                        ),
                     GoRoute(
                       path: 'creditCardDetails',
                       builder: (context, state) {
                         return const CreditCardPage();
                       },
-                    ),
-                    GoRoute(
-                      path: 'payment',
-                      builder: (context, state) {
-                        final profile =
-                            context.read<ProfileBloc>().state.profile!;
-
-                        return PaymentScreen(
-                          profile: profile,
-                        );
-                      },
-                    ),
-                    GoRoute(
-                      path: 'companyRewards',
-                      builder: (context, state) {
-                        final args = state.extra
-                            as CompanyHomeArguments; // Expect the arguments as a custom object
-
-                        return CompanyRewardsScreen(
-                          profile: args.profile,
-                          company: args.company,
-                        );
-                      },
-                    ),
-                    GoRoute(
-                        path: 'createCompanyReward',
+                      ),
+                      GoRoute(
+                        path: 'payment',
                         builder: (context, state) {
-                          final args = state.extra as CompanyHomeArguments;
-                          return CreateRewardsScreen(
-                              company: args.company, profile: args.profile);
-                        }),
+                      final profile = context.read<ProfileBloc>().state.profile!;
+
+                          return  PaymentScreen(profile: profile,);
+                        },
+                      ),
+                      GoRoute(
+                        path: 'companyRewards',
+                        builder: (context, state) {
+                          final args = state.extra as CompanyHomeArguments; // Expect the arguments as a custom object
+
+                        
+                            return CompanyRewardsScreen(
+                              profile: args.profile,
+                              company: args.company,
+                            );
+                          
+                        },
+                      ),
+                      GoRoute(path: 'createCompanyReward',
+                      builder: (context, state){
+                        final args = state.extra as CompanyHomeArguments;
+                        return CreateRewardsScreen(company: args.company, profile: args.profile);
+                      }),
+                      
                   ]),
+
             ],
           ),
         ],
@@ -779,8 +753,7 @@ class AppNavigation {
         builder: (context, state) => SignUpScreen(),
       ),
     ],
-    errorBuilder: (context, state) =>
-        ErrorScreen(message: state.error.toString()),
+    errorBuilder: (context, state) => ErrorScreen(message: state.error.toString()),
     // redirect: (context, state) {
     //   final validationState = context.read<ValidationCubit>().state;
     //   print(validationState);
@@ -815,6 +788,7 @@ class GoRouterRefreshStream extends ChangeNotifier {
     });
   }
 }
+
 
 class CauseListArguments {
   Profile profile;

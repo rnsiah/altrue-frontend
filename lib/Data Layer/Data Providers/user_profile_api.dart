@@ -8,7 +8,7 @@ class ApiProvider {
   // ignore: unused_field
 
   final String _mobileBaseUrl =
-      'http://localhost:8000/';
+      'https://92457f366a93.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> getUserAuthenticatedData(String url, String key) async {
@@ -60,9 +60,9 @@ class ApiProvider {
         // print(response);
       }
       responseJson = _response(response);
-      if (responseJson != null &&
-          responseJson['action'] != null &&
-          responseJson['points']) {}
+      if(responseJson!=null && responseJson['action']!=null && responseJson['points']){
+
+      }
     } on SocketException {
       throw FetchDataException('You Are Not Connected To The Internet');
     }
@@ -120,7 +120,7 @@ class ApiProvider {
 
 class NonAuthenticatedApiProvider {
   final String _mobileBaseUrl =
-      'http://localhost:8000/';
+      'https://92457f366a93.ngrok-free.app/';
   final String _baseUrl = "http://127.0.0.1:8000/";
 
   Future<dynamic> get(String url) async {

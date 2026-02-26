@@ -6,6 +6,7 @@ import 'package:lovelovelove/Data%20Layer/Models/altrue_level_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:http/http.dart' as http;
 
+
 class UserActionRewardScreen extends StatefulWidget {
   final Profile profile;
   const UserActionRewardScreen({super.key, required this.profile});
@@ -18,19 +19,17 @@ class _UserActionRewardScreenState extends State<UserActionRewardScreen> {
   List<AltrueLevel> levels = [];
 
   Future<List<AltrueLevel>> fetchLevels() async {
-    final url = Uri.parse(
-        'http://localhost:8000/api/levels/');
-    print('Fetching levels from: $url'); // Debug statement
+    final url = Uri.parse('https://92457f366a93.ngrok-free.app/api/levels/');
+    print('Fetching levels from: $url');  // Debug statement
 
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print('Response body: ${response.body}'); // Debug statement
+      print('Response body: ${response.body}');  // Debug statement
       List<dynamic> jsonData = json.decode(response.body);
       return jsonData.map((data) => AltrueLevel.fromJson(data)).toList();
     } else {
-      print(
-          'Failed to load levels with status code: ${response.statusCode}'); // Debug statement
+      print('Failed to load levels with status code: ${response.statusCode}');  // Debug statement
       throw Exception('Failed to load levels');
     }
   }
@@ -49,27 +48,26 @@ class _UserActionRewardScreenState extends State<UserActionRewardScreen> {
   }
 
   void _updateActionCompletion() {
-    // Create a set of completed action IDs
-    final completedActionIds = widget.profile.userActions!
-        .map((userAction) => userAction.altrueAction.id)
-        .whereType<int>()
-        .toSet();
+  // Create a set of completed action IDs
+  final completedActionIds = widget.profile.userActions!
+      .map((userAction) => userAction.altrueAction.id)
+      .whereType<int>()
+      .toSet();
 
-    // Iterate through levels and actions to update their completion status
-    for (var level in levels) {
-      for (var action in level.requiredActions ?? []) {
-        if (completedActionIds.contains(action.id)) {
-          action.isCompleted = true;
-        } else {
-          action.isCompleted =
-              false; // Ensure actions not completed are set correctly
-        }
+  // Iterate through levels and actions to update their completion status
+  for (var level in levels) {
+    for (var action in level.requiredActions ?? []) {
+      if (completedActionIds.contains(action.id)) {
+        action.isCompleted = true;
+      } else {
+        action.isCompleted = false; // Ensure actions not completed are set correctly
       }
     }
   }
+}
 
   @override
-  Widget build(BuildContext context) {
+ Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.black,
@@ -99,9 +97,7 @@ class _UserActionRewardScreenState extends State<UserActionRewardScreen> {
                       ),
                     ),
                     const SizedBox(height: 8),
-                    ...level.requiredActions!
-                        .map((action) => _buildActionTile(action))
-                        .toList(),
+                    ...level.requiredActions!.map((action) => _buildActionTile(action)).toList(),
                   ],
                 ),
               ),
@@ -113,7 +109,7 @@ class _UserActionRewardScreenState extends State<UserActionRewardScreen> {
   }
 
   Widget _buildActionTile(AltrueAction action) {
-    final bool isCompleted = action.isCompleted ?? false;
+      final bool isCompleted = action.isCompleted ?? false;
 
     return Row(
       children: [
