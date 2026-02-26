@@ -25,6 +25,8 @@ class CompanyNonProfitMatchRelationship {
       required this.nonProfit,
       required this.totalRaised});
 
+  int get match => matchLevel;
+
   factory CompanyNonProfitMatchRelationship.fromJson(
           Map<String, dynamic> data) =>
       _$CompanyNonProfitMatchRelationshipFromJson(data);
@@ -32,5 +34,3 @@ class CompanyNonProfitMatchRelationship {
   Map<String, dynamic> toJson() =>
       _$CompanyNonProfitMatchRelationshipToJson(this);
 }
-
- 

@@ -28,13 +28,13 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
   void initState() {
     super.initState();
     context.read<CompanyCampaignsBloc>().add(
-      FetchCompanyCampaigns(company: widget.company, activeOnly: true),
-    );
+          FetchCompanyCampaigns(company: widget.company, activeOnly: true),
+        );
   }
 
   bool get _isCompanyOwner {
     return widget.profile.username == widget.company.owner?.username ||
-           widget.profile.id == widget.company.owner?.id;
+        widget.profile.username == widget.company.owner?.username;
   }
 
   @override
@@ -84,7 +84,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
         children: [
           // Hero Section
           _buildHeroSection(),
-          
+
           // Title Section
           Padding(
             padding: const EdgeInsets.only(top: 12.0),
@@ -94,24 +94,26 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
               titleTxt: widget.company.name,
             ),
           ),
-          
+
           // Mission & Description Section
-          if (widget.company.mission != null || widget.company.description != null)
+          if (widget.company.mission != null ||
+              widget.company.description != null)
             _buildMissionSection(),
-          
+
           // Causes Supported
-          if (widget.company.categories != null && widget.company.categories!.isNotEmpty)
+          if (widget.company.categories != null &&
+              widget.company.categories!.isNotEmpty)
             _buildCausesSection(),
-          
+
           // Active Campaigns Section
           _buildActiveCampaignsSection(),
-          
+
           // Impact Stats Section
           _buildImpactStatsSection(),
-          
+
           // Available Rewards Section
           _buildRewardsSection(),
-          
+
           // Mediterranean Diet View (existing)
           MediterranesnDietView(
             textColor: Colors.white,
@@ -121,7 +123,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
             isCompanyInfo: true,
             company: widget.company,
           ),
-          
+
           // Navigation Buttons
           Padding(
             padding: const EdgeInsets.all(8.0),
@@ -152,7 +154,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                             },
                             child: const Text(
                               'Our Donations',
-                              style: TextStyle(color: Colors.white, fontSize: 18),
+                              style:
+                                  TextStyle(color: Colors.white, fontSize: 18),
                             ),
                           ),
                         ),
@@ -170,7 +173,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                             },
                             child: const Text(
                               'Our Rewards',
-                              style: TextStyle(fontSize: 18, color: Colors.white),
+                              style:
+                                  TextStyle(fontSize: 18, color: Colors.white),
                             )),
                       ],
                     ),
@@ -195,11 +199,10 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
               ),
             ),
           ),
-          
+
           // View Dashboard Button (for company owners)
-          if (_isCompanyOwner)
-            _buildViewDashboardButton(),
-            
+          if (_isCompanyOwner) _buildViewDashboardButton(),
+
           const SizedBox(height: 20),
         ],
       ),
@@ -252,9 +255,10 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
   }
 
   Widget _buildMatchingBadge() {
-    final hasMatching = widget.company.atrocityMatchRelationships?.isNotEmpty == true ||
-                        widget.company.nonprofitMatchRelationships?.isNotEmpty == true;
-    
+    final hasMatching =
+        widget.company.atrocityMatchRelationships?.isNotEmpty == true ||
+            widget.company.nonprofitMatchRelationships?.isNotEmpty == true;
+
     if (!hasMatching) return const SizedBox.shrink();
 
     return Container(
@@ -380,7 +384,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
               return Chip(
                 backgroundColor: Colors.amber.withOpacity(0.2),
                 label: Text(
-                  category.name,
+                  category.name!,
                   style: const TextStyle(
                     color: Colors.amber,
                     fontSize: 12,
@@ -436,7 +440,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                    padding:
+                        const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                     decoration: BoxDecoration(
                       color: Colors.amber,
                       borderRadius: BorderRadius.circular(12),
@@ -453,7 +458,9 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                 ],
               ),
               const SizedBox(height: 16),
-              ...state.campaigns.take(2).map((campaign) => _CampaignCard(campaign: campaign)),
+              ...state.campaigns
+                  .take(2)
+                  .map((campaign) => _CampaignCard(campaign: campaign)),
               if (state.campaigns.length > 2)
                 TextButton(
                   onPressed: () {
@@ -474,7 +481,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
   Widget _buildImpactStatsSection() {
     final totalDonated = widget.company.totalDonated ?? 0;
     final totalCount = widget.company.totalDonationCount ?? 0;
-    
+
     if (totalDonated == 0 && totalCount == 0) {
       return const SizedBox.shrink();
     }
@@ -531,7 +538,8 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
     );
   }
 
-  Widget _buildImpactStat(String label, String value, IconData icon, Color color) {
+  Widget _buildImpactStat(
+      String label, String value, IconData icon, Color color) {
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 4),
@@ -597,8 +605,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                 onPressed: () {
                   context.go('/comapnyRewards',
                       extra: CompanyHomeArguments(
-                          company: widget.company,
-                          profile: widget.profile));
+                          company: widget.company, profile: widget.profile));
                 },
                 child: const Text(
                   'View All',
@@ -631,7 +638,7 @@ class _MyCompanyHomeState extends State<MyCompanyHome> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        coupon.title ?? 'Reward',
+                        coupon.name ?? 'Reward',
                         style: const TextStyle(
                           color: Colors.black,
                           fontWeight: FontWeight.bold,
@@ -700,8 +707,8 @@ class _CampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = campaign.budgetCap > 0 
-        ? (campaign.amountMatched / campaign.budgetCap).clamp(0.0, 1.0) 
+    final progress = campaign.budgetCap > 0
+        ? (campaign.amountMatched / campaign.budgetCap).clamp(0.0, 1.0)
         : 0.0;
 
     return Container(
@@ -772,7 +779,9 @@ class _CampaignCard extends StatelessWidget {
                 Text(
                   '${campaign.daysRemaining} days left',
                   style: TextStyle(
-                    color: campaign.daysRemaining! < 7 ? Colors.orange : Colors.green,
+                    color: campaign.daysRemaining! < 7
+                        ? Colors.orange
+                        : Colors.green,
                     fontSize: 11,
                   ),
                 ),

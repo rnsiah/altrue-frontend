@@ -6,7 +6,7 @@ class PostRepository {
   final NonAuthenticatedApiProvider _provider = NonAuthenticatedApiProvider();
   ApiProvider authProvider = ApiProvider();
   final String host =
-      'https://92457f366a93.ngrok-free.app';
+      'http://localhost:8000';
   final String baseHost = 'http://127.0.0.1:8000';
 
   Future<List<Post>> fetchNewPosts() async {

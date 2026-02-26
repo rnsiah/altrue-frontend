@@ -14,8 +14,8 @@ class CompanyRepository {
   NonAuthenticatedApiProvider nonauthprov = NonAuthenticatedApiProvider();
   UserRepository userRepository = UserRepository();
   final String host =
-      'https://92457f366a93.ngrok-free.app';
-  final String baseHost ="http://127.0.0.1:8000";
+      'http://localhost:8000';
+  final String baseHost = "http://127.0.0.1:8000";
 
   Future<List<ForProfitCompany>> getCompanyList() async {
     List<ForProfitCompany> companies = [];

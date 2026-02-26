@@ -31,10 +31,12 @@ class UserRepository {
   final _apiProvider = ApiProvider();
   final _nonAuthProvider = NonAuthenticatedApiProvider();
 
-  final String host =
-      'https://92457f366a93.ngrok-free.app/';
+  // Use localhost for iOS simulator (points to host machine)
+  // For Android emulator, use: "http://10.0.2.2:8000/"
+  // For physical device, use your machine's IP: "http://192.168.x.x:8000/"
+  final String host = 'http://localhost:8000/';
 
-  final String baseHost = 'http://127.0.0.1:8000';
+  final String baseHost = 'http://localhost:8000';
 
   Future introDone() async {
     await userDao.introDone();
@@ -324,10 +326,13 @@ class UserRepository {
     }
   }
 
-  Future<void>rewardSharing({required String itemType}) async{
-    User?  user = await userDao.getCurrentUser(0);
-    final repsonse = _apiProvider.postAuthenticatedData(url: 'api/shareItem', key: user!.key!, altId: user.altid!, data: itemType);
-    
+  Future<void> rewardSharing({required String itemType}) async {
+    User? user = await userDao.getCurrentUser(0);
+    final repsonse = _apiProvider.postAuthenticatedData(
+        url: 'api/shareItem',
+        key: user!.key!,
+        altId: user.altid!,
+        data: itemType);
   }
 
   Future<void> addNonProfitToProfileList({required NonProfit nonprofit}) async {
@@ -457,20 +462,18 @@ class UserRepository {
       }
     }
   }
-  Future<List<LeaderBoardEntry>> fetchLeaderBoard()async{
-  
-      final data = await _nonAuthProvider.get('api/leaderboard/points/');
-      return (data as List).map((item) => LeaderBoardEntry.fromJson(item)).toList();
 
-    
+  Future<List<LeaderBoardEntry>> fetchLeaderBoard() async {
+    final data = await _nonAuthProvider.get('api/leaderboard/points/');
+    return (data as List)
+        .map((item) => LeaderBoardEntry.fromJson(item))
+        .toList();
   }
 
-  Future<List<FeedItem>> fetchFeed()async{
+  Future<List<FeedItem>> fetchFeed() async {
     final data = await _nonAuthProvider.get('api/feedView');
     return (data as List).map((item) => FeedItem.fromJson(item)).toList();
   }
-
-
 
   Future<String> upvoteAtrocity({required Atrocity atrocity}) async {
     User? user = await userDao.getCurrentUser(0);
@@ -599,7 +602,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/order_status/');
+        'http://localhost:8000/api/order_status/');
 
     try {
       final response = await http.post(
@@ -635,7 +638,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/create_payment_intent/');
+        'http://localhost:8000/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -691,7 +694,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/donate/');
+        'http://localhost:8000/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -726,7 +729,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/point_payment/');
+        'http://localhost:8000/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -765,7 +768,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/hybrid_payment/');
+        'http://localhost:8000/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

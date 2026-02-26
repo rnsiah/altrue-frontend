@@ -5,9 +5,10 @@ import 'package:http/http.dart' as http;
 import 'package:lovelovelove/Data%20Layer/Models/authentication_models/userLogin_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 
-const _mobileBaseUrl =
-    "https://92457f366a93.ngrok-free.app";
-const _base = "http://127.0.0.1:8000";
+// Use localhost for iOS simulator (points to host machine)
+// For Android emulator, use: "http://10.0.2.2:8000"
+// For physical device, use your machine's IP: "http://192.168.x.x:8000"
+const _mobileBaseUrl = "http://localhost:8000";
 const _loginKeyEndpoint = "/auth/login/";
 const _registerKeyEndpoint = "/auth/registration/";
 

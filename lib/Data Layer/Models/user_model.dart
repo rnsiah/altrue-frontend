@@ -1,3 +1,4 @@
+// @dart=3.0
 import 'package:json_annotation/json_annotation.dart';
 import 'package:lovelovelove/Data%20Layer/Models/altrue_action_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/altrue_level_model.dart';

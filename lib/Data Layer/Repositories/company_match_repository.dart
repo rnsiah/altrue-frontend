@@ -9,7 +9,7 @@ import 'package:http/http.dart' as http;
 class CompanyMatchRepository {
   final ApiProvider authProvider = ApiProvider();
   final String host =
-      'https://92457f366a93.ngrok-free.app';
+      'http://localhost:8000';
 
   final String baseHost = 'http://127.0.0.1:8000';
 
