@@ -103,6 +103,19 @@ class AppNavigation {
                 })
               ], child: LoginPageUp())),
       GoRoute(
+        path: '/profile-incomplete',
+        builder: (context, state) {
+          final sessionState = context.read<SessionBLoc>().state;
+          if (sessionState is Authenticated) {
+            return UserProfileComplete(
+              user: sessionState.user,
+              userId: sessionState.user.altid.toString(),
+            );
+          }
+          return const LoginPageUp();
+        },
+      ),
+      GoRoute(
         path: '/signup',
         builder: (context, state) => const SignUpScreen(),
         routes: [

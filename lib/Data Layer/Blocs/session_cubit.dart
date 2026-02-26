@@ -26,16 +26,31 @@ class SessionBLoc extends Bloc<SessionEvent, SessionState> {
 
   Future<void> _mapUserLoggedInToState(
       LoggedIn event, Emitter<SessionState> emit) async {
+    // If altid is 0, we need to fetch updated user data first
+    // This happens when login response doesn't include user data
+    User user = event.user;
+    if (user.altid == 0 || user.altid == null) {
+      try {
+        user = await userRepository.getUpdatedUserFromApi(user);
+      } catch (e) {
+        print('Failed to get updated user: $e');
+        // Continue with original user, will check profile later
+      }
+    }
+    
     final profileCheck =
-        await userRepository.userDao.checkIfProfileComplete(event.user.altid!);
+        await userRepository.userDao.checkIfProfileComplete(user.altid!);
 
     if (profileCheck == 0) {
-      emit(Authenticated(user: event.user));
+      emit(Authenticated(user: user));
+      return;  // ADDED: Stop here if profile is incomplete
     }
-    Profile profile = await userRepository.getProfileFromApi(user: event.user);
+    
+    // Profile is complete, fetch full profile data
+    Profile profile = await userRepository.getProfileFromApi(user: user);
     emit(AuthenticatedWithProfile(
         profile: profile,
-        user: event.user,
+        user: user,
         status: ProfileComplete.complete));
   }
 
