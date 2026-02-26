@@ -33,9 +33,9 @@ class UserSignUpLoginIn {
 class Token {
   @JsonKey(name: 'key')
   String token;
-  UserInfoFromKey user;
+  UserInfoFromKey? user;
 
-  Token({required this.token, required this.user});
+  Token({required this.token, this.user});
 
   factory Token.fromJson(Map<String, dynamic> data) => _$TokenFromJson(data);
 

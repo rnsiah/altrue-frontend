@@ -32,7 +32,7 @@ class UserRepository {
   final _nonAuthProvider = NonAuthenticatedApiProvider();
 
   final String host =
-      'https://92457f366a93.ngrok-free.app/';
+      'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/';
 
   final String baseHost = 'http://127.0.0.1:8000';
 
@@ -55,12 +55,27 @@ class UserRepository {
       User loggedInUser = (await userDao.getCurrentUser(0))!;
       return loggedInUser;
     }
+    
+    // Handle case where login response includes user data
+    if (key.user != null) {
+      User user2 = User(
+          id: 0,
+          email: key.user!.email,
+          key: key.token,
+          altid: key.user!.altid,
+          hasProfile: (key.user!.profileCreated) ? 1 : 0);
+      await persistToken(user: user2);
+      return user2;
+    }
+    
+    // If user data not in login response, fetch it separately
+    // For now, create user with email and we'll fetch profile later
     User user2 = User(
         id: 0,
-        email: key.user.email,
+        email: email,
         key: key.token,
-        altid: key.user.altid,
-        hasProfile: (key.user.profileCreated) ? 1 : 0);
+        altid: 0, // Will be updated when profile is fetched
+        hasProfile: 0);
     await persistToken(user: user2);
     return user2;
   }
@@ -96,14 +111,27 @@ class UserRepository {
     UserSignUpLoginIn userSignUpLoginIn = UserSignUpLoginIn(
         email: email, password: password1, password2: password2);
     Token key = await getKeyFromSignUp(userSignUpLoginIn);
+    
+    // Handle case where registration response includes user data
+    if (key.user != null) {
+      User user = User(
+          email: key.user!.email,
+          id: 0,
+          key: key.token,
+          altid: key.user!.altid,
+          hasProfile: (key.user!.profileCreated) ? 0 : 1);
+      await persistToken(user: user);
+      return user;
+    }
+    
+    // If user data not in response, create with provided email
     User user = User(
-        email: key.user.email,
+        email: email,
         id: 0,
         key: key.token,
-        altid: key.user.altid,
-        hasProfile: (key.user.profileCreated) ? 0 : 1);
+        altid: 0,
+        hasProfile: 0);
     await persistToken(user: user);
-
     return user;
   }
 
@@ -114,13 +142,25 @@ class UserRepository {
     UserConfirmationModel confirmationModel =
         UserConfirmationModel(confirmationCode: confirmationCode, email: email);
     Token key = await getKeyFromConfirmation(confirmationModel);
+    
+    // Handle case where confirmation response includes user data
+    if (key.user != null) {
+      User user = User(
+          email: key.user!.email,
+          key: key.token,
+          id: 0,
+          altid: key.user!.altid,
+          hasProfile: 0);
+      return user;
+    }
+    
+    // If user data not in response, create with provided email
     User user = User(
-        email: key.user.email,
+        email: email,
         key: key.token,
         id: 0,
-        altid: key.user.altid,
+        altid: 0,
         hasProfile: 0);
-
     return user;
   }
 
@@ -324,10 +364,13 @@ class UserRepository {
     }
   }
 
-  Future<void>rewardSharing({required String itemType}) async{
-    User?  user = await userDao.getCurrentUser(0);
-    final repsonse = _apiProvider.postAuthenticatedData(url: 'api/shareItem', key: user!.key!, altId: user.altid!, data: itemType);
-    
+  Future<void> rewardSharing({required String itemType}) async {
+    User? user = await userDao.getCurrentUser(0);
+    final repsonse = _apiProvider.postAuthenticatedData(
+        url: 'api/shareItem',
+        key: user!.key!,
+        altId: user.altid!,
+        data: itemType);
   }
 
   Future<void> addNonProfitToProfileList({required NonProfit nonprofit}) async {
@@ -457,20 +500,18 @@ class UserRepository {
       }
     }
   }
-  Future<List<LeaderBoardEntry>> fetchLeaderBoard()async{
-  
-      final data = await _nonAuthProvider.get('api/leaderboard/points/');
-      return (data as List).map((item) => LeaderBoardEntry.fromJson(item)).toList();
 
-    
+  Future<List<LeaderBoardEntry>> fetchLeaderBoard() async {
+    final data = await _nonAuthProvider.get('api/leaderboard/points/');
+    return (data as List)
+        .map((item) => LeaderBoardEntry.fromJson(item))
+        .toList();
   }
 
-  Future<List<FeedItem>> fetchFeed()async{
+  Future<List<FeedItem>> fetchFeed() async {
     final data = await _nonAuthProvider.get('api/feedView');
     return (data as List).map((item) => FeedItem.fromJson(item)).toList();
   }
-
-
 
   Future<String> upvoteAtrocity({required Atrocity atrocity}) async {
     User? user = await userDao.getCurrentUser(0);
@@ -599,7 +640,7 @@ class UserRepository {
   Future<String?> getOrderStatus(String stripeId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/order_status/');
+        'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/api/order_status/');
 
     try {
       final response = await http.post(
@@ -635,7 +676,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/create_payment_intent/');
+        'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/api/create_payment_intent/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -691,7 +732,7 @@ class UserRepository {
     User? profile = await userDao.getCurrentUser(0);
     print(profile!.key);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/donate/');
+        'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/api/donate/');
     print(url);
     var data = {
       "user_id": profile.altid,
@@ -726,7 +767,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/point_payment/');
+        'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/api/point_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {
@@ -765,7 +806,7 @@ class UserRepository {
       List<OrderItem>? shirts, int orderId, int pointPayment) async {
     User? profile = await userDao.getCurrentUser(0);
     final url = Uri.parse(
-        'https://92457f366a93.ngrok-free.app/api/hybrid_payment/');
+        'https://d04c-2600-1700-a340-10e0-930-c134-41df-c8e2.ngrok-free.app/api/hybrid_payment/');
     List shirtss = [];
     try {
       for (var shirt in shirts!) {

@@ -275,8 +275,9 @@ class CompanyCard extends StatelessWidget {
     if (hasCampaign) return '2x Campaign';
 
     // Check base match percentage
-    final baseMatch = company.nonprofitMatchRelationships?.firstOrNull?.match ??
-        company.atrocityMatchRelationships?.firstOrNull?.match;
+    final baseMatch =
+        company.nonprofitMatchRelationships?.firstOrNull?.matchLevel ??
+            company.atrocityMatchRelationships?.firstOrNull?.match;
 
     if (baseMatch != null && baseMatch > 0) {
       return '${baseMatch.toInt()}% Match';
@@ -311,6 +312,7 @@ class CompanyCard extends StatelessWidget {
               flex: 3,
               child: Container(
                 margin: const EdgeInsets.all(12),
+                padding: const EdgeInsets.all(8),
                 decoration: BoxDecoration(
                   color: Colors.white,
                   borderRadius: BorderRadius.circular(12),
@@ -321,7 +323,6 @@ class CompanyCard extends StatelessWidget {
                         child: Image.network(
                           company.logo!,
                           fit: BoxFit.contain,
-                          padding: const EdgeInsets.all(8),
                         ),
                       )
                     : const Icon(

@@ -34,12 +34,14 @@ Map<String, dynamic> _$UserSignUpLoginInToJson(UserSignUpLoginIn instance) =>
 
 Token _$TokenFromJson(Map<String, dynamic> json) => Token(
       token: json['key'] as String,
-      user: UserInfoFromKey.fromJson(json['user'] as Map<String, dynamic>),
+      user: json['user'] == null
+          ? null
+          : UserInfoFromKey.fromJson(json['user'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
       'key': instance.token,
-      'user': instance.user.toJson(),
+      'user': instance.user?.toJson(),
     };
 
 UserInfoFromKey _$UserInfoFromKeyFromJson(Map<String, dynamic> json) =>
