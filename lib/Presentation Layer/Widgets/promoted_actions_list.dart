@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lovelovelove/Data%20Layer/Models/altrue_action_model.dart';
+import '../../theme/glassmorphism_theme.dart';
 
 class PromotedActionsWidget extends StatelessWidget {
   final List<AltrueAction> promotedActions; // List of promoted actions
@@ -16,17 +17,15 @@ class PromotedActionsWidget extends StatelessWidget {
       children: [
         // Title: Promoted Actions of the Week
         Padding(
-          padding: const EdgeInsets.only(left: 8),
+          padding: const EdgeInsets.only(left: GlassmorphismTheme.sm),
           child: Text(
             'Promoted Actions of the Week',
-            style: TextStyle(
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-              color: Colors.amber,
+            style: GlassmorphismTheme.h3Style.copyWith(
+              color: GlassmorphismTheme.gold,
             ),
           ),
         ),
-        const SizedBox(height: 10), // Add some spacing
+        const SizedBox(height: GlassmorphismTheme.sm), // Add some spacing
         // Promoted actions list
         SizedBox(
           height: 100, // Adjust height as needed
@@ -37,7 +36,7 @@ class PromotedActionsWidget extends StatelessWidget {
               final action = promotedActions[index];
 
               return Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 8.0),
+                padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
                 child: _buildPromotedActionCard(action),
               );
             },

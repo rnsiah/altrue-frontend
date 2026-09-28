@@ -7,6 +7,8 @@ import 'package:lovelovelove/Data%20Layer/Models/category_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/glassmorphism_widgets.dart';
 
 class CompaniesListScreen extends StatefulWidget {
   final Profile profile;
@@ -26,100 +28,119 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: <Widget>[
-          // Search Bar
-          _buildSearchBar(),
-
-          // Filter Chips
-          _buildFilterChips(),
-
-          // Category Selector
-          BlocBuilder<CategoryBloc, CategoryState>(
-            builder: (context, state) {
-              return CategorySelector(
-                isNonProfit: false,
-                isAtrocity: false,
-                isCompany: true,
-                categoryList: state.categoryList,
-                isShirt: false,
-                isProject: false,
-                onCategorySelected: (category) {
-                  setState(() {
-                    _selectedCause = category;
-                  });
-                },
-              );
-            },
+      extendBodyBehindAppBar: true,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary,
+                    GlassmorphismTheme.darkTertiary,
+                  ]
+                : [
+                    Colors.blueGrey,
+                    GlassmorphismTheme.lightSecondary,
+                  ],
           ),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: <Widget>[
+            const SizedBox(height: GlassmorphismTheme.xl + kToolbarHeight),
 
-          const SizedBox(height: 10),
+            // Search Bar
+            _buildSearchBar(),
 
-          // Results Count
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: BlocBuilder<CompanyListBloc, CompanyListState>(
+            // Filter Chips
+            _buildFilterChips(),
+
+            // Category Selector
+            BlocBuilder<CategoryBloc, CategoryState>(
               builder: (context, state) {
-                final filteredCount = _getFilteredCompanies(state).length;
-                return Text(
-                  '$filteredCount Companies',
-                  style: const TextStyle(
-                    color: Colors.amber,
-                    fontWeight: FontWeight.bold,
-                  ),
+                return CategorySelector(
+                  isNonProfit: false,
+                  isAtrocity: false,
+                  isCompany: true,
+                  categoryList: state.categoryList,
+                  isShirt: false,
+                  isProject: false,
+                  onCategorySelected: (category) {
+                    setState(() {
+                      _selectedCause = category;
+                    });
+                  },
                 );
               },
             ),
-          ),
 
-          const SizedBox(height: 10),
+            const SizedBox(height: GlassmorphismTheme.sm),
 
-          // Company Grid
-          Expanded(
-            child: BlocConsumer<CompanyListBloc, CompanyListState>(
-              buildWhen: (p, c) => p.companies != c.companies,
-              builder: (context, state) {
-                final filteredCompanies = _getFilteredCompanies(state);
-
-                if (filteredCompanies.isEmpty) {
-                  return _buildEmptyState();
-                }
-
-                return _buildCompanyGrid(filteredCompanies);
-              },
-              listener: (context, state) => {},
+            // Results Count
+            Padding(
+              padding:
+                  const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.md),
+              child: BlocBuilder<CompanyListBloc, CompanyListState>(
+                builder: (context, state) {
+                  final filteredCount = _getFilteredCompanies(state).length;
+                  return GlassCard(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: GlassmorphismTheme.md,
+                      vertical: GlassmorphismTheme.sm,
+                    ),
+                    child: Text(
+                      '$filteredCount Companies',
+                      style: TextStyle(
+                        color: GlassmorphismTheme.gold,
+                        fontWeight: FontWeight.bold,
+                        fontSize: GlassmorphismTheme.bodySize,
+                      ),
+                    ),
+                  );
+                },
+              ),
             ),
-          ),
-        ],
+
+            const SizedBox(height: GlassmorphismTheme.sm),
+
+            // Company Grid
+            Expanded(
+              child: BlocConsumer<CompanyListBloc, CompanyListState>(
+                buildWhen: (p, c) => p.companies != c.companies,
+                builder: (context, state) {
+                  final filteredCompanies = _getFilteredCompanies(state);
+
+                  if (filteredCompanies.isEmpty) {
+                    return _buildEmptyState();
+                  }
+
+                  return _buildCompanyGrid(filteredCompanies);
+                },
+                listener: (context, state) => {},
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildSearchBar() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
-      child: TextField(
+    return Padding(
+      padding: const EdgeInsets.all(GlassmorphismTheme.md),
+      child: GlassTextField(
         onChanged: (value) {
           setState(() {
             _searchQuery = value.toLowerCase();
           });
         },
-        style: const TextStyle(color: Colors.white),
-        decoration: InputDecoration(
-          hintText: 'Search companies...',
-          hintStyle: TextStyle(color: Colors.grey[500]),
-          prefixIcon: const Icon(Icons.search, color: Colors.amber),
-          border: InputBorder.none,
-          contentPadding:
-              const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-        ),
+        hintText: 'Search companies...',
+        prefixIcon: const Icon(Icons.search, color: GlassmorphismTheme.gold),
       ),
     );
   }
@@ -127,7 +148,7 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
   Widget _buildFilterChips() {
     return Container(
       height: 50,
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
       child: ListView.builder(
         scrollDirection: Axis.horizontal,
         itemCount: _filters.length,
@@ -136,20 +157,12 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
           final isSelected = _selectedFilter == filter;
 
           return Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 4),
-            child: FilterChip(
-              selected: isSelected,
-              showCheckmark: false,
-              backgroundColor: Colors.grey[850],
-              selectedColor: Colors.amber,
-              label: Text(
-                filter,
-                style: TextStyle(
-                  color: isSelected ? Colors.black : Colors.white,
-                  fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
-                ),
-              ),
-              onSelected: (selected) {
+            padding:
+                const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.xs),
+            child: GlassChip(
+              label: filter,
+              isSelected: isSelected,
+              onTap: () {
                 setState(() {
                   _selectedFilter = filter;
                 });
@@ -205,18 +218,19 @@ class _CompaniesListScreenState extends State<CompaniesListScreen> {
 
   Widget _buildCompanyGrid(List<ForProfitCompany> companies) {
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 8),
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
       child: GridView.builder(
         itemCount: companies.length,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisSpacing: 12,
+          crossAxisSpacing: GlassmorphismTheme.md,
           childAspectRatio: .70,
-          mainAxisSpacing: 12,
+          mainAxisSpacing: GlassmorphismTheme.md,
           crossAxisCount: 2,
         ),
         itemBuilder: (context, index) => CompanyCard(
           company: companies[index],
-          press: () => context.go('/companyDetails', extra: companies[index]),
+          press: () =>
+              context.go('/newPosts/companyDetails', extra: companies[index]),
         ),
       ),
     );
@@ -323,6 +337,12 @@ class CompanyCard extends StatelessWidget {
                         child: Image.network(
                           company.logo!,
                           fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: Colors.grey[200],
+                            child: const Icon(Icons.business,
+                                color: Colors.grey, size: 48),
+                          ),
                         ),
                       )
                     : const Icon(

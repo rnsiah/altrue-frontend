@@ -58,7 +58,7 @@ class SignUpBloc extends Bloc<SignUpEvent, SignUpState> {
       validationCubit.showUserProfileCompletion(user);
     } catch (e) {
       emit(state.copyWith(
-          formStatus: SubmissionFaiiled('Your Submission Failed')));
+          formStatus: SubmissionFailed('Your Submission Failed')));
     }
   }
 }

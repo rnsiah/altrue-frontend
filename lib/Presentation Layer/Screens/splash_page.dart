@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+import 'package:lovelovelove/Theme/glass_widgets.dart';
+import 'package:lovelovelove/Theme/glass_effects.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -16,185 +19,177 @@ class _SignUpState extends State<SignUp> {
   Widget build(BuildContext context) {
     return Container(
       decoration: const BoxDecoration(
-          image: DecorationImage(
-        image: AssetImage('images/pplhelping.jpg'),
-        fit: BoxFit.cover,
-      )),
+        gradient: darkGradient,
+      ),
       child: Scaffold(
         backgroundColor: Colors.transparent,
-        body: Container(
-          width: MediaQuery.of(context).size.width,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadius.circular(20),
-            color: Colors.transparent,
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(23),
-            child: ListView(
-              children: <Widget>[
-                const Image(
-                  image: AssetImage('images/Altrue Logo White.png'),
-                ),
-                const SizedBox(
-                  height: 50,
-                ),
-                Form(
-                  child: Column(
-                    children: <Widget>[
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                          decoration: const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
-                              labelText: 'email',
-                              labelStyle:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                          decoration: const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
-                              labelText: 'email',
-                              labelStyle:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                        ),
-                      ),
-                      Padding(
-                        padding: const EdgeInsets.fromLTRB(0, 15, 0, 20),
-                        child: TextFormField(
-                          onChanged: (value) {
-                            email = value;
-                          },
-                          style: const TextStyle(
-                            color: Colors.white,
-                          ),
-                          decoration: const InputDecoration(
-                              enabledBorder: UnderlineInputBorder(
-                                  borderSide: BorderSide(color: Colors.white)),
-                              labelText: 'email',
-                              labelStyle:
-                                  TextStyle(fontSize: 15, color: Colors.white)),
-                        ),
-                      ),
-                      TextFormField(
-                        onChanged: (value) {
-                          password = value;
-                        },
-                        obscureText: true,
-                        style: const TextStyle(
-                          color: Colors.white,
-                        ),
-                        decoration: const InputDecoration(
-                            enabledBorder: UnderlineInputBorder(
-                                borderSide: BorderSide(color: Colors.white)),
-                            labelText: 'Password',
-                            labelStyle:
-                                TextStyle(fontSize: 15, color: Colors.white)),
-                      )
-                    ],
-                  ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 20, bottom: 5),
-                  child: Text(
-                    'Forgot your password?',
-                    textAlign: TextAlign.right,
-                    style: TextStyle(
-                        fontFamily: 'SFUIDisplay',
-                        fontSize: 15,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.amber),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: MaterialButton(
-                    onPressed: () {
-                      print(email);
-                      print(password);
-                    },
-                    color: Colors.amber,
-                    elevation: 0,
-                    minWidth: 350,
-                    height: 60,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50)),
-                    child: const Text(
-                      'SIGN IN',
-                      style: TextStyle(
-                          fontSize: 15,
-                          fontFamily: 'SFUIDisplay',
-                          fontWeight: FontWeight.bold,
-                          color: Colors.white),
+        body: SafeArea(
+          child: Center(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+              child: GlassCard(
+                padding: const EdgeInsets.all(GlassmorphismTheme.xl),
+                borderRadius: GlassmorphismTheme.radius2Xl,
+                opacity: 0.15,
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: <Widget>[
+                    // Logo
+                    const Image(
+                      image: AssetImage('images/Altrue Logo White.png'),
+                      height: 80,
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 20),
-                  child: MaterialButton(
-                    onPressed: () {},
-                    color: Colors.transparent,
-                    elevation: 0,
-                    minWidth: 350,
-                    height: 60,
-                    textColor: Colors.white,
-                    shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(50),
-                        side: const BorderSide(color: Colors.white)),
-                    child: Row(
-                      crossAxisAlignment: CrossAxisAlignment.center,
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
-                      children: const <Widget>[
-                        Icon(Icons.add),
-                        Text(
-                          'Sign up with facebook',
-                          style: TextStyle(
-                              fontSize: 15, fontFamily: 'SFUIDisplay'),
-                        )
+                    const SizedBox(height: GlassmorphismTheme.lg),
+                    
+                    // Title
+                    Text(
+                      'Welcome Back',
+                      style: GlassmorphismTheme.h1Style.copyWith(
+                        color: GlassmorphismTheme.gold,
+                      ),
+                    ),
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    
+                    // Form
+                    Form(
+                      child: Column(
+                        children: <Widget>[
+                          GlassInput(
+                            hintText: 'Email',
+                            prefixIcon: Icons.email_outlined,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                          ),
+                          const SizedBox(height: GlassmorphismTheme.md),
+                          
+                          GlassInput(
+                            hintText: 'Username',
+                            prefixIcon: Icons.person_outlined,
+                            onChanged: (value) {
+                              username = value;
+                            },
+                          ),
+                          const SizedBox(height: GlassmorphismTheme.md),
+                          
+                          GlassInput(
+                            hintText: 'Email',
+                            prefixIcon: Icons.email_outlined,
+                            keyboardType: TextInputType.emailAddress,
+                            onChanged: (value) {
+                              email = value;
+                            },
+                          ),
+                          const SizedBox(height: GlassmorphismTheme.md),
+                          
+                          GlassInput(
+                            hintText: 'Password',
+                            prefixIcon: Icons.lock_outlined,
+                            obscureText: true,
+                            onChanged: (value) {
+                              password = value;
+                            },
+                          ),
+                        ],
+                      ),
+                    ),
+                    
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    
+                    // Forgot Password
+                    Align(
+                      alignment: Alignment.centerRight,
+                      child: TextButton(
+                        onPressed: () {},
+                        child: Text(
+                          'Forgot your password?',
+                          style: GlassmorphismTheme.captionStyle.copyWith(
+                            color: GlassmorphismTheme.gold,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
+                    
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    
+                    // Sign In Button
+                    GlassButton(
+                      text: 'SIGN IN',
+                      isAccent: true,
+                      isFullWidth: true,
+                      onPressed: () {
+                        print(email);
+                        print(password);
+                      },
+                    ),
+                    
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    
+                    // Divider
+                    Row(
+                      children: [
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white.withOpacity(0.2),
+                            thickness: 1,
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.md),
+                          child: Text(
+                            'OR',
+                            style: GlassmorphismTheme.captionStyle.copyWith(
+                              color: GlassmorphismTheme.textSecondary,
+                            ),
+                          ),
+                        ),
+                        Expanded(
+                          child: Divider(
+                            color: Colors.white.withOpacity(0.2),
+                            thickness: 1,
+                          ),
+                        ),
                       ],
                     ),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(top: 30),
-                  child: Center(
-                    child: RichText(
-                      text: const TextSpan(children: [
-                        TextSpan(
-                            text: "Don't have an account?",
-                            style: TextStyle(
-                              fontFamily: 'SFUIDisplay',
-                              color: Colors.white,
-                              fontSize: 15,
-                            )),
-                        TextSpan(
-                            text: "sign up",
-                            style: TextStyle(
-                              fontFamily: 'SFUIDisplay',
-                              color: Colors.amber,
-                              fontSize: 15,
-                            ))
-                      ]),
+                    
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    
+                    // Facebook Button
+                    GlassButton(
+                      text: 'Sign up with Facebook',
+                      icon: Icons.facebook,
+                      isAccent: false,
+                      isFullWidth: true,
+                      onPressed: () {},
                     ),
-                  ),
-                )
-              ],
+                    
+                    const SizedBox(height: GlassmorphismTheme.lg),
+                    
+                    // Sign Up Link
+                    RichText(
+                      text: TextSpan(
+                        children: [
+                          TextSpan(
+                            text: "Don't have an account? ",
+                            style: GlassmorphismTheme.bodyStyle.copyWith(
+                              color: GlassmorphismTheme.textSecondary,
+                            ),
+                          ),
+                          TextSpan(
+                            text: "Sign up",
+                            style: GlassmorphismTheme.bodyStyle.copyWith(
+                              color: GlassmorphismTheme.gold,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -9,6 +9,9 @@ import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_company_impact_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:url_launcher/url_launcher.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
+import '../../widgets/glass/glass_button.dart';
 
 class CompanyOwnerDashboard extends StatefulWidget {
   final ForProfitCompany company;
@@ -29,130 +32,163 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
   void initState() {
     super.initState();
     context.read<CompanyImpactBloc>().add(
-      FetchCompanyDashboard(company: widget.company),
-    );
+          FetchCompanyDashboard(company: widget.company),
+        );
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.grey[900],
-      appBar: AppBar(
-        backgroundColor: Colors.black,
-        elevation: 0,
-        title: const Image(
-          image: AssetImage('images/Altrue Logo White.png'),
-          height: 40,
+        extendBodyBehindAppBar: true,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: const Image(
+            image: AssetImage('images/Altrue Logo White.png'),
+            height: 40,
+          ),
+          centerTitle: true,
+          leading: GlassIconButton(
+            icon: Icons.arrow_back,
+            onPressed: () => context.pop(),
+            variant: GlassButtonVariant.glass,
+          ),
+          actions: [
+            GlassIconButton(
+              icon: Icons.refresh,
+              onPressed: () {
+                context
+                    .read<CompanyImpactBloc>()
+                    .add(const RefreshImpactData());
+              },
+              variant: GlassButtonVariant.glass,
+            ),
+            const SizedBox(width: GlassmorphismTheme.sm),
+          ],
         ),
-        centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.amber),
-          onPressed: () => context.pop(),
-        ),
-        actions: [
-          IconButton(
-            icon: const Icon(Icons.refresh, color: Colors.amber),
-            onPressed: () {
-              context.read<CompanyImpactBloc>().add(const RefreshImpactData());
+        body: Container(
+          decoration: const BoxDecoration(
+            gradient: LinearGradient(
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+              colors: [
+                GlassmorphismTheme.darkPrimary,
+                GlassmorphismTheme.darkSecondary,
+              ],
+            ),
+          ),
+          child: BlocBuilder<CompanyImpactBloc, CompanyImpactState>(
+            builder: (context, state) {
+              if (state.status == CompanyImpactStatus.loading) {
+                return Center(
+                  child: GlassCard(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.xl),
+                    child: const CircularProgressIndicator(
+                      color: GlassmorphismTheme.gold,
+                    ),
+                  ),
+                );
+              }
+
+              if (state.status == CompanyImpactStatus.failure) {
+                return Center(
+                  child: GlassCard(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.xl),
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        const Icon(
+                          Icons.error_outline,
+                          color: Colors.red,
+                          size: 48,
+                        ),
+                        const SizedBox(height: GlassmorphismTheme.md),
+                        Text(
+                          state.errorMessage ?? 'Failed to load dashboard',
+                          style: GlassmorphismTheme.bodyStyle,
+                          textAlign: TextAlign.center,
+                        ),
+                        const SizedBox(height: GlassmorphismTheme.md),
+                        GlassButton(
+                          text: 'Retry',
+                          onPressed: () {
+                            context.read<CompanyImpactBloc>().add(
+                                  FetchCompanyDashboard(
+                                      company: widget.company),
+                                );
+                          },
+                          variant: GlassButtonVariant.primary,
+                        ),
+                      ],
+                    ),
+                  ),
+                );
+              }
+
+              final dashboard = state.companyDashboard;
+              if (dashboard == null) {
+                return Center(
+                  child: GlassCard(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.xl),
+                    child: Text(
+                      'No dashboard data available',
+                      style: GlassmorphismTheme.bodyStyle,
+                    ),
+                  ),
+                );
+              }
+
+              return Column(
+                children: [
+                  _buildViewOnlyBanner(),
+                  Expanded(
+                    child: CustomScrollView(
+                      slivers: [
+                        SliverToBoxAdapter(
+                          child: _buildCompanyHeader(),
+                        ),
+                        SliverToBoxAdapter(
+                          child: _buildStatsGrid(dashboard),
+                        ),
+                        SliverToBoxAdapter(
+                          child: _buildActiveCampaigns(dashboard),
+                        ),
+                        SliverToBoxAdapter(
+                          child: _buildWalletCard(dashboard),
+                        ),
+                        SliverToBoxAdapter(
+                          child: _buildRecentMatches(dashboard),
+                        ),
+                        const SliverPadding(
+                          padding: EdgeInsets.only(bottom: 100),
+                        ),
+                      ],
+                    ),
+                  ),
+                  _buildFixedFooter(),
+                ],
+              );
             },
           ),
-        ],
-      ),
-      body: BlocBuilder<CompanyImpactBloc, CompanyImpactState>(
-        builder: (context, state) {
-          if (state.status == CompanyImpactStatus.loading) {
-            return const Center(
-              child: CircularProgressIndicator(color: Colors.amber),
-            );
-          }
-
-          if (state.status == CompanyImpactStatus.failure) {
-            return Center(
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.error_outline, color: Colors.red, size: 48),
-                  const SizedBox(height: 16),
-                  Text(
-                    state.errorMessage ?? 'Failed to load dashboard',
-                    style: const TextStyle(color: Colors.white70),
-                  ),
-                  const SizedBox(height: 16),
-                  ElevatedButton(
-                    onPressed: () {
-                      context.read<CompanyImpactBloc>().add(
-                        FetchCompanyDashboard(company: widget.company),
-                      );
-                    },
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.amber,
-                    ),
-                    child: const Text('Retry', style: TextStyle(color: Colors.black)),
-                  ),
-                ],
-              ),
-            );
-          }
-
-          final dashboard = state.companyDashboard;
-          if (dashboard == null) {
-            return const Center(
-              child: Text(
-                'No dashboard data available',
-                style: TextStyle(color: Colors.white70),
-              ),
-            );
-          }
-
-          return Column(
-            children: [
-              _buildViewOnlyBanner(),
-              Expanded(
-                child: CustomScrollView(
-                  slivers: [
-                    SliverToBoxAdapter(
-                      child: _buildCompanyHeader(),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _buildStatsGrid(dashboard),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _buildActiveCampaigns(dashboard),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _buildWalletCard(dashboard),
-                    ),
-                    SliverToBoxAdapter(
-                      child: _buildRecentMatches(dashboard),
-                    ),
-                    const SliverPadding(
-                      padding: EdgeInsets.only(bottom: 100),
-                    ),
-                  ],
-                ),
-              ),
-              _buildFixedFooter(),
-            ],
-          );
-        },
-      ),
-    );
+        ));
   }
 
   Widget _buildViewOnlyBanner() {
-    return Container(
-      width: double.infinity,
-      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
-      color: Colors.amber,
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
+      gradient: GlassmorphismTheme.goldGradient,
+      borderRadius: GlassmorphismTheme.radiusMd,
       child: const Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Icon(Icons.visibility, color: Colors.black, size: 16),
-          SizedBox(width: 8),
+          Icon(Icons.visibility,
+              color: GlassmorphismTheme.darkPrimary, size: 16),
+          SizedBox(width: GlassmorphismTheme.sm),
           Text(
             'VIEW-ONLY MODE',
             style: TextStyle(
-              color: Colors.black,
+              color: GlassmorphismTheme.darkPrimary,
               fontWeight: FontWeight.bold,
               fontSize: 12,
             ),
@@ -163,39 +199,34 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
   }
 
   Widget _buildCompanyHeader() {
-    return Container(
-      padding: const EdgeInsets.all(20),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       child: Column(
         children: [
           if (widget.company.logo != null)
             CircleAvatar(
               backgroundImage: NetworkImage(widget.company.logo!),
               radius: 40,
-              backgroundColor: Colors.white,
+              backgroundColor: GlassmorphismTheme.glassWhite,
             ),
-          const SizedBox(height: 12),
+          const SizedBox(height: GlassmorphismTheme.md),
           Text(
             widget.company.name,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 24,
-              fontWeight: FontWeight.bold,
-            ),
+            style: GlassmorphismTheme.h1Style,
           ),
-          const SizedBox(height: 4),
+          const SizedBox(height: GlassmorphismTheme.xs),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
             decoration: BoxDecoration(
-              color: Colors.amber.withOpacity(0.2),
+              gradient: GlassmorphismTheme.goldGradient,
               borderRadius: BorderRadius.circular(20),
-              border: Border.all(color: Colors.amber),
             ),
-            child: const Text(
+            child: Text(
               'Your Company',
               style: TextStyle(
-                color: Colors.amber,
-                fontSize: 12,
-                fontWeight: FontWeight.w500,
+                color: GlassmorphismTheme.darkPrimary,
+                fontSize: GlassmorphismTheme.captionSize,
+                fontWeight: FontWeight.w600,
               ),
             ),
           ),
@@ -205,35 +236,31 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
   }
 
   Widget _buildStatsGrid(CompanyDashboard dashboard) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Padding(
-            padding: EdgeInsets.only(left: 4, bottom: 12),
-            child: Text(
-              'This Month',
-              style: TextStyle(
-                color: Colors.amber,
-                fontSize: 18,
-                fontWeight: FontWeight.bold,
-              ),
+          Text(
+            'This Month',
+            style: GlassmorphismTheme.h2Style.copyWith(
+              color: GlassmorphismTheme.gold,
             ),
           ),
+          const SizedBox(height: GlassmorphismTheme.md),
           GridView.count(
             shrinkWrap: true,
             physics: const NeverScrollableScrollPhysics(),
             crossAxisCount: 2,
             childAspectRatio: 1.4,
-            crossAxisSpacing: 12,
-            mainAxisSpacing: 12,
+            crossAxisSpacing: GlassmorphismTheme.md,
+            mainAxisSpacing: GlassmorphismTheme.md,
             children: [
               _buildStatCard(
                 'Matched',
                 '\$${_formatCurrency(dashboard.matchedThisMonth)}',
                 Icons.favorite,
-                Colors.red,
+                GlassmorphismTheme.gold,
               ),
               _buildStatCard(
                 'Remaining',
@@ -256,7 +283,7 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
             ],
           ),
           if (dashboard.monthlyBudget > 0) ...[
-            const SizedBox(height: 16),
+            const SizedBox(height: GlassmorphismTheme.md),
             _buildProgressBar(dashboard),
           ],
         ],
@@ -264,20 +291,11 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, Color color) {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(16),
-        boxShadow: [
-          BoxShadow(
-            color: color.withOpacity(0.1),
-            blurRadius: 8,
-            offset: const Offset(0, 4),
-          ),
-        ],
-      ),
+  Widget _buildStatCard(
+      String label, String value, IconData icon, Color color) {
+    return GlassCard(
+      padding: const EdgeInsets.all(GlassmorphismTheme.md),
+      hasGoldBorder: color == GlassmorphismTheme.gold,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -285,18 +303,13 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
           const Spacer(),
           Text(
             value,
-            style: const TextStyle(
-              color: Colors.white,
-              fontSize: 22,
-              fontWeight: FontWeight.bold,
+            style: GlassmorphismTheme.h2Style.copyWith(
+              color: GlassmorphismTheme.textPrimary,
             ),
           ),
           Text(
             label,
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-            ),
+            style: GlassmorphismTheme.captionStyle,
           ),
         ],
       ),
@@ -305,54 +318,46 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
 
   Widget _buildProgressBar(CompanyDashboard dashboard) {
     final percentage = dashboard.monthlyProgress / 100;
-    
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
+
+    return GlassCard(
+      padding: const EdgeInsets.all(GlassmorphismTheme.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Monthly Budget Progress',
-                style: TextStyle(
-                  color: Colors.white,
+                style: GlassmorphismTheme.bodyStyle.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
               ),
               Text(
                 '${dashboard.monthlyProgress.toStringAsFixed(1)}%',
-                style: const TextStyle(
-                  color: Colors.amber,
+                style: GlassmorphismTheme.bodyStyle.copyWith(
+                  color: GlassmorphismTheme.gold,
                   fontWeight: FontWeight.bold,
                 ),
               ),
             ],
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: GlassmorphismTheme.sm),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: percentage,
-              backgroundColor: Colors.grey[700],
+              backgroundColor: GlassmorphismTheme.darkTertiary,
               valueColor: AlwaysStoppedAnimation<Color>(
                 dashboard.isNearBudgetLimit ? Colors.orange : Colors.green,
               ),
               minHeight: 8,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: GlassmorphismTheme.sm),
           Text(
             '\$${_formatCurrency(dashboard.matchedThisMonth)} of \$${_formatCurrency(dashboard.monthlyBudget)}',
-            style: TextStyle(
-              color: Colors.white70,
-              fontSize: 12,
-            ),
+            style: GlassmorphismTheme.captionStyle,
           ),
         ],
       ),
@@ -364,97 +369,87 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
       return const SizedBox.shrink();
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Active Campaigns',
-            style: TextStyle(
-              color: Colors.amber,
-              fontSize: 18,
-              fontWeight: FontWeight.bold,
+            style: GlassmorphismTheme.h2Style.copyWith(
+              color: GlassmorphismTheme.gold,
             ),
           ),
-          const SizedBox(height: 12),
-          ...dashboard.activeCampaigns.map((campaign) => _CampaignCard(campaign: campaign)),
+          const SizedBox(height: GlassmorphismTheme.md),
+          ...dashboard.activeCampaigns
+              .map((campaign) => _CampaignCard(campaign: campaign)),
         ],
       ),
     );
   }
 
   Widget _buildWalletCard(CompanyDashboard dashboard) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Container(
-        padding: const EdgeInsets.all(20),
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-            colors: [Colors.amber.shade700, Colors.amber.shade900],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                const Text(
-                  'Wallet Balance',
-                  style: TextStyle(
-                    color: Colors.black87,
-                    fontSize: 14,
-                    fontWeight: FontWeight.w500,
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
+      gradient: GlassmorphismTheme.goldGradient,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                'Wallet Balance',
+                style: GlassmorphismTheme.bodyStyle.copyWith(
+                  color: GlassmorphismTheme.darkPrimary,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+              if (dashboard.autoRefillEnabled)
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+                  decoration: BoxDecoration(
+                    color: GlassmorphismTheme.darkPrimary.withOpacity(0.2),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Icon(Icons.sync,
+                          color: GlassmorphismTheme.darkPrimary, size: 12),
+                      const SizedBox(width: 4),
+                      Text(
+                        'Auto-refill ON',
+                        style: TextStyle(
+                          color: GlassmorphismTheme.darkPrimary,
+                          fontSize: 10,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
-                if (dashboard.autoRefillEnabled)
-                  Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-                    decoration: BoxDecoration(
-                      color: Colors.black.withOpacity(0.2),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: const Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Icon(Icons.sync, color: Colors.black87, size: 12),
-                        SizedBox(width: 4),
-                        Text(
-                          'Auto-refill ON',
-                          style: TextStyle(
-                            color: Colors.black87,
-                            fontSize: 10,
-                            fontWeight: FontWeight.bold,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-              ],
+            ],
+          ),
+          const SizedBox(height: GlassmorphismTheme.sm),
+          Text(
+            '\$${_formatCurrency(dashboard.walletBalance)}',
+            style: TextStyle(
+              color: GlassmorphismTheme.darkPrimary,
+              fontSize: 32,
+              fontWeight: FontWeight.bold,
             ),
-            const SizedBox(height: 8),
-            Text(
-              '\$${_formatCurrency(dashboard.walletBalance)}',
-              style: const TextStyle(
-                color: Colors.black,
-                fontSize: 32,
-                fontWeight: FontWeight.bold,
-              ),
+          ),
+          const SizedBox(height: GlassmorphismTheme.md),
+          Text(
+            'Available for matching donations',
+            style: TextStyle(
+              color: GlassmorphismTheme.darkPrimary.withOpacity(0.8),
+              fontSize: GlassmorphismTheme.captionSize,
             ),
-            const SizedBox(height: 16),
-            Text(
-              'Available for matching donations',
-              style: TextStyle(
-                color: Colors.black.withOpacity(0.7),
-                fontSize: 12,
-              ),
-            ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
@@ -464,90 +459,62 @@ class _CompanyOwnerDashboardState extends State<CompanyOwnerDashboard> {
       return const SizedBox.shrink();
     }
 
-    return Padding(
-      padding: const EdgeInsets.all(16),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Recent Matches',
-                style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
+                style: GlassmorphismTheme.h2Style.copyWith(
+                  color: GlassmorphismTheme.gold,
                 ),
               ),
-              TextButton(
+              GlassButton(
+                text: 'See All',
                 onPressed: () {
                   // Navigate to full matches history
                 },
-                child: const Text(
-                  'See All',
-                  style: TextStyle(color: Colors.amber),
-                ),
+                variant: GlassButtonVariant.secondary,
               ),
             ],
           ),
-          const SizedBox(height: 12),
-          ...dashboard.recentMatches.take(5).map((match) => _RecentMatchCard(match: match)),
+          const SizedBox(height: GlassmorphismTheme.md),
+          ...dashboard.recentMatches
+              .take(5)
+              .map((match) => _RecentMatchCard(match: match)),
         ],
       ),
     );
   }
 
   Widget _buildFixedFooter() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.black,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.5),
-            blurRadius: 10,
-            offset: const Offset(0, -4),
-          ),
-        ],
-      ),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
+      gradient: GlassmorphismTheme.glassGradientStrong,
       child: SafeArea(
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            const Text(
+            Text(
               'To create campaigns or manage settings,',
-              style: TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-              ),
+              style: GlassmorphismTheme.captionStyle,
             ),
-            const SizedBox(height: 8),
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton.icon(
-                onPressed: () async {
-                  final url = Uri.parse('https://dashboard.altrue.global');
-                  if (await canLaunchUrl(url)) {
-                    await launchUrl(url, mode: LaunchMode.externalApplication);
-                  }
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.amber,
-                  padding: const EdgeInsets.symmetric(vertical: 14),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(12),
-                  ),
-                ),
-                icon: const Icon(Icons.open_in_new, color: Colors.black),
-                label: const Text(
-                  'Manage on Web',
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-              ),
+            const SizedBox(height: GlassmorphismTheme.md),
+            GlassButton(
+              text: 'Manage on Web',
+              onPressed: () async {
+                final url = Uri.parse('https://dashboard.altrue.global');
+                if (await canLaunchUrl(url)) {
+                  await launchUrl(url, mode: LaunchMode.externalApplication);
+                }
+              },
+              variant: GlassButtonVariant.primary,
+              isFullWidth: true,
+              trailingIcon: Icons.open_in_new,
             ),
           ],
         ),
@@ -568,17 +535,13 @@ class _CampaignCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = campaign.budgetCap > 0 
-        ? (campaign.amountMatched / campaign.budgetCap).clamp(0.0, 1.0) 
+    final progress = campaign.budgetCap > 0
+        ? (campaign.amountMatched / campaign.budgetCap).clamp(0.0, 1.0)
         : 0.0;
 
-    return Container(
-      margin: const EdgeInsets.only(bottom: 12),
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
+    return GlassCard(
+      margin: const EdgeInsets.only(bottom: GlassmorphismTheme.md),
+      hasGoldBorder: true,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -588,24 +551,20 @@ class _CampaignCard extends StatelessWidget {
               Expanded(
                 child: Text(
                   campaign.name,
-                  style: const TextStyle(
-                    color: Colors.white,
-                    fontWeight: FontWeight.bold,
-                    fontSize: 16,
-                  ),
+                  style: GlassmorphismTheme.h3Style,
                 ),
               ),
               Container(
                 padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
                 decoration: BoxDecoration(
-                  color: Colors.amber.withOpacity(0.2),
+                  gradient: GlassmorphismTheme.goldGradient,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Text(
                   '${campaign.matchMultiplier}x Match',
-                  style: const TextStyle(
-                    color: Colors.amber,
-                    fontSize: 12,
+                  style: TextStyle(
+                    color: GlassmorphismTheme.darkPrimary,
+                    fontSize: GlassmorphismTheme.captionSize,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -613,46 +572,42 @@ class _CampaignCard extends StatelessWidget {
             ],
           ),
           if (campaign.description != null) ...[
-            const SizedBox(height: 4),
+            const SizedBox(height: GlassmorphismTheme.xs),
             Text(
               campaign.description!,
-              style: const TextStyle(
-                color: Colors.white70,
-                fontSize: 12,
-              ),
+              style: GlassmorphismTheme.captionStyle,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
             ),
           ],
-          const SizedBox(height: 12),
+          const SizedBox(height: GlassmorphismTheme.md),
           ClipRRect(
             borderRadius: BorderRadius.circular(4),
             child: LinearProgressIndicator(
               value: progress,
-              backgroundColor: Colors.grey[700],
+              backgroundColor: GlassmorphismTheme.darkTertiary,
               valueColor: AlwaysStoppedAnimation<Color>(
                 campaign.isFullyMatched ? Colors.orange : Colors.green,
               ),
               minHeight: 6,
             ),
           ),
-          const SizedBox(height: 8),
+          const SizedBox(height: GlassmorphismTheme.sm),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
               Text(
                 '\$${_formatCurrency(campaign.amountMatched)} of \$${_formatCurrency(campaign.budgetCap)}',
-                style: TextStyle(
-                  color: Colors.white70,
-                  fontSize: 12,
-                ),
+                style: GlassmorphismTheme.captionStyle,
               ),
               if (campaign.daysRemaining != null)
                 Text(
                   '${campaign.daysRemaining} days left',
                   style: TextStyle(
-                    color: campaign.daysRemaining! < 7 ? Colors.orange : Colors.green,
-                    fontSize: 12,
+                    color: campaign.daysRemaining! < 7
+                        ? Colors.orange
+                        : Colors.green,
+                    fontSize: GlassmorphismTheme.captionSize,
                   ),
                 ),
             ],
@@ -675,37 +630,29 @@ class _RecentMatchCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.only(bottom: 8),
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(8),
-      ),
+    return GlassCard(
+      margin: const EdgeInsets.only(bottom: GlassmorphismTheme.sm),
       child: Row(
         children: [
           CircleAvatar(
-            backgroundColor: Colors.amber.withOpacity(0.2),
-            child: const Icon(Icons.favorite, color: Colors.amber, size: 16),
+            backgroundColor: GlassmorphismTheme.gold.withOpacity(0.2),
+            child: const Icon(Icons.favorite,
+                color: GlassmorphismTheme.gold, size: 16),
           ),
-          const SizedBox(width: 12),
+          const SizedBox(width: GlassmorphismTheme.md),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   match.donorName,
-                  style: const TextStyle(
-                    color: Colors.white,
+                  style: GlassmorphismTheme.bodyStyle.copyWith(
                     fontWeight: FontWeight.w500,
                   ),
                 ),
                 Text(
                   match.nonprofitName ?? match.causeName ?? 'Donation',
-                  style: const TextStyle(
-                    color: Colors.white70,
-                    fontSize: 12,
-                  ),
+                  style: GlassmorphismTheme.captionStyle,
                 ),
               ],
             ),
@@ -715,15 +662,16 @@ class _RecentMatchCard extends StatelessWidget {
             children: [
               Text(
                 '+\$${_formatCurrency(match.matchAmount)}',
-                style: const TextStyle(
+                style: TextStyle(
                   color: Colors.green,
                   fontWeight: FontWeight.bold,
+                  fontSize: GlassmorphismTheme.bodySize,
                 ),
               ),
               Text(
                 _formatTimeAgo(match.createdAt),
                 style: TextStyle(
-                  color: Colors.white70,
+                  color: GlassmorphismTheme.textSecondary,
                   fontSize: 10,
                 ),
               ),

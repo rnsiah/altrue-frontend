@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
 import '../../Data Layer/Models/shirt_group_model.dart';
 import '../../Data Layer/Models/user_model.dart';
@@ -25,7 +27,7 @@ class _ShirtGroupCardState extends State<ShirtGroupCard> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.xs),
       child: Stack(
         alignment: Alignment.center,
         children: [
@@ -34,8 +36,13 @@ class _ShirtGroupCardState extends State<ShirtGroupCard> {
             width: isExpanded ? size.width * .78 : size.width * 0.7,
             height: isExpanded ? size.height * 0.6 : size.height * 0.5,
             duration: const Duration(milliseconds: 500),
-            child: ExpandedContentWidget(
-              shirtgroup: widget.shirtgroup,
+            child: GlassCard(
+              hasGoldBorder: true,
+              borderRadius: GlassmorphismTheme.radius2Xl,
+              padding: const EdgeInsets.all(GlassmorphismTheme.md),
+              child: ExpandedContentWidget(
+                shirtgroup: widget.shirtgroup,
+              ),
             ),
           ),
           AnimatedPositioned(
@@ -46,8 +53,13 @@ class _ShirtGroupCardState extends State<ShirtGroupCard> {
                 onTap: openDetailListPage,
                 child: Hero(
                   tag: widget.shirtgroup.groupImage!,
-                  child: ImageWidget(
-                    shirtgroup: widget.shirtgroup,
+                  child: GlassCard(
+                    hasGoldBorder: true,
+                    borderRadius: GlassmorphismTheme.radiusLg,
+                    padding: EdgeInsets.zero,
+                    child: ImageWidget(
+                      shirtgroup: widget.shirtgroup,
+                    ),
                   ),
                 ),
               ))

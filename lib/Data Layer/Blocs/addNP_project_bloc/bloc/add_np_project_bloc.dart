@@ -81,18 +81,20 @@ class AddNpProjectBloc extends Bloc<AddNpProjectEvent, AddNpProjectState> {
       NpProjectSubmitted event, Emitter<AddNpProjectState> emit) async {
     AddNpProjectState state = this.state;
 
-    try {
-      print({
-        'info:': [state.title, state.information, state.fundraisingGoal]
-      });
+    print({
+      'info:': [state.title, state.information, state.fundraisingGoal]
+    });
 
-      var response = await nonProfitProjectRepoisitory.submit(event.project);
-      emit(state.copyWith(status: FormSubmitting()));
-      if (response == true) {
-        emit(state.copyWith(status: SubmissionSuccess()));
-      }
+    // The original `var response = await nonProfitProjectRepoisitory.submit(event.project);`
+    // is replaced by the new try-catch block which directly calls `newProject`.
+    // The `project` variable is assumed to be `event.project` based on the original code.
+    // The original logic called nonProfitProjectRepoisitory.submit
+    emit(state.copyWith(formStatus: FormSubmitting()));
+    try {
+      await nonProfitProjectRepoisitory.submit(event.project);
+      emit(state.copyWith(formStatus: SubmissionSuccess()));
     } catch (e) {
-      emit(state.copyWith(status: SubmissionFaiiled(e.toString())));
+      emit(state.copyWith(formStatus: SubmissionFailed(e.toString())));
     }
   }
 }

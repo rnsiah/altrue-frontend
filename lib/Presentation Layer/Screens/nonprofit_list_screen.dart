@@ -10,6 +10,8 @@ import 'package:lovelovelove/Data%20Layer/Repositories/category_repository.dart'
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
 class NonProfitList extends StatefulWidget {
   final Profile profile;
@@ -33,89 +35,130 @@ class _NonProfitListState extends State<NonProfitList> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      // appBar: AppBar(
-      //   backgroundColor: Colors.black,
-      //   elevation: 0,
-      //   title: const Image(
-      //     image: AssetImage('images/Altrue Logo White.png'),
-      //   ),
-      // ),
-      body: Padding(
-        padding: const EdgeInsets.all(8.0),
-        child: MultiRepositoryProvider(
-            providers: [
-              RepositoryProvider(create: (_) => CategoryRepository()),
-            ],
+      extendBodyBehindAppBar: true,
+      backgroundColor: isDark
+          ? GlassmorphismTheme.darkPrimary
+          : GlassmorphismTheme.darkPrimary,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ]
+                : [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ],
+          ),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(GlassmorphismTheme.md),
             child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                BlocBuilder<CategoryBloc, CategoryState>(
-                  builder: (context, state) {
-                    return CategorySelector(
-                      onCategorySelected: (category) {},
-                      isProject: false,
-                      isNonProfit: true,
-                      isAtrocity: false,
-                      isCompany: false,
-                      isShirt: false,
-                      categoryList: state.categoryList,
-                    );
-                  },
+                // Header with gold accent title
+                Padding(
+                  padding: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                  child: Text(
+                    'Nonprofit Organizations',
+                    style: GlassmorphismTheme.h1Style.copyWith(
+                      color: GlassmorphismTheme.gold,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-                BlocConsumer<NonprofitBloc, NonprofitState>(
-                  listener: (context, state) {
-                    if (state.status == NonProfitStatus.initial) {
-                      context.read<NonprofitBloc>().add(FetchNonProfitList());
-                    }
-                  },
-                  buildWhen: (p, c) => p.nonprofitList != c.categoryNonProfitList,
-                  builder: (context, state) {
-                    if (state.categoryNonProfitList.isNotEmpty) {
-                      return buildCategoryNonProfitList(state);
-                    } else if (state.categoryNonProfitList.isEmpty &&
-                        state.nonprofitList.isNotEmpty) {
+
+                // Glass search/filter section
+                GlassCard(
+                  margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                  hasGoldBorder: true,
+                  child: BlocBuilder<CategoryBloc, CategoryState>(
+                    builder: (context, state) {
+                      return CategorySelector(
+                        onCategorySelected: (category) {},
+                        isProject: false,
+                        isNonProfit: true,
+                        isAtrocity: false,
+                        isCompany: false,
+                        isShirt: false,
+                        categoryList: state.categoryList,
+                      );
+                    },
+                  ),
+                ),
+
+                // Expanded list content
+                Expanded(
+                  child: BlocConsumer<NonprofitBloc, NonprofitState>(
+                    listener: (context, state) {
+                      if (state.status == NonProfitStatus.initial) {
+                        context.read<NonprofitBloc>().add(FetchNonProfitList());
+                      }
+                    },
+                    buildWhen: (p, c) =>
+                        p.nonprofitList != c.categoryNonProfitList,
+                    builder: (context, state) {
+                      if (state.categoryNonProfitList.isNotEmpty) {
+                        return buildCategoryNonProfitList(state);
+                      } else if (state.categoryNonProfitList.isEmpty &&
+                          state.nonprofitList.isNotEmpty) {
+                        return buildNonProfitList(state);
+                      }
                       return buildNonProfitList(state);
-                    }
-                    return buildNonProfitList(state);
-                  },
+                    },
+                  ),
                 )
               ],
-            )),
+            ),
+          ),
+        ),
       ),
     );
   }
 
   Widget buildNonProfitList(NonprofitState state) {
-    return Expanded(
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: GridView.builder(
-              itemCount: state.nonprofitList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 27,
-                  mainAxisSpacing: 18,
-                  childAspectRatio: .75,
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) => NonProfitSquare(
-                  profile: widget.profile,
-                  nonProfit: state.nonprofitList[index]))),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
+      child: GridView.builder(
+        itemCount: state.nonprofitList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: GlassmorphismTheme.lg,
+          mainAxisSpacing: GlassmorphismTheme.lg,
+          childAspectRatio: 0.75,
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (context, index) => NonProfitSquare(
+          profile: widget.profile,
+          nonProfit: state.nonprofitList[index],
+        ),
+      ),
     );
   }
 
   Widget buildCategoryNonProfitList(NonprofitState state) {
-    return Expanded(
-      child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 2),
-          child: GridView.builder(
-              itemCount: state.categoryNonProfitList.length,
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                  crossAxisSpacing: 27,
-                  mainAxisSpacing: 18,
-                  childAspectRatio: 1,
-                  crossAxisCount: 2),
-              itemBuilder: (context, index) => NonProfitSquare(
-                  profile: widget.profile,
-                  nonProfit: state.categoryNonProfitList[index]))),
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
+      child: GridView.builder(
+        itemCount: state.categoryNonProfitList.length,
+        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisSpacing: GlassmorphismTheme.lg,
+          mainAxisSpacing: GlassmorphismTheme.lg,
+          childAspectRatio: 1,
+          crossAxisCount: 2,
+        ),
+        itemBuilder: (context, index) => NonProfitSquare(
+          profile: widget.profile,
+          nonProfit: state.categoryNonProfitList[index],
+        ),
+      ),
     );
   }
 }
@@ -127,9 +170,10 @@ class NonProfitSquare extends StatelessWidget {
 
   final NonProfit nonProfit;
   final Profile profile;
+
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    return GlassCard(
       onTap: () {
         context
             .read<NonprofitBloc>()
@@ -138,30 +182,54 @@ class NonProfitSquare extends StatelessWidget {
             extra: NonProfitDetailArguments(
                 nonProfit: nonProfit, profile: profile));
       },
-      child: Card(
-        child: Column(
-          children: [
-            Container(
-              padding: const EdgeInsets.all(8),
+      hasGoldBorder: true,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          // Logo container with glass effect
+          Expanded(
+            child: Container(
+              padding: const EdgeInsets.all(GlassmorphismTheme.md),
               decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.circular(16),
+                color: Colors.white.withOpacity(0.05),
+                borderRadius:
+                    BorderRadius.circular(GlassmorphismTheme.radiusMd),
               ),
               child: Image.network(
                 nonProfit.logo,
+                fit: BoxFit.contain,
+                errorBuilder: (context, error, stackTrace) => Container(
+                  decoration: BoxDecoration(
+                    color: GlassmorphismTheme.gold.withOpacity(0.1),
+                    borderRadius:
+                        BorderRadius.circular(GlassmorphismTheme.radiusMd),
+                  ),
+                  child: const Icon(
+                    Icons.business,
+                    color: GlassmorphismTheme.gold,
+                    size: 48,
+                  ),
+                ),
               ),
             ),
-            Padding(
-              padding: const EdgeInsets.symmetric(vertical: 2),
-              child: Text(
-                nonProfit.name,
-                style:
-                    const TextStyle(fontSize: 15, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: GlassmorphismTheme.sm),
+          // Organization name
+          Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
+            child: Text(
+              nonProfit.name,
+              style: GlassmorphismTheme.h3Style.copyWith(
+                fontWeight: FontWeight.w600,
               ),
+              textAlign: TextAlign.center,
+              maxLines: 2,
+              overflow: TextOverflow.ellipsis,
             ),
-          ],
-        ),
+          ),
+          const SizedBox(height: GlassmorphismTheme.xs),
+        ],
       ),
     );
   }

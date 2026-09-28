@@ -40,7 +40,7 @@ class NonprofitsignupBloc
     } else if (event is NonProfitYearStartedChangeOnForm) {
       yield state.copyWith(yearStarted: event.npYearStarted);
     } else if (event is NonProfitSignUpFormCompletion) {
-      yield state.copyWith(status: FormSubmitting());
+      yield state.copyWith(formStatus: FormSubmitting());
       try {
         User? user = await userRepository.userDao.getCurrentUser(0);
 
@@ -58,10 +58,10 @@ class NonprofitsignupBloc
         bool created = await nonProfitRespository.newNonProfit(
             nonprofit: nonprofit, user: user!);
         if (created == true) {
-          yield state.copyWith(status: SubmissionSuccess());
+          yield state.copyWith(formStatus: SubmissionSuccess());
         }
       } catch (e) {
-        yield state.copyWith(status: SubmissionFaiiled(e.toString()));
+        yield state.copyWith(formStatus: SubmissionFailed(e.toString()));
         print(e.toString());
       }
     }

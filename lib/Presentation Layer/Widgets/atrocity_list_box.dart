@@ -7,6 +7,8 @@ import '../../Data Layer/Blocs/atrocity_bloc/bloc/atrocity_bloc_bloc.dart';
 import '../../Data Layer/Models/atrocity_model.dart';
 import '../../Data Layer/Models/user_model.dart';
 import '../Routers/functionality_router.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
 class AtrocityBox extends StatelessWidget {
   final Atrocity atrocity;
@@ -35,74 +37,97 @@ class AtrocityBox extends StatelessWidget {
   }
 
   Widget _buildSpecialContainer(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       height: 130,
       width: 100,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: const Offset(0, 3))
+      hasGoldBorder: true,
+      borderRadius: GlassmorphismTheme.radiusLg,
+      child: Stack(
+        children: [
+          // Background image with dark overlay
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusLg),
+              child: Image.network(
+                atrocity.imageUrl!,
+                fit: BoxFit.cover,
+                color: Colors.black.withOpacity(0.4),
+                colorBlendMode: BlendMode.darken,
+              ),
+            ),
+          ),
+          // Content overlay
+          Align(
+            alignment: Alignment.centerLeft,
+            child: Padding(
+              padding: const EdgeInsets.all(GlassmorphismTheme.md),
+              child: Text(
+                atrocity.title,
+                style: GlassmorphismTheme.h3Style.copyWith(
+                  color: GlassmorphismTheme.textPrimary,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
         ],
-        image: DecorationImage(
-            colorFilter:
-                const ColorFilter.mode(Colors.yellow, BlendMode.darken),
-            image: NetworkImage(atrocity.imageUrl!),
-            fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: _buildTextWithSizeAdjustment(context, atrocity.title),
       ),
     );
   }
 
   Widget _buildStandardContainer(BuildContext context) {
-    return Container(
-      margin: const EdgeInsets.all(10),
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
       height: 130,
       width: 100,
-      decoration: BoxDecoration(
-        boxShadow: [
-          BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 7,
-              offset: const Offset(0, 3))
-        ],
-        image: DecorationImage(
-            colorFilter: const ColorFilter.mode(Colors.green, BlendMode.darken),
-            image: NetworkImage(atrocity.imageUrl!),
-            fit: BoxFit.cover),
-        borderRadius: BorderRadius.circular(10),
-      ),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      borderRadius: GlassmorphismTheme.radiusLg,
+      child: Stack(
         children: [
-          Align(
-            alignment: Alignment.topRight,
-            child: Container(
-              transform: Matrix4.translationValues(0, -10, 0),
-              child: IconButton(
-                iconSize: 40,
-                color: Colors.white,
-                icon: const Icon(Icons.arrow_circle_up_outlined),
-                onPressed: () {},
+          // Background image with green overlay
+          Positioned.fill(
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusLg),
+              child: Image.network(
+                atrocity.imageUrl!,
+                fit: BoxFit.cover,
+                color: Colors.green.withOpacity(0.3),
+                colorBlendMode: BlendMode.darken,
               ),
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: SizedBox(
-              child: Align(
-                alignment: Alignment.centerLeft,
-                child: _buildTextWithSizeAdjustment(context, atrocity.title),
+          // Content overlay
+          Column(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              // Action button
+              Align(
+                alignment: Alignment.topRight,
+                child: Container(
+                  transform: Matrix4.translationValues(0, -GlassmorphismTheme.sm, 0),
+                  child: IconButton(
+                    iconSize: 32,
+                    color: GlassmorphismTheme.gold,
+                    icon: const Icon(Icons.arrow_circle_up_outlined),
+                    onPressed: () {},
+                  ),
+                ),
               ),
-            ),
+              // Title
+              Padding(
+                padding: const EdgeInsets.all(GlassmorphismTheme.md),
+                child: Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    atrocity.title,
+                    style: GlassmorphismTheme.h3Style.copyWith(
+                      color: GlassmorphismTheme.textPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ),
+              ),
+            ],
           ),
         ],
       ),
@@ -113,11 +138,10 @@ class AtrocityBox extends StatelessWidget {
     final textPainter = TextPainter(
         text: TextSpan(
       text: title,
-      style: TextStyle(
-          fontSize: 19,
-          fontWeight: FontWeight.w800,
-          color: Colors.white,
-          backgroundColor: Colors.black.withOpacity(.4)),
+      style: GlassmorphismTheme.h3Style.copyWith(
+        fontWeight: FontWeight.bold,
+        color: GlassmorphismTheme.textPrimary,
+      ),
     ));
     textPainter.layout(maxWidth: 100); // Assuming a maximum width of 100
 
@@ -126,9 +150,10 @@ class AtrocityBox extends StatelessWidget {
     return Text(title,
         style: TextStyle(
           fontSize: numberOfLines > 2 // Adjust based on your logic
-              ? 16.0 // Set a smaller font size for more than 2 lines
-              : 19.0,
-          fontWeight: FontWeight.w800,
+              ? GlassmorphismTheme.bodySize // Set a smaller font size for more than 2 lines
+              : GlassmorphismTheme.h3Size,
+          fontWeight: FontWeight.bold,
+          color: GlassmorphismTheme.textPrimary,
         ));
   }
 }

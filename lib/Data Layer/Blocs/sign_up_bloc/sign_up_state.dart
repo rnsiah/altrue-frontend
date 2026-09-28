@@ -6,7 +6,7 @@ class SignUpState {
   final String password2;
   final bool hasAltrueCode;
   final String altrueCode;
-  final FormSubmissionStatus formaStatus;
+  final FormSubmissionStatus formStatus;
   bool get isValidemail => email.contains('@') && email.length > 5;
   bool get isValidpassword => password1.length > 6;
 
@@ -24,7 +24,7 @@ class SignUpState {
     this.password2 = '',
     this.hasAltrueCode = false,
     this.altrueCode = '',
-    this.formaStatus = const InitialFormStatus(),
+    this.formStatus = const InitialFormStatus(),
   });
 
   SignUpState copyWith({
@@ -41,7 +41,7 @@ class SignUpState {
       hasAltrueCode: hasAltrueCode ?? this.hasAltrueCode,
       password1: password1 ?? this.password1,
       password2: password2 ?? this.password2,
-      formaStatus: formStatus ?? formaStatus,
+      formStatus: formStatus ?? this.formStatus,
     );
   }
 }

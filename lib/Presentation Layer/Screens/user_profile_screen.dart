@@ -12,6 +12,9 @@ import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/UserProfile_Transaction_Details/userprofile_details_tabs.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/profile_recent_donations_tab.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
+import '../../widgets/glass/glass_button.dart';
 
 import '../Widgets/company_dashboard/water_view.dart';
 
@@ -38,477 +41,546 @@ class _ProfileScreenState extends State<ProfileScreen>
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
     double height = MediaQuery.of(context).size.height;
-    return Stack(fit: StackFit.expand, children: [
-      Container(
-        decoration: const BoxDecoration(
-            gradient: LinearGradient(
-          colors: [Colors.white, Colors.amber],
-          begin: FractionalOffset.bottomCenter,
-          end: FractionalOffset.topCenter,
-        )),
-      ),
-      Scaffold(
-        backgroundColor: Colors.black,
-        // appBar: AppBar(
-        //   backgroundColor: Colors.black,
-        //   elevation: 0,
-        //   title: const Image(
-        //     image: AssetImage('images/Altrue Logo White.png'),
-        //   ),
-        // ),
-        body: SingleChildScrollView(
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 2, vertical: 15),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.start,
-                  children: [
-                    CircleAvatar(
-                      radius: 60.0,
-                      foregroundImage:
-                          NetworkImage(widget.profile.profilePicture!.url),
-                      backgroundImage:
-                          NetworkImage(widget.profile.profilePicture!.url),
-                    ),
-                    const SizedBox(width: 22),
-                    Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text(
-                            widget.profile.username.toString(),
-                            textAlign: TextAlign.start,
-                            style: const TextStyle(
-                                color: Colors.white, fontSize: 15),
-                          ),
-                          const Text('Username',
-                              style:
-                                  TextStyle(color: Colors.amber, fontSize: 12)),
-                          const SizedBox(
-                            height: 12,
-                          ),
-                          MaterialButton(
-                            minWidth: 10,
-                            color: Colors.transparent,
-                            child: const Text(
-                              'Edit Profile',
-                              style:
-                                  TextStyle(color: Colors.amber, fontSize: 10),
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return Scaffold(
+      extendBodyBehindAppBar: true,
+      backgroundColor: Colors.transparent,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ]
+                : [
+                    GlassmorphismTheme.textSecondary,
+                    GlassmorphismTheme.textPrimary
+                  ],
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ),
+        ),
+        child: SingleChildScrollView(
+          padding: EdgeInsets.only(
+            top: MediaQuery.of(context).padding.top + GlassmorphismTheme.lg,
+            bottom: GlassmorphismTheme.xl,
+          ),
+          child: Column(
+            children: [
+              // Profile Header Section
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                    horizontal: GlassmorphismTheme.md),
+                child: GlassCard(
+                  hasGoldBorder: true,
+                  child: Padding(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+                    child: Row(
+                      children: [
+                        // Profile Picture
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            border: Border.all(
+                              color: GlassmorphismTheme.gold.withOpacity(0.5),
+                              width: 2,
                             ),
-                            onPressed: () async {
-                              context.go('/userprofile/editmyprofile');
-                            },
-                          )
-                        ]),
-                    const Text(
-                      'My\nProfile',
-                      textAlign: TextAlign.center,
-                      style: TextStyle(fontSize: 18, color: Colors.amber),
+                          ),
+                          child: CircleAvatar(
+                            radius: 50.0,
+                            foregroundImage: NetworkImage(
+                                widget.profile.profilePicture!.url),
+                            backgroundImage: NetworkImage(
+                                widget.profile.profilePicture!.url),
+                          ),
+                        ),
+                        const SizedBox(width: GlassmorphismTheme.lg),
+
+                        // User Info
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                widget.profile.username.toString(),
+                                style: isDark
+                                    ? GlassmorphismTheme.h2Style
+                                    : GlassmorphismTheme.h2Style,
+                              ),
+                              Text(
+                                'Username',
+                                style: TextStyle(
+                                  color:
+                                      GlassmorphismTheme.gold.withOpacity(0.7),
+                                  fontSize: GlassmorphismTheme.captionSize,
+                                ),
+                              ),
+                              const SizedBox(height: GlassmorphismTheme.md),
+                              GlassButton(
+                                text: 'Edit Profile',
+                                variant: GlassButtonVariant.secondary,
+                                onPressed: () async {
+                                  context.go('/userprofile/editmyprofile');
+                                },
+                                horizontalPadding: GlassmorphismTheme.md,
+                                verticalPadding: GlassmorphismTheme.sm,
+                              ),
+                            ],
+                          ),
+                        ),
+
+                        // My Profile Text
+                        Column(
+                          children: [
+                            Text(
+                              'My',
+                              style: TextStyle(
+                                fontSize: GlassmorphismTheme.h2Size,
+                                color: GlassmorphismTheme.gold,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                            Text(
+                              'Profile',
+                              style: TextStyle(
+                                fontSize: GlassmorphismTheme.h2Size,
+                                color: GlassmorphismTheme.gold,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
+
+              const SizedBox(height: GlassmorphismTheme.lg),
+
+              // Tab Bar
+              GlassCard(
+                margin: const EdgeInsets.symmetric(
+                    horizontal: GlassmorphismTheme.md),
+                child: TabBar(
+                  indicator: BoxDecoration(
+                    gradient: LinearGradient(
+                      colors: [
+                        GlassmorphismTheme.gold.withOpacity(0.8),
+                        GlassmorphismTheme.goldDark.withOpacity(0.8),
+                      ],
+                    ),
+                    borderRadius:
+                        BorderRadius.circular(GlassmorphismTheme.radiusMd),
+                  ),
+                  indicatorColor: GlassmorphismTheme.gold,
+                  controller: _controller,
+                  tabs: [
+                    Tab(
+                      child: Text(
+                        'Altrue Stats',
+                        style: TextStyle(
+                          color: isDark
+                              ? GlassmorphismTheme.textPrimary
+                              : GlassmorphismTheme.textPrimary,
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Donations',
+                        style: TextStyle(
+                          color: isDark
+                              ? GlassmorphismTheme.textPrimary
+                              : GlassmorphismTheme.textPrimary,
+                        ),
+                      ),
+                    ),
+                    Tab(
+                      child: Text(
+                        'Rewards',
+                        style: TextStyle(
+                          color: isDark
+                              ? GlassmorphismTheme.textPrimary
+                              : GlassmorphismTheme.textPrimary,
+                        ),
+                      ),
                     ),
                   ],
                 ),
-                TabBar(
-                    indicatorColor: Colors.amber,
-                    controller: _controller,
-                    tabs: const [
-                      Tab(
-                        text: 'Altrue Stats',
-                      ),
-                      Tab(
-                        text: 'Donations',
-                      ),
-                      Tab(text: 'Rewards')
-                    ]),
-                SizedBox.fromSize(
-                  size:
-                      Size.fromHeight(MediaQuery.of(context).size.height * .7),
-                  child: TabBarView(controller: _controller, children: [
-                    AltrueStats(widget: widget),
-                    ProfileRecentDonations(profile: widget.profile,),
-                    // buildProfileRecentDonations(context),
-                    SingleChildScrollView(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: height * 0.33,
-                            child: LayoutBuilder(
-                              builder: (context, constraints) {
-                                double innerHeight = constraints.maxHeight;
-                                double innerWidth = constraints.maxWidth;
-                                return Stack(
-                                  fit: StackFit.expand,
-                                  children: [
-                                    Positioned(
-                                      bottom: 0,
-                                      right: 0,
-                                      left: 0,
-                                      child: Container(
-                                        height: innerHeight * .72,
-                                        width: innerWidth,
-                                        decoration: BoxDecoration(
-                                          borderRadius:
-                                              BorderRadius.circular(30),
-                                          color: Colors.grey[900],
-                                        ),
-                                        child: Column(
-                                          children: [
-                                            const SizedBox(
-                                              height: 12,
-                                            ),
-                                            Text(
-                                              widget.profile.username!,
-                                              style: const TextStyle(
-                                                color: Colors.amber,
-                                              ),
-                                            ),
-                                            const SizedBox(height: 5),
-                                            Row(
-                                              mainAxisAlignment:
-                                                  MainAxisAlignment.center,
-                                              children: [
-                                                Column(
-                                                  children: [
-                                                    const Text(
-                                                      'Orders',
-                                                    ),
-                                                    Text(
-                                                      widget.profile.orders!
-                                                          .length
-                                                          .toString(),
-                                                      style: TextStyle(
-                                                          color: Colors.white),
-                                                    ),
-                                                  ],
-                                                )
-                                              ],
-                                            ),
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.symmetric(
-                                                      horizontal: 25,
-                                                      vertical: 8),
-                                              child: Container(
-                                                height: 50,
-                                                width: 3,
-                                                decoration: BoxDecoration(
-                                                  borderRadius:
-                                                      BorderRadius.circular(
-                                                          100),
-                                                  color: Colors.grey,
-                                                ),
-                                              ),
-                                            ),
-                                            Column(
-                                              children: const [
-                                                Text('Pending'),
-                                                Text('1')
-                                              ],
-                                            )
-                                          ],
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                );
-                              },
-                            ),
-                          ),
-                          const SizedBox(
-                            height: 30,
-                          ),
-                          Container(
-                            height: height * .7,
-                            width: width,
-                            decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(30),
-                                color: Colors.grey[900]),
-                            child: Padding(
-                                padding:
-                                    const EdgeInsets.symmetric(horizontal: 15),
-                                child: Column(
-                                  children: [
-                                    const SizedBox(
-                                      height: 20,
-                                    ),
-                                    const Text(
-                                      'My Transactions',
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          fontWeight: FontWeight.bold,
-                                          color: Colors.white),
-                                    ),
-                                    Container(
-                                      child: Expanded(
-                                          child: UserProfileDetailTabs(
-                                              profile: widget.profile)),
-                                    )
-                                  ],
-                                )),
-                          )
-                        ],
+              ),
+
+              const SizedBox(height: GlassmorphismTheme.md),
+
+              // Tab Content
+              SizedBox(
+                height: MediaQuery.of(context).size.height * 0.7,
+                child: TabBarView(
+                  controller: _controller,
+                  children: [
+                    // Altrue Stats Tab
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: GlassmorphismTheme.md),
+                      child: GlassCard(
+                        child: Padding(
+                          padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+                          child: AltrueStats(widget: widget),
+                        ),
                       ),
                     ),
-                  ]),
+                    // Donations Tab
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: GlassmorphismTheme.md),
+                      child: GlassCard(
+                        child: Padding(
+                          padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+                          child:
+                              ProfileRecentDonations(profile: widget.profile),
+                        ),
+                      ),
+                    ),
+                    // Rewards Tab
+                    Padding(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: GlassmorphismTheme.md),
+                      child: GlassCard(
+                        child: SingleChildScrollView(
+                          padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+                          child: Column(
+                            children: [
+                              // User Stats Section
+                              GlassCard(
+                                hasGoldBorder: true,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(
+                                      GlassmorphismTheme.lg),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        widget.profile.username!,
+                                        style: TextStyle(
+                                          color: GlassmorphismTheme.gold,
+                                          fontSize: GlassmorphismTheme.h3Size,
+                                          fontWeight: FontWeight.w600,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                          height: GlassmorphismTheme.md),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          _buildStatItem(
+                                            'Orders',
+                                            widget.profile.orders!.length
+                                                .toString(),
+                                            isDark,
+                                          ),
+                                          Container(
+                                            height: 30,
+                                            width: 1,
+                                            color: GlassmorphismTheme.gold
+                                                .withOpacity(0.3),
+                                          ),
+                                          _buildStatItem(
+                                            'Pending',
+                                            '1',
+                                            isDark,
+                                          ),
+                                        ],
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                              const SizedBox(height: GlassmorphismTheme.lg),
+
+                              // Transactions Section
+                              GlassCard(
+                                hasGoldBorder: true,
+                                child: Padding(
+                                  padding: const EdgeInsets.all(
+                                      GlassmorphismTheme.lg),
+                                  child: Column(
+                                    children: [
+                                      Text(
+                                        'My Transactions',
+                                        style: TextStyle(
+                                          fontSize: GlassmorphismTheme.h3Size,
+                                          fontWeight: FontWeight.bold,
+                                          color: isDark
+                                              ? GlassmorphismTheme.textPrimary
+                                              : GlassmorphismTheme.textPrimary,
+                                        ),
+                                      ),
+                                      const SizedBox(
+                                          height: GlassmorphismTheme.md),
+                                      SizedBox(
+                                        height: height * 0.4,
+                                        child: UserProfileDetailTabs(
+                                            profile: widget.profile),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                  ],
                 ),
-                const SizedBox(
-                  height: 30,
-                ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
-      )
-    ]);
+      ),
+    );
+  }
+
+  Widget _buildStatItem(String label, String value, bool isDark) {
+    return Column(
+      children: [
+        Text(
+          label,
+          style: TextStyle(
+            color: GlassmorphismTheme.textSecondary,
+            fontSize: GlassmorphismTheme.captionSize,
+          ),
+        ),
+        Text(
+          value,
+          style: TextStyle(
+            color: GlassmorphismTheme.gold,
+            fontSize: GlassmorphismTheme.h3Size,
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ],
+    );
   }
 
   SizedBox buildProfileRecentDonations(BuildContext context) {
     return SizedBox(
-                    height: MediaQuery.of(context).size.height * .5,
-                    child: SingleChildScrollView(
-                      child: Column(children: [
-                        const Padding(
-                          padding: EdgeInsets.only(left: 12.0, bottom: 12),
-                          child: Align(
-                            alignment: Alignment.centerLeft,
-                            child: Text(
-                              'Recent Donations',
-                              textAlign: TextAlign.start,
-                              style: TextStyle(
-                                  color: Colors.amber, fontSize: 20),
-                            ),
-                          ),
-                        ),
-                        widget.profile.userdonations!.isNotEmpty
-                            ? SizedBox(
-                                width: double.infinity,
-                                height: 400,
-                                child: ListView.builder(
-                                    scrollDirection: Axis.horizontal,
-                                    itemCount:
-                                        widget.profile.userdonations!.length,
-                                    itemBuilder: (context, index) {
-                                      if (widget.profile.userdonations![index]
-                                              .nonprofit !=
-                                          null) {
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                              padding:
-                                                  const EdgeInsets.all(8.0),
-                                              child: GestureDetector(
-                                                onLongPress: () {
-                                                  showDialog(
-                                                      context: (context),
-                                                      builder: (_) {
-                                                        return Dialog(
-                                                          backgroundColor:
-                                                              Colors.grey,
-                                                          child: Container(
-                                                              decoration: BoxDecoration(
-                                                                  borderRadius:
-                                                                      BorderRadius.circular(
-                                                                          60)),
-                                                              height: MediaQuery.of(
-                                                                          context)
-                                                                      .size
-                                                                      .height *
-                                                                  .4,
-                                                              child:
-                                                                  const Text(
-                                                                      'hey')),
-                                                        );
-                                                      });
-                                                },
-                                                child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadiusDirectional
-                                                              .circular(14),
-                                                      image: DecorationImage(
-                                                          image: NetworkImage(
-                                                              widget
-                                                                  .profile
-                                                                  .userdonations![
-                                                                      index]
-                                                                  .nonprofit!
-                                                                  .logo!)),
-                                                      shape:
-                                                          BoxShape.rectangle,
-                                                    )),
-                                              ),
-                                            )
-                                          ],
-                                        );
-                                      } else if (widget
-                                              .profile
-                                              .userdonations![index]
-                                              .atrocity !=
-                                          null) {
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(14),
-                                                      color:
-                                                          Colors.amberAccent,
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(
-                                                      widget
-                                                          .profile
-                                                          .userdonations![
-                                                              index]
-                                                          .atrocity!
-                                                          .title,
-                                                      style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 12,
-                                                          fontWeight:
-                                                              FontWeight.bold,
-                                                          backgroundColor:
-                                                              Colors.black38),
-                                                    ))))
-                                          ],
-                                        );
-                                      } else if (widget
-                                              .profile
-                                              .userdonations![index]
-                                              .project !=
-                                          null) {
-                                        return Column(
-                                          children: [
-                                            Padding(
-                                                padding:
-                                                    const EdgeInsets.all(8),
-                                                child: Container(
-                                                    height: 100,
-                                                    width: 100,
-                                                    decoration: BoxDecoration(
-                                                      borderRadius:
-                                                          BorderRadius
-                                                              .circular(14),
-                                                      color: Colors.white,
-                                                    ),
-                                                    child: Center(
-                                                        child: Text(widget
-                                                            .profile
-                                                            .userdonations![
-                                                                index]
-                                                            .project!
-                                                            .title
-                                                            .toString()))))
-                                          ],
-                                        );
-                                      }
-                                      return Container(
-                                        child: Text(
-                                          widget.profile.userdonations![index]
-                                              .id
-                                              .toString(),
-                                          style: const TextStyle(
-                                              color: Colors.white),
-                                        ),
-                                      );
-                                    }),
-
-                                // Column(
-                                //       children: [
-                                //         profile.userdonations![index].nonprofit !=
-                                //                 null
-                                //  Container(
-                                //     height: 100,
-                                //     width: 100,
-                                //     decoration: BoxDecoration(
-                                //       image: DecorationImage(
-                                //           image: NetworkImage(profile
-                                //               .userdonations![index]
-                                //               .nonprofit!
-                                //               .logo)),
-                                //       shape: BoxShape.circle,
-                                //     ))
-                                //             :profile.userdonations![index].atrocity!=null?
-
-                                //             Padding(
-                                //                 padding: const EdgeInsets.only(
-                                //                     left: 6.0, right: 6),
-                                //                 child: Container(
-                                //                   height: 100,
-                                //                   width: 100,
-                                //                   decoration: BoxDecoration(
-                                //                     borderRadius:
-                                //                         BorderRadius.circular(14),
-                                //                     color: Colors.red,
-                                //                   ),
-                                //                   child: Center(
-                                //                       child: profile
-                                //                                   .userdonations![
-                                //                                       index]
-                                //                                   .atrocity !=
-                                //                               null
-                                //                           ? Text(
-                                //                               profile
-                                //                                   .userdonations![
-                                //                                       index]
-                                //                                   .atrocity!
-                                //                                   .title,
-                                //                               softWrap: true,
-                                //                             )
-                                //                           : Text(profile
-                                //                               .userdonations![index]
-                                //                               .project!
-                                //                               .title)),
-                                //                 ),
-                                //               ),
-                                //         profile.userdonations![index].nonprofit !=
-                                //                 null
-                                //             ? Text(profile.userdonations![index]
-                                //                 .nonprofit!.name)
-                                //             : Text('The Atrocity')
-                                //       ],
-                                //     )),
-                                // itemBuilder: (context, index) => Column(
-                                //       children: [
-                                //         Container(
-                                //             decoration:
-                                //                 profile.userdonations![index].nonprofit !=
-                                //                         null
-                                //                     ? BoxDecoration(
-                                //                         image: DecorationImage(
-                                //                             image: NetworkImage(profile
-                                //                                 .userdonations![index]
-                                //                                 .nonprofit!
-                                //                                 .logo)),
-                                //                         shape: BoxShape.circle)
-                                //                     : BoxDecoration(color: Colors.black),
-                                //             child:
-                                //                 profile.userdonations![index].nonprofit !=
-                                //                         null
-                                //                     ? null
-                                //                     : Text('Altrue Cause')),
-                                //         profile.userdonations![index].nonprofit != null
-                                //             ? Text(profile
-                                //                 .userdonations![index].nonprofit!.name)
-                                //             : Text(profile
-                                //                 .userdonations![index].atrocity!.title)
-                                //       ],
-                                //     )),
+      height: MediaQuery.of(context).size.height * .5,
+      child: SingleChildScrollView(
+        child: Column(children: [
+          const Padding(
+            padding: EdgeInsets.only(left: 12.0, bottom: 12),
+            child: Align(
+              alignment: Alignment.centerLeft,
+              child: Text(
+                'Recent Donations',
+                textAlign: TextAlign.start,
+                style: TextStyle(color: Colors.amber, fontSize: 20),
+              ),
+            ),
+          ),
+          widget.profile.userdonations!.isNotEmpty
+              ? SizedBox(
+                  width: double.infinity,
+                  height: 400,
+                  child: ListView.builder(
+                      scrollDirection: Axis.horizontal,
+                      itemCount: widget.profile.userdonations!.length,
+                      itemBuilder: (context, index) {
+                        if (widget.profile.userdonations![index].nonprofit !=
+                            null) {
+                          return Column(
+                            children: [
+                              Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: GestureDetector(
+                                  onLongPress: () {
+                                    showDialog(
+                                        context: (context),
+                                        builder: (_) {
+                                          return Dialog(
+                                            backgroundColor: Colors.grey,
+                                            child: Container(
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            60)),
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .4,
+                                                child: const Text('hey')),
+                                          );
+                                        });
+                                  },
+                                  child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius:
+                                            BorderRadiusDirectional.circular(
+                                                14),
+                                        image: DecorationImage(
+                                            image: NetworkImage(widget
+                                                .profile
+                                                .userdonations![index]
+                                                .nonprofit!
+                                                .logo!)),
+                                        shape: BoxShape.rectangle,
+                                      )),
+                                ),
                               )
-                            : Container(
-                                child: const Text(
-                                    "You have not made any donations to any organizations."),
-                              ),
-                      ]),
-                    ),
-                  );
+                            ],
+                          );
+                        } else if (widget
+                                .profile.userdonations![index].atrocity !=
+                            null) {
+                          return Column(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.amberAccent,
+                                      ),
+                                      child: Center(
+                                          child: Text(
+                                        widget.profile.userdonations![index]
+                                            .atrocity!.title,
+                                        style: const TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 12,
+                                            fontWeight: FontWeight.bold,
+                                            backgroundColor: Colors.black38),
+                                      ))))
+                            ],
+                          );
+                        } else if (widget
+                                .profile.userdonations![index].project !=
+                            null) {
+                          return Column(
+                            children: [
+                              Padding(
+                                  padding: const EdgeInsets.all(8),
+                                  child: Container(
+                                      height: 100,
+                                      width: 100,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(14),
+                                        color: Colors.white,
+                                      ),
+                                      child: Center(
+                                          child: Text(widget
+                                              .profile
+                                              .userdonations![index]
+                                              .project!
+                                              .title
+                                              .toString()))))
+                            ],
+                          );
+                        }
+                        return Container(
+                          child: Text(
+                            widget.profile.userdonations![index].id.toString(),
+                            style: const TextStyle(color: Colors.white),
+                          ),
+                        );
+                      }),
+
+                  // Column(
+                  //       children: [
+                  //         profile.userdonations![index].nonprofit !=
+                  //                 null
+                  //  Container(
+                  //     height: 100,
+                  //     width: 100,
+                  //     decoration: BoxDecoration(
+                  //       image: DecorationImage(
+                  //           image: NetworkImage(profile
+                  //               .userdonations![index]
+                  //               .nonprofit!
+                  //               .logo)),
+                  //       shape: BoxShape.circle,
+                  //     ))
+                  //             :profile.userdonations![index].atrocity!=null?
+
+                  //             Padding(
+                  //                 padding: const EdgeInsets.only(
+                  //                     left: 6.0, right: 6),
+                  //                 child: Container(
+                  //                   height: 100,
+                  //                   width: 100,
+                  //                   decoration: BoxDecoration(
+                  //                     borderRadius:
+                  //                         BorderRadius.circular(14),
+                  //                     color: Colors.red,
+                  //                   ),
+                  //                   child: Center(
+                  //                       child: profile
+                  //                                   .userdonations![
+                  //                                       index]
+                  //                                   .atrocity !=
+                  //                               null
+                  //                           ? Text(
+                  //                               profile
+                  //                                   .userdonations![
+                  //                                       index]
+                  //                                   .atrocity!
+                  //                                   .title,
+                  //                               softWrap: true,
+                  //                             )
+                  //                           : Text(profile
+                  //                               .userdonations![index]
+                  //                               .project!
+                  //                               .title)),
+                  //                 ),
+                  //               ),
+                  //         profile.userdonations![index].nonprofit !=
+                  //                 null
+                  //             ? Text(profile.userdonations![index]
+                  //                 .nonprofit!.name)
+                  //             : Text('The Atrocity')
+                  //       ],
+                  //     )),
+                  // itemBuilder: (context, index) => Column(
+                  //       children: [
+                  //         Container(
+                  //             decoration:
+                  //                 profile.userdonations![index].nonprofit !=
+                  //                         null
+                  //                     ? BoxDecoration(
+                  //                         image: DecorationImage(
+                  //                             image: NetworkImage(profile
+                  //                                 .userdonations![index]
+                  //                                 .nonprofit!
+                  //                                 .logo)),
+                  //                         shape: BoxShape.circle)
+                  //                     : BoxDecoration(color: Colors.black),
+                  //             child:
+                  //                 profile.userdonations![index].nonprofit !=
+                  //                         null
+                  //                     ? null
+                  //                     : Text('Altrue Cause')),
+                  //         profile.userdonations![index].nonprofit != null
+                  //             ? Text(profile
+                  //                 .userdonations![index].nonprofit!.name)
+                  //             : Text(profile
+                  //                 .userdonations![index].atrocity!.title)
+                  //       ],
+                  //     )),
+                )
+              : Container(
+                  child: const Text(
+                      "You have not made any donations to any organizations."),
+                ),
+        ]),
+      ),
+    );
   }
 
   Widget _profileForm() {
@@ -533,36 +605,148 @@ class AltrueStats extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-        child: SingleChildScrollView(
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
+    return SingleChildScrollView(
       scrollDirection: Axis.vertical,
-      child: Column(children: [
-        const Padding(
-          padding: EdgeInsets.only(top: 15, left: 12.0),
-          child: Align(
-            alignment: Alignment.centerLeft,
-            child: Text(
-              'Altrue Stats',
-              style: TextStyle(color: Colors.amber, fontSize: 20),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            'Altrue Stats',
+            style: TextStyle(
+              color: GlassmorphismTheme.gold,
+              fontSize: GlassmorphismTheme.h2Size,
+              fontWeight: FontWeight.bold,
             ),
           ),
-        ),
-        BlocBuilder<ProfileBloc, ProfileState>(
-          builder: (context, state) {
-            return MediterranesnDietView(
-              isProfileInfo: true,
-              textColor: Colors.white,
-              isCompanyInfo: false,
-              profile: widget.profile,
-              color: Colors.grey[900],
-            );
-          },
-        ),
-        WaterView(
-          profile: widget.profile,
-        )
-      ]),
-    ));
+          const SizedBox(height: GlassmorphismTheme.lg),
+
+          // Stats Cards
+          GlassCard(
+            hasGoldBorder: true,
+            margin: const EdgeInsets.only(bottom: GlassmorphismTheme.md),
+            child: Padding(
+              padding: const EdgeInsets.all(GlassmorphismTheme.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Total Donations',
+                        style: TextStyle(
+                          color: isDark
+                              ? GlassmorphismTheme.textSecondary
+                              : GlassmorphismTheme.textSecondary,
+                          fontSize: GlassmorphismTheme.bodySize,
+                        ),
+                      ),
+                      Text(
+                        '\$${widget.profile.donationTotal ?? '0'}',
+                        style: TextStyle(
+                          color: GlassmorphismTheme.gold,
+                          fontSize: GlassmorphismTheme.h3Size,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                  const SizedBox(height: GlassmorphismTheme.sm),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        'Organizations',
+                        style: TextStyle(
+                          color: isDark
+                              ? GlassmorphismTheme.textSecondary
+                              : GlassmorphismTheme.textSecondary,
+                          fontSize: GlassmorphismTheme.bodySize,
+                        ),
+                      ),
+                      Text(
+                        '${widget.profile.nonProfitList ?? '0'}',
+                        style: TextStyle(
+                          color: GlassmorphismTheme.gold,
+                          fontSize: GlassmorphismTheme.h3Size,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Impact Score Card
+          GlassCard(
+            hasGoldBorder: true,
+            margin: const EdgeInsets.only(bottom: GlassmorphismTheme.md),
+            child: Padding(
+              padding: const EdgeInsets.all(GlassmorphismTheme.md),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    'Impact Score',
+                    style: TextStyle(
+                      color: isDark
+                          ? GlassmorphismTheme.textPrimary
+                          : GlassmorphismTheme.textPrimary,
+                      fontSize: GlassmorphismTheme.h3Size,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                  const SizedBox(height: GlassmorphismTheme.sm),
+                  Row(
+                    children: [
+                      Icon(
+                        Icons.star,
+                        color: GlassmorphismTheme.gold,
+                        size: 20,
+                      ),
+                      const SizedBox(width: GlassmorphismTheme.sm),
+                      Text(
+                        '${widget.profile.altrueLevel!.levelNumber ?? '0'}',
+                        style: TextStyle(
+                          color: GlassmorphismTheme.gold,
+                          fontSize: GlassmorphismTheme.h2Size,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+
+          // Existing widgets with updated styling
+          BlocBuilder<ProfileBloc, ProfileState>(
+            builder: (context, state) {
+              return MediterranesnDietView(
+                isProfileInfo: true,
+                textColor: isDark
+                    ? GlassmorphismTheme.textPrimary
+                    : GlassmorphismTheme.textPrimary,
+                isCompanyInfo: false,
+                profile: widget.profile,
+                color: isDark
+                    ? GlassmorphismTheme.darkSecondary
+                    : GlassmorphismTheme.textSecondary,
+              );
+            },
+          ),
+          const SizedBox(height: GlassmorphismTheme.md),
+          WaterView(
+            profile: widget.profile,
+          ),
+        ],
+      ),
+    );
   }
 }
 

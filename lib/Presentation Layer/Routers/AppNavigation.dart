@@ -112,7 +112,7 @@ class AppNavigation {
               userId: sessionState.user.altid.toString(),
             );
           }
-          return const LoginPageUp();
+          return LoginPageUp();
         },
       ),
       GoRoute(

@@ -1,191 +1,230 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
-import 'package:lovelovelove/Presentation%20Layer/Widgets/np_project_rating.dart';
-import 'package:lovelovelove/Presentation%20Layer/Widgets/two_sided_rounded_button.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
-import '../../Data Layer/Models/user_model.dart';
-import '../Routers/functionality_router.dart';
-
-class NpProjectCard extends StatefulWidget {
+class NpProjectCard extends StatelessWidget {
   final NonProfitProject project;
   final bool isForMatchScreen;
   final Profile profile;
-  const NpProjectCard(
-      {super.key,
-      required this.project,
-      required this.profile,
-      required this.isForMatchScreen});
 
-  @override
-  State<NpProjectCard> createState() => _NpProjectCardState();
-}
+  const NpProjectCard({
+    super.key,
+    required this.project,
+    required this.profile,
+    required this.isForMatchScreen,
+  });
 
-class _NpProjectCardState extends State<NpProjectCard> {
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+    final raisedAmount = project.currentFunds ?? 0;
+    final goalAmount = double.tryParse(project.fundraisingGoal ?? '0') ?? 1;
+    final progress = (raisedAmount / goalAmount).clamp(0.0, 1.0);
+
+    return GlassCard(
+      margin: const EdgeInsets.symmetric(
+        horizontal: GlassmorphismTheme.md,
+        vertical: GlassmorphismTheme.sm,
+      ),
+      borderRadius: GlassmorphismTheme.radiusXl,
+      hasGoldBorder: true,
       onTap: () {
-        context.go('/allNpProjects/npProjectDetails',
-            extra: NonProfitProjectDetailArguments(
-                project: widget.project, profile: widget.profile));
+        context.go(
+          '/allNpProjects/npProjectDetails',
+          extra: NonProfitProjectDetailArguments(
+            project: project,
+            profile: profile,
+          ),
+        );
       },
-      child: Container(
-        margin: const EdgeInsets.only(left: 14, bottom: 24),
-        height: 245,
-        width: 202,
-        child: Stack(
-          children: [
-            Positioned(
-              bottom: 0,
-              left: 0,
-              right: 0,
-              child: Container(
-                height: 231,
-                decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(29),
-                    boxShadow: const [
-                      BoxShadow(
-                          offset: Offset(0, 5),
-                          blurRadius: 2,
-                          color: Colors.black)
-                    ]),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Image Section
+          Stack(
+            children: [
+              ClipRRect(
+                borderRadius: const BorderRadius.only(
+                  topLeft: Radius.circular(GlassmorphismTheme.radiusXl),
+                  topRight: Radius.circular(GlassmorphismTheme.radiusXl),
+                ),
+                child: project.projectImage != null
+                    ? Image.network(
+                        project.projectImage!,
+                        height: 180,
+                        width: double.infinity,
+                        fit: BoxFit.cover,
+                        errorBuilder: (context, error, stackTrace) =>
+                            Container(
+                          height: 180,
+                          color: GlassmorphismTheme.darkTertiary,
+                          child: const Center(
+                            child: Icon(
+                              Icons.image_not_supported,
+                              color: GlassmorphismTheme.gold,
+                              size: 50,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Container(
+                        height: 180,
+                        color: GlassmorphismTheme.darkTertiary,
+                        child: const Center(
+                          child: Icon(
+                            Icons.image_not_supported,
+                            color: GlassmorphismTheme.gold,
+                            size: 50,
+                          ),
+                        ),
+                      ),
               ),
-            ),
-            Container(
-              decoration: BoxDecoration(
-                  image: DecorationImage(
-                      fit: BoxFit.fitHeight,
-                      alignment: Alignment.center,
-                      image: NetworkImage(widget.project.projectImage!)),
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(36),
-                      topRight: Radius.circular(36),
-                      bottomLeft: Radius.circular(36),
-                      bottomRight: Radius.circular(36))),
-              // child: Image.network(
-              //   widget.project.projectImage!, fit: BoxFit.cover,alignment: Alignment.center,),
-            ),
-            Positioned(
-              top: 10,
-              right: 10,
-              child: Column(
-                children: <Widget>[
-                  IconButton(
+              // Nonprofit Logo
+              Positioned(
+                top: GlassmorphismTheme.sm,
+                left: GlassmorphismTheme.sm,
+                child: GlassCard(
+                  width: 48,
+                  height: 48,
+                  borderRadius: GlassmorphismTheme.radiusXl,
+                  padding: EdgeInsets.zero,
+                  gradient: GlassmorphismTheme.glassGradient,
+                  child: ClipOval(
+                    child: project.nonprofit?.logo != null
+                        ? Image.network(
+                            project.nonprofit!.logo,
+                            fit: BoxFit.cover,
+                            errorBuilder: (context, error, stackTrace) =>
+                                const Icon(
+                              Icons.business,
+                              color: GlassmorphismTheme.gold,
+                            ),
+                          )
+                        : const Icon(Icons.business, color: GlassmorphismTheme.gold),
+                  ),
+                ),
+              ),
+              // Favorite Button
+              Positioned(
+                top: GlassmorphismTheme.sm,
+                right: GlassmorphismTheme.sm,
+                child: GlassCard(
+                  width: 40,
+                  height: 40,
+                  borderRadius: GlassmorphismTheme.radiusXl,
+                  padding: EdgeInsets.zero,
+                  gradient: GlassmorphismTheme.glassGradient,
+                  child: IconButton(
                     icon: const Icon(
                       Icons.favorite_border,
-                      color: Colors.white,
+                      color: GlassmorphismTheme.textPrimary,
+                      size: 22,
                     ),
                     onPressed: () {},
                   ),
-                  const NpProjectRating(),
-                ],
+                ),
               ),
-            ),
-            Positioned(
-                top: 10,
-                left: 20,
-                child: SizedBox(
-                  height: 50,
-                  width: 50,
-                  child: Image(
-                    image: NetworkImage(widget.project.nonprofit!.logo),
+            ],
+          ),
+          // Content Section
+          Padding(
+            padding: const EdgeInsets.all(GlassmorphismTheme.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Cause Tag
+                GlassCard(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: GlassmorphismTheme.sm,
+                    vertical: GlassmorphismTheme.xs,
                   ),
-                )),
-            Positioned(
-                top: 142,
-                child: SizedBox(
-                  height: 110,
-                  width: 202,
-                  child: Column(
+                  gradient: GlassmorphismTheme.glassGradient,
+                  borderRadius: GlassmorphismTheme.radiusSm,
+                  child: Text(
+                    project.cause?.name ?? 'General',
+                    style: GlassmorphismTheme.captionStyle.copyWith(
+                      color: GlassmorphismTheme.gold,
+                      fontWeight: FontWeight.w600,
+                    ),
+                  ),
+                ),
+                SizedBox(height: GlassmorphismTheme.sm),
+                // Title
+                Text(
+                  project.title ?? 'Untitled Project',
+                  style: GlassmorphismTheme.h2Style.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: GlassmorphismTheme.xs),
+                // Nonprofit Name
+                Text(
+                  'by ${project.nonprofit?.name ?? 'Unknown'}',
+                  style: GlassmorphismTheme.captionStyle.copyWith(
+                    color: GlassmorphismTheme.textSecondary,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                SizedBox(height: GlassmorphismTheme.md),
+                // Progress Bar
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusSm),
+                  child: LinearProgressIndicator(
+                    value: progress,
+                    backgroundColor: GlassmorphismTheme.darkTertiary,
+                    valueColor: const AlwaysStoppedAnimation<Color>(
+                      GlassmorphismTheme.gold,
+                    ),
+                    minHeight: 6,
+                  ),
+                ),
+                SizedBox(height: GlassmorphismTheme.sm),
+                // Progress Stats
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Padding(
-                          padding: const EdgeInsets.only(left: 24),
-                          child: RichText(
-                              maxLines: 2,
-                              text: TextSpan(
-                                  style: const TextStyle(color: Colors.black),
-                                  children: [
-                                    TextSpan(
-                                      text: "${widget.project.title}\n",
-                                      style: TextStyle(
-                                          fontSize: 18,
-                                          color: Colors.white,
-                                          fontWeight: FontWeight.bold,
-                                          backgroundColor:
-                                              Colors.black.withOpacity(.44)),
-                                    ),
-                                    // TextSpan(
-                                    //   text:
-                                    //       'Funding Goal: ${widget.project.fundraisingGoal}',
-                                    //   style: TextStyle(
-                                    //       fontSize: 16,
-                                    //       color: Colors.white,
-                                    //       fontWeight: FontWeight.w600,
-                                    //       backgroundColor:
-                                    //           Colors.black.withOpacity(.44)),
-                                    // ),
-                                  ])),
-                        ),
-                        const SizedBox(height: 6),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 14),
-                          child: Text(
-                            widget.project.nonprofit!.name,
-                            style: TextStyle(
-                                color: Colors.white,
-                                backgroundColor: Colors.black.withOpacity(.44),
-                                fontSize: 14,
-                                fontWeight: FontWeight.w500),
+                        Text(
+                          '\${raisedAmount.toStringAsFixed(0)}',
+                          style: GlassmorphismTheme.h3Style.copyWith(
+                            color: GlassmorphismTheme.gold,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
-                        widget.isForMatchScreen == false
-                            ? Row(
-                                children: [
-                                  GestureDetector(
-                                    onTap: () {},
-                                    child: Container(
-                                      decoration: const BoxDecoration(
-                                          color: Colors.amber,
-                                          borderRadius: BorderRadius.only(
-                                              bottomLeft: Radius.circular(29),
-                                              topRight: Radius.circular(29))),
-                                      width: 101,
-                                      padding:
-                                          const EdgeInsets.symmetric(vertical: 10),
-                                      alignment: Alignment.center,
-                                      child: const Text(
-                                        'Support',
-                                        style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.bold),
-                                      ),
-                                    ),
-                                  ),
-                                  SizedBox(
-                                      height: 40,
-                                      width: 101,
-                                      child: TwoSideRoundedButton(
-                                        press: () {
-                                          context.go(
-                                              '/npProjectDetails',
-                                              extra:
-                                                  NonProfitProjectDetailArguments(
-                                                      project: widget.project,
-                                                      profile: widget.profile));
-                                        },
-                                        text: 'Learn',
-                                      ))
-                                ],
-                              )
-                            : const SizedBox()
-                      ]),
-                ))
-          ],
-        ),
+                        Text(
+                          'raised of \${goalAmount.toStringAsFixed(0)}',
+                          style: GlassmorphismTheme.captionStyle.copyWith(
+                            color: GlassmorphismTheme.textTertiary,
+                          ),
+                        ),
+                      ],
+                    ),
+                    GlassCard(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: GlassmorphismTheme.md,
+                        vertical: GlassmorphismTheme.sm,
+                      ),
+                      gradient: GlassmorphismTheme.goldGradient,
+                      borderRadius: GlassmorphismTheme.radiusXl,
+                      child: Text(
+                        'Support',
+                        style: GlassmorphismTheme.buttonStyle,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

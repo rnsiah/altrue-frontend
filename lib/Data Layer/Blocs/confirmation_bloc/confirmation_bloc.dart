@@ -11,18 +11,18 @@ class ConfirmatioBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
   final ValidationCubit validationCubit;
 
   ConfirmatioBloc({required this.userRepository, required this.validationCubit})
-      : super(ConfirmationState()){
-        on<ConfirmationCodeChanged>(_confirmationCodeChanged);
-        on<ConfirmationSubmitted>(_confirmationSubmitted);
-        
-        
-      }
+      : super(ConfirmationState()) {
+    on<ConfirmationCodeChanged>(_confirmationCodeChanged);
+    on<ConfirmationSubmitted>(_confirmationSubmitted);
+  }
 
-  void _confirmationCodeChanged(ConfirmationCodeChanged event, Emitter<ConfirmationState> emit) async {
+  void _confirmationCodeChanged(
+      ConfirmationCodeChanged event, Emitter<ConfirmationState> emit) async {
     emit(state.copyWith(code: event.code));
   }
 
-  void _confirmationSubmitted(ConfirmationSubmitted event, Emitter<ConfirmationState> emit) async {
+  void _confirmationSubmitted(
+      ConfirmationSubmitted event, Emitter<ConfirmationState> emit) async {
     emit(state.copyWith(formStatus: FormSubmitting()));
     try {
       User user = await userRepository.confirmSignUpWithoutConfirmation(
@@ -33,9 +33,7 @@ class ConfirmatioBloc extends Bloc<ConfirmationEvent, ConfirmationState> {
 
       emit(state.copyWith(formStatus: SubmissionSuccess()));
     } catch (e) {
-      emit(state.copyWith(formStatus: SubmissionFaiiled('Failed')));
+      emit(state.copyWith(formStatus: SubmissionFailed(e.toString())));
     }
   }
-
-    
 }

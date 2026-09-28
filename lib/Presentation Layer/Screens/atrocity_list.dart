@@ -8,6 +8,8 @@ import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/category_selector.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
 class AtrocityList extends StatelessWidget {
   final Profile profile;
@@ -15,67 +17,93 @@ class AtrocityList extends StatelessWidget {
   const AtrocityList({super.key, required this.profile});
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-        // appBar: AppBar(
-        //     title: const Image(
-        //       image: AssetImage('images/Altrue Logo White.png'),
-        //     ),
-        //     backgroundColor: Colors.black),
-        body: SafeArea(
-      child: MultiBlocProvider(
-        providers: [
-          BlocProvider.value(
-            value: context.read<AtrocityBlocBloc>(),
+      extendBodyBehindAppBar: true,
+      backgroundColor: isDark
+          ? GlassmorphismTheme.darkPrimary
+          : GlassmorphismTheme.lightPrimary,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ]
+                : [
+                    GlassmorphismTheme.lightPrimary,
+                    GlassmorphismTheme.lightSecondary
+                  ],
           ),
-          BlocProvider.value(value: context.read<CategoryBloc>())
-        ],
-        child: Column(
-          children: [
-            const Align(
-              alignment: Alignment.centerLeft,
-              child: Padding(
-                padding: EdgeInsets.only(left: 16),
-                child: Text(
-                  'Global Causes',
-                  style: TextStyle(fontSize: 19, fontWeight: FontWeight.bold),
+        ),
+        child: SafeArea(
+          child: Padding(
+            padding: const EdgeInsets.all(GlassmorphismTheme.md),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                // Header with gold accent title
+                Padding(
+                  padding: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                  child: Text(
+                    'Global Causes',
+                    style: GlassmorphismTheme.h1Style.copyWith(
+                      color: GlassmorphismTheme.gold,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ),
-              ),
+
+                // Glass filter section
+                GlassCard(
+                  margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                  hasGoldBorder: true,
+                  child: BlocBuilder<CategoryBloc, CategoryState>(
+                    builder: (context, state) {
+                      return CategorySelector(
+                        onCategorySelected: (category) {},
+                        isNonProfit: false,
+                        isAtrocity: true,
+                        isCompany: false,
+                        isShirt: false,
+                        isProject: false,
+                        categoryList: state.categoryList,
+                      );
+                    },
+                  ),
+                ),
+
+                // Expanded list content
+                Expanded(
+                  child: BlocConsumer<AtrocityBlocBloc, AtrocityBlocState>(
+                    listener: (context, state) {},
+                    buildWhen: (p, c) => p.atrocities != p.atrocityCategoryList,
+                    builder: (context, state) {
+                      if (state.atrocityCategoryList.isNotEmpty) {
+                        return buildCategoryAtrocityList(state);
+                      } else if (state.atrocityCategoryList.isEmpty &&
+                          state.atrocities.isNotEmpty) {
+                        return buildAtrocityList(state);
+                      }
+                      return buildAtrocityList(state);
+                    },
+                  ),
+                ),
+              ],
             ),
-            BlocBuilder<CategoryBloc, CategoryState>(
-              builder: (context, state) {
-                return CategorySelector(
-                  onCategorySelected: (category) {},
-                  isNonProfit: false,
-                  isAtrocity: true,
-                  isCompany: false,
-                  isShirt: false,
-                  isProject: false,
-                  categoryList: state.categoryList,
-                );
-              },
-            ),
-            BlocConsumer<AtrocityBlocBloc, AtrocityBlocState>(
-              listener: (context, state) {},
-              buildWhen: (p, c) => p.atrocities != p.atrocityCategoryList,
-              builder: (context, state) {
-                if (state.atrocityCategoryList.isNotEmpty) {
-                  return buildCategoryAtrocityList(state);
-                } else if (state.atrocityCategoryList.isEmpty &&
-                    state.atrocities.isNotEmpty) {
-                  return buildAtrocityList(state);
-                }
-                return buildAtrocityList(state);
-              },
-            ),
-          ],
+          ),
         ),
       ),
-    ));
+    );
   }
 
-  Expanded buildAtrocityList(AtrocityBlocState state) {
-    return Expanded(
-        child: ListView.builder(
+  Widget buildAtrocityList(AtrocityBlocState state) {
+    return ListView.builder(
+      padding: EdgeInsets.zero,
       scrollDirection: Axis.vertical,
       itemCount: state.atrocities.length,
       itemBuilder: (context, int index) {
@@ -84,12 +112,12 @@ class AtrocityList extends StatelessWidget {
           atrocity: state.atrocities[index],
         );
       },
-    ));
+    );
   }
 
-  Expanded buildCategoryAtrocityList(AtrocityBlocState state) {
-    return Expanded(
-        child: ListView.builder(
+  Widget buildCategoryAtrocityList(AtrocityBlocState state) {
+    return ListView.builder(
+      padding: EdgeInsets.zero,
       scrollDirection: Axis.vertical,
       itemCount: state.atrocityCategoryList.length,
       itemBuilder: (context, int index) {
@@ -98,7 +126,7 @@ class AtrocityList extends StatelessWidget {
           atrocity: state.atrocityCategoryList[index],
         );
       },
-    ));
+    );
   }
 }
 

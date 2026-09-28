@@ -33,8 +33,11 @@ import 'package:lovelovelove/Presentation%20Layer/Widgets/AltrueStatsCard.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_bottom_screen.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/cart_icon.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/altrue_action_card.dart';
-import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet_profile_card_widget.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet_profile_card_widget.dart'
+    hide GlassCard;
 import 'package:lovelovelove/Presentation%20Layer/Widgets/weekly_featured_shirts.dart';
+import 'package:lovelovelove/widgets/glass/index.dart';
+import 'package:lovelovelove/theme/glassmorphism_theme.dart';
 import 'package:stomp_dart_client/stomp_dart_client.dart';
 import 'package:web_socket_channel/io.dart';
 import 'package:web_socket_channel/web_socket_channel.dart';
@@ -248,14 +251,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               Positioned(
                   left: 30,
                   bottom: 40,
-                  child: Container(
-                    color: Colors.black.withOpacity(.25),
-                    width: 240,
+                  child: GlassCard(
+                    opacity: 0.3,
+                    borderRadius: GlassmorphismTheme.radiusSm,
+                    padding: const EdgeInsets.all(GlassmorphismTheme.sm),
                     child: Text(
                       atrocities[index].title.toUpperCase(),
                       softWrap: true,
-                      style: const TextStyle(
-                          color: Colors.white, fontWeight: FontWeight.bold),
+                      style: GlassmorphismTheme.bodyStyle.copyWith(
+                        color: GlassmorphismTheme.textPrimary,
+                        fontWeight: FontWeight.bold,
+                      ),
                     ),
                   ))
             ],
@@ -478,7 +484,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
               builder: (context, state) {
                 return Scaffold(
                   // onDrawerChanged: (isOpened) {},
-                  backgroundColor: Colors.grey[900],
+                  backgroundColor:
+                      Theme.of(context).brightness == Brightness.dark
+                          ? GlassmorphismTheme.darkPrimary
+                          : GlassmorphismTheme.textPrimary,
                   // drawer: ProfileDrawer(profile: widget.profile),
                   // appBar: builAppBar(),
                   body: BlocBuilder<ProfileBloc, ProfileState>(
@@ -493,69 +502,83 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                         },
                         child: ListView(
                           children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                'Welcome ${state.profile!.username}',
-                                style: TextStyle(
-                                    color: Colors.amber,
-                                    fontWeight: FontWeight.w600),
+                            GlassCard(
+                              margin:
+                                  const EdgeInsets.all(GlassmorphismTheme.md),
+                              child: Padding(
+                                padding:
+                                    const EdgeInsets.all(GlassmorphismTheme.md),
+                                child: Text(
+                                  'Welcome ${state.profile!.username}',
+                                  style: GlassmorphismTheme.h2Style.copyWith(
+                                    color: GlassmorphismTheme.gold,
+                                  ),
+                                ),
                               ),
                             ),
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
+                            GlassCard(
+                              margin: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
                               child: ProfilePaymentCard(
                                 profile: state.profile!,
                                 heightFactor: .18,
                               ),
                             ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                const Padding(
-                                  padding: EdgeInsets.only(top: 8, left: 15.0),
-                                  child: Text(
-                                    'Ongoing Atrocities Of The Week+',
-                                    style: TextStyle(
-                                        fontSize: 16,
-                                        color: Colors.amber,
-                                        fontWeight: FontWeight.bold),
-                                  ),
-                                ),
-                                GestureDetector(
-                                  onTap: () {
-                                    context
-                                        .read<CategoryBloc>()
-                                        .add(FetchCategory());
-                                    context.go('/allNpProjects/atrocities',
-                                        extra: AtrocityListArguments(
-                                            profile: context
-                                                .read<ProfileBloc>()
-                                                .state
-                                                .profile!));
-                                  },
-                                  child: const Padding(
+                            GlassCard(
+                              margin:
+                                  const EdgeInsets.all(GlassmorphismTheme.md),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Padding(
                                     padding:
-                                        EdgeInsets.only(top: 8, right: 15.0),
+                                        EdgeInsets.only(top: 8, left: 15.0),
                                     child: Text(
-                                      'See All',
-                                      style: TextStyle(
-                                          decoration: TextDecoration.underline,
-                                          fontSize: 14,
-                                          color: Colors.amber,
-                                          fontWeight: FontWeight.bold),
+                                      'Ongoing Atrocities Of The Week+',
+                                      style:
+                                          GlassmorphismTheme.h3Style.copyWith(
+                                        color: GlassmorphismTheme.gold,
+                                        fontWeight: FontWeight.bold,
+                                      ),
                                     ),
                                   ),
-                                ),
+                                  GestureDetector(
+                                    onTap: () {
+                                      context
+                                          .read<CategoryBloc>()
+                                          .add(FetchCategory());
+                                      context.go('/allNpProjects/atrocities',
+                                          extra: AtrocityListArguments(
+                                              profile: context
+                                                  .read<ProfileBloc>()
+                                                  .state
+                                                  .profile!));
+                                    },
+                                    child: Padding(
+                                      padding:
+                                          EdgeInsets.only(top: 8, right: 15.0),
+                                      child: Text(
+                                        'See All',
+                                        style: GlassmorphismTheme.bodyStyle
+                                            .copyWith(
+                                          decoration: TextDecoration.underline,
+                                          color: GlassmorphismTheme.gold,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ),
+                                  ),
 
-                                // // ElevatedButton(
-                                // //     style: ElevatedButton.styleFrom(),
-                                // //     child: Text(
-                                // //       'All Atrocities',
-                                // //       style: TextStyle(fontSize: 14, color: Colors.white),
-                                // //     ),
-                                //    ),
-                              ],
+                                  // // ElevatedButton(
+                                  // //     style: ElevatedButton.styleFrom(),
+                                  // //     child: Text(
+                                  // //       'All Atrocities',
+                                  // //       style: TextStyle(fontSize: 14, color: Colors.white),
+                                  // //     ),
+                                  //    ),
+                                ],
+                              ),
                             ),
                             BlocBuilder<ProfileBloc, ProfileState>(
                               builder: (context, state) {
@@ -641,24 +664,22 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                     NonProfitProjectListStatus
                                                         .success) {
                                                   return Expanded(
-                                                    child: MaterialButton(
-                                                        color: Colors.amber,
-                                                        child: Text(
+                                                    child: GlassButton(
+                                                      text:
                                                           'projects: ${state.projects.length.toString()}',
-                                                          style:
-                                                              const TextStyle(
-                                                                  color: Colors
-                                                                      .white),
-                                                        ),
-                                                        onPressed: () {
-                                                          context.go(
-                                                              '/allNpProjects/allProjectsList',
-                                                              extra: context
-                                                                  .read<
-                                                                      ProfileBloc>()
-                                                                  .state
-                                                                  .profile!);
-                                                        }),
+                                                      variant:
+                                                          GlassButtonVariant
+                                                              .primary,
+                                                      onPressed: () {
+                                                        context.go(
+                                                            '/allNpProjects/allProjectsList',
+                                                            extra: context
+                                                                .read<
+                                                                    ProfileBloc>()
+                                                                .state
+                                                                .profile!);
+                                                      },
+                                                    ),
                                                   );
                                                 }
                                                 return MaterialButton(
@@ -670,17 +691,13 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   NonprofitState>(
                                                 builder: (context, state) {
                                                   return Expanded(
-                                                    child: MaterialButton(
-                                                      color: Colors.black,
-                                                      child: Text(
-                                                        state.nonprofitList
-                                                            .length
-                                                            .toString(),
-                                                        style: const TextStyle(
-                                                          color: Colors.white,
-                                                          fontSize: 16,
-                                                        ),
-                                                      ),
+                                                    child: GlassButton(
+                                                      text: state
+                                                          .nonprofitList.length
+                                                          .toString(),
+                                                      variant:
+                                                          GlassButtonVariant
+                                                              .secondary,
                                                       onPressed: () {
                                                         context
                                                             .read<
@@ -694,8 +711,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                                     ProfileBloc>()
                                                                 .state
                                                                 .profile!);
-                                                        // context.read<CategoryBloc>().add(FetchCategory());
-                                                        // context.read<NonprofitBloc>().add(FetchNonProfitList());
                                                       },
                                                     ),
                                                   );
@@ -711,8 +726,10 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                           MainAxisAlignment.spaceAround,
                                       children: [
                                         Expanded(
-                                          child: MaterialButton(
-                                            color: Colors.black,
+                                          child: GlassButton(
+                                            text: 'Causes',
+                                            variant:
+                                                GlassButtonVariant.secondary,
                                             onPressed: () {
                                               context
                                                   .read<CategoryBloc>()
@@ -725,12 +742,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                           .state
                                                           .profile!));
                                             },
-                                            child: const Text(
-                                              'Causes',
-                                              style: TextStyle(
-                                                  color: Colors.white,
-                                                  fontSize: 16),
-                                            ),
                                           ),
                                         ),
                                         const SizedBox(
@@ -749,14 +760,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                 builder: (context, state) {
                                                   if (state.status ==
                                                       ShirtStatus.successful) {
-                                                    return MaterialButton(
-                                                      color: Colors.green,
-                                                      child: const Text(
-                                                        'Shirts',
-                                                        style: TextStyle(
-                                                          color: Colors.white,
-                                                        ),
-                                                      ),
+                                                    return GlassButton(
+                                                      text: 'Shirts',
+                                                      variant:
+                                                          GlassButtonVariant
+                                                              .primary,
                                                       onPressed: () {
                                                         context
                                                             .read<
@@ -765,24 +773,17 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                                 FetchCategory());
                                                         context.go(
                                                             '/rewardhome/shirts');
-                                                        // context.read<ShirtBloc>().add(FetchShirts());
                                                       },
                                                     );
                                                   }
-                                                  return MaterialButton(
-                                                    color: Colors.red,
-                                                    child: const Text(
-                                                      'Shirts',
-                                                      style: TextStyle(
-                                                        color: Colors.white,
-                                                      ),
-                                                    ),
+                                                  return GlassButton(
+                                                    text: 'Shirts',
+                                                    variant: GlassButtonVariant
+                                                        .secondary,
                                                     onPressed: () {
                                                       context.go(
                                                           '/rewardhome/shirts',
                                                           extra: Shirt);
-                                                      // context.read<ShirtBloc>().add(FetchShirts());
-                                                      // context.read<CategoryBloc>().add(FetchCategory());
                                                     },
                                                   );
                                                 },
@@ -812,8 +813,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                   onPressed: () {},
                                                 );
                                               }
-                                              return MaterialButton(
-                                                  color: Colors.black,
+                                              return GlassButton(
+                                                  text: state.companies.length
+                                                      .toString(),
+                                                  variant: GlassButtonVariant
+                                                      .secondary,
                                                   onPressed: () {
                                                     context
                                                         .read<CategoryBloc>()
@@ -834,13 +838,7 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                                                     ProfileBloc>()
                                                                 .state
                                                                 .profile!));
-                                                  },
-                                                  child: Text(
-                                                      state.companies.length
-                                                          .toString(),
-                                                      style: const TextStyle(
-                                                          color:
-                                                              Colors.white)));
+                                                  });
                                             }));
                                           },
                                         ),
@@ -892,10 +890,11 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                   return CircularProgressIndicator();
                                 }
                                 return Padding(
-                                  padding: const EdgeInsets.only(
-                                      left: 8.0, right: 8),
-                                  child: MaterialButton(
-                                    color: Colors.black,
+                                  padding: const EdgeInsets.symmetric(
+                                      horizontal: GlassmorphismTheme.md),
+                                  child: GlassButton(
+                                    text: 'Find Friends',
+                                    variant: GlassButtonVariant.secondary,
                                     onPressed: () {
                                       context
                                           .read<AllUsersBloc>()
@@ -905,10 +904,6 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                                               builder: (context) => FindFriends(
                                                   profile: state.profile!)));
                                     },
-                                    child: const Text(
-                                      'Find Friends',
-                                      style: TextStyle(color: Colors.white),
-                                    ),
                                   ),
                                 );
                               },
@@ -925,52 +920,70 @@ class _HomePageState extends State<HomePage> with TickerProviderStateMixin {
                             //               DashBoardScreenArguments(profile: widget.profile))),
                             // ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8),
-                              child: MaterialButton(
-                                  color: Colors.black,
-                                  child: const Text(
-                                    'Payment Details',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                  text: 'Payment Details',
+                                  variant: GlassButtonVariant.secondary,
                                   onPressed: () => context
                                       .go('/userProfile/creditCardDetails')),
                             ),
                             Padding(
-                              padding:
-                                  const EdgeInsets.only(left: 8.0, right: 8),
-                              child: MaterialButton(
-                                  color: Colors.black,
-                                  child: const Text(
-                                    'Example',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                  text: 'Example',
+                                  variant: GlassButtonVariant.secondary,
                                   onPressed: () => Navigator.of(context)
                                       .pushNamed('/exampledonation')),
                             ),
-                            ElevatedButton(
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                text: 'Test Screen',
+                                variant: GlassButtonVariant.secondary,
                                 onPressed: () {
                                   context.go('/testscreen', extra: widget.user);
                                 },
-                                child: const Text('test screen')),
-                            ElevatedButton(
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                text: 'LeaderBoard',
+                                variant: GlassButtonVariant.secondary,
                                 onPressed: () {
                                   context.go('/leaderboard');
                                 },
-                                child: const Text('LeaderBoard')),
-                            ElevatedButton(
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                text: 'Reward Home',
+                                variant: GlassButtonVariant.primary,
                                 onPressed: () {
                                   context
                                       .read<AltrueStatisticsBloc>()
                                       .add(FetchAltrueStatistics());
                                   context.go('/rewardhome/rewardhome');
                                 },
-                                child: const Text('rewardHome')),
-                            ElevatedButton(
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: GlassmorphismTheme.md),
+                              child: GlassButton(
+                                text: 'Crypto Screen',
+                                variant: GlassButtonVariant.secondary,
                                 onPressed: () {
                                   context.go('/userprofile/cryptoScreen');
                                 },
-                                child: const Text('rewardHome'))
+                              ),
+                            ),
                           ],
                         ),
                       );

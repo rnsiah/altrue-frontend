@@ -3,6 +3,8 @@ import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/CompanyDetailTabs/company_coupons_info.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/CompanyDetailTabs/company_finance_data.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company/CompanyDetailTabs/company_matching_info.dart';
+import 'package:lovelovelove/widgets/glass/glass_card.dart';
+import 'package:lovelovelove/theme/glassmorphism_theme.dart';
 
 class ComapnyDetailTabs extends StatefulWidget {
   final ForProfitCompany company;
@@ -16,48 +18,134 @@ class _ComapnyDetailTabsState extends State<ComapnyDetailTabs>
     with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
+    // Detect current theme brightness
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     List<Tab> tabs = [
-      const Tab(
-        text: 'Altrue Info',
+      Tab(
+        child: GlassCard(
+          padding: const EdgeInsets.symmetric(
+            horizontal: GlassmorphismTheme.md,
+            vertical: GlassmorphismTheme.sm,
+          ),
+          borderRadius: GlassmorphismTheme.radiusXl,
+          opacity: 0.15,
+          child: Text(
+            'Altrue Info',
+            style: TextStyle(
+              color: isDark
+                  ? GlassmorphismTheme.textPrimary
+                  : GlassmorphismTheme.textPrimary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
       ),
-      const Tab(
-        text: 'Company Matching',
+      Tab(
+        child: GlassCard(
+          padding: const EdgeInsets.symmetric(
+            horizontal: GlassmorphismTheme.md,
+            vertical: GlassmorphismTheme.sm,
+          ),
+          borderRadius: GlassmorphismTheme.radiusXl,
+          opacity: 0.15,
+          child: Text(
+            'Company Matching',
+            style: TextStyle(
+              color: isDark
+                  ? GlassmorphismTheme.textPrimary
+                  : GlassmorphismTheme.textPrimary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
       ),
-      const Tab(
-        text: 'Altrue Deals',
-      )
+      Tab(
+        child: GlassCard(
+          padding: const EdgeInsets.symmetric(
+            horizontal: GlassmorphismTheme.md,
+            vertical: GlassmorphismTheme.sm,
+          ),
+          borderRadius: GlassmorphismTheme.radiusXl,
+          opacity: 0.15,
+          child: Text(
+            'Altrue Deals',
+            style: TextStyle(
+              color: isDark
+                  ? GlassmorphismTheme.textPrimary
+                  : GlassmorphismTheme.textPrimary,
+              fontWeight: FontWeight.w500,
+            ),
+          ),
+        ),
+      ),
     ];
+
     List<Widget> pages = [
       CompanyFInanceData(company: widget.company),
       CompanyMatchingInfo(company: widget.company),
       CompanyCouponInfo(company: widget.company),
     ];
+
     TabController tabController =
         TabController(length: tabs.length, vsync: this);
 
-    return Padding(
-      padding: const EdgeInsets.all(4),
-      child: Column(
-        children: [
-          Container(
-            color: Colors.transparent,
-            child: TabBar(
-              isScrollable: true,
-              labelColor: Colors.amber,
-              controller: tabController,
-              tabs: tabs,
-              indicatorColor: Colors.amber,
-              unselectedLabelColor: Colors.black,
+    return Container(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: isDark
+              ? [
+                  GlassmorphismTheme.darkPrimary,
+                  GlassmorphismTheme.darkSecondary,
+                  Color(0xFF0a0a0a),
+                ]
+              : [
+                  GlassmorphismTheme.darkPrimary,
+                  GlassmorphismTheme.darkSecondary,
+                  Color(0xFFfafafa),
+                ],
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.all(GlassmorphismTheme.sm),
+        child: Column(
+          children: [
+            GlassCard(
+              margin: const EdgeInsets.only(bottom: GlassmorphismTheme.md),
+              borderRadius: GlassmorphismTheme.radius2Xl,
+              opacity: 0.1,
+              child: TabBar(
+                isScrollable: true,
+                labelColor: GlassmorphismTheme.gold,
+                unselectedLabelColor: isDark
+                    ? GlassmorphismTheme.textSecondary
+                    : GlassmorphismTheme.textSecondary,
+                controller: tabController,
+                tabs: tabs,
+                indicator: BoxDecoration(
+                  gradient: GlassmorphismTheme.goldGradient,
+                  borderRadius:
+                      BorderRadius.circular(GlassmorphismTheme.radiusXl),
+                  boxShadow: GlassmorphismTheme.goldShadow,
+                ),
+                indicatorSize: TabBarIndicatorSize.tab,
+                indicatorPadding: const EdgeInsets.all(2),
+              ),
             ),
-          ),
-          SizedBox.fromSize(
-            size: const Size.fromHeight(200),
-            child: TabBarView(
-              controller: tabController,
-              children: pages,
+            Expanded(
+              child: GlassCard(
+                borderRadius: GlassmorphismTheme.radius2Xl,
+                opacity: 0.08,
+                child: TabBarView(
+                  controller: tabController,
+                  children: pages,
+                ),
+              ),
             ),
-          )
-        ],
+          ],
+        ),
       ),
     );
   }

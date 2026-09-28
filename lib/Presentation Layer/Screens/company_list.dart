@@ -4,6 +4,8 @@ import 'package:lovelovelove/Data%20Layer/Blocs/bloc/company_list_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/company_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/category_repository.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/company_repository.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/glassmorphism_widgets.dart';
 
 class CompanyList extends StatefulWidget {
   const CompanyList({Key? key}) : super(key: key);
@@ -96,55 +98,78 @@ class _CompanyListState extends State<CompanyList> {
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.black,
+      extendBodyBehindAppBar: true,
+      appBar: GlassAppBar(
         title: const Image(
           image: AssetImage('images/Altrue Logo White.png'),
+          height: 32,
+        ),
+        borderRadius: BorderRadius.only(
+          bottomLeft: Radius.circular(GlassmorphismTheme.radiusLg),
+          bottomRight: Radius.circular(GlassmorphismTheme.radiusLg),
         ),
       ),
-      body: MultiRepositoryProvider(
-        providers: [
-          RepositoryProvider(create: (_) => CategoryRepository()),
-          RepositoryProvider(create: (_) => CompanyRepository())
-        ],
-        child: Column(
-          children: [
-            // Container(
-            //   width: double.infinity,
-            //   height: 200,
-            //   child: PageView.builder(
-            //       controller: _pageController,
-            //       itemBuilder: (BuildContext context, int index) {
-            //         return _featuredCompaniesSelector(index);
-            //       }),
-            // ),
-            BlocProvider(
-              create: (context) => context.read<CompanyListBloc>(),
-              child: BlocBuilder<CompanyListBloc, CompanyListState>(
-                builder: (context, state) {
-                  return Expanded(
-                    child: Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 2),
-                        child: GridView.builder(
-                            itemCount: state.companies.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                                    crossAxisSpacing: 27,
-                                    mainAxisSpacing: 13,
-                                    childAspectRatio: .75,
-                                    crossAxisCount: 2),
-                            itemBuilder: (context, index) =>  CompanyCard(
-                                  company: state.companies[index],
-                                  press: () => Navigator.pushNamed(
-                                      context, '/company_details',
-                                      arguments: state.companies[index]),
-                            ))),
-                  );
-                },
-              ),
-            ),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary,
+                    GlassmorphismTheme.darkTertiary,
+                  ]
+                : [
+                    GlassmorphismTheme.lightPrimary,
+                    GlassmorphismTheme.lightSecondary,
+                  ],
+          ),
+        ),
+        child: MultiRepositoryProvider(
+          providers: [
+            RepositoryProvider(create: (_) => CategoryRepository()),
+            RepositoryProvider(create: (_) => CompanyRepository())
           ],
+          child: Column(
+            children: [
+              const SizedBox(height: GlassmorphismTheme.xl + kToolbarHeight),
+              BlocProvider(
+                create: (context) => context.read<CompanyListBloc>(),
+                child: BlocBuilder<CompanyListBloc, CompanyListState>(
+                  builder: (context, state) {
+                    return Expanded(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: GlassmorphismTheme.md),
+                        child: GridView.builder(
+                          itemCount: state.companies.length,
+                          gridDelegate:
+                              const SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisSpacing: GlassmorphismTheme.md,
+                            mainAxisSpacing: GlassmorphismTheme.md,
+                            childAspectRatio: .70,
+                            crossAxisCount: 2,
+                          ),
+                          itemBuilder: (context, index) => CompanyCard(
+                            company: state.companies[index],
+                            press: () => Navigator.pushNamed(
+                              context,
+                              '/company_details',
+                              arguments: state.companies[index],
+                            ),
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
@@ -152,45 +177,150 @@ class _CompanyListState extends State<CompanyList> {
 }
 
 class CompanyCard extends StatelessWidget {
-
   final ForProfitCompany company;
   final Function press;
-  const CompanyCard({
-    super.key, required this.company, required this.press
-  });
+
+  const CompanyCard({super.key, required this.company, required this.press});
 
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return GestureDetector(
-          onTap: () {
-            press();
-          },
-          child: Column(
-            children: [
-              Container(
-                padding: const EdgeInsets.all(8),
+      onTap: () => press(),
+      child: GlassCard(
+        padding: EdgeInsets.zero,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            // Logo Container
+            Expanded(
+              flex: 3,
+              child: Container(
+                margin: const EdgeInsets.all(GlassmorphismTheme.sm),
                 decoration: BoxDecoration(
-                  color: Colors.white,
+                  color: isDark
+                      ? GlassmorphismTheme.darkSecondary
+                      : GlassmorphismTheme.lightSecondary,
                   borderRadius:
-                      BorderRadius.circular(16),
+                      BorderRadius.circular(GlassmorphismTheme.radiusMd),
                 ),
-                child: Image.network(
-                  company.logo!,
-                  scale: .7,
+                child: company.logo != null
+                    ? ClipRRect(
+                        borderRadius:
+                            BorderRadius.circular(GlassmorphismTheme.radiusMd),
+                        child: Image.network(
+                          company.logo!,
+                          fit: BoxFit.contain,
+                          errorBuilder: (context, error, stackTrace) =>
+                              Container(
+                            color: isDark
+                                ? GlassmorphismTheme.darkTertiary
+                                : GlassmorphismTheme.lightTertiary,
+                            child: Icon(
+                              Icons.business,
+                              color: isDark
+                                  ? GlassmorphismTheme.textSecondary
+                                  : GlassmorphismTheme.textSecondaryLight,
+                              size: 48,
+                            ),
+                          ),
+                        ),
+                      )
+                    : Icon(
+                        Icons.business,
+                        color: isDark
+                            ? GlassmorphismTheme.textSecondary
+                            : GlassmorphismTheme.textSecondaryLight,
+                        size: 48,
+                      ),
+              ),
+            ),
+
+            // Info Section
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(GlassmorphismTheme.sm),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    Text(
+                      company.name,
+                      style: TextStyle(
+                        fontSize: GlassmorphismTheme.bodySize,
+                        fontWeight: FontWeight.bold,
+                        color: isDark
+                            ? GlassmorphismTheme.textPrimary
+                            : GlassmorphismTheme.textPrimaryLight,
+                      ),
+                      maxLines: 1,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+
+                    if (company.mission != null &&
+                        company.mission!.isNotEmpty) ...[
+                      const SizedBox(height: GlassmorphismTheme.xs),
+                      Text(
+                        company.mission!,
+                        style: TextStyle(
+                          fontSize: GlassmorphismTheme.captionSize,
+                          color: isDark
+                              ? GlassmorphismTheme.textSecondary
+                              : GlassmorphismTheme.textSecondaryLight,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+
+                    // Matching badge if applicable
+                    if (company.atrocityMatchRelationships?.isNotEmpty ==
+                            true ||
+                        company.nonprofitMatchRelationships?.isNotEmpty ==
+                            true) ...[
+                      const Spacer(),
+                      _buildMatchBadge(context),
+                    ],
+                  ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.symmetric(
-                    vertical: 2),
-                child: Text(
-                  company.name,
-                  style: const TextStyle(
-                      fontSize: 14,
-                      fontWeight: FontWeight.bold),
-                ),
-              ),
-            ],
-          ),
-        );
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _buildMatchBadge(BuildContext context) {
+    final hasCampaign = company.atrocityMatchRelationships
+            ?.any((r) => r.match != null && r.match! > 100) ??
+        false;
+
+    if (hasCampaign) {
+      return GoldBadge(
+        text: '2x Campaign',
+        icon: Icons.star,
+        isCampaign: true,
+      );
+    }
+
+    // Check base match percentage
+    final baseMatch =
+        company.nonprofitMatchRelationships?.firstOrNull?.matchLevel ??
+            company.atrocityMatchRelationships?.firstOrNull?.match;
+
+    if (baseMatch != null && baseMatch > 0) {
+      return GoldBadge(
+        text: '${baseMatch.toInt()}% Match',
+        icon: Icons.favorite,
+      );
+    }
+
+    return GoldBadge(
+      text: 'Matching',
+      icon: Icons.favorite_border,
+    );
   }
 }

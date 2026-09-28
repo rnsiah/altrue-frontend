@@ -5,6 +5,7 @@ import 'package:lovelovelove/Data%20Layer/Models/shirt_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
+import '../../theme/glassmorphism_theme.dart';
 
 import '../../Data Layer/Blocs/shirt_group_bloc/bloc/shirtgroup_bloc.dart';
 
@@ -34,20 +35,19 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
     return Column(
       children: [
         Padding(
-          padding: const EdgeInsets.only(left: 15, bottom: 10),
+          padding: const EdgeInsets.only(left: GlassmorphismTheme.md, bottom: GlassmorphismTheme.sm),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              const Text(
+              Text(
                 'Altrue Collection Of The Week',
-                style: TextStyle(
-                    fontSize: 16.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.amber),
+                style: GlassmorphismTheme.h3Style.copyWith(
+                  color: GlassmorphismTheme.gold,
+                ),
                 textAlign: TextAlign.left,
               ),
               Padding(
-                padding: const EdgeInsets.only(right: 8.0),
+                padding: const EdgeInsets.only(right: GlassmorphismTheme.sm),
                 child: GestureDetector(
                   onTap: () {
                     context.read<ShirtgroupBloc>().add(FetchGroups());
@@ -55,12 +55,11 @@ class _FeaturedShirtsState extends State<FeaturedShirts> {
                     context.go('/rewardhome/featuredShirts',
                         extra: widget.profile);
                   },
-                  child: const Text(
+                  child: Text(
                     'See More',
-                    style: TextStyle(
+                    style: GlassmorphismTheme.bodyStyle.copyWith(
                       decoration: TextDecoration.underline,
-                      color: Colors.amber,
-                      fontSize: 14,
+                      color: GlassmorphismTheme.gold,
                     ),
                   ),
                 ),

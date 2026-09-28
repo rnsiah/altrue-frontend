@@ -5,6 +5,9 @@ import 'package:go_router/go_router.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/user_rewards_bloc/user_rewards_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_reward_model.dart';
+import '../../Theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
+import '../../widgets/glass/glass_button.dart';
 
 class AltrueWalletScreen extends StatefulWidget {
   final Profile profile;
@@ -47,7 +50,9 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
           filter = 'all';
       }
       if (filter != 'all') {
-        context.read<UserRewardsBloc>().add(FetchRewardsByStatus(status: filter));
+        context
+            .read<UserRewardsBloc>()
+            .add(FetchRewardsByStatus(status: filter));
       } else {
         context.read<UserRewardsBloc>().add(const FetchUserRewards());
       }
@@ -62,89 +67,90 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
 
   @override
   Widget build(BuildContext context) {
+    final theme = GlassmorphismTheme.of(context);
+
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         title: const Image(
           image: AssetImage('images/Altrue Logo White.png'),
           height: 40,
         ),
         centerTitle: true,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back, color: Colors.amber),
+        leading: GlassIconButton(
+          icon: Icons.arrow_back,
           onPressed: () => context.pop(),
         ),
       ),
-      body: Column(
-        children: [
-          _buildWalletHeader(),
-          _buildTabBar(),
-          Expanded(
-            child: TabBarView(
-              controller: _tabController,
-              children: [
-                _buildRewardsList('unlocked'),
-                _buildRewardsList('viewed'),
-                _buildRewardsList('claimed'),
-                _buildRewardsList('all'),
-              ],
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: theme.darkGradient,
+        ),
+        child: Column(
+          children: [
+            SizedBox(
+                height: MediaQuery.of(context).padding.top + kToolbarHeight),
+            _buildWalletHeader(),
+            _buildTabBar(),
+            Expanded(
+              child: TabBarView(
+                controller: _tabController,
+                children: [
+                  _buildRewardsList('unlocked'),
+                  _buildRewardsList('viewed'),
+                  _buildRewardsList('claimed'),
+                  _buildRewardsList('all'),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
 
   Widget _buildWalletHeader() {
+    final theme = GlassmorphismTheme.of(context);
+
     return BlocBuilder<UserRewardsBloc, UserRewardsState>(
       builder: (context, state) {
         final summary = state.walletSummary;
-        return Container(
-          padding: const EdgeInsets.all(20),
-          decoration: BoxDecoration(
-            color: Colors.black,
-            borderRadius: const BorderRadius.only(
-              bottomLeft: Radius.circular(20),
-              bottomRight: Radius.circular(20),
-            ),
-            boxShadow: [
-              BoxShadow(
-                color: Colors.amber.withOpacity(0.2),
-                blurRadius: 10,
-                offset: const Offset(0, 4),
-              ),
-            ],
-          ),
+        return GlassCard(
+          margin: EdgeInsets.all(theme.spacing.medium),
+          padding: EdgeInsets.all(theme.spacing.large),
           child: Column(
             children: [
-              const Text(
+              Text(
                 'Altrue Wallet',
                 style: TextStyle(
-                  color: Colors.amber,
-                  fontSize: 24,
+                  color: theme.goldColor,
+                  fontSize: 28,
                   fontWeight: FontWeight.bold,
                 ),
               ),
-              const SizedBox(height: 16),
+              SizedBox(height: theme.spacing.medium),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
-                  _buildStatCard(
+                  _buildGlassStatCard(
                     'Points',
                     summary?.pointsBalance.toString() ?? '0',
                     Icons.stars,
+                    theme,
                   ),
-                  _buildStatCard(
+                  _buildGlassStatCard(
                     'Active',
                     summary?.activeRewardsCount.toString() ?? '0',
                     Icons.card_giftcard,
+                    theme,
                   ),
-                  _buildStatCard(
+                  _buildGlassStatCard(
                     'New',
                     summary?.newUnlocksCount.toString() ?? '0',
                     Icons.new_releases,
+                    theme,
                     isHighlighted: (summary?.newUnlocksCount ?? 0) > 0,
                   ),
                 ],
@@ -156,28 +162,28 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
     );
   }
 
-  Widget _buildStatCard(String label, String value, IconData icon, {bool isHighlighted = false}) {
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      decoration: BoxDecoration(
-        color: isHighlighted ? Colors.amber.withOpacity(0.2) : Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-        border: isHighlighted
-            ? Border.all(color: Colors.amber, width: 2)
-            : null,
+  Widget _buildGlassStatCard(
+      String label, String value, IconData icon, GlassmorphismTheme theme,
+      {bool isHighlighted = false}) {
+    return GlassCard(
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.medium,
+        vertical: theme.spacing.small,
       ),
+      borderColor: isHighlighted ? theme.goldColor : Colors.transparent,
+      borderWidth: isHighlighted ? 2.0 : 0.0,
       child: Column(
         children: [
           Icon(
             icon,
-            color: isHighlighted ? Colors.amber : Colors.white70,
+            color: isHighlighted ? theme.goldColor : Colors.white70,
             size: 24,
           ),
-          const SizedBox(height: 8),
+          SizedBox(height: theme.spacing.xsmall),
           Text(
             value,
             style: TextStyle(
-              color: isHighlighted ? Colors.amber : Colors.white,
+              color: isHighlighted ? theme.goldColor : Colors.white,
               fontSize: 20,
               fontWeight: FontWeight.bold,
             ),
@@ -185,7 +191,9 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
           Text(
             label,
             style: TextStyle(
-              color: isHighlighted ? Colors.amber.withOpacity(0.8) : Colors.white70,
+              color: isHighlighted
+                  ? theme.goldColor.withOpacity(0.8)
+                  : Colors.white70,
               fontSize: 12,
             ),
           ),
@@ -195,17 +203,18 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
   }
 
   Widget _buildTabBar() {
-    return Container(
-      margin: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
+    final theme = GlassmorphismTheme.of(context);
+
+    return GlassCard(
+      margin: EdgeInsets.all(theme.spacing.medium),
+      padding: EdgeInsets.all(theme.spacing.xsmall),
       child: TabBar(
         controller: _tabController,
         indicator: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(12),
+          gradient: LinearGradient(
+            colors: [theme.goldColor, theme.goldColor.withOpacity(0.8)],
+          ),
+          borderRadius: BorderRadius.circular(10),
         ),
         labelColor: Colors.black,
         unselectedLabelColor: Colors.white70,
@@ -224,33 +233,43 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
     return BlocBuilder<UserRewardsBloc, UserRewardsState>(
       builder: (context, state) {
         if (state.status == UserRewardsStatus.loading) {
-          return const Center(
-            child: CircularProgressIndicator(color: Colors.amber),
+          return Center(
+            child: CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(
+                GlassmorphismTheme.of(context).goldColor,
+              ),
+            ),
           );
         }
 
         if (state.status == UserRewardsStatus.failure) {
+          final theme = GlassmorphismTheme.of(context);
           return Center(
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.error_outline, color: Colors.red, size: 48),
-                const SizedBox(height: 16),
-                Text(
-                  state.errorMessage ?? 'Failed to load rewards',
-                  style: const TextStyle(color: Colors.white70),
-                ),
-                const SizedBox(height: 16),
-                ElevatedButton(
-                  onPressed: () {
-                    context.read<UserRewardsBloc>().add(const RefreshRewards());
-                  },
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.amber,
+            child: GlassCard(
+              margin: EdgeInsets.all(theme.spacing.large),
+              padding: EdgeInsets.all(theme.spacing.large),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Icon(Icons.error_outline, color: Colors.red, size: 48),
+                  SizedBox(height: theme.spacing.medium),
+                  Text(
+                    state.errorMessage ?? 'Failed to load rewards',
+                    style: TextStyle(color: Colors.white70),
+                    textAlign: TextAlign.center,
                   ),
-                  child: const Text('Retry', style: TextStyle(color: Colors.black)),
-                ),
-              ],
+                  SizedBox(height: theme.spacing.medium),
+                  GlassButton(
+                    onPressed: () {
+                      context
+                          .read<UserRewardsBloc>()
+                          .add(const RefreshRewards());
+                    },
+                    text: 'Retry',
+                  ),
+                ],
+              ),
             ),
           );
         }
@@ -291,7 +310,8 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
   Widget _buildEmptyState(String filter) {
     String message;
     IconData icon;
-    
+    final theme = GlassmorphismTheme.of(context);
+
     switch (filter) {
       case 'unlocked':
         message = 'No new rewards yet!\nKeep donating to unlock rewards.';
@@ -311,17 +331,22 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
     }
 
     return Center(
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Icon(icon, color: Colors.amber.withOpacity(0.5), size: 64),
-          const SizedBox(height: 16),
-          Text(
-            message,
-            textAlign: TextAlign.center,
-            style: const TextStyle(color: Colors.white70, fontSize: 16),
-          ),
-        ],
+      child: GlassCard(
+        margin: EdgeInsets.all(theme.spacing.large),
+        padding: EdgeInsets.all(theme.spacing.large),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, color: theme.goldColor.withOpacity(0.7), size: 64),
+            SizedBox(height: theme.spacing.medium),
+            Text(
+              message,
+              textAlign: TextAlign.center,
+              style: TextStyle(color: Colors.white70, fontSize: 16),
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -329,9 +354,9 @@ class _AltrueWalletScreenState extends State<AltrueWalletScreen>
   void _showRewardDetail(BuildContext context, UserReward reward) {
     if (reward.isUnlocked) {
       context.read<UserRewardsBloc>().add(ViewReward(
-        rewardId: reward.id,
-        reward: reward,
-      ));
+            rewardId: reward.id,
+            reward: reward,
+          ));
     }
 
     showModalBottomSheet(
@@ -352,31 +377,21 @@ class _RewardCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final companyReward = reward.reward;
-    
+    final theme = GlassmorphismTheme.of(context);
+
     return GestureDetector(
       onTap: onTap,
-      child: Container(
-        margin: const EdgeInsets.only(bottom: 12),
-        decoration: BoxDecoration(
-          color: Colors.grey[850],
-          borderRadius: BorderRadius.circular(16),
-          border: reward.isUnlocked
-              ? Border.all(color: Colors.amber, width: 2)
-              : null,
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withOpacity(0.2),
-              blurRadius: 8,
-              offset: const Offset(0, 4),
-            ),
-          ],
-        ),
+      child: GlassCard(
+        margin: EdgeInsets.only(bottom: theme.spacing.medium),
+        borderColor: reward.isUnlocked ? theme.goldColor : Colors.transparent,
+        borderWidth: reward.isUnlocked ? 2.0 : 0.0,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             if (companyReward.imageUrl != null)
               ClipRRect(
-                borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+                borderRadius:
+                    const BorderRadius.vertical(top: Radius.circular(16)),
                 child: Image.network(
                   companyReward.imageUrl!,
                   height: 120,
@@ -385,7 +400,7 @@ class _RewardCard extends StatelessWidget {
                 ),
               ),
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsets.all(theme.spacing.medium),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
@@ -393,11 +408,12 @@ class _RewardCard extends StatelessWidget {
                     children: [
                       if (companyReward.company.logo != null)
                         CircleAvatar(
-                          backgroundImage: NetworkImage(companyReward.company.logo!),
+                          backgroundImage:
+                              NetworkImage(companyReward.company.logo!),
                           radius: 16,
                           backgroundColor: Colors.white,
                         ),
-                      const SizedBox(width: 8),
+                      SizedBox(width: theme.spacing.xsmall),
                       Expanded(
                         child: Text(
                           companyReward.company.name,
@@ -408,10 +424,10 @@ class _RewardCard extends StatelessWidget {
                           overflow: TextOverflow.ellipsis,
                         ),
                       ),
-                      _buildStatusBadge(),
+                      _buildGlassStatusBadge(theme),
                     ],
                   ),
-                  const SizedBox(height: 8),
+                  SizedBox(height: theme.spacing.xsmall),
                   Text(
                     companyReward.name,
                     style: const TextStyle(
@@ -420,7 +436,7 @@ class _RewardCard extends StatelessWidget {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  const SizedBox(height: 4),
+                  SizedBox(height: theme.spacing.xsmall / 2),
                   Text(
                     companyReward.description,
                     style: const TextStyle(
@@ -431,15 +447,16 @@ class _RewardCard extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
                   if (reward.isUnlocked) ...[
-                    const SizedBox(height: 12),
+                    SizedBox(height: theme.spacing.small),
                     Row(
                       children: [
-                        const Icon(Icons.new_releases, color: Colors.amber, size: 16),
-                        const SizedBox(width: 4),
+                        Icon(Icons.new_releases,
+                            color: theme.goldColor, size: 16),
+                        SizedBox(width: theme.spacing.xsmall / 2),
                         Text(
                           'Tap to view and claim',
                           style: TextStyle(
-                            color: Colors.amber.withOpacity(0.8),
+                            color: theme.goldColor.withOpacity(0.8),
                             fontSize: 12,
                             fontWeight: FontWeight.w500,
                           ),
@@ -456,14 +473,14 @@ class _RewardCard extends StatelessWidget {
     );
   }
 
-  Widget _buildStatusBadge() {
+  Widget _buildGlassStatusBadge(GlassmorphismTheme theme) {
     Color bgColor;
     Color textColor;
     String text;
 
     switch (reward.status) {
       case 'unlocked':
-        bgColor = Colors.amber;
+        bgColor = theme.goldColor;
         textColor = Colors.black;
         text = 'NEW';
         break;
@@ -493,12 +510,12 @@ class _RewardCard extends StatelessWidget {
         text = reward.status.toUpperCase();
     }
 
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
-      decoration: BoxDecoration(
-        color: bgColor,
-        borderRadius: BorderRadius.circular(8),
+    return GlassCard(
+      padding: EdgeInsets.symmetric(
+        horizontal: theme.spacing.xsmall,
+        vertical: theme.spacing.xsmall / 2,
       ),
+      // color: bgColor.withOpacity(0.8),
       child: Text(
         text,
         style: TextStyle(
@@ -519,135 +536,133 @@ class _RewardDetailSheet extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final companyReward = reward.reward;
-    
-    return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
-      decoration: const BoxDecoration(
-        color: Colors.black,
-        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-      ),
-      child: Column(
-        children: [
-          Container(
-            margin: const EdgeInsets.only(top: 12),
-            width: 40,
-            height: 4,
-            decoration: BoxDecoration(
-              color: Colors.grey[700],
-              borderRadius: BorderRadius.circular(2),
-            ),
-          ),
-          Expanded(
-            child: SingleChildScrollView(
-              padding: const EdgeInsets.all(24),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (companyReward.imageUrl != null)
-                    ClipRRect(
-                      borderRadius: BorderRadius.circular(16),
-                      child: Image.network(
-                        companyReward.imageUrl!,
-                        height: 200,
-                        width: double.infinity,
-                        fit: BoxFit.cover,
-                      ),
-                    ),
-                  const SizedBox(height: 20),
-                  Row(
-                    children: [
-                      if (companyReward.company.logo != null)
-                        CircleAvatar(
-                          backgroundImage: NetworkImage(companyReward.company.logo!),
-                          radius: 24,
-                          backgroundColor: Colors.white,
-                        ),
-                      const SizedBox(width: 12),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              companyReward.company.name,
-                              style: const TextStyle(
-                                color: Colors.amber,
-                                fontSize: 14,
-                              ),
-                            ),
-                            Text(
-                              companyReward.name,
-                              style: const TextStyle(
-                                color: Colors.white,
-                                fontSize: 22,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 16),
-                  Text(
-                    companyReward.description,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 16,
-                      height: 1.5,
-                    ),
-                  ),
-                  const SizedBox(height: 24),
-                  _buildDetailSection(),
-                  const SizedBox(height: 24),
-                  _buildActionButton(context),
-                ],
+    final theme = GlassmorphismTheme.of(context);
+
+    return GlassCard(
+      margin: EdgeInsets.zero,
+      borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+      child: Container(
+        height: MediaQuery.of(context).size.height * 0.75,
+        child: Column(
+          children: [
+            Container(
+              margin: const EdgeInsets.only(top: 12),
+              width: 40,
+              height: 4,
+              decoration: BoxDecoration(
+                color: Colors.grey[700],
+                borderRadius: BorderRadius.circular(2),
               ),
             ),
-          ),
-        ],
+            Expanded(
+              child: SingleChildScrollView(
+                padding: EdgeInsets.all(theme.spacing.large),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    if (companyReward.imageUrl != null)
+                      ClipRRect(
+                        borderRadius: BorderRadius.circular(16),
+                        child: Image.network(
+                          companyReward.imageUrl!,
+                          height: 200,
+                          width: double.infinity,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                    SizedBox(height: theme.spacing.large),
+                    Row(
+                      children: [
+                        if (companyReward.company.logo != null)
+                          CircleAvatar(
+                            backgroundImage:
+                                NetworkImage(companyReward.company.logo!),
+                            radius: 24,
+                            backgroundColor: Colors.white,
+                          ),
+                        SizedBox(width: theme.spacing.medium),
+                        Expanded(
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Text(
+                                companyReward.company.name,
+                                style: TextStyle(
+                                  color: theme.goldColor,
+                                  fontSize: 14,
+                                ),
+                              ),
+                              Text(
+                                companyReward.name,
+                                style: const TextStyle(
+                                  color: Colors.white,
+                                  fontSize: 22,
+                                  fontWeight: FontWeight.bold,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(height: theme.spacing.medium),
+                    Text(
+                      companyReward.description,
+                      style: const TextStyle(
+                        color: Colors.white70,
+                        fontSize: 16,
+                        height: 1.5,
+                      ),
+                    ),
+                    SizedBox(height: theme.spacing.large),
+                    _buildGlassDetailSection(theme),
+                    SizedBox(height: theme.spacing.large),
+                    _buildGlassActionButton(context, theme),
+                  ],
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }
 
-  Widget _buildDetailSection() {
+  Widget _buildGlassDetailSection(GlassmorphismTheme theme) {
     if (reward.isClaimed && reward.code != null) {
-      return _buildDigitalRewardCode();
+      return _buildGlassDigitalRewardCode(theme);
     } else if (reward.isClaimed && reward.isPhysical) {
-      return _buildPhysicalRewardStatus();
+      return _buildGlassPhysicalRewardStatus(theme);
     } else if (reward.isUnlocked || reward.isViewed) {
-      return _buildUnlockInfo();
+      return _buildGlassUnlockInfo(theme);
     }
     return const SizedBox.shrink();
   }
 
-  Widget _buildDigitalRewardCode() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.amber, width: 2),
-      ),
+  Widget _buildGlassDigitalRewardCode(GlassmorphismTheme theme) {
+    return GlassCard(
+      borderColor: theme.goldColor,
+      borderWidth: 2.0,
+      padding: EdgeInsets.all(theme.spacing.large),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Your Reward Code',
             style: TextStyle(
-              color: Colors.amber,
+              color: theme.goldColor,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: theme.spacing.medium),
           Row(
             children: [
               Expanded(
-                child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-                  decoration: BoxDecoration(
-                    color: Colors.black,
-                    borderRadius: BorderRadius.circular(8),
+                child: GlassCard(
+                  padding: EdgeInsets.symmetric(
+                    horizontal: theme.spacing.medium,
+                    vertical: theme.spacing.small,
                   ),
                   child: Text(
                     reward.code!,
@@ -660,15 +675,15 @@ class _RewardDetailSheet extends StatelessWidget {
                   ),
                 ),
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: theme.spacing.medium),
               BlocBuilder<UserRewardsBloc, UserRewardsState>(
                 builder: (context, state) {
-                  return IconButton(
+                  return GlassButton(
                     onPressed: () {
                       Clipboard.setData(ClipboardData(text: reward.code!));
                       context.read<UserRewardsBloc>().add(
-                        CopyRewardCode(code: reward.code!),
-                      );
+                            CopyRewardCode(code: reward.code!),
+                          );
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(
                           content: Text('Code copied to clipboard!'),
@@ -676,17 +691,14 @@ class _RewardDetailSheet extends StatelessWidget {
                         ),
                       );
                     },
-                    icon: Icon(
-                      state.copySuccess ? Icons.check : Icons.copy,
-                      color: state.copySuccess ? Colors.green : Colors.amber,
-                    ),
+                    icon: state.copySuccess ? Icons.check : Icons.copy,
                   );
                 },
               ),
             ],
           ),
           if (reward.expiresAt != null) ...[
-            const SizedBox(height: 12),
+            SizedBox(height: theme.spacing.medium),
             Text(
               'Expires: ${_formatDate(reward.expiresAt!)}',
               style: TextStyle(
@@ -700,25 +712,21 @@ class _RewardDetailSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildPhysicalRewardStatus() {
-    return Container(
-      padding: const EdgeInsets.all(20),
-      decoration: BoxDecoration(
-        color: Colors.grey[850],
-        borderRadius: BorderRadius.circular(12),
-      ),
+  Widget _buildGlassPhysicalRewardStatus(GlassmorphismTheme theme) {
+    return GlassCard(
+      padding: EdgeInsets.all(theme.spacing.large),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
+          Text(
             'Shipping Status',
             style: TextStyle(
-              color: Colors.amber,
+              color: theme.goldColor,
               fontSize: 14,
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(height: 12),
+          SizedBox(height: theme.spacing.medium),
           Row(
             children: [
               Icon(
@@ -726,7 +734,7 @@ class _RewardDetailSheet extends StatelessWidget {
                 color: _getShippingColor(),
                 size: 32,
               ),
-              const SizedBox(width: 12),
+              SizedBox(width: theme.spacing.medium),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -753,7 +761,7 @@ class _RewardDetailSheet extends StatelessWidget {
             ],
           ),
           if (reward.shippingAddress != null) ...[
-            const SizedBox(height: 12),
+            SizedBox(height: theme.spacing.medium),
             Text(
               'Shipping to: ${reward.shippingAddress}',
               style: const TextStyle(
@@ -767,26 +775,23 @@ class _RewardDetailSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildUnlockInfo() {
-    return Container(
-      padding: const EdgeInsets.all(16),
-      decoration: BoxDecoration(
-        color: Colors.amber.withOpacity(0.1),
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(color: Colors.amber.withOpacity(0.3)),
-      ),
+  Widget _buildGlassUnlockInfo(GlassmorphismTheme theme) {
+    return GlassCard(
+      borderColor: theme.goldColor.withOpacity(0.5),
+      borderWidth: 1.0,
+      padding: EdgeInsets.all(theme.spacing.medium),
       child: Row(
         children: [
-          const Icon(Icons.lock_open, color: Colors.amber),
-          const SizedBox(width: 12),
+          Icon(Icons.lock_open, color: theme.goldColor),
+          SizedBox(width: theme.spacing.medium),
           Expanded(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
+                Text(
                   'Reward Unlocked!',
                   style: TextStyle(
-                    color: Colors.amber,
+                    color: theme.goldColor,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -805,57 +810,36 @@ class _RewardDetailSheet extends StatelessWidget {
     );
   }
 
-  Widget _buildActionButton(BuildContext context) {
+  Widget _buildGlassActionButton(
+      BuildContext context, GlassmorphismTheme theme) {
     if (reward.isUnlocked || reward.isViewed) {
       return SizedBox(
         width: double.infinity,
-        child: ElevatedButton(
+        child: GlassButton(
           onPressed: () {
-            context.read<UserRewardsBloc>().add(ClaimReward(rewardId: reward.id));
+            context
+                .read<UserRewardsBloc>()
+                .add(ClaimReward(rewardId: reward.id));
             Navigator.pop(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.amber,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text(
-            'Claim Reward',
-            style: TextStyle(
-              color: Colors.black,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          variant: GlassButtonVariant.primary,
+          isFullWidth: true,
+          text: 'Claim Reward',
         ),
       );
     } else if (reward.isClaimed && !reward.isRedeemed) {
       return SizedBox(
         width: double.infinity,
-        child: ElevatedButton(
+        child: GlassButton(
           onPressed: () {
             context.read<UserRewardsBloc>().add(
-              MarkRewardRedeemed(rewardId: reward.id),
-            );
+                  MarkRewardRedeemed(rewardId: reward.id),
+                );
             Navigator.pop(context);
           },
-          style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.green,
-            padding: const EdgeInsets.symmetric(vertical: 16),
-            shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12),
-            ),
-          ),
-          child: const Text(
-            'Mark as Used',
-            style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
+          backgroundColor: Colors.green,
+          text: 'Mark as Used',
+          textColor: Colors.white,
         ),
       );
     }

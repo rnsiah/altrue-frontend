@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:lovelovelove/Data%20Layer/Models/atrocity_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/hompage/Featured_Atrocities/card_widget.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+//
 
-import 'package:velocity_x/velocity_x.dart';
-
-// ignore: must_be_immutable
 class FeaturedAtrocities extends StatefulWidget {
   const FeaturedAtrocities({
     Key? key,
@@ -19,11 +18,32 @@ class _FeaturedAtrocitiesState extends State<FeaturedAtrocities> {
 
   @override
   Widget build(BuildContext context) {
-    return VxSwiper.builder(
+    if (theList == null || theList!.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    return SizedBox(
+      height: 470, // Card height + margin
+      child: PageView.builder(
+        controller: PageController(
+          viewportFraction: 0.85,
+          initialPage: 0,
+        ),
+        padEnds: false,
         itemCount: theList!.length,
-        itemBuilder: (context, index) => CardWidget(
-            image: theList![index].imageUrl.toString(),
-            name: theList![index].title,
-            category: theList![index].category!.first.name!));
+        itemBuilder: (context, index) {
+          final atrocity = theList![index];
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.sm),
+            child: CardWidget(
+              image: atrocity.imageUrl.toString(),
+              name: atrocity.title,
+              category: atrocity.category?.first.name ?? 'Featured',
+            ),
+          );
+        },
+      ),
+    );
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
-
 import '../../Data Layer/Models/shirt_group_model.dart';
 import '../../Data Layer/Models/user_model.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 import 'Shirt_Group_Card.dart';
 
 class ShirtGroupsList extends StatefulWidget {
@@ -17,22 +18,28 @@ class ShirtGroupsList extends StatefulWidget {
 class _ShirtGroupsListState extends State<ShirtGroupsList> {
   final pageController = PageController(viewportFraction: .8);
   int pageIndex = 0;
+  
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Expanded(
-          child: PageView.builder(
-              controller: pageController,
-              itemCount: widget.groups.length,
-              itemBuilder: (context, index) {
-                return ShirtGroupCard(
-                  profile: widget.profile,
-                  shirtgroup: widget.groups[index],
-                );
-              }),
-        )
-      ],
+    return GlassCard(
+      margin: const EdgeInsets.all(GlassmorphismTheme.md),
+      borderRadius: GlassmorphismTheme.radius2Xl,
+      hasGoldBorder: true,
+      child: Column(
+        children: [
+          Expanded(
+            child: PageView.builder(
+                controller: pageController,
+                itemCount: widget.groups.length,
+                itemBuilder: (context, index) {
+                  return ShirtGroupCard(
+                    profile: widget.profile,
+                    shirtgroup: widget.groups[index],
+                  );
+                }),
+          )
+        ],
+      ),
     );
   }
 }

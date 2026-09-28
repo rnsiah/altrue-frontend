@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:velocity_x/velocity_x.dart';
+import 'package:lovelovelove/Presentation%20Layer/Widgets/glassmorphism_widgets.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
 
 class CardWidget extends StatelessWidget {
   final String image;
@@ -15,21 +16,73 @@ class CardWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-        onTap: () {
-          print('The Last Day Of summer');
-        },
-        child: ZStack([
-          Image.network(image).box.shadow2xl.height(450).make(),
-          Column(
-            children: [
-              name.text.black.size(30).make(),
-              const SizedBox(
-                height: 12,
+      onTap: () {
+        print('The Last Day Of summer');
+      },
+      child: GlassCard(
+        // height: 450,
+        margin: const EdgeInsets.all(GlassmorphismTheme.md),
+        // hasGoldBorder: true,
+        child: Stack(
+          alignment: Alignment.centerLeft,
+          children: [
+            // Background image with overlay
+            Positioned.fill(
+              child: ClipRRect(
+                borderRadius:
+                    BorderRadius.circular(GlassmorphismTheme.radiusLg),
+                child: Image.network(
+                  image,
+                  fit: BoxFit.cover,
+                ),
               ),
-              category.text.size(14).make()
-            ],
-          ),
-        ], alignment: Alignment.centerLeft)
-            .p20());
+            ),
+            // Dark overlay for better text readability
+            Positioned.fill(
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius:
+                      BorderRadius.circular(GlassmorphismTheme.radiusLg),
+                  gradient: LinearGradient(
+                    begin: Alignment.topCenter,
+                    end: Alignment.bottomCenter,
+                    colors: [
+                      Colors.transparent,
+                      Colors.black.withOpacity(0.7),
+                    ],
+                    stops: const [0.4, 1.0],
+                  ),
+                ),
+              ),
+            ),
+            // Content
+            Padding(
+              padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    name,
+                    style: GlassmorphismTheme.h2Style.copyWith(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(height: GlassmorphismTheme.sm),
+                  Text(
+                    category,
+                    style: GlassmorphismTheme.captionStyle.copyWith(
+                      color: GlassmorphismTheme.gold,
+                      fontWeight: FontWeight.w500,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

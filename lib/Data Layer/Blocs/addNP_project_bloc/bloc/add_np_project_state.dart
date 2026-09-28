@@ -10,7 +10,7 @@ class AddNpProjectState extends Equatable {
   final int? category;
   final String supplies;
   final File? image;
-  final FormSubmissionStatus status;
+  final FormSubmissionStatus formStatus;
 
   const AddNpProjectState(
       {this.information = '',
@@ -20,7 +20,7 @@ class AddNpProjectState extends Equatable {
       this.supplies = '',
       this.title = '',
       this.image,
-      this.status = const InitialFormStatus()});
+      this.formStatus = const InitialFormStatus()});
 
   AddNpProjectState copyWith({
     String? title,
@@ -30,7 +30,7 @@ class AddNpProjectState extends Equatable {
     int? atrocity,
     int? category,
     File? image,
-    FormSubmissionStatus? status,
+    FormSubmissionStatus? formStatus,
   }) {
     return AddNpProjectState(
         title: title ?? this.title,
@@ -38,7 +38,7 @@ class AddNpProjectState extends Equatable {
         information: information ?? this.information,
         fundraisingGoal: fundraisingGoal ?? this.fundraisingGoal,
         category: category ?? this.category,
-        status: status ?? this.status,
+        formStatus: formStatus ?? this.formStatus,
         image: image ?? this.image);
   }
 

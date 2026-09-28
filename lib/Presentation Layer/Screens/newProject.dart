@@ -322,7 +322,7 @@ class _NewProjectState extends State<NewProject> {
   Widget _submitButton(BuildContext context) {
     return BlocBuilder<AddNpProjectBloc, AddNpProjectState>(
       builder: (context, state) {
-        if (state.status is FormSubmitting) {
+        if (state.formStatus is FormSubmitting) {
           return const Center(
               child: CircularProgressIndicator(color: Colors.amber));
         }

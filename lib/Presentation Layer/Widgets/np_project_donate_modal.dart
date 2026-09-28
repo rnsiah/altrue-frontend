@@ -1,329 +1,513 @@
 import 'package:flutter/material.dart';
+import 'dart:ui';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:flutter_stripe/flutter_stripe.dart';
-import 'package:lovelovelove/Presentation%20Layer/Widgets/Atrocity_Details/atroc_donate.dart';
-import 'package:lovelovelove/Presentation%20Layer/Widgets/payment_sheet_profile_card_widget.dart';
-import 'package:syncfusion_flutter_sliders/sliders.dart';
-
-import '../../Data Layer/Blocs/payment_type_bloc/payment_type_bloc_bloc.dart';
-import '../../Data Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
-import '../../Data Layer/Models/donation_data_model.dart';
-import '../../Data Layer/Models/nonprofit_project_model.dart';
-import '../../Data Layer/Models/user_donation_model.dart';
-import '../../Data Layer/Models/user_model.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Models/donation_data_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/nonprofit_project_model.dart';
+import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 
 class NpProjectDonateModal extends StatefulWidget {
   final NonProfitProject project;
   final Profile profile;
-  const NpProjectDonateModal(
-      {super.key, required this.profile, required this.project});
+
+  const NpProjectDonateModal({
+    super.key,
+    required this.profile,
+    required this.project,
+  });
 
   @override
   State<NpProjectDonateModal> createState() => _NpProjectDonateModalState();
 }
 
 class _NpProjectDonateModalState extends State<NpProjectDonateModal> {
-  double amount = 0.0;
+  double amount = 10.0;
+  final List<double> presetAmounts = [10, 25, 50, 100, 250];
+
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.all(9),
-        child: ListView(children: [
-          Column(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Text(
-                        widget.project.title,
-                        softWrap: true,
-                        maxLines: 2,
-                        style:
-                            const TextStyle(color: Colors.amber, fontSize: 18),
-                      ),
-                    ),
-                    Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
+    return Container(
+      decoration: BoxDecoration(
+        gradient: const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFF1a1a2e),
+            Color(0xFF16213e),
+            Color(0xFF0f3460),
+          ],
+        ),
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.3),
+            blurRadius: 20,
+            spreadRadius: 5,
+          ),
+        ],
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Handle Bar
+          Container(
+            margin: const EdgeInsets.only(top: 12),
+            width: 40,
+            height: 4,
+            decoration: BoxDecoration(
+              color: Colors.white.withOpacity(0.3),
+              borderRadius: BorderRadius.circular(2),
+            ),
+          ),
+          // Content
+          Flexible(
+            child: SingleChildScrollView(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  // Project Header Glass Card
+                  GlassCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
                         children: [
-                          Text(widget.project.cause!.name!,
-                              style: const TextStyle(
-                                  color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold)),
-                          const Text('Cause',
-                              style:
-                                  TextStyle(color: Colors.white, fontSize: 9, fontWeight: FontWeight.bold)),
+                          ClipRRect(
+                            borderRadius: BorderRadius.circular(12),
+                            child: widget.project.projectImage != null
+                                ? Image.network(
+                                    widget.project.projectImage!,
+                                    width: 60,
+                                    height: 60,
+                                    fit: BoxFit.cover,
+                                    errorBuilder: (context, error, stackTrace) =>
+                                        Container(
+                                      width: 60,
+                                      height: 60,
+                                      color: Colors.grey[800],
+                                      child: const Icon(Icons.image_not_supported,
+                                          color: Color(0xFFD4AF37)),
+                                    ),
+                                  )
+                                : Container(
+                                    width: 60,
+                                    height: 60,
+                                    color: Colors.grey[800],
+                                    child: const Icon(Icons.image_not_supported,
+                                        color: Color(0xFFD4AF37)),
+                                  ),
+                          ),
+                          const SizedBox(width: 16),
+                          Expanded(
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Text(
+                                  widget.project.title ?? 'Project',
+                                  style: const TextStyle(
+                                    color: Colors.white,
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.bold,
+                                  ),
+                                  maxLines: 2,
+                                  overflow: TextOverflow.ellipsis,
+                                ),
+                                const SizedBox(height: 4),
+                                Text(
+                                  'by ${widget.project.nonprofit?.name ?? 'Unknown'}',
+                                  style: TextStyle(
+                                    color: Colors.grey[400],
+                                    fontSize: 13,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
                         ],
                       ),
-                    )
-                  ],
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0),
-                  child: Text(
-                    'by:${widget.project.nonprofit!.name}',
-                    style: const TextStyle(color: Colors.white),
+                    ),
                   ),
-                ),
-                const Padding(
-                  padding: EdgeInsets.only(top: 4, left: 8.0),
-                  child: Text(
-                    'Recent Donors',
-                    style: TextStyle(color: Colors.white, fontSize: 18),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.only(left: 8.0, top: 8),
-                  child: SizedBox(
-                      height: widget.project.supporters!.isEmpty ? 20 : 80,
-                      child: widget.project.supporters!.isEmpty
-                          ? const Text(
-                              'No Recent Donors',
-                              style: TextStyle(color: Colors.white),
-                            )
-                          : ListView.builder(
-                              shrinkWrap: true,
-                              scrollDirection: Axis.horizontal,
-                              itemCount: widget.project.supporters!.length,
-                              itemBuilder: (context, index) => ProfileDot(
-                                textColor: Colors.amber,
-                                    dotRadius: 18,
-                                    profile: widget.project.supporters![index],
-                                  ))),
-                ),
-                const SizedBox(height: 3),
-                ProfilePaymentCard(
-                  heightFactor: .2,
-                  profile: widget.profile,
-                ),
-                const Padding(
-                  padding: EdgeInsets.all(8),
-                  child: Text(
-                    'Choose Amount To Donate',
-                    style: TextStyle(color: Colors.amber, fontSize: 12),
-                  ),
-                ),
-                Padding(
-                  padding: const EdgeInsets.all(2),
-                  child: widget.profile.balance! == 0
-                      ? SizedBox(
-                          child: Column(
-                            children: [
-                              const Text(
-                                'Please raise funds to donate to this atrocity',
-                                style: TextStyle(color: Colors.white),
-                              ),
-                              MaterialButton(
-                                  color: Colors.black.withOpacity(.7),
-                                  child: const Text(
-                                    'Learn How',
-                                    style: TextStyle(color: Colors.white),
-                                  ),
-                                  onPressed: () {})
-                            ],
-                          ),
-                        )
-                      : Row(
-                          children: [
-                            SizedBox(
-                              width: MediaQuery.of(context).size.width * .75,
-                              child: Center(
-                                child: Expanded(
-                                  child: SfSlider(
-                                      min: 1,
-                                      stepSize: (widget.profile.balance! / 200)
-                                                  .ceilToDouble() >
-                                              0
-                                          ? (widget.profile.balance! / 200)
-                                              .ceilToDouble()
-                                          : 0.1, // Ensure stepSize is at least 0.1
-                                      interval: widget.profile.balance! / 200 > 0
-                                          ? widget.profile.balance! / 200
-                                          : 0.5, // Ensure interval is at least 0.5
-                                      max: widget.profile.balance,
-                                      value: amount,
-                                      showTicks: true,
-                                      activeColor: Colors.amber,
-                                      showLabels: true,
-                                      enableTooltip: true,
-                                      thumbIcon: Container(
-                                        decoration: BoxDecoration(
-                                            borderRadius:
-                                                BorderRadius.circular(90)),
-                                        child: const Icon(Icons.add),
-                                      ),
-                                      onChanged: (dynamic value) {
-                                        setState(() {
-                                          amount = value;
-                                        });
-                                      }),
-                                ),
-                              ),
-                            ),
-                            Container(
-                              child: Text(
-                                '\$${amount.ceilToDouble().toString()}',
-                                style: const TextStyle(
-                                    color: Colors.amber, fontSize: 19),
-                              ),
-                            )
+                  const SizedBox(height: 24),
+                  
+                  // Amount Display Glass Card with Gold Accent
+                  GlassCard(
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 24),
+                      decoration: BoxDecoration(
+                        gradient: LinearGradient(
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
+                          colors: [
+                            const Color(0xFFD4AF37).withOpacity(0.15),
+                            const Color(0xFFD4AF37).withOpacity(0.05),
                           ],
                         ),
-                ),
-                Column(
+                        borderRadius: BorderRadius.circular(16),
+                        border: Border.all(
+                          color: const Color(0xFFD4AF37).withOpacity(0.4),
+                          width: 1,
+                        ),
+                      ),
+                      child: Column(
+                        children: [
+                          Text(
+                            'Donation Amount',
+                            style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 14,
+                            ),
+                          ),
+                          const SizedBox(height: 8),
+                          Text(
+                            "\$${amount.toStringAsFixed(0)}",
+                            style: const TextStyle(
+                              color: Color(0xFFD4AF37),
+                              fontSize: 48,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
                   
-                  children: [
-                    Center(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * .05,
-                        width: MediaQuery.of(context).size.width * .8,
-                        child: BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, state) {
-                            if (state.status == ProfileStatus.paymentProcessing) {
-                              Navigator.of(context).pop();
-                              _handlePaymentProcessing(
-                                  context.read<ProfileBloc>(), state);
-                              context
-                                  .read<ProfileBloc>()
-                                  .add(CheckDonationStatus());
-                            }
-                            return ElevatedButton(
-                              onPressed: () {
-                                final totalAmountInCents =
-                                    (amount.ceilToDouble() * 100).toInt();
-                    
-                                context.read<ProfileBloc>().add(
-                                    MakeDonationWithUserFunds(
-                                        donationData: DonationData(
-                                            amount: totalAmountInCents,
-                                            id: widget.project.id.toString(),
-                                            donationType: "project")));
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(
-                                      Colors.amber),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18),
-                                          side: const BorderSide(
-                                              color: Colors.white)))),
-                              child: const Text(
-                                'Donate With Funds',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            );
-                          },
-                        ),
+                  // Preset Amounts Glass Card
+                  GlassCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Select Amount',
+                            style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          Wrap(
+                            spacing: 12,
+                            runSpacing: 12,
+                            children: presetAmounts.map((preset) {
+                              final isSelected = amount == preset;
+                              return GestureDetector(
+                                onTap: () {
+                                  setState(() {
+                                    amount = preset.toDouble();
+                                  });
+                                },
+                                child: Container(
+                                  padding: const EdgeInsets.symmetric(
+                                    horizontal: 24,
+                                    vertical: 12,
+                                  ),
+                                  decoration: BoxDecoration(
+                                    gradient: isSelected
+                                        ? const LinearGradient(
+                                            colors: [
+                                              Color(0xFFD4AF37),
+                                              Color(0xFFB8941F),
+                                            ],
+                                          )
+                                        : LinearGradient(
+                                            colors: [
+                                              Colors.white.withOpacity(0.1),
+                                              Colors.white.withOpacity(0.05),
+                                            ],
+                                          ),
+                                    borderRadius: BorderRadius.circular(12),
+                                    border: Border.all(
+                                      color: isSelected
+                                          ? const Color(0xFFD4AF37)
+                                          : Colors.white.withOpacity(0.3),
+                                      width: 1,
+                                    ),
+                                  ),
+                                  child: Text(
+                                    '\$${preset.toStringAsFixed(0)}',
+                                    style: TextStyle(
+                                      color: isSelected ? Colors.black : Colors.white,
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ),
+                              );
+                            }).toList(),
+                          ),
+                        ],
                       ),
                     ),
-                    SizedBox(height: 10,),
-                    Center(
-                      child: SizedBox(
-                        height: MediaQuery.of(context).size.height * .05,
-                        width: MediaQuery.of(context).size.width * .8,
-                        child: BlocBuilder<ProfileBloc, ProfileState>(
-                          builder: (context, state) {
-                            if (state.status == ProfileStatus.paymentProcessing) {
-                              Navigator.of(context).pop();
-                              _handlePaymentProcessing(
-                                  context.read<ProfileBloc>(), state);
-                              context
-                                  .read<ProfileBloc>()
-                                  .add(CheckDonationStatus());
-                            }
-                            return ElevatedButton(
-                              onPressed: () {
-                                final totalAmountInCents =
-                                    (amount.ceilToDouble() * 100).toInt();
-                    
-                                context.read<ProfileBloc>().add(
-                                    MakeDonationWithUserFunds(
-                                        donationData: DonationData(
-                                            amount: totalAmountInCents,
-                                            id: widget.project.id.toString(),
-                                            donationType: "project")));
-                              },
-                              style: ButtonStyle(
-                                  backgroundColor: MaterialStateProperty.all<Color>(
-                                      Colors.amber),
-                                  shape: MaterialStateProperty.all<
-                                          RoundedRectangleBorder>(
-                                      RoundedRectangleBorder(
-                                          borderRadius: BorderRadius.circular(18),
-                                          side: const BorderSide(
-                                              color: Colors.white)))),
-                              child: const Text(
-                                'Donate With Altrue wallet',
-                                style: TextStyle(
-                                    color: Colors.black,
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 15),
-                              ),
-                            );
-                          },
-                        ),
+                  ),
+                  const SizedBox(height: 16),
+                  
+                  // Custom Amount Glass Card
+                  GlassCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            'Custom Amount',
+                            style: TextStyle(
+                              color: Colors.grey[400],
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                          const SizedBox(height: 12),
+                          GlassTextField(
+                            keyboardType: TextInputType.number,
+                            hintText: 'Enter custom amount',
+                            onChanged: (value) {
+                              setState(() {
+                                amount = double.tryParse(value) ?? amount;
+                              });
+                            },
+                          ),
+                        ],
                       ),
-                      
                     ),
-                  ],
-                ),
-                // BlocBuilder<ProfileBloc, ProfileState>(
-                //   builder: (context, state) {
-                //     return MaterialButton(
-                //       onPressed: () {
-                //         context
-                //             .read<ProfileBloc>()
-                //             .add(MakeDonationWithAltrueFunds(
-                //               aatrocitymount: amount.ceilToDouble(),
-                //               : null,
-                //               project: widget.project,
-                //               nonprofit: null,
-                //             ));
-                //       },
-                //       height: MediaQuery.of(context).size.height * .06,
-                //       color: Colors.amber,
-                //       shape: RoundedRectangleBorder(
-                //         borderRadius: BorderRadius.circular(28),
-                //       ),
-                //       child: const Text(
-                //         'Donate From Altrue Wallet',
-                //         style: TextStyle(
-                //           color: Colors.white,
-                //         ),
-                //       ),
-                //     );
-                //   },
-                // )
-              ])
-        ]),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  // Available Balance Glass Card
+                  GlassCard(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Row(
+                            children: [
+                              Icon(
+                                Icons.account_balance_wallet_outlined,
+                                color: Colors.grey[400],
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                'Available Balance',
+                                style: TextStyle(
+                                  color: Colors.grey[400],
+                                  fontSize: 14,
+                                ),
+                              ),
+                            ],
+                          ),
+                          Text(
+                            "\$${widget.profile.balance?.toStringAsFixed(2) ?? '0.00'}",
+                            style: const TextStyle(
+                              color: Color(0xFFD4AF37),
+                              fontSize: 16,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                  const SizedBox(height: 24),
+                  
+                  // Donate Glass Button
+                  BlocBuilder<ProfileBloc, ProfileState>(
+                    builder: (context, state) {
+                      return GlassButton(
+                        onPressed: () {
+                          final totalAmountInCents = (amount * 100).toInt();
+                          context.read<ProfileBloc>().add(
+                                MakeDonationWithUserFunds(
+                                  donationData: DonationData(
+                                    amount: totalAmountInCents,
+                                    id: widget.project.id.toString(),
+                                    donationType: "project",
+                                  ),
+                                ),
+                              );
+                          Navigator.of(context).pop();
+                        },
+                        text: 'Complete Donation',
+                        icon: Icons.favorite,
+                      );
+                    },
+                  ),
+                  const SizedBox(height: 16),
+                ],
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }
+}
 
-  Future<void> showSheet() async {
-    try {
-      await Stripe.instance.presentPaymentSheet();
-    } catch (e) {
-      print(e.toString());
-    }
+// Glass Card Widget
+class GlassCard extends StatelessWidget {
+  final Widget child;
+  final EdgeInsetsGeometry? padding;
+  
+  const GlassCard({
+    super.key,
+    required this.child,
+    this.padding,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.1),
+            Colors.white.withOpacity(0.05),
+          ],
+        ),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1,
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: Colors.black.withOpacity(0.1),
+            blurRadius: 10,
+            spreadRadius: 2,
+          ),
+        ],
+      ),
+      child: ClipRRect(
+        borderRadius: BorderRadius.circular(16),
+        child: BackdropFilter(
+          filter: ImageFilter.blur(sigmaX: 10, sigmaY: 10),
+          child: Container(
+            padding: padding,
+            child: child,
+          ),
+        ),
+      ),
+    );
   }
+}
 
-  void _handlePaymentProcessing(
-      ProfileBloc profileBloc, ProfileState state) async {
-    try {
-      await showSheet();
-      await Future.delayed(const Duration(seconds: 5));
-      profileBloc.add(CheckDonationStatus());
-    } catch (e) {
-      print(e);
-    }
+// Glass Text Field Widget
+class GlassTextField extends StatelessWidget {
+  final String hintText;
+  final TextInputType? keyboardType;
+  final Function(String)? onChanged;
+  
+  const GlassTextField({
+    super.key,
+    required this.hintText,
+    this.keyboardType,
+    this.onChanged,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(12),
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [
+            Colors.white.withOpacity(0.1),
+            Colors.white.withOpacity(0.05),
+          ],
+        ),
+        border: Border.all(
+          color: Colors.white.withOpacity(0.2),
+          width: 1,
+        ),
+      ),
+      child: TextField(
+        keyboardType: keyboardType,
+        style: const TextStyle(color: Colors.white),
+        decoration: InputDecoration(
+          hintText: hintText,
+          hintStyle: TextStyle(color: Colors.grey[500]),
+          prefixIcon: const Icon(
+            Icons.attach_money,
+            color: Color(0xFFD4AF37),
+          ),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+        ),
+        onChanged: onChanged,
+      ),
+    );
+  }
+}
+
+// Glass Button Widget
+class GlassButton extends StatelessWidget {
+  final VoidCallback onPressed;
+  final String text;
+  final IconData? icon;
+  
+  const GlassButton({
+    super.key,
+    required this.onPressed,
+    required this.text,
+    this.icon,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      height: 56,
+      decoration: BoxDecoration(
+        borderRadius: BorderRadius.circular(16),
+        gradient: const LinearGradient(
+          colors: [
+            Color(0xFFD4AF37),
+            Color(0xFFB8941F),
+          ],
+        ),
+        boxShadow: [
+          BoxShadow(
+            color: const Color(0xFFD4AF37).withOpacity(0.4),
+            blurRadius: 12,
+            spreadRadius: 2,
+            offset: const Offset(0, 4),
+          ),
+        ],
+      ),
+      child: ElevatedButton(
+        style: ElevatedButton.styleFrom(
+          backgroundColor: Colors.transparent,
+          foregroundColor: Colors.black,
+          elevation: 0,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          minimumSize: const Size(double.infinity, 56),
+        ),
+        onPressed: onPressed,
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            if (icon != null) ...[
+              Icon(icon, color: Colors.black),
+              const SizedBox(width: 8),
+            ],
+            Text(
+              text,
+              style: const TextStyle(
+                fontSize: 18,
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
   }
 }

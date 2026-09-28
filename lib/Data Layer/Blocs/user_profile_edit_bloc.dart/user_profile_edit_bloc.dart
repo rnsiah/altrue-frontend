@@ -83,7 +83,7 @@ class UserProfileEditBloc
     emit(state.copyWith(formStatus: FormSubmitting()));
     User? user = await userRepository.userDao.getCurrentUser(0);
     ProfileCompletion profileComplete = ProfileCompletion(
-      state:state.state,
+        state: state.state,
         username: state.username,
         dob: state.dob,
         address: state.address,
@@ -104,7 +104,7 @@ class UserProfileEditBloc
             profile: profile, user: user, status: ProfileComplete.complete));
       } catch (e) {
         print(e);
-        emit(state.copyWith(formStatus: SubmissionFaiiled('exception')));
+        emit(state.copyWith(formStatus: SubmissionFailed(e.toString())));
       }
     } else {
       // ignore: invalid_use_of_visible_for_testing_member

@@ -94,7 +94,7 @@ class _UserProfileCompleteState extends State<UserProfileComplete> {
     return BlocListener<UserProfileEditBloc, UserProfileEditState>(
       listener: (context, state) {
         final formStatus = state.formStatus;
-        if (formStatus is SubmissionFaiiled) {
+        if (formStatus is SubmissionFailed) {
           _showSnackbar(context, formStatus.exception.toString());
         }
       },

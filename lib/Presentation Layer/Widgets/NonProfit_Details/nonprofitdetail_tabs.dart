@@ -4,6 +4,8 @@ import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofit_atrocity_showcase.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofit_shirt_showcase.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/NonProfit_Details/nonprofit_volunteer_showcase.dart';
+import 'package:lovelovelove/Theme/glassmorphism_theme.dart';
+import 'package:lovelovelove/Theme/glass_widgets.dart';
 
 class NonProfitDetailTabs extends StatefulWidget {
   final NonProfit nonProfit;
@@ -51,23 +53,49 @@ class _NonProfitDetailTabsState extends State<NonProfitDetailTabs>
 
     TabController controller = TabController(length: tabs.length, vsync: this);
     return Padding(
-      padding: const EdgeInsets.all(4),
+      padding: const EdgeInsets.all(GlassmorphismTheme.xs),
       child: Column(
         children: [
-          Container(
-            color: Colors.black,
+          GlassCard(
+            padding: const EdgeInsets.all(GlassmorphismTheme.sm),
+            borderRadius: GlassmorphismTheme.radiusLg,
+            opacity: 0.1,
             child: TabBar(
               controller: controller,
               tabs: tabs,
-              indicatorColor: Colors.amber,
-              unselectedLabelColor: Colors.white,
+              indicator: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: [
+                    GlassmorphismTheme.gold.withOpacity(0.3),
+                    GlassmorphismTheme.gold.withOpacity(0.2),
+                  ],
+                ),
+                borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusMd),
+                border: Border.all(
+                  color: GlassmorphismTheme.gold.withOpacity(0.5),
+                  width: 1,
+                ),
+              ),
+              indicatorColor: GlassmorphismTheme.gold,
+              unselectedLabelColor: GlassmorphismTheme.textSecondary,
+              labelColor: GlassmorphismTheme.gold,
+              labelStyle: GlassmorphismTheme.captionStyle.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
+              unselectedLabelStyle: GlassmorphismTheme.captionStyle,
             ),
           ),
-          SizedBox.fromSize(
-            size: const Size.fromHeight(300.0),
-            child: TabBarView(
-              controller: controller,
-              children: pages,
+          const SizedBox(height: GlassmorphismTheme.sm),
+          GlassCard(
+            padding: const EdgeInsets.all(GlassmorphismTheme.md),
+            borderRadius: GlassmorphismTheme.radiusXl,
+            opacity: 0.05,
+            child: SizedBox.fromSize(
+              size: const Size.fromHeight(300.0),
+              child: TabBarView(
+                controller: controller,
+                children: pages,
+              ),
             ),
           )
         ],

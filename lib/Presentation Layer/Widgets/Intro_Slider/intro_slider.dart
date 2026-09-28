@@ -4,6 +4,9 @@ import 'package:intro_slider/intro_slider.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/validationCubit.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
+import 'package:lovelovelove/widgets/glass/glass_card.dart';
+import 'package:lovelovelove/widgets/glass/glass_button.dart';
+import 'package:lovelovelove/theme/glassmorphism_theme.dart';
 
 class IntroductionSlider extends StatefulWidget {
   const IntroductionSlider({
@@ -112,48 +115,40 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
   }
 
   Widget nextBtn() {
-    return const Icon(
-      Icons.navigate_next,
-      color: Colors.white,
-      size: 35,
-      shadows: [
-        Shadow(
-          color: Colors.black,
-          blurRadius: 10,
-        )
-      ],
+    return GlassIconButton(
+      icon: Icons.navigate_next,
+      variant: GlassButtonVariant.glass,
+      size: 50,
+      borderRadius: GlassmorphismTheme.radiusXl,
     );
   }
 
   Widget doneBtn(BuildContext context) {
-    return IconButton(
-        icon: const Icon(
-          Icons.done,
-          color: Colors.white,
-          size: 35,
-        ),
-        onPressed: () => context.go('/signup'));
+    return GlassIconButton(
+      icon: Icons.done,
+      variant: GlassButtonVariant.primary,
+      size: 50,
+      borderRadius: GlassmorphismTheme.radiusXl,
+      onPressed: () => context.go('/signup'),
+    );
   }
 
   Widget skipBtn() {
-    return const Icon(
-      Icons.skip_next,
-      color: Colors.white,
-      size: 35,
-      shadows: [
-        Shadow(
-          color: Colors.black,
-          blurRadius: 10,
-        )
-      ],
+    return GlassIconButton(
+      icon: Icons.skip_next,
+      variant: GlassButtonVariant.glass,
+      size: 50,
+      borderRadius: GlassmorphismTheme.radiusXl,
     );
   }
 
   ButtonStyle myButtonStyle() {
     return ButtonStyle(
-      shape: MaterialStateProperty.all<OutlinedBorder>(const StadiumBorder()),
-      backgroundColor: MaterialStateProperty.all<Color>(Colors.amber),
-      overlayColor: MaterialStateProperty.all<Color>(Colors.amber),
+      shape: MaterialStateProperty.all<OutlinedBorder>(
+        RoundedRectangleBorder(borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusXl))
+      ),
+      backgroundColor: MaterialStateProperty.all<Color>(GlassmorphismTheme.gold.withOpacity(0.2)),
+      overlayColor: MaterialStateProperty.all<Color>(GlassmorphismTheme.gold.withOpacity(0.3)),
     );
   }
 
@@ -190,24 +185,34 @@ class _IntroductionSliderState extends State<IntroductionSlider> {
               // ),
               Padding(
                 padding: const EdgeInsets.all(7.0),
-                child: Container(
-                  decoration: const BoxDecoration(
-                      color: Color.fromARGB(9, 229, 229, 229)),
+                child: GlassCard(
                   margin: const EdgeInsets.only(top: 40),
-                  child: Text(
-                    current.title ?? current.widgetTitle!.toString(),
-                    style: current.styleTitle,
-                    textAlign: TextAlign.right,
+                  opacity: 0.15,
+                  borderRadius: GlassmorphismTheme.radiusXl,
+                  child: Padding(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.md),
+                    child: Text(
+                      current.title ?? current.widgetTitle!.toString(),
+                      style: current.styleTitle,
+                      textAlign: TextAlign.right,
+                    ),
                   ),
                 ),
               ),
               Padding(
                 padding: const EdgeInsets.all(18.0),
-                child: Text(
-                  current.description!,
-                  style: current.styleDescription,
-                  textAlign: TextAlign.start,
-                  maxLines: 6,
+                child: GlassCard(
+                  opacity: 0.1,
+                  borderRadius: GlassmorphismTheme.radiusLg,
+                  child: Padding(
+                    padding: const EdgeInsets.all(GlassmorphismTheme.lg),
+                    child: Text(
+                      current.description!,
+                      style: current.styleDescription,
+                      textAlign: TextAlign.start,
+                      maxLines: 6,
+                    ),
+                  ),
                 ),
               )
             ],

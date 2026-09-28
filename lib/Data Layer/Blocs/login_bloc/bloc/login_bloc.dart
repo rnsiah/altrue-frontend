@@ -1,4 +1,3 @@
-
 import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
@@ -36,12 +35,12 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
     emit(state.copyWith(formStatus: FormSubmitting()));
     try {
       User user = await userRepository.authenticate(
-          email:event.email, password:event.password);
+          email: event.email, password: event.password);
 
       emit(state.copyWith(formStatus: SubmissionSuccess()));
       sessionBLoc.add(LoggedIn(user: user));
     } catch (e) {
-      emit(state.copyWith(formStatus: SubmissionFaiiled(e.toString())));
+      emit(state.copyWith(formStatus: SubmissionFailed(e.toString())));
     }
   }
 }
@@ -61,7 +60,7 @@ class LoginBloc extends Bloc<LoginEvent, LoginState> {
   //       sessionBLoc.add(LoggedIn(user: user));
   //     } catch (e) {
   //       print(e);
-  //       yield state.copyWith(formStatus: SubmissionFaiiled('exception'));
+  //       yield state.copyWith(formStatus: SubmissionFailed('exception'));
   //     }
   //   }
   // }

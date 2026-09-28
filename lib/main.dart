@@ -200,16 +200,22 @@ class MyApp extends StatelessWidget {
             create: (context) =>
                 ShirtBloc(shirtRepository: context.read<ShirtRepository>()),
           ),
-          BlocProvider<PromotedActionsBloc>(create: (context)=> PromotedActionsBloc()..add(FetchPromotedActions()),),
+          BlocProvider<PromotedActionsBloc>(
+            create: (context) =>
+                PromotedActionsBloc()..add(FetchPromotedActions()),
+          ),
           BlocProvider<NonprofitBloc>(
             create: (context) => NonprofitBloc(
                 nonProfitRespository: context.read<NonProfitRespository>()),
           ),
           BlocProvider<CategoryBloc>(
             create: (context) => CategoryBloc(
-                categoryRepository: context.read<CategoryRepository>())..add(FetchCategory()),  
+                categoryRepository: context.read<CategoryRepository>())
+              ..add(FetchCategory()),
           ),
-          BlocProvider<AltrueStatisticsBloc>(create:(context)=> AltrueStatisticsBloc()..add(FetchAltrueStatistics()),
+          BlocProvider<AltrueStatisticsBloc>(
+            create: (context) =>
+                AltrueStatisticsBloc()..add(FetchAltrueStatistics()),
           ),
           BlocProvider<ShirtgroupBloc>(
             create: (context) => ShirtgroupBloc(
@@ -236,25 +242,27 @@ class MyApp extends StatelessWidget {
               create: (context) => NpProjectsBloc(
                   nonprofitProjectRepository:
                       context.read<NonprofitProjectRepository>())),
-          BlocProvider(create: (context) => LeaderboardBloc()..add(FetchLeaderboard())),
+          BlocProvider(
+              create: (context) => LeaderboardBloc()..add(FetchLeaderboard())),
         ],
         child: BlocProvider(
-          create: (context) => ValidationCubit(userRepository: context.read<UserRepository>(), sessionBloc: context.read<SessionBLoc>(), userProfileEditBloc: context.read<UserProfileEditBloc>()),
+          create: (context) => ValidationCubit(
+              userRepository: context.read<UserRepository>(),
+              sessionBloc: context.read<SessionBLoc>(),
+              userProfileEditBloc: context.read<UserProfileEditBloc>()),
           child: MaterialApp.router(
-            routerDelegate:AppNavigation.router.routerDelegate,
+            routerDelegate: AppNavigation.router.routerDelegate,
             routeInformationParser: AppNavigation.router.routeInformationParser,
-            routeInformationProvider: AppNavigation.router.routeInformationProvider,
+            routeInformationProvider:
+                AppNavigation.router.routeInformationProvider,
           ),
-        )
-
-        );
+        ));
   }
-
 }
 
 Future<void> onDidReceiveLocalNotification(
     int id, String? title, String? body, String? payload) async {
-  // Handle notification tapped logic here
+  // Handle notification tapped logic hererr
 }
 
 Future<void> requestIOSPermissions() async {

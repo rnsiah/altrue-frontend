@@ -7,6 +7,8 @@ import 'package:lovelovelove/Presentation%20Layer/Widgets/np_project_rating.dart
 import 'package:lovelovelove/Presentation%20Layer/Widgets/two_sided_rounded_button.dart';
 
 import '../../Data Layer/Models/user_model.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
 
 class AllNpProjectsCard extends StatefulWidget {
   final Profile profile;
@@ -24,58 +26,57 @@ class _AllNpProjectsCardState extends State<AllNpProjectsCard> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.only(left: 5.0, bottom: 10, right: 5),
+      padding: const EdgeInsets.only(left: GlassmorphismTheme.sm, bottom: GlassmorphismTheme.md, right: GlassmorphismTheme.sm),
       child: GestureDetector(
         onTap: () {
           context.go('/allNpProjects/npProjectDetails',
               extra: NonProfitProjectDetailArguments(
                   project: widget.project, profile: widget.profile));
         },
-        child: SizedBox(
+        child: GlassCard(
           height: 200,
           width: MediaQuery.of(context).size.width * .4,
+          borderRadius: GlassmorphismTheme.radius2Xl,
+          hasGoldBorder: true,
           child: Stack(
             children: [
-              Positioned(
-                bottom: 0,
-                left: 0,
-                right: 0,
-                child: Container(
-                  height: 200,
-                  decoration: BoxDecoration(
-                      color: Colors.black,
-                      borderRadius: BorderRadius.circular(29),
-                      boxShadow: const [
-                        BoxShadow(
-                            offset: Offset(0, 5),
-                            blurRadius: 2,
-                            color: Colors.black)
-                      ]),
+              // Background image
+              Positioned.fill(
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(GlassmorphismTheme.radius2Xl),
+                  child: Image.network(
+                    widget.project.projectImage!,
+                    fit: BoxFit.cover,
+                  ),
                 ),
               ),
-              Container(
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        fit: BoxFit.fitHeight,
-                        alignment: Alignment.center,
-                        image: NetworkImage(widget.project.projectImage!)),
-                    borderRadius: const BorderRadius.only(
-                        topLeft: Radius.circular(36),
-                        topRight: Radius.circular(36),
-                        bottomLeft: Radius.circular(36),
-                        bottomRight: Radius.circular(36))),
-                // child: Image.network(
-                //   widget.project.projectImage!, fit: BoxFit.cover,alignment: Alignment.center,),
+              // Gradient overlay for better text readability
+              Positioned.fill(
+                child: DecoratedBox(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(GlassmorphismTheme.radius2Xl),
+                    gradient: LinearGradient(
+                      begin: Alignment.topCenter,
+                      end: Alignment.bottomCenter,
+                      colors: [
+                        Colors.transparent,
+                        Colors.black.withOpacity(0.7),
+                      ],
+                      stops: const [0.4, 1.0],
+                    ),
+                  ),
+                ),
               ),
+              // Action buttons
               Positioned(
-                top: 10,
-                right: 10,
+                top: GlassmorphismTheme.sm,
+                right: GlassmorphismTheme.sm,
                 child: Column(
                   children: <Widget>[
                     IconButton(
                       icon: const Icon(
                         Icons.favorite_border,
-                        color: Colors.white,
+                        color: GlassmorphismTheme.gold,
                       ),
                       onPressed: () {},
                     ),
@@ -83,93 +84,82 @@ class _AllNpProjectsCardState extends State<AllNpProjectsCard> {
                   ],
                 ),
               ),
+              // Nonprofit logo
               Positioned(
-                  top: 20,
-                  left: 5,
-                  child: SizedBox(
-                    height: 50,
-                    width: 50,
-                    child: Image(
-                      image: NetworkImage(widget.project.nonprofit!.logo),
+                top: GlassmorphismTheme.md,
+                left: GlassmorphismTheme.sm,
+                child: Container(
+                  height: 40,
+                  width: 40,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusSm),
+                    border: Border.all(
+                      color: GlassmorphismTheme.gold.withOpacity(0.5),
+                      width: 1,
                     ),
-                  )),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusSm - 1),
+                    child: Image.network(
+                      widget.project.nonprofit!.logo,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+              ),
+              // Project info
               Positioned(
-                  top: 150,
-                  child: SizedBox(
-                    height: 130,
-                    width: MediaQuery.of(context).size.width * .40,
-                    child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.only(left: 6),
-                            child: RichText(
-                                maxLines: 2,
-                                text: TextSpan(
-                                    style: const TextStyle(color: Colors.black),
-                                    children: [
-                                      TextSpan(
-                                        text: "${widget.project.title}\n",
-                                        style: TextStyle(
-                                            fontSize: 14,
-                                            color: Colors.white,
-                                            fontWeight: FontWeight.bold,
-                                            backgroundColor:
-                                                Colors.black.withOpacity(.44)),
-                                      ),
-                                      // TextSpan(
-                                      //   text:
-                                      //       'Funding Goal: ${widget.project.fundraisingGoal}',
-                                      //   style: TextStyle(
-                                      //       fontSize: 16,
-                                      //       color: Colors.white,
-                                      //       fontWeight: FontWeight.w600,
-                                      //       backgroundColor:
-                                      //           Colors.black.withOpacity(.44)),
-                                      // ),
-                                    ])),
-                          ),
-                          const SizedBox(height: 6),
-                          Padding(
-                            padding: const EdgeInsets.only(left: 6),
-                            child: Text(
-                              widget.project.nonprofit!.name,
-                              style: TextStyle(
-                                  color: Colors.white,
-                                  backgroundColor:
-                                      Colors.black.withOpacity(.44),
-                                  fontSize: 14,
-                                  fontWeight: FontWeight.w500),
-                            ),
-                          ),
-                        ]),
-                  )),
-              Positioned(
-                bottom: 0,
-                child: Row(
+                left: GlassmorphismTheme.sm,
+                right: GlassmorphismTheme.sm,
+                bottom: 60,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    GestureDetector(
-                      onTap: () {},
-                      child: Container(
-                        decoration: const BoxDecoration(
-                            color: Colors.amber,
-                            borderRadius: BorderRadius.only(
-                                bottomLeft: Radius.circular(29),
-                                topRight: Radius.circular(29))),
-                        width: 75,
-                        padding: const EdgeInsets.symmetric(vertical: 10),
-                        alignment: Alignment.center,
-                        child: const Text(
-                          'Learn More',
-                          style: TextStyle(
-                              color: Colors.black, fontWeight: FontWeight.bold,fontSize: 10),
-                        ),
+                    Text(
+                      widget.project.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: GlassmorphismTheme.h3Style.copyWith(
+                        color: GlassmorphismTheme.textPrimary,
+                        fontWeight: FontWeight.bold,
                       ),
                     ),
-                  
+                    const SizedBox(height: GlassmorphismTheme.xs),
+                    Text(
+                      widget.project.nonprofit!.name,
+                      style: GlassmorphismTheme.captionStyle.copyWith(
+                        color: GlassmorphismTheme.textSecondary,
+                      ),
+                    ),
                   ],
                 ),
-              )
+              ),
+              // Learn More button
+              Positioned(
+                bottom: 0,
+                left: 0,
+                child: GestureDetector(
+                  onTap: () {},
+                  child: Container(
+                    decoration: const BoxDecoration(
+                      color: GlassmorphismTheme.gold,
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(GlassmorphismTheme.radius2Xl),
+                        topRight: Radius.circular(GlassmorphismTheme.radius2Xl),
+                      ),
+                    ),
+                    width: 80,
+                    padding: const EdgeInsets.symmetric(vertical: GlassmorphismTheme.sm, horizontal: GlassmorphismTheme.sm),
+                    alignment: Alignment.center,
+                    child: Text(
+                      'Learn More',
+                      style: GlassmorphismTheme.buttonStyle.copyWith(
+                        fontSize: GlassmorphismTheme.captionSize,
+                      ),
+                    ),
+                  ),
+                ),
+              ),
             ],
           ),
         ),

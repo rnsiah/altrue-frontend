@@ -6,6 +6,9 @@ import 'package:lovelovelove/Data%20Layer/Blocs/profile_bloc/bloc/profile_bloc.d
 import 'package:lovelovelove/Data%20Layer/Models/manage_followers_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
+import '../../theme/glassmorphism_theme.dart';
+import '../../widgets/glass/glass_card.dart';
+import '../../widgets/glass/glass_button.dart';
 
 class FindFriends extends StatefulWidget {
   final Profile profile;
@@ -18,7 +21,6 @@ class FindFriends extends StatefulWidget {
   _FindFriendsState createState() => _FindFriendsState();
 }
 
-
 class _FindFriendsState extends State<FindFriends> {
   final ScrollController _scrollController = ScrollController();
   UserRepository userRepository = UserRepository();
@@ -27,59 +29,127 @@ class _FindFriendsState extends State<FindFriends> {
   Widget build(BuildContext context) {
     List<int> list = widget.profile.following!.map((e) => e.id).toList();
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: const Text('Find Friends', style: TextStyle(color: Colors.amber),),
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Text('Find Friends',
+            style: TextStyle(color: Colors.amber, fontWeight: FontWeight.bold)),
+        centerTitle: true,
       ),
-      body: SizedBox(
-        height: double.infinity,
-        child: SingleChildScrollView(
-          child: Column(
-            children: [
-               ListTile(
-                
-                title: const Text('Invite Friends',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-                onTap: (){
-                  print('');
-                },
-              ),
-               ListTile(
-                title: Text('Contacts',
-                    style: TextStyle(fontWeight: FontWeight.bold)),
-              ),
-              const ListTile(
-                title: Text(
-                  'FaceBook Friends',
-                  style: TextStyle(fontWeight: FontWeight.bold),
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: GlassmorphismTheme.glassGradientStrong,
+        ),
+        child: SizedBox(
+          height: double.infinity,
+          child: SingleChildScrollView(
+            padding: EdgeInsets.only(
+                top: AppBar().preferredSize.height +
+                    MediaQuery.of(context).padding.top),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: GlassmorphismTheme.md),
+                  child: GlassCard(
+                    child: Column(
+                      children: [
+                        ListTile(
+                          leading: Icon(Icons.person_add,
+                              color: Colors.amber.shade400),
+                          title: Text('Invite Friends',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              color: Colors.amber.shade400, size: 16),
+                          onTap: () {
+                            print('');
+                          },
+                        ),
+                        Divider(
+                            color: Colors.white.withOpacity(0.2), height: 1),
+                        ListTile(
+                          leading: Icon(Icons.contacts,
+                              color: Colors.amber.shade400),
+                          title: Text('Contacts',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              color: Colors.amber.shade400, size: 16),
+                        ),
+                        Divider(
+                            color: Colors.white.withOpacity(0.2), height: 1),
+                        ListTile(
+                          leading: Icon(Icons.facebook,
+                              color: Colors.amber.shade400),
+                          title: Text('Facebook Friends',
+                              style: TextStyle(
+                                  fontWeight: FontWeight.bold,
+                                  color: Colors.white)),
+                          trailing: Icon(Icons.arrow_forward_ios,
+                              color: Colors.amber.shade400, size: 16),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
-              ),
-              const Text('Suggested Friends',
-                  style: TextStyle(fontSize: 8, color: Colors.blueGrey)),
-              BlocBuilder<AllUsersBloc, AllUsersState>(
-                builder: (context, state) {
-                  if (state.status == ProfileListStatus.successful) {
-                    return ListView.builder(
-                        controller: _scrollController,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        itemCount: state.userList.length,
-                        itemBuilder: (context, index) => FriendTile(
-                            pro: widget.profile,
-                            userRepository: userRepository,
-                            prof: state.userList[index]));
-                  } else if (state.status == ProfileListStatus.failure) {
-                    const Center(
-                      child: Text(
-                          'Something Went Wrong. Please check your connection'),
+                SizedBox(height: GlassmorphismTheme.lg),
+                Padding(
+                  padding:
+                      EdgeInsets.symmetric(horizontal: GlassmorphismTheme.md),
+                  child: Text('Suggested Friends',
+                      style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.amber.shade400,
+                          fontWeight: FontWeight.bold)),
+                ),
+                SizedBox(height: GlassmorphismTheme.md),
+                BlocBuilder<AllUsersBloc, AllUsersState>(
+                  builder: (context, state) {
+                    if (state.status == ProfileListStatus.successful) {
+                      return ListView.builder(
+                          controller: _scrollController,
+                          shrinkWrap: true,
+                          physics: NeverScrollableScrollPhysics(),
+                          scrollDirection: Axis.vertical,
+                          itemCount: state.userList.length,
+                          itemBuilder: (context, index) => Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: GlassmorphismTheme.md,
+                                    vertical: GlassmorphismTheme.xs),
+                                child: FriendTile(
+                                    pro: widget.profile,
+                                    userRepository: userRepository,
+                                    prof: state.userList[index]),
+                              ));
+                    } else if (state.status == ProfileListStatus.failure) {
+                      return Padding(
+                        padding: EdgeInsets.all(GlassmorphismTheme.md),
+                        child: GlassCard(
+                          child: Center(
+                            child: Text(
+                                'Something Went Wrong. Please check your connection',
+                                style: TextStyle(
+                                    color: Colors.white.withOpacity(0.8))),
+                          ),
+                        ),
+                      );
+                    }
+                    return Padding(
+                      padding: EdgeInsets.all(GlassmorphismTheme.sm),
+                      child: Center(
+                        child: CircularProgressIndicator(
+                            color: Colors.amber.shade400),
+                      ),
                     );
-                  }
-                  return const Center(
-                    child: CircularProgressIndicator(),
-                  );
-                },
-              )
-            ],
+                  },
+                )
+              ],
+            ),
           ),
         ),
       ),
@@ -101,48 +171,69 @@ class FriendTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<int> list = pro.following!.map((e) => e.id).toList();
-    return ListTile(
-      onTap: () async {
-        Profile profile = await userRepository.fetchProfile(
-          id: prof.id,
-        );
-        context.go('/newPosts/userProfilePage', extra: profile);
-      },
-      leading: CircleAvatar(
-        radius: 45.0,
-        // foregroundImage: NetworkImage(state
-        //     .userList[index].profilePicture!.url
-        //     .toString()),
-        backgroundImage: NetworkImage(
-          prof.profilePicture!.url,
+    return GlassCard(
+      child: ListTile(
+        contentPadding: EdgeInsets.symmetric(
+            horizontal: GlassmorphismTheme.md, vertical: GlassmorphismTheme.xs),
+        onTap: () async {
+          Profile profile = await userRepository.fetchProfile(
+            id: prof.id,
+          );
+          context.go('/newPosts/userProfilePage', extra: profile);
+        },
+        leading: Container(
+          width: 50,
+          height: 50,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            border: Border.all(color: Colors.amber.shade400, width: 2),
+          ),
+          child: CircleAvatar(
+            radius: 24.0,
+            backgroundImage: NetworkImage(
+              prof.profilePicture!.url,
+            ),
+            onBackgroundImageError: (exception, stackTrace) =>
+                const NetworkImage(
+                    'https://i.ibb.co/yPCqbSG/altruecompany-placeholder.png'),
+          ),
         ),
-        onBackgroundImageError: (exception, stackTrace) => const NetworkImage(
-            'https://i.ibb.co/yPCqbSG/altruecompany-placeholder.png'),
+        title: Text(
+          prof.username!,
+          style: TextStyle(
+            color: Colors.white,
+            fontWeight: FontWeight.bold,
+            fontSize: 16,
+          ),
+        ),
+        trailing: list.contains(prof.id)
+            ? GlassButton(
+                onPressed: () {
+                  ManageFollower follow =
+                      ManageFollower(follow: 'unfollow', id: prof.id);
+                  context
+                      .read<ProfileBloc>()
+                      .add(RemoveFollower(interaction: follow));
+                },
+                text: 'Following',
+                backgroundColor: Colors.black.withOpacity(0.3),
+                textColor: Colors.white,
+                // borderColor: Colors.amber.shade400,
+              )
+            : GlassButton(
+                onPressed: () {
+                  ManageFollower follow =
+                      ManageFollower(follow: 'follow', id: prof.id);
+                  context
+                      .read<ProfileBloc>()
+                      .add(AddFollower(interaction: follow));
+                },
+                text: 'Follow',
+                backgroundColor: Colors.amber.shade400.withOpacity(0.2),
+                textColor: Colors.amber.shade400,
+                // borderColor: Colors.amber.shade400,
+              ),
       ),
-      title: Text(prof.username!),
-      trailing: list.contains(prof.id)
-          ? MaterialButton(
-              color: Colors.black,
-              onPressed: () {
-                ManageFollower follow =
-                    ManageFollower(follow: 'unfollow', id: prof.id);
-                context
-                    .read<ProfileBloc>()
-                    .add(RemoveFollower(interaction: follow));
-              },
-              child: const Text('Following',
-                  style: TextStyle(color: Colors.white)),
-            )
-          : MaterialButton(
-              onPressed: () {
-                ManageFollower follow =
-                    ManageFollower(follow: 'follow', id: prof.id);
-                context
-                    .read<ProfileBloc>()
-                    .add(AddFollower(interaction: follow));
-              },
-              color: Colors.amber,
-              child: const Text('Follow')),
     );
   }
 }

@@ -8,6 +8,9 @@ import 'package:lovelovelove/Presentation%20Layer/Routers/functionality_router.d
 import 'package:lovelovelove/Presentation%20Layer/Routers/router.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/mediteranein_diet.dart';
 import 'package:lovelovelove/Presentation%20Layer/Widgets/company_dashboard/title_viiew.dart';
+import 'package:lovelovelove/widgets/glass/glass_card.dart';
+import 'package:lovelovelove/widgets/glass/glass_button.dart';
+import 'package:lovelovelove/theme/glassmorphism_theme.dart';
 
 class MyNonProfitHome extends StatefulWidget {
   final Profile profile;
@@ -24,262 +27,256 @@ class MyNonProfitHome extends StatefulWidget {
 class MyNonProfitHomeState extends State<MyNonProfitHome> {
   @override
   Widget build(BuildContext context) {
+    final isDark = Theme.of(context).brightness == Brightness.dark;
+
     return Scaffold(
-      backgroundColor: Colors.grey[900],
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Colors.black,
-        title: Column(
-          mainAxisSize: MainAxisSize.min,
-          children: const [
-            Image(
-              image: AssetImage('images/Altrue Logo White.png'),
-            ),
-          ],
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        title: const Image(
+          image: AssetImage('images/Altrue Logo White.png'),
         ),
       ),
-      body: ListView(scrollDirection: Axis.vertical, children: [
-        Padding(
-          padding: const EdgeInsets.only(top: 12.0),
-          child: TitleView(
-            color: Colors.amber,
-            nonProfit: widget.profile.np,
-            titleTxt: widget.profile.np!.name,
+      body: Container(
+        decoration: BoxDecoration(
+          gradient: LinearGradient(
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+            colors: isDark
+                ? [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ]
+                : [
+                    GlassmorphismTheme.darkPrimary,
+                    GlassmorphismTheme.darkSecondary
+                  ],
           ),
         ),
-        MediterranesnDietView(
-          textColor: Colors.white,
-          color: Colors.grey[900],
-          isCompanyInfo: false,
-          profile: widget.profile,
-          isProfileInfo: false,
-          nonprofit: widget.nonprofit,
-        ),
-        SizedBox(
-          height: 70,
-          child: Expanded(
-            child: Row(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                SizedBox(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12)),
-                        backgroundColor: Colors.black,
-                        elevation: 12),
-                    onPressed: () {
-                      context.go('/npDonationManagement',
-                          extra: widget.nonprofit);
-                    },
-                    child: const Text(
-                      'Donations',
-                      style: TextStyle(color: Colors.white, fontSize: 18),
+        child: SafeArea(
+          child: ListView(
+            padding: const EdgeInsets.all(GlassmorphismTheme.md),
+            children: [
+              // Header Section
+              GlassCard(
+                margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                hasGoldBorder: true,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      widget.profile.np!.name,
+                      style: GlassmorphismTheme.h1Style.copyWith(
+                        color: GlassmorphismTheme.gold,
+                      ),
                     ),
-                  ),
-                ),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 5,
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    onPressed: () {
-                      context.go('/nonprofitProjectList',
-                          extra: NonProfitProjectListArguments(
-                              nonProfit: widget.nonprofit,
-                              profile: widget.profile));
-                    },
-                    child: const Text(
-                      'Projects',
-                      style: TextStyle(fontSize: 18, color: Colors.amber),
-                    )),
-                ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 5,
-                        backgroundColor: Colors.black,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12))),
-                    onPressed: () {
-                      context.go('/npMatchinginfo',
-                          extra: widget.nonprofit);
-                    },
-                    child: const Text(
-                      'Partnerships',
-                      style: TextStyle(fontSize: 18, color: Colors.amber),
-                    )),
-              ],
-            ),
-          ),
-        ),
-        SizedBox(
-          height: 70,
-          child: Row(
-            children: [
-              ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                      elevation: 5,
-                      backgroundColor: Colors.black,
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(12))),
-                  onPressed: () {
-                    context.go('/nonprofitProjectList',
-                        extra: NonProfitProjectListArguments(
-                            nonProfit: widget.nonprofit,
-                            profile: widget.profile));
-                  },
-                  child: const Text(
-                    'Partnerships',
-                    style: TextStyle(fontSize: 18, color: Colors.amber),
-                  )),
-            ],
-          ),
-        )
-        //   TitleView(
-        //     titleTxt: 'Our Projects',
-        //     subTxt: 'Add Project',
-        //     ontap: () async {
-        //       NonProfit np = await widget.nonProfitRepository
-        //           .fetchNonProfit(widget.profile.np!.id);
-
-        //       context.go('/createProject',
-        //           arguments: CreateProjectArguments(
-        //               nonprofit: np, profile: widget.profile));
-        //     },
-        //   ),
-        //   MealsListView(
-        //     profile: widget.profile,
-        //     isProject: true,
-        //     nonprofit: widget.nonprofit,
-        //   ),
-        //   const TitleView(
-        //     titleTxt: 'Companies Matching',
-        //   ),
-        //   widget.nonprofit.matchingPartnerships!.isNotEmpty
-        //       ? Padding(
-        //           padding: const EdgeInsets.only(left: 15),
-        //           child: SizedBox(
-        //             height: 160,
-        //             width: double.infinity,
-        //             child: ListView.builder(
-        //                 scrollDirection: Axis.horizontal,
-        //                 itemCount:
-        //                     widget.nonprofit.matchingPartnerships!.length,
-        //                 itemBuilder: (context, index) {
-        //                   return CompanyMatchCard(
-        //                       company: widget
-        //                           .nonprofit.matchingPartnerships![index]);
-        //                 }),
-        //           ),
-        //         )
-        //       : const SizedBox(
-        //           height: 80,
-        //           child: Center(
-        //             child:
-        //                 Text('No Companies Supporting Your Orgnanization yet'),
-        //           ),
-        //         )
-        // ],
-      ]),
-    );
-  }
-}
-
-class CompanyMatchCard extends StatelessWidget {
-  const CompanyMatchCard({
-    Key? key,
-    required this.company,
-  }) : super(key: key);
-
-  final CompanyNonProfitMatchRelationship company;
-
-  @override
-  Widget build(BuildContext context) {
-    return SizedBox(
-      height: 140,
-      // decoration: BoxDecoration(
-      //     borderRadius: BorderRadius.circular(10),
-      //     boxShadow: const [
-      //       BoxShadow(
-      //           color: Colors.black54, offset: Offset(0, 4), blurRadius: 10)
-      //     ]),
-      child: GestureDetector(
-        onTap: () => {},
-        child: Container(
-          decoration: BoxDecoration(borderRadius: BorderRadius.circular(20)),
-          height: 130,
-          child: Stack(
-            children: [
-              Center(
-                child: Container(
-                  width: 180,
-                  margin:
-                      const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                  decoration: BoxDecoration(
-                      // color: Colors.black26,
-                      image: DecorationImage(
-                          fit: BoxFit.cover,
-                          opacity: 9,
-                          image: NetworkImage(company.company.logo))),
+                    const SizedBox(height: GlassmorphismTheme.xs),
+                    Text(
+                      'Managing your nonprofit impact',
+                      style: GlassmorphismTheme.captionStyle,
+                    ),
+                  ],
                 ),
               ),
-              Positioned(
-                right: 8,
-                top: 12,
-                child: Container(
+
+              // Stats Section
+              GlassCard(
+                margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                child: MediterranesnDietView(
+                  textColor: GlassmorphismTheme.textPrimary,
+                  color: Colors.transparent,
+                  isCompanyInfo: false,
+                  profile: widget.profile,
+                  isProfileInfo: false,
+                  nonprofit: widget.nonprofit,
+                ),
+              ),
+
+              // Action Buttons Grid
+              GlassCard(
+                margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                child: Column(
+                  children: [
+                    _buildActionButtonRow([
+                      _buildActionButton(
+                        context,
+                        'Donations',
+                        Icons.account_balance_wallet,
+                        '/npDonationManagement',
+                        widget.nonprofit,
+                      ),
+                      _buildActionButton(
+                        context,
+                        'Projects',
+                        Icons.work_outline,
+                        '/nonprofitProjectList',
+                        NonProfitProjectListArguments(
+                          nonProfit: widget.nonprofit,
+                          profile: widget.profile,
+                        ),
+                      ),
+                    ]),
+                    const SizedBox(height: GlassmorphismTheme.md),
+                    _buildActionButtonRow([
+                      _buildActionButton(
+                        context,
+                        'Partnerships',
+                        Icons.handshake_outlined,
+                        '/npMatchinginfo',
+                        widget.nonprofit,
+                      ),
+                      _buildGlassButton(
+                        context,
+                        'Create Project',
+                        Icons.add_circle_outline,
+                        () => context.go(
+                          '/createProject',
+                          extra: CreateProjectArguments(
+                            nonprofit: widget.nonprofit,
+                            profile: widget.profile,
+                          ),
+                        ),
+                      ),
+                    ]),
+                  ],
+                ),
+              ),
+
+              // Matching Partnerships Section
+              if (widget.nonprofit.matchingPartnerships?.isNotEmpty ==
+                  true) ...[
+                GlassCard(
+                  margin: const EdgeInsets.only(bottom: GlassmorphismTheme.lg),
+                  hasGoldBorder: true,
                   child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Text(
-                        'Amount Raised',
-                        style: TextStyle(
-                            backgroundColor: Colors.black.withOpacity(.70),
-                            color: Colors.amber,
-                            fontWeight: FontWeight.bold),
+                        'Matching Partnerships',
+                        style: GlassmorphismTheme.h2Style.copyWith(
+                          color: GlassmorphismTheme.gold,
+                        ),
                       ),
-                      Row(
-                        children: [
-                          Text(
-                            '\$ ${company.totalRaised!.toInt()} /  \$${company.fundingLimit!.toInt()}',
-                            softWrap: true,
-                            style: TextStyle(
-                                backgroundColor: Colors.black.withOpacity(.70),
-                                color: Colors.amber,
-                                fontWeight: FontWeight.bold),
-                          ),
-                        ],
+                      const SizedBox(height: GlassmorphismTheme.md),
+                      SizedBox(
+                        height: 160,
+                        child: ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          itemCount:
+                              widget.nonprofit.matchingPartnerships!.length,
+                          itemBuilder: (context, index) {
+                            return _buildCompanyMatchCard(
+                              widget.nonprofit.matchingPartnerships![index],
+                            );
+                          },
+                        ),
                       ),
                     ],
                   ),
                 ),
-              ),
-              Positioned(
-                  left: 8,
-                  bottom: 12,
-                  child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          company.company.name,
-                          softWrap: true,
-                          style: TextStyle(
-                              backgroundColor: Colors.black.withOpacity(.70),
-                              color: Colors.amber,
-                              fontWeight: FontWeight.bold),
-                        ),
-                        const SizedBox(height: 6),
-                        SizedBox(
-                            width: 150,
-                            child: Text(
-                                'Matching ${company.matchLevel}% of users donations',
-                                style: TextStyle(
-                                  backgroundColor:
-                                      Colors.black.withOpacity(.70),
-                                  color: Colors.white,
-                                )))
-                      ])),
+              ],
             ],
           ),
         ),
+      ),
+    );
+  }
+
+  Widget _buildActionButtonRow(List<Widget> buttons) {
+    return Row(
+      children: buttons.map((button) => Expanded(child: button)).toList(),
+    );
+  }
+
+  Widget _buildActionButton(
+    BuildContext context,
+    String title,
+    IconData icon,
+    String route,
+    dynamic extra,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.xs),
+      child: GlassButton(
+        onPressed: () => context.go(route, extra: extra),
+        icon: icon,
+        text: title,
+        // : false,
+      ),
+    );
+  }
+
+  Widget _buildGlassButton(
+    BuildContext context,
+    String title,
+    IconData icon,
+    VoidCallback onPressed,
+  ) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: GlassmorphismTheme.xs),
+      child: GlassButton(
+        onPressed: onPressed,
+        icon: icon,
+        text: title,
+      ),
+    );
+  }
+
+  Widget _buildCompanyMatchCard(CompanyNonProfitMatchRelationship company) {
+    return GlassCard(
+      margin: const EdgeInsets.only(right: GlassmorphismTheme.md),
+      width: 180,
+      hasGoldBorder: true,
+      child: Stack(
+        children: [
+          // Company Logo
+          Container(
+            width: double.infinity,
+            height: 80,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(GlassmorphismTheme.radiusSm),
+              image: DecorationImage(
+                fit: BoxFit.contain,
+                image: NetworkImage(company.company.logo),
+              ),
+            ),
+          ),
+
+          // Company Info
+          Positioned(
+            bottom: 0,
+            left: 0,
+            right: 0,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  company.company.name,
+                  style: GlassmorphismTheme.captionStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: GlassmorphismTheme.gold,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                const SizedBox(height: GlassmorphismTheme.xs),
+                Text(
+                  'Matching ${company.matchLevel}%',
+                  style: GlassmorphismTheme.captionStyle.copyWith(
+                    fontSize: 10,
+                  ),
+                ),
+                Text(
+                  '\$${company.totalRaised?.toInt() ?? 0} / \$${company.fundingLimit?.toInt() ?? 0}',
+                  style: GlassmorphismTheme.captionStyle.copyWith(
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

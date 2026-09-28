@@ -14,7 +14,7 @@ class NonprofitsignupState extends Equatable {
   final String description;
   // final dynamic logo;
   // final dynamic mainImage;
-  final FormSubmissionStatus status;
+  final FormSubmissionStatus formStatus;
   NonprofitsignupState(
       {this.address = '',
       this.yearStarted = 1999,
@@ -24,7 +24,7 @@ class NonprofitsignupState extends Equatable {
       this.instagram = '',
       this.state = '',
       this.missionStatement = '',
-      this.status = const InitialFormStatus(),
+      this.formStatus = const InitialFormStatus(),
       this.visionStatement = '',
       this.website = '',
       // this.logo,
@@ -45,7 +45,7 @@ class NonprofitsignupState extends Equatable {
     // dynamic mainImage,
     int? yearStarted,
     Profile? profile,
-    FormSubmissionStatus? status,
+    FormSubmissionStatus? formStatus,
   }) {
     return NonprofitsignupState(
         name: name ?? this.name,
@@ -59,7 +59,7 @@ class NonprofitsignupState extends Equatable {
         visionStatement: visionStatement ?? this.visionStatement,
         // logo: logo ?? this.logo,
         // mainImage: mainImage ?? this.mainImage,
-        status: status ?? this.status,
+        formStatus: formStatus ?? this.formStatus,
         website: website ?? this.website);
   }
 
