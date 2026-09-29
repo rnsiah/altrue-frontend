@@ -12,6 +12,28 @@ subprojects {
 subprojects {
     project.evaluationDependsOn(':app')
 }
+subprojects {
+    // AGP 8 removed support for the AndroidManifest `package` attribute and
+    // requires a Gradle `namespace` instead. Older plugins (currently
+    // flutter_keyboard_visibility and flutter_local_notifications) still declare
+    // their namespace only via the manifest, so promote it here rather than
+    // patching the pub cache. `plugins.withId` is used instead of
+    // `afterEvaluate` because the evaluationDependsOn(':app') block above forces
+    // subprojects to be evaluated during this file's own evaluation.
+    // TODO: drop this shim once both plugins are upgraded to releases that
+    // declare a namespace.
+    project.plugins.withId("com.android.library") {
+        if (project.android.namespace == null) {
+            def manifestFile = project.file('src/main/AndroidManifest.xml')
+            if (manifestFile.exists()) {
+                def manifestPackage = new groovy.xml.XmlSlurper().parse(manifestFile).@package.text()
+                if (manifestPackage) {
+                    project.android.namespace = manifestPackage
+                }
+            }
+        }
+    }
+}
 
 tasks.register("clean", Delete) {
     delete rootProject.buildDir
