@@ -12,8 +12,8 @@ class NotificationService {
     const AndroidInitializationSettings initializationSettingsAndroid = 
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
-    const IOSInitializationSettings initializationSettingsIOS = 
-        IOSInitializationSettings(requestAlertPermission: true, requestBadgePermission: true, requestSoundPermission: true);
+    const DarwinInitializationSettings initializationSettingsIOS = 
+        DarwinInitializationSettings(requestAlertPermission: true, requestBadgePermission: true, requestSoundPermission: true);
 
     const InitializationSettings initializationSettings = InitializationSettings(
       android: initializationSettingsAndroid,
@@ -27,14 +27,14 @@ class NotificationService {
     print('Showing Notification: $title, $body');
     const AndroidNotificationDetails androidPlatformChannelSpecifics = 
         AndroidNotificationDetails('your_channel_id', 'your_channel_name',
-           'your_channel_description',
+           channelDescription: 'your_channel_description',
             importance: Importance.max,
             priority: Priority.high,
             ticker: 'ticker');
 
     const NotificationDetails platformChannelSpecifics = NotificationDetails(
       android: androidPlatformChannelSpecifics,
-      iOS: IOSNotificationDetails(
+      iOS: DarwinNotificationDetails(
         presentAlert: true,
         presentBadge: true,
         presentSound: true,

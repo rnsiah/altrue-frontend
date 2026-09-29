@@ -69,7 +69,6 @@ dependencies:
   intro_slider: ^4.2.5
   flutter_launcher_icons: ^0.11.0
   flutter_stripe: ^11.3.0
-  geolocator: ^12.0.0
   flutter_swiper_null_safety: ^1.0.2
   animations: ^2.0.7
   expandable: ^5.0.1
@@ -82,11 +81,24 @@ dependencies:
   youtube_player_flutter: ^9.1.1
   stomp_dart_client: ^2.0.0
   web_socket_channel: ^3.0.1
-  flutter_local_notifications: ^8.2.0
+  flutter_local_notifications: ^19.5.0
   curved_navigation_bar: ^1.0.6
   go_router: ^15.1.2
   wallet: any
   encrypt: ^5.0.3
+
+# flutter_number_picker 1.0.4 (the last release of that package) pins
+# flutter_svg ^0.22.0, which pins xml ^5.0.0. flutter_local_notifications
+# >= 14 pulls in dbus via its Linux implementation, and every dbus >= 0.7.4
+# requires xml >= 6.1.0, so the two cannot resolve together. flutter_svg 1.x
+# and later dropped the xml dependency entirely, so overriding it removes the
+# conflict. The only flutter_svg call reachable from this app is
+# SvgPicture.asset(name, height: 15) inside flutter_number_picker, and
+# shirt_couter.dart overrides both of the widgets that would render it.
+# TODO: drop this override by replacing flutter_number_picker, which has been
+# unmaintained since 2023.
+dependency_overrides:
+  flutter_svg: ^2.0.17
 
 dev_dependencies:
   build_runner: ^2.4.14  
