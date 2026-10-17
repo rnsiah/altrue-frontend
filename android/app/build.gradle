@@ -45,7 +45,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.lovelovelove"
-        minSdkVersion 21 // Common for Flutter, supports older devices
+        minSdkVersion flutter.minSdkVersion // Common for Flutter, supports older devices
         targetSdkVersion 35 // Match plugin requirements
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName

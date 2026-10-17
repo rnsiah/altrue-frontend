@@ -10,6 +10,7 @@
         "type": "text"
       }
     ]
-  }
+  },
+  "java.configuration.updateBuildConfiguration": "interactive"
 
 }
