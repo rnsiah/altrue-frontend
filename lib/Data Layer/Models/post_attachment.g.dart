@@ -9,7 +9,8 @@ part of 'post_attachment.dart';
 PostAttachment _$PostAttachmentFromJson(Map<String, dynamic> json) =>
     PostAttachment(
       created_by: ProfileRepresentation.fromJson(
-          json['created_by'] as Map<String, dynamic>),
+        json['created_by'] as Map<String, dynamic>,
+      ),
       image: json['image'] as String,
     );
 

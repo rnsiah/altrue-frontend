@@ -7,27 +7,27 @@ part of 'user_reward_model.dart';
 // **************************************************************************
 
 UserReward _$UserRewardFromJson(Map<String, dynamic> json) => UserReward(
-      id: (json['id'] as num).toInt(),
-      reward: CompanyReward.fromJson(json['reward'] as Map<String, dynamic>),
-      status: json['status'] as String,
-      unlockedAt: DateTime.parse(json['unlocked_at'] as String),
-      viewedAt: json['viewed_at'] == null
-          ? null
-          : DateTime.parse(json['viewed_at'] as String),
-      claimedAt: json['claimed_at'] == null
-          ? null
-          : DateTime.parse(json['claimed_at'] as String),
-      redeemedAt: json['redeemed_at'] == null
-          ? null
-          : DateTime.parse(json['redeemed_at'] as String),
-      expiresAt: json['expires_at'] == null
-          ? null
-          : DateTime.parse(json['expires_at'] as String),
-      code: json['code'] as String?,
-      shippingStatus: json['shipping_status'] as String?,
-      trackingNumber: json['tracking_number'] as String?,
-      shippingAddress: json['shipping_address'] as String?,
-    );
+  id: (json['id'] as num).toInt(),
+  reward: CompanyReward.fromJson(json['reward'] as Map<String, dynamic>),
+  status: json['status'] as String,
+  unlockedAt: DateTime.parse(json['unlocked_at'] as String),
+  viewedAt: json['viewed_at'] == null
+      ? null
+      : DateTime.parse(json['viewed_at'] as String),
+  claimedAt: json['claimed_at'] == null
+      ? null
+      : DateTime.parse(json['claimed_at'] as String),
+  redeemedAt: json['redeemed_at'] == null
+      ? null
+      : DateTime.parse(json['redeemed_at'] as String),
+  expiresAt: json['expires_at'] == null
+      ? null
+      : DateTime.parse(json['expires_at'] as String),
+  code: json['code'] as String?,
+  shippingStatus: json['shipping_status'] as String?,
+  trackingNumber: json['tracking_number'] as String?,
+  shippingAddress: json['shipping_address'] as String?,
+);
 
 Map<String, dynamic> _$UserRewardToJson(UserReward instance) =>
     <String, dynamic>{
@@ -48,8 +48,9 @@ Map<String, dynamic> _$UserRewardToJson(UserReward instance) =>
 CompanyReward _$CompanyRewardFromJson(Map<String, dynamic> json) =>
     CompanyReward(
       id: (json['id'] as num).toInt(),
-      company:
-          ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
+      company: ForProfitCompany.fromJson(
+        json['company'] as Map<String, dynamic>,
+      ),
       name: json['name'] as String,
       description: json['description'] as String,
       rewardType: json['reward_type'] as String,

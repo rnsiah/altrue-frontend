@@ -13,8 +13,8 @@ CompaniesSupporting _$CompaniesSupportingFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CompaniesSupportingToJson(
-        CompaniesSupporting instance) =>
-    <String, dynamic>{
-      'companyName': instance.companyName,
-      'companyLogo': instance.companyLogo,
-    };
+  CompaniesSupporting instance,
+) => <String, dynamic>{
+  'companyName': instance.companyName,
+  'companyLogo': instance.companyLogo,
+};

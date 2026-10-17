@@ -7,14 +7,14 @@ part of 'userLogin_model.dart';
 // **************************************************************************
 
 UserLogin _$UserLoginFromJson(Map<String, dynamic> json) => UserLogin(
-      email: json['email'] as String,
-      password: json['password'] as String,
-    );
+  email: json['email'] as String,
+  password: json['password'] as String,
+);
 
 Map<String, dynamic> _$UserLoginToJson(UserLogin instance) => <String, dynamic>{
-      'email': instance.email,
-      'password': instance.password,
-    };
+  'email': instance.email,
+  'password': instance.password,
+};
 
 UserSignUpLoginIn _$UserSignUpLoginInFromJson(Map<String, dynamic> json) =>
     UserSignUpLoginIn(
@@ -33,16 +33,16 @@ Map<String, dynamic> _$UserSignUpLoginInToJson(UserSignUpLoginIn instance) =>
     };
 
 Token _$TokenFromJson(Map<String, dynamic> json) => Token(
-      token: json['key'] as String,
-      user: json['user'] == null
-          ? null
-          : UserInfoFromKey.fromJson(json['user'] as Map<String, dynamic>),
-    );
+  token: json['key'] as String,
+  user: json['user'] == null
+      ? null
+      : UserInfoFromKey.fromJson(json['user'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$TokenToJson(Token instance) => <String, dynamic>{
-      'key': instance.token,
-      'user': instance.user?.toJson(),
-    };
+  'key': instance.token,
+  'user': instance.user?.toJson(),
+};
 
 UserInfoFromKey _$UserInfoFromKeyFromJson(Map<String, dynamic> json) =>
     UserInfoFromKey(

@@ -7,10 +7,10 @@ part of 'shirt_color_model.dart';
 // **************************************************************************
 
 ShirtColor _$ShirtColorFromJson(Map<String, dynamic> json) => ShirtColor(
-      color: json['color'] as String,
-      id: (json['id'] as num?)?.toInt(),
-      hex: json['hex'] as String,
-    );
+  color: json['color'] as String,
+  id: (json['id'] as num?)?.toInt(),
+  hex: json['hex'] as String,
+);
 
 Map<String, dynamic> _$ShirtColorToJson(ShirtColor instance) =>
     <String, dynamic>{

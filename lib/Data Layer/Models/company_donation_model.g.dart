@@ -21,7 +21,8 @@ CompanyDonation _$CompanyDonationFromJson(Map<String, dynamic> json) =>
       project: json['project'] == null
           ? null
           : NonProfitProjectRep.fromJson(
-              json['project'] as Map<String, dynamic>),
+              json['project'] as Map<String, dynamic>,
+            ),
     );
 
 Map<String, dynamic> _$CompanyDonationToJson(CompanyDonation instance) =>
@@ -36,39 +37,38 @@ Map<String, dynamic> _$CompanyDonationToJson(CompanyDonation instance) =>
     };
 
 CompanyMatchDonation _$CompanyMatchDonationFromJson(
-        Map<String, dynamic> json) =>
-    CompanyMatchDonation(
-      amount: json['amount'] as String,
-      transactionMatched: json['transaction_matched'] == null
-          ? null
-          : UserDonation.fromJson(
-              json['transaction_matched'] as Map<String, dynamic>),
-      id: (json['id'] as num).toInt(),
-      atrocity: json['atrocity'] == null
-          ? null
-          : AtrocityRep.fromJson(json['atrocity'] as Map<String, dynamic>),
-      nonprofit: json['nonprofit'] == null
-          ? null
-          : NonProfitRep.fromJson(json['nonprofit'] as Map<String, dynamic>),
-      project: json['project'] == null
-          ? null
-          : NonProfitProjectRep.fromJson(
-              json['project'] as Map<String, dynamic>),
-      user:
-          ProfileRepresentation.fromJson(json['user'] as Map<String, dynamic>),
-    );
+  Map<String, dynamic> json,
+) => CompanyMatchDonation(
+  amount: json['amount'] as String,
+  transactionMatched: json['transaction_matched'] == null
+      ? null
+      : UserDonation.fromJson(
+          json['transaction_matched'] as Map<String, dynamic>,
+        ),
+  id: (json['id'] as num).toInt(),
+  atrocity: json['atrocity'] == null
+      ? null
+      : AtrocityRep.fromJson(json['atrocity'] as Map<String, dynamic>),
+  nonprofit: json['nonprofit'] == null
+      ? null
+      : NonProfitRep.fromJson(json['nonprofit'] as Map<String, dynamic>),
+  project: json['project'] == null
+      ? null
+      : NonProfitProjectRep.fromJson(json['project'] as Map<String, dynamic>),
+  user: ProfileRepresentation.fromJson(json['user'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$CompanyMatchDonationToJson(
-        CompanyMatchDonation instance) =>
-    <String, dynamic>{
-      'user': instance.user.toJson(),
-      'id': instance.id,
-      'atrocity': instance.atrocity?.toJson(),
-      'nonprofit': instance.nonprofit?.toJson(),
-      'project': instance.project?.toJson(),
-      'amount': instance.amount,
-      'transaction_matched': instance.transactionMatched?.toJson(),
-    };
+  CompanyMatchDonation instance,
+) => <String, dynamic>{
+  'user': instance.user.toJson(),
+  'id': instance.id,
+  'atrocity': instance.atrocity?.toJson(),
+  'nonprofit': instance.nonprofit?.toJson(),
+  'project': instance.project?.toJson(),
+  'amount': instance.amount,
+  'transaction_matched': instance.transactionMatched?.toJson(),
+};
 
 AllCompanyDonations _$AllCompanyDonationsFromJson(Map<String, dynamic> json) =>
     AllCompanyDonations(
@@ -81,8 +81,8 @@ AllCompanyDonations _$AllCompanyDonationsFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AllCompanyDonationsToJson(
-        AllCompanyDonations instance) =>
-    <String, dynamic>{
-      'donations': instance.donations?.map((e) => e.toJson()).toList(),
-      'matched': instance.matched?.map((e) => e.toJson()).toList(),
-    };
+  AllCompanyDonations instance,
+) => <String, dynamic>{
+  'donations': instance.donations?.map((e) => e.toJson()).toList(),
+  'matched': instance.matched?.map((e) => e.toJson()).toList(),
+};

@@ -41,15 +41,14 @@ Map<String, dynamic> _$CompanyCampaignToJson(CompanyCampaign instance) =>
     };
 
 MatchOffer _$MatchOfferFromJson(Map<String, dynamic> json) => MatchOffer(
-      company:
-          ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
-      matchPercentage: (json['matchPercentage'] as num).toDouble(),
-      isBaseMatch: json['is_base_match'] as bool,
-      isCampaignMatch: json['is_campaign_match'] as bool,
-      campaignName: json['campaign_name'] as String?,
-      maxMatchAmount: (json['max_match_amount'] as num?)?.toDouble(),
-      matchMultiplier: (json['match_multiplier'] as num?)?.toDouble(),
-    );
+  company: ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
+  matchPercentage: (json['matchPercentage'] as num).toDouble(),
+  isBaseMatch: json['is_base_match'] as bool,
+  isCampaignMatch: json['is_campaign_match'] as bool,
+  campaignName: json['campaign_name'] as String?,
+  maxMatchAmount: (json['max_match_amount'] as num?)?.toDouble(),
+  matchMultiplier: (json['match_multiplier'] as num?)?.toDouble(),
+);
 
 Map<String, dynamic> _$MatchOfferToJson(MatchOffer instance) =>
     <String, dynamic>{
@@ -63,21 +62,21 @@ Map<String, dynamic> _$MatchOfferToJson(MatchOffer instance) =>
     };
 
 AvailableMatchesResponse _$AvailableMatchesResponseFromJson(
-        Map<String, dynamic> json) =>
-    AvailableMatchesResponse(
-      matches: (json['matches'] as List<dynamic>)
-          .map((e) => MatchOffer.fromJson(e as Map<String, dynamic>))
-          .toList(),
-      totalImpact: (json['total_impact'] as num).toDouble(),
-      userDonation: (json['user_donation'] as num).toDouble(),
-      totalMatchAmount: (json['total_match_amount'] as num).toDouble(),
-    );
+  Map<String, dynamic> json,
+) => AvailableMatchesResponse(
+  matches: (json['matches'] as List<dynamic>)
+      .map((e) => MatchOffer.fromJson(e as Map<String, dynamic>))
+      .toList(),
+  totalImpact: (json['total_impact'] as num).toDouble(),
+  userDonation: (json['user_donation'] as num).toDouble(),
+  totalMatchAmount: (json['total_match_amount'] as num).toDouble(),
+);
 
 Map<String, dynamic> _$AvailableMatchesResponseToJson(
-        AvailableMatchesResponse instance) =>
-    <String, dynamic>{
-      'matches': instance.matches.map((e) => e.toJson()).toList(),
-      'total_impact': instance.totalImpact,
-      'user_donation': instance.userDonation,
-      'total_match_amount': instance.totalMatchAmount,
-    };
+  AvailableMatchesResponse instance,
+) => <String, dynamic>{
+  'matches': instance.matches.map((e) => e.toJson()).toList(),
+  'total_impact': instance.totalImpact,
+  'user_donation': instance.userDonation,
+  'total_match_amount': instance.totalMatchAmount,
+};

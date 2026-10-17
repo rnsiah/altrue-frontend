@@ -18,7 +18,8 @@ ForProfitCompany _$ForProfitCompanyFromJson(Map<String, dynamic> json) =>
       json['donationsMade'] == null
           ? null
           : AllCompanyDonations.fromJson(
-              json['donationsMade'] as Map<String, dynamic>),
+              json['donationsMade'] as Map<String, dynamic>,
+            ),
       json['mission'] as String?,
       json['year_started'] as String,
       json['name'] as String,
@@ -37,12 +38,18 @@ ForProfitCompany _$ForProfitCompanyFromJson(Map<String, dynamic> json) =>
           ?.map((e) => CompanyAtrocity.fromJson(e as Map<String, dynamic>))
           .toList(),
       (json['atrocityRelationships'] as List<dynamic>?)
-          ?.map((e) => CompanyAtrocityMatchRelationShip.fromJson(
-              e as Map<String, dynamic>))
+          ?.map(
+            (e) => CompanyAtrocityMatchRelationShip.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
           .toList(),
       (json['nonprofitRelationships'] as List<dynamic>?)
-          ?.map((e) => CompanyNonProfitMatchRelationship.fromJson(
-              e as Map<String, dynamic>))
+          ?.map(
+            (e) => CompanyNonProfitMatchRelationship.fromJson(
+              e as Map<String, dynamic>,
+            ),
+          )
           .toList(),
       (json['categories'] as List<dynamic>?)
           ?.map((e) => Category.fromJson(e as Map<String, dynamic>))
@@ -79,10 +86,12 @@ Map<String, dynamic> _$ForProfitCompanyToJson(ForProfitCompany instance) =>
       'links': instance.links?.map((e) => e.toJson()).toList(),
       'totalDonated': instance.totalDonated,
       'coupons': instance.coupons?.map((e) => e.toJson()).toList(),
-      'atrocityRelationships':
-          instance.atrocityMatchRelationships?.map((e) => e.toJson()).toList(),
-      'nonprofitRelationships':
-          instance.nonprofitMatchRelationships?.map((e) => e.toJson()).toList(),
+      'atrocityRelationships': instance.atrocityMatchRelationships
+          ?.map((e) => e.toJson())
+          .toList(),
+      'nonprofitRelationships': instance.nonprofitMatchRelationships
+          ?.map((e) => e.toJson())
+          .toList(),
       'totalDonationCount': instance.totalDonationCount,
       'donationsMade': instance.donationsMade?.toJson(),
     };

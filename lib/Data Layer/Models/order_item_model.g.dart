@@ -7,30 +7,30 @@ part of 'order_item_model.dart';
 // **************************************************************************
 
 OrderItem _$OrderItemFromJson(Map<String, dynamic> json) => OrderItem(
-      id: (json['id'] as num?)?.toInt(),
-      quantity: (json['quantity'] as num).toInt(),
-      shirt: Shirt.fromJson(json['ordered_shirt'] as Map<String, dynamic>),
-      color: ShirtColor.fromJson(json['color'] as Map<String, dynamic>),
-      size: ShirtSize.fromJson(json['size'] as Map<String, dynamic>),
-    );
+  id: (json['id'] as num?)?.toInt(),
+  quantity: (json['quantity'] as num).toInt(),
+  shirt: Shirt.fromJson(json['ordered_shirt'] as Map<String, dynamic>),
+  color: ShirtColor.fromJson(json['color'] as Map<String, dynamic>),
+  size: ShirtSize.fromJson(json['size'] as Map<String, dynamic>),
+);
 
 Map<String, dynamic> _$OrderItemToJson(OrderItem instance) => <String, dynamic>{
-      'ordered_shirt': instance.shirt.toJson(),
-      'quantity': instance.quantity,
-      'size': instance.size.toJson(),
-      'color': instance.color.toJson(),
-      'id': instance.id,
-    };
+  'ordered_shirt': instance.shirt.toJson(),
+  'quantity': instance.quantity,
+  'size': instance.size.toJson(),
+  'color': instance.color.toJson(),
+  'id': instance.id,
+};
 
 Cart _$CartFromJson(Map<String, dynamic> json) => Cart(
-      items: (json['items'] as List<dynamic>)
-          .map((e) => DatabaseOrderItem.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  items: (json['items'] as List<dynamic>)
+      .map((e) => DatabaseOrderItem.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$CartToJson(Cart instance) => <String, dynamic>{
-      'items': instance.items.map((e) => e.toJson()).toList(),
-    };
+  'items': instance.items.map((e) => e.toJson()).toList(),
+};
 
 DatabaseOrderItem _$DatabaseOrderItemFromJson(Map<String, dynamic> json) =>
     DatabaseOrderItem(

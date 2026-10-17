@@ -7,12 +7,12 @@ part of 'user_actions_model.dart';
 // **************************************************************************
 
 UserActions _$UserActionsFromJson(Map<String, dynamic> json) => UserActions(
-      json['is_promotion'] as bool?,
-      AltrueAction.fromJson(json['altrue_action'] as Map<String, dynamic>),
-      json['date_completed'] as String,
-      json['is_aggregate'] as bool?,
-      json['aggregate_complete_date'] as String?,
-    );
+  json['is_promotion'] as bool?,
+  AltrueAction.fromJson(json['altrue_action'] as Map<String, dynamic>),
+  json['date_completed'] as String,
+  json['is_aggregate'] as bool?,
+  json['aggregate_complete_date'] as String?,
+);
 
 Map<String, dynamic> _$UserActionsToJson(UserActions instance) =>
     <String, dynamic>{

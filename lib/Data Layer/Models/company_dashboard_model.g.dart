@@ -22,25 +22,26 @@ CompanyDashboard _$CompanyDashboardFromJson(Map<String, dynamic> json) =>
           .map((e) => RecentMatch.fromJson(e as Map<String, dynamic>))
           .toList(),
       impactStats: CompanyImpactStats.fromJson(
-          json['impact_stats'] as Map<String, dynamic>),
+        json['impact_stats'] as Map<String, dynamic>,
+      ),
       isOwner: json['is_owner'] as bool,
     );
 
-Map<String, dynamic> _$CompanyDashboardToJson(CompanyDashboard instance) =>
-    <String, dynamic>{
-      'matched_this_month': instance.matchedThisMonth,
-      'budget_remaining': instance.budgetRemaining,
-      'monthly_budget': instance.monthlyBudget,
-      'unique_donors': instance.uniqueDonors,
-      'total_donors': instance.totalDonors,
-      'active_campaigns':
-          instance.activeCampaigns.map((e) => e.toJson()).toList(),
-      'wallet_balance': instance.walletBalance,
-      'auto_refill_enabled': instance.autoRefillEnabled,
-      'recent_matches': instance.recentMatches.map((e) => e.toJson()).toList(),
-      'impact_stats': instance.impactStats.toJson(),
-      'is_owner': instance.isOwner,
-    };
+Map<String, dynamic> _$CompanyDashboardToJson(
+  CompanyDashboard instance,
+) => <String, dynamic>{
+  'matched_this_month': instance.matchedThisMonth,
+  'budget_remaining': instance.budgetRemaining,
+  'monthly_budget': instance.monthlyBudget,
+  'unique_donors': instance.uniqueDonors,
+  'total_donors': instance.totalDonors,
+  'active_campaigns': instance.activeCampaigns.map((e) => e.toJson()).toList(),
+  'wallet_balance': instance.walletBalance,
+  'auto_refill_enabled': instance.autoRefillEnabled,
+  'recent_matches': instance.recentMatches.map((e) => e.toJson()).toList(),
+  'impact_stats': instance.impactStats.toJson(),
+  'is_owner': instance.isOwner,
+};
 
 CompanyImpactStats _$CompanyImpactStatsFromJson(Map<String, dynamic> json) =>
     CompanyImpactStats(

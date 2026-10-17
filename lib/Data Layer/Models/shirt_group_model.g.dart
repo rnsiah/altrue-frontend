@@ -7,15 +7,15 @@ part of 'shirt_group_model.dart';
 // **************************************************************************
 
 ShirtGroup _$ShirtGroupFromJson(Map<String, dynamic> json) => ShirtGroup(
-      name: json['name'] as String?,
-      creator: json['creator'] as String?,
-      description: json['description'] as String?,
-      id: (json['id'] as num?)?.toInt(),
-      groupImage: json['groupImage'] as String?,
-      shirts: (json['shirts'] as List<dynamic>?)
-          ?.map((e) => Shirt.fromJson(e as Map<String, dynamic>))
-          .toList(),
-    );
+  name: json['name'] as String?,
+  creator: json['creator'] as String?,
+  description: json['description'] as String?,
+  id: (json['id'] as num?)?.toInt(),
+  groupImage: json['groupImage'] as String?,
+  shirts: (json['shirts'] as List<dynamic>?)
+      ?.map((e) => Shirt.fromJson(e as Map<String, dynamic>))
+      .toList(),
+);
 
 Map<String, dynamic> _$ShirtGroupToJson(ShirtGroup instance) =>
     <String, dynamic>{

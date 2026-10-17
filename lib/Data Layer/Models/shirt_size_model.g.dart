@@ -7,11 +7,11 @@ part of 'shirt_size_model.dart';
 // **************************************************************************
 
 ShirtSize _$ShirtSizeFromJson(Map<String, dynamic> json) => ShirtSize(
-      id: (json['size'] as num?)?.toInt(),
-      size: json['sizevalue'] as String,
-    );
+  id: (json['size'] as num?)?.toInt(),
+  size: json['sizevalue'] as String,
+);
 
 Map<String, dynamic> _$ShirtSizeToJson(ShirtSize instance) => <String, dynamic>{
-      'size': instance.id,
-      'sizevalue': instance.size,
-    };
+  'size': instance.id,
+  'sizevalue': instance.size,
+};

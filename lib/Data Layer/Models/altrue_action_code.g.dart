@@ -13,7 +13,4 @@ AltrueActionCode _$AltrueActionCodeFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$AltrueActionCodeToJson(AltrueActionCode instance) =>
-    <String, dynamic>{
-      'code': instance.code,
-      'id': instance.id,
-    };
+    <String, dynamic>{'code': instance.code, 'id': instance.id};

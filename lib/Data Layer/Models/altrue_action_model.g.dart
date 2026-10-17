@@ -6,20 +6,23 @@ part of 'altrue_action_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-AltrueAction _$AltrueActionFromJson(Map<String, dynamic> json) => AltrueAction(
-      name: json['requirement'] as String?,
-      id: (json['id'] as num).toInt(),
-      pointsAwarded: (json['points_awarded'] as num?)?.toInt(),
-      isPromoted: json['is_promoted'] as bool,
-    )
+AltrueAction _$AltrueActionFromJson(Map<String, dynamic> json) =>
+    AltrueAction(
+        name: json['requirement'] as String?,
+        id: (json['id'] as num).toInt(),
+        pointsAwarded: (json['points_awarded'] as num?)?.toInt(),
+        isPromoted: json['is_promoted'] as bool,
+      )
       ..promotion = json['promotion'] == null
           ? null
           : AltruePointPromotion.fromJson(
-              json['promotion'] as Map<String, dynamic>)
+              json['promotion'] as Map<String, dynamic>,
+            )
       ..actionCode = json['action_code'] == null
           ? null
           : AltrueActionCode.fromJson(
-              json['action_code'] as Map<String, dynamic>)
+              json['action_code'] as Map<String, dynamic>,
+            )
       ..info = json['info'] as String?
       ..isCompleted = json['isCompleted'] as bool?;
 

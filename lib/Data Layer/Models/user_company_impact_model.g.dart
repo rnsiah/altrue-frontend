@@ -28,8 +28,9 @@ Map<String, dynamic> _$UserCompanyImpactToJson(UserCompanyImpact instance) =>
 
 CompanyMatchSummary _$CompanyMatchSummaryFromJson(Map<String, dynamic> json) =>
     CompanyMatchSummary(
-      company:
-          ForProfitCompany.fromJson(json['company'] as Map<String, dynamic>),
+      company: ForProfitCompany.fromJson(
+        json['company'] as Map<String, dynamic>,
+      ),
       totalMatched: (json['total_matched'] as num).toDouble(),
       donationCount: (json['donation_count'] as num).toInt(),
       lastMatchedAt: json['last_matched_at'] == null
@@ -39,24 +40,24 @@ CompanyMatchSummary _$CompanyMatchSummaryFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$CompanyMatchSummaryToJson(
-        CompanyMatchSummary instance) =>
-    <String, dynamic>{
-      'company': instance.company.toJson(),
-      'total_matched': instance.totalMatched,
-      'donation_count': instance.donationCount,
-      'last_matched_at': instance.lastMatchedAt?.toIso8601String(),
-      'top_cause': instance.topCause,
-    };
+  CompanyMatchSummary instance,
+) => <String, dynamic>{
+  'company': instance.company.toJson(),
+  'total_matched': instance.totalMatched,
+  'donation_count': instance.donationCount,
+  'last_matched_at': instance.lastMatchedAt?.toIso8601String(),
+  'top_cause': instance.topCause,
+};
 
 RecentMatch _$RecentMatchFromJson(Map<String, dynamic> json) => RecentMatch(
-      id: (json['id'] as num).toInt(),
-      donorName: json['donor_name'] as String,
-      donationAmount: (json['donation_amount'] as num).toDouble(),
-      matchAmount: (json['match_amount'] as num).toDouble(),
-      causeName: json['cause_name'] as String?,
-      nonprofitName: json['nonprofit_name'] as String?,
-      createdAt: DateTime.parse(json['created_at'] as String),
-    );
+  id: (json['id'] as num).toInt(),
+  donorName: json['donor_name'] as String,
+  donationAmount: (json['donation_amount'] as num).toDouble(),
+  matchAmount: (json['match_amount'] as num).toDouble(),
+  causeName: json['cause_name'] as String?,
+  nonprofitName: json['nonprofit_name'] as String?,
+  createdAt: DateTime.parse(json['created_at'] as String),
+);
 
 Map<String, dynamic> _$RecentMatchToJson(RecentMatch instance) =>
     <String, dynamic>{

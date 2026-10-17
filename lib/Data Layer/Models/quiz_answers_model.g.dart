@@ -7,9 +7,9 @@ part of 'quiz_answers_model.dart';
 // **************************************************************************
 
 QuizAnswers _$QuizAnswersFromJson(Map<String, dynamic> json) => QuizAnswers(
-      answer: json['answer'] as String,
-      isCorrect: json['isCorrect'] as bool,
-    );
+  answer: json['answer'] as String,
+  isCorrect: json['isCorrect'] as bool,
+);
 
 Map<String, dynamic> _$QuizAnswersToJson(QuizAnswers instance) =>
     <String, dynamic>{

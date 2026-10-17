@@ -7,11 +7,11 @@ part of 'company_location_model.dart';
 // **************************************************************************
 
 CompanyStore _$CompanyStoreFromJson(Map<String, dynamic> json) => CompanyStore(
-      json['street_address'] as String?,
-      json['zip'] as String?,
-      json['country'] as String?,
-      json['state'] as String?,
-    );
+  json['street_address'] as String?,
+  json['zip'] as String?,
+  json['country'] as String?,
+  json['state'] as String?,
+);
 
 Map<String, dynamic> _$CompanyStoreToJson(CompanyStore instance) =>
     <String, dynamic>{

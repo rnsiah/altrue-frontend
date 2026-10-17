@@ -13,7 +13,4 @@ ManageFollower _$ManageFollowerFromJson(Map<String, dynamic> json) =>
     );
 
 Map<String, dynamic> _$ManageFollowerToJson(ManageFollower instance) =>
-    <String, dynamic>{
-      'id': instance.id,
-      'following': instance.follow,
-    };
+    <String, dynamic>{'id': instance.id, 'following': instance.follow};
