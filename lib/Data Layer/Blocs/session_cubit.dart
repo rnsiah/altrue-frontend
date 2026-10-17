@@ -38,14 +38,26 @@ class SessionBLoc extends Bloc<SessionEvent, SessionState> {
       }
     }
     
+    // FIX (2026-10-16, found by session_bloc_test): when the updated-user
+    // fetch fails above, altid can still be null/0 — the old user.altid!
+    // null-assert crashed login in exactly the degraded case the catch
+    // was written for. Guard: without a real altid we cannot check the
+    // local DB or fetch the profile, so route to Authenticated and let
+    // the profile-completion gate handle it.
+    if (user.altid == 0 || user.altid == null) {
+      emit(Authenticated(user: user));
+      return;
+    }
+    final int altid = user.altid!; // safe: guarded above
+
     final profileCheck =
-        await userRepository.userDao.checkIfProfileComplete(user.altid!);
+        await userRepository.userDao.checkIfProfileComplete(altid);
 
     if (profileCheck == 0) {
       emit(Authenticated(user: user));
-      return;  // ADDED: Stop here if profile is incomplete
+      return;  // Stop here if profile is incomplete
     }
-    
+
     // Profile is complete, fetch full profile data
     Profile profile = await userRepository.getProfileFromApi(user: user);
     emit(AuthenticatedWithProfile(
