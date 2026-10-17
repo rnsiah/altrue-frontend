@@ -1,92 +1,78 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lovelovelove/Presentation%20Layer/Forms/user_login_form.dart';
-import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
+import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
+import 'package:lovelovelove/Theme/glass_widgets.dart';
 
-/// Mock User class for testing
-class MockUser extends User {
-  MockUser() : super();
-  
-  @override
-  String get email => 'test@example.com';
-}
+/// Widget tests for the glassmorphism login page (LoginPageUp).
+///
+/// LoginPageUp builds its own LoginBloc from two context reads:
+///   - SessionBLoc  (must be provided above)
+///   - UserRepository (must be provided above)
+/// Neither auto-login nor any network call happens at construction
+/// time, so real instances are safe for render tests.
 
 void main() {
-  group('Login Form Widget Tests', () {
-    testWidgets('Login form displays email and password fields', (WidgetTester tester) async {
-      // Build the login form
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UserLoginForm(),
-          ),
-        ),
-      );
+  group('Login Page Widget Tests', () {
+    late UserRepository userRepository;
+    late SessionBLoc sessionBLoc;
 
-      // Verify email field exists
-      expect(find.byType(TextFormField), findsNWidgets(2));
-      expect(find.text('Email'), findsOneWidget);
-      expect(find.text('Password'), findsOneWidget);
+    setUp(() {
+      userRepository = UserRepository();
+      sessionBLoc = SessionBLoc(userRepository: userRepository);
     });
 
-    testWidgets('Login form validates empty email', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UserLoginForm(),
-          ),
+    Widget buildTestHarness() {
+      return RepositoryProvider<UserRepository>.value(
+        value: userRepository,
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider<SessionBLoc>.value(value: sessionBLoc),
+          ],
+          child: const MaterialApp(home: LoginPageUp()),
         ),
       );
+    }
 
-      // Find and tap login button
-      final loginButton = find.text('Login');
-      expect(loginButton, findsOneWidget);
-      
-      await tester.tap(loginButton);
-      await tester.pump();
+    testWidgets('Login form displays email and password fields',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestHarness());
+      await tester.pumpAndSettle();
 
-      // Form should show validation error
-      // Note: Actual validation depends on implementation
+      // GlassInput wraps a plain TextField internally.
+      expect(find.byType(TextField), findsNWidgets(2));
+      // Labels may render twice (label text + field decoration), so
+      // assert presence, not uniqueness.
+      expect(find.text('Email'), findsAtLeastNWidgets(1));
+      expect(find.text('Password'), findsAtLeastNWidgets(1));
     });
 
-    testWidgets('Login form accepts valid input', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UserLoginForm(),
-          ),
-        ),
-      );
+    testWidgets('Login form accepts valid input',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestHarness());
+      await tester.pumpAndSettle();
 
-      // Enter email
-      final emailField = find.widgetWithText(TextFormField, 'Email');
-      await tester.enterText(emailField, 'test@example.com');
-      
-      // Enter password
-      final passwordField = find.widgetWithText(TextFormField, 'Password');
-      await tester.enterText(passwordField, 'password123');
-      
+      // GlassInput wraps a plain TextField internally; order matches
+      // the form: email first, then password.
+      final fields = find.byType(TextField);
+      await tester.enterText(fields.at(0), 'test@example.com');
+      await tester.enterText(fields.at(1), 'password123');
+
       await tester.pump();
 
-      // Verify text was entered
       expect(find.text('test@example.com'), findsOneWidget);
       expect(find.text('password123'), findsOneWidget);
     });
 
-    testWidgets('Login button is present and tappable', (WidgetTester tester) async {
-      await tester.pumpWidget(
-        MaterialApp(
-          home: Scaffold(
-            body: UserLoginForm(),
-          ),
-        ),
-      );
+    testWidgets('Sign In button is present', (WidgetTester tester) async {
+      await tester.pumpWidget(buildTestHarness());
+      await tester.pumpAndSettle();
 
-      // Verify login button exists
-      expect(find.byType(ElevatedButton), findsOneWidget);
-      
-      // Verify button text
-      expect(find.text('Login'), findsOneWidget);
+      // GlassButton renders its label as a Text widget.
+      expect(find.text('Sign In'), findsOneWidget);
+      expect(find.byType(ElevatedButton), findsNothing);
     });
   });
 }

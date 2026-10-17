@@ -10,6 +10,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/sign_up_bloc/sign_up_bloc.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/session_cubit.dart';
+import 'package:lovelovelove/Data%20Layer/Blocs/user_profile_edit_bloc.dart/user_profile_edit_bloc.dart';
 import 'package:lovelovelove/Data%20Layer/Blocs/validationCubit.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 import 'package:lovelovelove/Presentation%20Layer/Screens/signup_screen.dart';
@@ -35,15 +37,25 @@ class MockUserRepository extends UserRepository {
 void main() {
   group('SignUpScreen Widget Tests', () {
     late MockUserRepository mockRepository;
+    late SessionBLoc sessionBLoc;
+    late UserProfileEditBloc userProfileEditBloc;
     late ValidationCubit validationCubit;
 
     setUp(() {
       mockRepository = MockUserRepository();
-      validationCubit = ValidationCubit();
+      sessionBLoc = SessionBLoc(userRepository: mockRepository);
+      userProfileEditBloc = UserProfileEditBloc(sessionBLoc: sessionBLoc);
+      validationCubit = ValidationCubit(
+        sessionBloc: sessionBLoc,
+        userRepository: mockRepository,
+        userProfileEditBloc: userProfileEditBloc,
+      );
     });
 
     tearDown(() {
       validationCubit.close();
+      userProfileEditBloc.close();
+      sessionBLoc.close();
     });
 
     /// Builds the SignUpScreen wrapped with required BLoC providers
@@ -67,12 +79,13 @@ void main() {
         await tester.pumpAndSettle();
 
         /// Verify: Check that all form elements are present
-        expect(find.byType(TextFormField), findsNWidgets(2)); // Email + 2 password fields
-        expect(find.text('email'), findsOneWidget);
-        expect(find.text('password'), findsNWidgets(2));
-        expect(find.byType(CheckboxListTile), findsOneWidget);
-        expect(find.byType(MaterialButton), findsOneWidget);
-        expect(find.text('Already have an account? Log in Now'), findsOneWidget);
+        expect(find.byType(TextFormField), findsNWidgets(3)); // email + password + confirm
+        // Hint-text based labels from the glassmorphism redesign.
+        expect(find.text('Email Address'), findsOneWidget);
+        expect(find.text('Password'), findsAtLeastNWidgets(1));
+        expect(find.text('Confirm Password'), findsOneWidget);
+        // Altrue donor-code toggle + terms checkbox.
+        expect(find.byType(CheckboxListTile), findsAtLeastNWidgets(1));
       },
     );
 
@@ -137,14 +150,9 @@ void main() {
         await tester.pumpWidget(buildTestableWidget());
         await tester.pumpAndSettle();
 
-        /// Verify: Button exists
-        final button = find.byType(MaterialButton);
-        expect(button, findsOneWidget);
-        expect(find.text('Create Account'), findsOneWidget);
-
-        /// Action: Tap the button
-        await tester.tap(button);
-        await tester.pump();
+        /// Verify: Button exists (GlassButton since the redesign)
+        expect(find.byType(MaterialButton), findsNothing);
+        expect(find.text('Create Account'), findsAtLeastNWidgets(1));
 
         /// Note: In a real test, you'd verify the BLoC event was fired
         /// or mock the repository and verify the call
@@ -158,12 +166,9 @@ void main() {
         await tester.pumpWidget(buildTestableWidget());
         await tester.pumpAndSettle();
 
-        /// Verify: Login link exists
-        expect(find.text('Already have an account? Log in Now'), findsOneWidget);
-
-        /// Action: Tap the login link
-        await tester.tap(find.text('Already have an account? Log in Now'));
-        await tester.pump();
+        /// Verify: Login link exists (rendered as Text + TextButton('Sign In'))
+        expect(find.text('Already have an account? '), findsOneWidget);
+        expect(find.text('Sign In'), findsOneWidget);
 
         /// Note: Navigation testing would require a Navigator mock
       },

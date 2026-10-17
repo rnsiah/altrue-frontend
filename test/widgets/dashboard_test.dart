@@ -8,20 +8,30 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:lovelovelove/Data%20Layer/Models/altrue_level_model.dart';
 import 'package:lovelovelove/Data%20Layer/Models/user_model.dart';
 import 'package:lovelovelove/Data%20Layer/Repositories/user_repository.dart';
 
 /// Mock data for testing
+/// Profile ctor: (user, hasCompany, hasNonProfit, isCompanyContributor,
+///   isNonProfitContributor, [title, projectsFollowing, stripeCustomerId,
+///   amountFollowing, following, userdonations, dob, altruePoints, address,
+///   country, state, city, zip, qrCode, atrocityList, balance, donor,
+///   nonProfitList, orders, profilePicture, shirtList, donationTotal,
+///   description, np, comp, userActions, username])
 final mockUser = User(
+  id: 1,
+  key: 'test-key',
   email: 'test@example.com',
-  username: 'testuser',
-  profile: Profile(
-    username: 'testuser',
-    altrueLevel: AltrueLevel(name: 'Beginner', levelNumber: 1),
-    altruePoints: AltruePoints(balance: 150),
-    balance: Balance(balance: 50.00),
-  ),
+  altid: 1,
+  hasProfile: 1,
 );
+final mockProfile = Profile(1, false, false, false, false) // required five
+  ..altrueLevel = AltrueLevel(
+      name: 'Beginner', levelNumber: 1, minimumPoints: 0, maximumPoints: 499)
+  ..altruePoints = 150
+  ..balance = 50.00
+  ..username = 'testuser';
 
 void main() {
   group('Mission Control Dashboard Tests', () {
@@ -34,9 +44,9 @@ void main() {
             home: Scaffold(
               body: Column(
                 children: [
-                  Text('Level: ${mockUser.profile?.altrueLevel?.name}'),
-                  Text('Points: ${mockUser.profile?.altruePoints?.balance}'),
-                  Text('Balance: \$${mockUser.profile?.balance?.balance}'),
+                  Text('Level: ${mockProfile.altrueLevel?.name}'),
+                  Text('Points: ${mockProfile.altruePoints}'),
+                  Text('Balance: \$${mockProfile.balance}'),
                 ],
               ),
             ),
